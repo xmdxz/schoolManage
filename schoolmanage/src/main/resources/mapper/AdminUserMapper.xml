@@ -5,4 +5,7 @@
     <select id="findAll" resultType="com.SchoolManage.pojo.AdminUser">
         select * from adminuser ;
     </select>
+    <select id="findByName" resultType="com.SchoolManage.pojo.AdminUser">
+        select * from adminuser where name like cancat('%',#{name},'%');
+    </select>
 </mapper>
