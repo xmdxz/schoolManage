@@ -1,5 +1,6 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.service.AdminUserService;
 import com.SchoolManage.util.CaptchaCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,15 +39,15 @@ public class AdminUserController {
             return map;
         }
 
-        String password1 = adminUserService.getPassword(username);
-        if (password1==null){
+        AdminUser adminUser = adminUserService.getAdminUser(username);
+        if (adminUser==null){
             map.put("msg", "账号不存在");
             map.put("code",500);
             return map;
         }
 
 
-        if (!password1.equals(password)){
+        if (!adminUser.getPassword().equals(password)){
             map.put("msg", "密码错误");
             map.put("code",500);
             return map;
@@ -53,8 +55,24 @@ public class AdminUserController {
 
         map.put("msg", "ok");
         map.put("code",200);
+        request.getSession().setAttribute("administer", adminUser);
         return map;
 
+    }
+
+    @RequestMapping("getsession")
+    public Map<String,Object> getSession(HttpServletRequest request){
+        Map<String, Object> map = new HashMap<String,Object>();
+        HttpSession session = request.getSession();
+        if (session == null){
+            map.put("msg", "抱歉，没有获取到session");
+            map.put("code", 500);
+            return map;
+        }
+        map.put("msg", "ok");
+        map.put("code", 200);
+        map.put("administer", session.getAttribute("administer"));
+        return map;
     }
 
     @RequestMapping("captcha")

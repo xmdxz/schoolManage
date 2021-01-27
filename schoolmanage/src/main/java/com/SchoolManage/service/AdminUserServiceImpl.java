@@ -34,8 +34,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public String getPassword(String username) {
-        return adminUserDao.getPassword(username);
+    public AdminUser getAdminUser(String username) {
+        return adminUserDao.getAdminUser(username);
     }
 
     @Override

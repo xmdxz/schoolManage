@@ -21,8 +21,8 @@
         `name` = #{name}
         where id = #{id}
     </update>
-    <select id="getPassword" resultType="String">
-        select password from adminuser where username = #{username}
+    <select id="getAdminUser" resultType="com.SchoolManage.pojo.AdminUser">
+        select * from adminuser where username = #{username}
     </select>
     <delete id="deleteAdminUser" parameterType="int">
         delete from adminuser where id = #{id}

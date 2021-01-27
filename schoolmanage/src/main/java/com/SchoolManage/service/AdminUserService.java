@@ -46,7 +46,7 @@ public interface AdminUserService {
      * @Author: RainGoal
      * @Date: 2021/1/26
      */
-    String getPassword(String username);
+    AdminUser getAdminUser(String username);
 
     /**
      * @Description: 更改管理员账户信息
