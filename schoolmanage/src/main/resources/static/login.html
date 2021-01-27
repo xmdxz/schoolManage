@@ -19,6 +19,55 @@
 		
 		<!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
+		<script type="text/javascript">
+			function check(){
+				var username =$("#usname").val();
+				var password =$("#password").val();
+				var acode =$("#captchacode").val();
+
+				var flag = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]")
+
+				if(username==""||password==""){
+					alert("账号密码不得为空")
+					var autoimg = $("#autoimg").attr("src");
+					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+
+				}else if(acode==""){
+					alert("验证码不得为空")
+					var autoimg = $("#autoimg").attr("src");
+					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+				}else if(password.length<6){
+					alert("密码长度不得小于六位")
+					var autoimg = $("#autoimg").attr("src");
+					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+				}else if(flag.test(username)){
+					alert("账号中不允许存在特殊符号")
+					var autoimg = $("#autoimg").attr("src");
+					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+				}else{
+					//请求登录接口
+					$.ajax({
+						type:"post",
+						url:"/admin/login",
+						dataType:"json",
+						data:{'username':username,'password':password,'captchacode':acode},
+					}).done(function(result){
+						if (result.code==500){
+							alert(result.msg)
+							var autoimg = $("#autoimg").attr("src");
+							$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+						}else if (result.code==200){
+							alert(result.msg)
+						}
+
+					}).fail(function(){
+						alert("服务器繁忙，请稍后")
+					})
+
+				}
+
+			}
+		</script>
     </head>
     <body>
 	
@@ -36,19 +85,19 @@
 								<p class="account-subtitle"></p>
 								
 								<!-- Form -->
-								<form action="index.html">
+								<form >
 									<div class="form-group">
-										<input class="form-control" type="text" placeholder="账号">
+										<input class="form-control" type="text" id="usname" placeholder="账号">
 									</div>
 									<div class="form-group">
-										<input class="form-control" type="password" placeholder="密码">
+										<input class="form-control" type="password" id="password" placeholder="密码">
 									</div>
 									<div class="form-group">
-										<input class="form-control" style="width:63%;float: left;" type="text" placeholder="验证码">
-										<img style="width:30%;margin-left:7%;height:2.3125rem;margin-top:0.09375rem;border-radius:0.1875rem;" onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新" alt="captcha"src="http://www.maincr.com/captcha" />
+										<input class="form-control" style="width:63%;float: left;" id="captchacode" type="text" placeholder="验证码">
+										<img style="width:30%;margin-left:7%;height:2.3125rem;margin-top:0.09375rem;border-radius:0.1875rem;" onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新" id="autoing" alt="captcha"src="/admin/captcha" />
 									</div>
 									<div class="form-group">
-										<button class="btn btn-primary btn-block" type="submit">登录</button>
+										<button class="btn btn-primary btn-block" type="button" onclick="check()">登录</button>
 									</div>
 								</form>
 								<!-- /Form -->
