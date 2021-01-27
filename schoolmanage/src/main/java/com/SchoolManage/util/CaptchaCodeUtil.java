@@ -331,10 +331,26 @@ public class CaptchaCodeUtil {
     }
 
     public static String verifyCode(String vcode,String code){
+        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder1 = new StringBuilder();
         for (int i=0;i<vcode.length();i++){
-            if (code.indexOf(i)==vcode.indexOf(i)||(char)code.indexOf(i) == (char)(vcode.indexOf(i)+32)||(char)(code.indexOf(i)+32)==(char)vcode.indexOf(i)){
-            }else return "failed";
+            char c = vcode.charAt(i);
+            if (c>=65&&c<97){
+                c+=32;
+            }
+            stringBuilder.append(c);
         }
-        return "ok";
+        for (int i=0;i<code.length();i++){
+            char c = code.charAt(i);
+            if (c>=65&&c<97){
+                c+=32;
+            }
+            stringBuilder1.append(c);
+        }
+        System.out.println(stringBuilder);
+        System.out.println(stringBuilder1);
+        if (stringBuilder.toString().equals(stringBuilder1.toString())){
+            return "ok";
+        }else return "failed";
     }
 }
