@@ -329,4 +329,12 @@ public class CaptchaCodeUtil {
     public String getCode() {
         return code.toLowerCase();
     }
+
+    public static String verifyCode(String vcode,String code){
+        for (int i=0;i<vcode.length();i++){
+            if (code.indexOf(i)==vcode.indexOf(i)||(char)code.indexOf(i) == (char)(vcode.indexOf(i)+32)||(char)(code.indexOf(i)+32)==(char)vcode.indexOf(i)){
+            }else return "failed";
+        }
+        return "ok";
+    }
 }
