@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Preskool - Login</title>
+        <title>学生信息管理系统 - 登录</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" href="assets/img/favicon.png">
@@ -57,7 +57,7 @@
 							var autoimg = $("#autoimg").attr("src");
 							$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 						}else if (result.code==200){
-							alert(result.msg)
+							window.location.href='index.html'
 						}
 
 					}).fail(function(){
@@ -94,7 +94,7 @@
 									</div>
 									<div class="form-group">
 										<input class="form-control" style="width:63%;float: left;" id="captchacode" type="text" placeholder="验证码">
-										<img style="width:30%;margin-left:7%;height:2.3125rem;margin-top:0.09375rem;border-radius:0.1875rem;" onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新" id="autoing" alt="captcha"src="/admin/captcha" />
+										<img style="width:30%;margin-left:7%;height:2.3125rem;margin-top:0.09375rem;border-radius:0.1875rem;" onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新" id="autoimg" alt="captcha"src="/admin/captcha" />
 									</div>
 									<div class="form-group">
 										<button class="btn btn-primary btn-block" type="button" onclick="check()">登录</button>
