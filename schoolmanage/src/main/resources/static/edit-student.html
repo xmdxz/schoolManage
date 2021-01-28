@@ -48,19 +48,7 @@
 					dataType:"json",
 				}).done(function (res) {
 					if (res.code==500){
-						swal({
-									title: "请先登录!",
-									text: "点击返回登录页面",
-									type: "warning",
-									showCancelButton: false,
-									confirmButtonColor: "#DD6B55",
-									confirmButtonText: "确定",
-									closeOnConfirm: false,
-									closeOnCancel: false
-								},
-								function(isConfirm){
-									window.location.href='login.html';
-								});
+						window.location.href='loginp.html';
 					}
 				})
 			});
