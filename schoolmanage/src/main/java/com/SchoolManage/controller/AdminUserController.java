@@ -82,4 +82,7 @@ public class AdminUserController {
         CaptchaCodeUtil vcode = new CaptchaCodeUtil(120,38,4,10,code);
         vcode.write(response.getOutputStream());
     }
+
+    @RequestMapping("logout")
+    public
 }
