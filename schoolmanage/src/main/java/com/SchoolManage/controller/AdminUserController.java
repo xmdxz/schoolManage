@@ -65,7 +65,7 @@ public class AdminUserController {
     public Map<String,Object> getSession(HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>();
         HttpSession session = request.getSession();
-        if (session == null){
+        if (session.getAttribute("administer") == null){
             map.put("msg", "抱歉，没有获取到session");
             map.put("code", 500);
             return map;
