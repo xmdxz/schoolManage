@@ -32,7 +32,7 @@
 				var flag = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]")
 
 				if(username==""||password==""){
-					swal("账号密码不得为空")
+					swal("账号密码不得为空","","warning")
 					var autoimg = $("#autoimg").attr("src");
 					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 
@@ -41,11 +41,11 @@
 					var autoimg = $("#autoimg").attr("src");
 					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 				}else if(password.length<6){
-					swal("密码长度不得小于六位")
+					swal("密码长度不得小于六位","","warning")
 					var autoimg = $("#autoimg").attr("src");
 					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 				}else if(flag.test(username)){
-					swal("账号中不允许存在特殊符号")
+					swal("账号中不允许存在特殊符号","","warning")
 					var autoimg = $("#autoimg").attr("src");
 					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 				}else{
@@ -57,7 +57,7 @@
 						data:{'username':username,'password':password,'captchacode':acode},
 					}).done(function(result){
 						if (result.code==500){
-							swal(result.msg)
+							swal(result.msg,"","warning")
 							var autoimg = $("#autoimg").attr("src");
 							$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 						}else if (result.code==200){
@@ -65,7 +65,7 @@
 						}
 
 					}).fail(function(){
-						swal("服务器繁忙，请稍后")
+						swal("服务器繁忙，请稍后","","warning")
 					})
 
 				}

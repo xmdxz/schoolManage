@@ -49,6 +49,8 @@
 				}).done(function (res) {
 					if (res.code==500){
 						window.location.href='loginp.html';
+					}else if (res.code==200){
+						$("#mains").css("visibility","visible")
 					}
 				})
 			});
@@ -57,7 +59,7 @@
     <body>
 		
 		<!-- Main Wrapper -->
-        <div class="main-wrapper">
+        <div class="main-wrapper"id="mains" style="visibility: hidden">
 		
 			<!-- Header -->
             <div class="header">
