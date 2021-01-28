@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +30,6 @@ public class AdminUserController {
     @ResponseBody
     public Map<String,Object> adminUserLogin(String username,String password,String captchacode,HttpServletRequest request){
         String captchacode1 = (String) request.getSession().getAttribute("captchacode");
-        System.out.println(captchacode1);
         Map<String, Object> map = new HashMap<>();
         if (CaptchaCodeUtil.verifyCode(captchacode, captchacode1).equals("failed")){
             map.put("msg", "验证码有误");
@@ -60,21 +58,7 @@ public class AdminUserController {
 
     }
 
-    @RequestMapping("getsession")
-    @ResponseBody
-    public Map<String,Object> getSession(HttpServletRequest request){
-        Map<String, Object> map = new HashMap<String,Object>();
-        HttpSession session = request.getSession();
-        if (session.getAttribute("administer") == null){
-            map.put("msg", "抱歉，没有获取到session");
-            map.put("code", 500);
-            return map;
-        }
-        map.put("msg", "ok");
-        map.put("code", 200);
-        map.put("administer", session.getAttribute("administer"));
-        return map;
-    }
+
 
     @RequestMapping("captcha")
     public void drawCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -85,7 +69,10 @@ public class AdminUserController {
     }
 
     @RequestMapping("logout")
-    public void logOut(HttpServletRequest request){
+    public String logOut(HttpServletRequest request){
         request.getSession().invalidate();
+        return "redirect:login.html";
     }
+
+
 }
