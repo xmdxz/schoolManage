@@ -61,6 +61,7 @@ public class AdminUserController {
     }
 
     @RequestMapping("getsession")
+    @ResponseBody
     public Map<String,Object> getSession(HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>();
         HttpSession session = request.getSession();
