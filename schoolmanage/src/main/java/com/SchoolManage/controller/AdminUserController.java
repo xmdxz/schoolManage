@@ -84,5 +84,7 @@ public class AdminUserController {
     }
 
     @RequestMapping("logout")
-    public
+    public void logOut(HttpServletRequest request){
+        request.getSession().invalidate();
+    }
 }
