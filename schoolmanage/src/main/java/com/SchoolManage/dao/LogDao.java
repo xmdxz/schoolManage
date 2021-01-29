@@ -3,8 +3,12 @@ package com.SchoolManage.dao;
 import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.Log;
 import com.SchoolManage.pojo.Student;
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+@Mapper
+@Repository
 public interface LogDao {
     /**
      * 更新日志
