@@ -59,7 +59,7 @@
 						<img th:src="@{/assets/img/logo.png}" alt="Logo">
 					</a>
 					<a href="index.html" class="logo logo-small">
-						<img th:src="{/assets/img/logo-small.png}" alt="Logo" width="30" height="30">
+						<img th:src="@{/assets/img/logo-small.png}" alt="Logo" width="30" height="30">
 					</a>
                 </div>
 				<!-- /Logo -->
@@ -102,7 +102,8 @@
 										<a href="#">
 											<div class="media">
 												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image" th:src="{/assets/img/profiles/avatar-02.jpg}">
+													<img class="avatar-img rounded-circle" alt="User Image"
+														 th:src="@{/assets/img/profiles/avatar-02.jpg}">
 												</span>
 												<div class="media-body">
 													<p class="noti-details"><span class="noti-title">Carlson Tech</span> has approved <span class="noti-title">your estimate</span></p>
@@ -539,14 +540,14 @@
 		<!-- /Main Wrapper -->
 
 		<!-- jQuery -->
-		<script th:src="{/assets/js/jquery-3.5.1.min.js}"></script>
+		<script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
 
 		<!-- Bootstrap Core JS -->
 		<script th:src="@{/assets/js/popper.min.js}"></script>
 		<script th:src="@{assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
 
 		<!-- Slimscroll JS -->
-		<script th:src="{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+		<script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
 		<!-- Custom JS -->
 		<script th:src="@{assets/js/script.js}"></script>
