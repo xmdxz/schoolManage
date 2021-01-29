@@ -1,7 +1,10 @@
 package com.SchoolManage.dao;
 
+import com.SchoolManage.pojo.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @Author RainGoal
@@ -12,5 +15,46 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface StudentDao {
+    /**
+     * 通过学号查找
+     * @param id
+     * @return
+     */
+    Student findById(String id);
+
+    /**
+     * 通过姓名查找
+     * @param name
+     * @return 不排除同名学生，所以返回list
+     */
+    List<Student> findByName(String name);
+
+    /**
+     * 以原班级为单位查询
+     * @param original_class
+     * @return
+     */
+    List<Student> findByClass_or(String original_class);
+
+    /**
+     * 以现班级为单位查询
+     * @param present_class
+     * @return
+     */
+    List<Student> findByClass_pe(String present_class);
+    /**
+     * 以专业为单位查询，应该很少用
+     * @param major
+     * @return
+     */
+    List<Student> findByMajor(String major);
+
+    /**
+     * 更新信息
+     * @param student
+     * @return
+     */
+    int updateStudent(Student student);
+
 
 }

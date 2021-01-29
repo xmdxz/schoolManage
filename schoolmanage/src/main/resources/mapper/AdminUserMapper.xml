@@ -13,7 +13,7 @@
         #{phone},#{department},#{position},#{name})
     </insert>
     <update id="updateAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
-        update from adminuser set username = #{username},
+        update adminuser set username = #{username},
         password = #{password},
         phone = #{phone},
         department = #{department},

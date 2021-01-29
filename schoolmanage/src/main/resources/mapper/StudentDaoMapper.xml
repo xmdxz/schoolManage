@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.StudentDao">
+    <update id="updateStudent">
+        update student set
+                           name = #{name},
+                           sex = #{sex},
+                           comy = #{comy},
+                           clno = #{clno},
+                           major = #{major},
+                           present_class = #{present_class},
+                           phone = #{phone},
+                           bedroom_lou = #{bedroom_lou},
+                           birth = #{birth},
+                           nativeplace = #{nativeplace},
+                           address = #{address},
+                           father_phone = #{father_phone},
+                           mother_phone = #{mother_phone},
+                           photo = #{photo},
+                           original_class = #{original_class},
+                           original_post = #{original_post},
+                           present_post = #{present_post},
+                           nation = #{nation},
+                           religion = #{religion},
+                           bedroom_hao = #{bedroom_hao},
+                           idcard = #{idcard},
+                           bank = #{bank}
+        where id = #{id}
+    </update>
+    <select id="findById" resultType="com.SchoolManage.pojo.Student">
+        select * from student where id = #{id}
+    </select>
+    <select id="findByName" resultType="com.SchoolManage.pojo.Student">
+        select * from student where name like "%" #{name} "%"
+    </select>
+    <select id="findByClass_or" resultType="com.SchoolManage.pojo.Student">
+        select * from student where original_class like "%" #{original_class} "%"
+    </select>
+    <select id="findByMajor" resultType="com.SchoolManage.pojo.Student">
+        select * from student where major like "%" #{major} "%"
+    </select>
+    <select id="findByClass_pe" resultType="com.SchoolManage.pojo.Student">
+        select * from student where present_class like "%" #{present_class} "%"
+    </select>
+</mapper>
