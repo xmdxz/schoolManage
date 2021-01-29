@@ -43,25 +43,12 @@
 		<script type="text/javascript">
 
 
-			$(document).ready(function(){
-				$.ajax({
-					type:"post",
-					url:"/admin/getsession",
-					dataType:"json",
-				}).done(function (res) {
-					if (res.code==500){
-						window.location.href='loginp.html';
-					}else if (res.code==200){
-						$("#mains").css("visibility","visible")
-					}
-				})
-			});
 		</script>
     </head>
     <body>
 
 		<!-- Main Wrapper -->
-        <div class="main-wrapper"id="mains" style="visibility: hidden">
+        <div class="main-wrapper"id="mains" >
 
 			<!-- Header -->
             <div class="header">
