@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.SchoolManage.dao.StudentDao">
+    <insert id="insertStudent">
+        insert into student
+            values (#{id},#{name},#{sex},#{comy},#{clno},#{major},#{present_class},#{phone},#{bedroom_lou},
+                    #{birth},#{nativeplace},#{address},#{father_phone},#{mother_phone},#{photo},
+                    #{original_class},#{original_post},#{present_post},#{nation},#{religion},#{bedroom_hao},
+                    #{idcard},#{bank})
+    </insert>
     <update id="updateStudent">
         update student set
                            name = #{name},
