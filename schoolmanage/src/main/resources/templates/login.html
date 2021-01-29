@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <title>学生信息管理系统 - 登录</title>
+		<!-- jQuery -->
+		<script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
 
 		<!-- Favicon -->
         <link rel="shortcut icon" th:href="@{/assets/img/favicon.png}">
@@ -24,7 +26,33 @@
 		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
 
 		<script type="text/javascript">
-			function check(){
+
+			//$("#captchacode").keydown(function (even) {
+			//	console.log(even)
+			//	if (even.which == 13) {
+			//		console.log("ok")
+			//		check();
+			//	}
+			//});
+			function enter(e ) {
+				var evt = window.event || e;
+				if (evt.keyCode==13){
+					setTimeout("check()", "10");
+				}
+			};
+			function next(e) {
+				var evt = window.event || e;
+				if (evt.keyCode==13){
+					$("#password").focus();
+				}
+			};
+			function nextt(e) {
+				var evt = window.event || e;
+				if (evt.keyCode==13){
+					$("#captchacode").focus();
+				}
+			};
+				function check(){
 				var username =$("#usname").val();
 				var password =$("#password").val();
 				var acode =$("#captchacode").val();
@@ -58,6 +86,7 @@
 					}).done(function(result){
 						if (result.code==500){
 							swal(result.msg,"","warning")
+							$("#captchacode").val("");
 							var autoimg = $("#autoimg").attr("src");
 							$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 						}else if (result.code==200){
@@ -91,13 +120,13 @@
 								<!-- Form -->
 								<form >
 									<div class="form-group">
-										<input class="form-control" type="text" id="usname" placeholder="账号">
+										<input class="form-control" type="text" id="usname" onkeydown="next(event)" placeholder="账号">
 									</div>
 									<div class="form-group">
-										<input class="form-control" type="password" id="password" placeholder="密码">
+										<input class="form-control" type="password" id="password" onkeydown="nextt(event)" placeholder="密码">
 									</div>
 									<div class="form-group">
-										<input class="form-control" style="width:63%;float: left;" id="captchacode" type="text" placeholder="验证码">
+										<input class="form-control" style="width:63%;float: left;" id="captchacode" onkeydown="enter(event)" type="text" placeholder="验证码">
 										<img style="width:30%;margin-left:7%;height:2.3125rem;margin-top:0.09375rem;border-radius:0.1875rem;" onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新" id="autoimg" alt="captcha"src="/admin/captcha" />
 									</div>
 									<div class="form-group">
