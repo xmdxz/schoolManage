@@ -17,6 +17,12 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentDao studentDao;
+
+    @Override
+    public int insertStudent(Student student) {
+        return studentDao.insertStudent(student);
+    }
+
     @Override
     public Student findById(String id) {
         return studentDao.findById(id);

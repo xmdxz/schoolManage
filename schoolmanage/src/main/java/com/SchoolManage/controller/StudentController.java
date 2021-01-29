@@ -23,6 +23,22 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @RequestMapping("add")
+    @ResponseBody
+    public Map<String,Object> addStudent(Student student){
+        Map<String, Object> map = new HashMap<>();
+        int i = studentService.insertStudent(student);
+        if (i!=0){
+            map.put("msg", "添加成功");
+            map.put("code", 200);
+            return map;
+        }else {
+            map.put("msg", "添加失败");
+            map.put("code", 500);
+            return map;
+        }
+    }
+
     @RequestMapping("findbyid")
     @ResponseBody
     public Student findById(String id){
