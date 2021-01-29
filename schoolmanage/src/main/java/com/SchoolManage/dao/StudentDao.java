@@ -16,6 +16,12 @@ import java.util.List;
 @Repository
 public interface StudentDao {
     /**
+     * 添加学生
+     * @param student
+     * @return
+     */
+    int insertStudent(Student student);
+    /**
      * 通过学号查找
      * @param id
      * @return
