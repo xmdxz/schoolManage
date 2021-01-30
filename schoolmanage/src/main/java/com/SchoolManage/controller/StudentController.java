@@ -96,4 +96,20 @@ public class StudentController {
             return map;
         }
     }
+
+    @RequestMapping("delete")
+    @ResponseBody
+    public Map<String,Object> deleteStudent(String id){
+        Map<String, Object> map = new HashMap<>();
+        int i = studentService.deleteStudent(id);
+        if (i!=0){
+            map.put("msg", "删除成功");
+            map.put("code", 200);
+            return map;
+        }else {
+            map.put("msg", "删除失败");
+            map.put("code", 500);
+            return map;
+        }
+    }
 }

@@ -84,4 +84,12 @@ public interface StudentDao {
     */
     List<Student> findAll();
 
+    /**
+       * @Description: 根据学号删除
+       * @Param: [id]
+       * @return: int
+       * @Author: RainGoal
+       * @Date: 2021/1/30
+    */
+    int deleteStudent(String id);
 }

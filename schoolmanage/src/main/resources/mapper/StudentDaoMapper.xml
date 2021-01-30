@@ -77,5 +77,7 @@
                 </if>
             </where>
     </select>
-
+    <delete id="deleteStudent" parameterType="String">
+        delete from student where id = #{id}
+    </delete>
 </mapper>

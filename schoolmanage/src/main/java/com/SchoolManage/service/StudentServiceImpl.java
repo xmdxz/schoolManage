@@ -57,4 +57,9 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findAll() {
         return studentDao.findAll();
     }
+
+    @Override
+    public int deleteStudent(String id) {
+        return studentDao.deleteStudent(id);
+    }
 }
