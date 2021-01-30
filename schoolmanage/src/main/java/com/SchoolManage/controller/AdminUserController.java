@@ -60,7 +60,7 @@ public class AdminUserController {
         Cookie departcookie = new Cookie("department", adminUser.getDepartment());
         Cookie phonecookie = new Cookie("phone", adminUser.getPhone());
         Cookie positioncookie = new Cookie("position",adminUser.getPosition());
-        Cookie usercookie = new Cookie("username", adminUser.getName());
+        Cookie usercookie = new Cookie("username", adminUser.getUsername());
         response.addCookie(namecookie);
         response.addCookie(departcookie);
         response.addCookie(phonecookie);
