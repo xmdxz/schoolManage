@@ -15,6 +15,13 @@ import java.util.List;
 @Mapper
 @Repository
 public interface StudentDao {
+
+    /**
+     * 删除学生
+     * @param student
+     * @return
+     */
+    int deleteStudent(Student student);
     /**
      * 根据条件查询学生的人数,当无查询条件时，传入参数两个为空即可
      * @param conditionName
