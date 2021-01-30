@@ -90,9 +90,9 @@
 							var autoimg = $("#autoimg").attr("src");
 							$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 						}else if (result.code==200){
-							window.location.href='index.html'
+							swal("登录成功！", "页面将在一秒后跳转", "success");
+							setTimeout("window.location.href='index.html'", "1500");
 						}
-
 					}).fail(function(){
 						swal("服务器繁忙，请稍后","","warning")
 					})
