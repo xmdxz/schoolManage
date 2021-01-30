@@ -1,61 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>请先进行登录！</title>
+        <title>成功！</title>
+
+        <script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="../static/assets/img/favicon.png">
+        <link rel="shortcut icon" th:href="@{/assets/img/favicon.png}">
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../static/assets/plugins/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}">
 
         <!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="../static/assets/plugins/fontawesome/css/fontawesome.min.css">
-        <link rel="stylesheet" href="../static/assets/plugins/fontawesome/css/all.min.css">
+        <link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
+        <link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
 
         <!-- Main CSS -->
-        <link rel="stylesheet" href="../static/assets/css/style.css">
-        <!-- jQuery -->
-        <script src="../static/assets/js/jquery-3.5.1.min.js"></script>
-
-        <!-- Bootstrap Core JS -->
-        <script src="../static/assets/js/popper.min.js"></script>
-        <script src="../static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-        <!-- Slimscroll JS -->
-        <script src="../static/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-        <!-- Chart JS -->
-        <script src="../static/assets/plugins/apexchart/apexcharts.min.js"></script>
-        <script src="../static/assets/plugins/apexchart/chart-data.js"></script>
-
-        <!-- Custom JS -->
-        <script src="../static/assets/js/script.js"></script>
+        <link rel="stylesheet" th:href="@{/assets/css/style.css}">
         <!-- alert beautiful-->
-        <link rel="stylesheet" href="../static/assets/css/sweetalert.css">
-        <script src="../static/assets/js/sweetalert-dev.js"></script>
+        <link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
+        <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                    /*swal({
-                    title: "请先登录!",
-                    text: "点击返回登录页面",
-                    type: "warning",
-                    showCancelButton: false,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                    function(isConfirm){
-                        window.location.href='login.html';
-                    });
-                     */
-                swal("添加成功！", "即将返回学生列表", "success");
-                setTimeout("window.location.href='students.html'", "1200");
+                swal("操作成功！", "即将返回学生列表", "success");
+                setTimeout("window.location.href='/students.html'", "1200");
             });
 
         </script>

@@ -95,6 +95,8 @@
 						}
 					}).fail(function(){
 						swal("服务器繁忙，请稍后","","warning")
+						var autoimg = $("#autoimg").attr("src");
+						$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 					})
 
 				}
