@@ -35,7 +35,7 @@ public class StudentController {
         } else {
 //            map.put("msg", "添加失败");
 //            map.put("code", 500);
-            return "student";
+            return "students";
         }
     }
 
@@ -92,7 +92,7 @@ public class StudentController {
         } else {
 //            map.put("msg", "修改失败");
 //            map.put("code", 500);
-            return "student";
+            return "students";
         }
     }
 
