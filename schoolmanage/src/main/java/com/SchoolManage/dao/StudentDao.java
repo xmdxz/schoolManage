@@ -16,6 +16,13 @@ import java.util.List;
 @Repository
 public interface StudentDao {
     /**
+     * 根据条件查询学生的人数,当无查询条件时，传入参数两个为空即可
+     * @param conditionName
+     * @param conditionValue
+     * @return
+     */
+    int selectStudentNum(String conditionName,String conditionValue);
+    /**
      * 批量插入学生
      * @param list 参数为list集合
      * @return

@@ -42,6 +42,10 @@ public class Student {
     private String father_phone;
     //母亲联系方式
     private String mother_phone;
+    //父亲的职业
+    private String father_profession;
+    //母亲的职业
+    private String mother_profession;
     //一寸照
     private String photo;
     //原班级
