@@ -41,6 +41,14 @@
 		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
 		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
 		<script type="text/javascript">
+			$.ajax({
+				type:"post",
+				url:"student/findbyid",
+				dataType:"json",
+				data:{id:"10001"},
+			}).done(function (res) {
+			  console.log(res)
+			})
 
 
 		</script>
