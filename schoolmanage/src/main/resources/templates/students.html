@@ -61,7 +61,7 @@
 					msg+="<td>"+n.clno+"</td>";
 					msg+="<td>"+n.bedroom_lou+n.bedroom_hao+"</td>";
 					msg+="<td>"+n.phone+"</td>";
-					msg+="<td"+" class="+"\"text-right\""+">"+"<div class="+"\"actions\""+">"+"<a href="+"\"edit-student.html?id="+n.id+"\""+" class="+"\"btn btn-sm bg-success-light mr-2\""+"><i class="+"\"fas fa-pen\""+"></i></a><a href="+"\"student/delete?id="+n.id+"\""+" class="+"\"btn btn-sm bg-danger-light\""+"><i class="+"\"fas fa-trash\""+"></i></a></div></td>";
+					msg+="<td"+" class="+"\"text-right\""+">"+"<div class="+"\"actions\""+">"+"<a href="+"\"edit-student.html?id="+n.id+"\""+" class="+"\"btn btn-sm bg-success-light mr-2\""+"><i class="+"\"fas fa-pen\""+"></i></a><a href="+"\"#"+"\""+"onclick='deldec("+n.id+")'"+" class="+"\"btn btn-sm bg-danger-light\""+"><i class="+"\"fas fa-trash\""+"></i></a></div></td>";
 					msg+="</tr>";
 				});
                 console.log(msg);
@@ -69,6 +69,41 @@
 		  }).fail(function (err) {
                 alert("系统繁忙哈...")
 		  })
+		  function deldec(id) {
+          	var id =id;
+			  swal({
+						  title: "确定删除吗？",
+						  text: "你将无法恢复该学生信息！",
+						  type: "warning",
+						  showCancelButton: true,
+						  confirmButtonColor: "#DD6B55",
+						  confirmButtonText: "确定删除！",
+						  cancelButtonText: "取消删除！",
+						  closeOnConfirm: false,
+						  closeOnCancel: false
+					  },
+					  function(isConfirm){
+						  if (isConfirm) {
+							  $.ajax({
+								  type:"post",
+								  url:"/student/delete",
+								  dataType:"json",
+								  data:{'id':id},
+							  }).done(function (res) {
+								  if (res.code==500){
+									  swal("删除失败", "服务器繁忙中...", "warning");
+								  }else if (res.code==200){
+									  swal("删除成功！", "即将返回学生列表", "success");
+									  setTimeout("window.location.href='students.html'", "1200");
+								  }
+							  })
+						  } else {
+							  swal("取消！", "你的学生信息是安全的XD:)",
+									  "error");
+						  }
+					  });
+
+		  }
 		</script>
     </head>
     <body>
