@@ -61,14 +61,10 @@
 					if(typeof(obj[p])=="function"){
 						obj[p]();
 					}else{
-						console.log(p+obj[p])
 						if(document.getElementById(p)!=null)
 						document.getElementById(p).value= obj[p];
 					}
 				}
-
-
-
 			})
 		}
 
@@ -418,7 +414,7 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <form>
+                            <form action="student/update" method="post">
                                 <div class="row">
                                     <div class="col-12">
                                         <h5 class="form-title"><span>学生信息</span></h5>
@@ -426,13 +422,13 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>姓名</label>
-                                            <input type="text" id="name" class="form-control" value="Nathan Humphries">
+                                            <input type="text" id="name" class="form-control" name="name" value="Nathan Humphries">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>性别</label>
-                                            <select class="form-control" id="sex">
+                                            <select class="form-control" id="sex" name="sex">
                                                 <option selected>男</option>
                                                 <option>女</option>
                                             </select>
@@ -441,113 +437,113 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>学号</label>
-                                            <input type="text" id="id" class="form-control" value="PRE1234">
+                                            <input type="text" id="id" class="form-control" value="PRE1234" name="id">
                                         </div>
                                     </div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>学院</label>
-											<input type="text" id="clno" class="form-control" value="10">
+											<input type="text" id="clno" class="form-control" value="10" name="clno">
 										</div>
 									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>原班级</label>
-                                            <input type="text" id="original_class" class="form-control" value="Stephen Marley">
+                                            <input type="text" id="original_class" class="form-control" value="Stephen Marley" name="original_class">
                                         </div>
                                     </div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>现班级</label>
-											<input type="text" id="present_class" class="form-control" value="Stephen Marley">
+											<input type="text" id="present_class" class="form-control" value="Stephen Marley" name="present_class">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>原职务</label>
-											<input type="text" id="original_post" class="form-control" value="Stephen Marley">
+											<input type="text" id="original_post" class="form-control" value="Stephen Marley" name="original_post">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>现职务</label>
-											<input type="text" id="present_post" class="form-control" value="Stephen Marley">
+											<input type="text" id="present_post" class="form-control" value="Stephen Marley" name="present_post">
 										</div>
 									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>出生日期</label>
                                             <div>
-                                                <input type="text" id="birth" class="form-control" value="26 Apr 1994">
+                                                <input type="text" id="birth" class="form-control" value="26 Apr 1994" name="birth">
                                             </div>
                                         </div>
                                     </div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>民族</label>
-											<input type="text" id="nation" class="form-control" value="Stephen Marley">
+											<input type="text" id="nation" class="form-control" value="Stephen Marley" name="nation">
 										</div>
 									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>宗教信仰</label>
-                                            <input type="text" id="religion" class="form-control" value="Religion">
+                                            <input type="text" id="religion" class="form-control" value="Religion" name="religion">
                                         </div>
                                     </div>
 									<div class="col-12 col-sm-6">
 									<div class="form-group">
 										<label>籍贯</label>
-										<input type="text" id="nativeplace" class="form-control" value="籍贯">
+										<input type="text" id="nativeplace" class="form-control" value="籍贯" name="nativeplace">
 									</div>
 								</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>家庭住址</label>
-											<input type="text" id="address" class="form-control" value="籍贯">
+											<input type="text" id="address" class="form-control" value="籍贯" name="address">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>宿舍楼</label>
-											<input type="text" id="bedroom_lou" class="form-control" value="籍贯">
+											<input type="text" id="bedroom_lou" class="form-control" value="籍贯" name="bedroom_lou">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>宿舍号</label>
-											<input type="text" id="bedroom_hao" class="form-control" value="籍贯">
+											<input type="text" id="bedroom_hao" class="form-control" value="籍贯" name="bedroom_hao">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>身份证号</label>
-											<input type="text" id="idcard" class="form-control" value="籍贯">
+											<input type="text" id="idcard" class="form-control" value="籍贯" name="idcard">
 										</div>
 									</div>
 									<div class="col-12 col-sm-6">
 										<div class="form-group">
 											<label>银行卡号</label>
-											<input type="text" id="bank" class="form-control" value="籍贯">
+											<input type="text" id="bank" class="form-control" value="籍贯" name="bank">
 										</div>
 									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>入学年份</label>
                                             <div>
-                                                <input type="text"  id="comy" class="form-control" value="4 Jan 2002">
+                                                <input type="text"  id="comy" class="form-control" value="4 Jan 2002" name="comy">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>联系方式</label>
-                                            <input type="text" id="phone" class="form-control" value="077 3499 9959">
+                                            <input type="text" id="phone" class="form-control" value="077 3499 9959" name="phone">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>一寸照片</label>
-                                            <input type="file" class="form-control">
+                                            <input type="file" id="photo" class="form-control" name="photo">
                                         </div>
                                     </div>
 
@@ -557,41 +553,41 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>父亲姓名</label>
-                                            <input type="text"  class="form-control" value="Stephen Marley">
+                                            <input type="text" id="father_name" class="form-control" value="Stephen Marley" name="father_name">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>父亲的职业</label>
-                                            <input type="text"  class="form-control" value="Technician">
+                                            <input type="text" id="father_profession" class="form-control" value="Technician" name="father_profession">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>父亲的手机号</label>
-                                            <input type="text" id="father_phone" class="form-control" value="	402 221 7523">
+                                            <input type="text" id="father_phone" class="form-control" value="402 221 7523" name="father_phone">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>母亲姓名</label>
-                                            <input type="text" class="form-control" value="Cleary Wong">
+                                            <input type="text" id="mother_name" class="form-control" value="Cleary Wong" name="mother_name">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>母亲的职业</label>
-                                            <input type="text" class="form-control" value="Home Maker">
+                                            <input type="text" id="mother_profession"  class="form-control" value="Home Maker" name="mother_profession">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>母亲的手机号</label>
-                                            <input type="text" id="mother_phone"  class="form-control" value="026 7318 4366">
+                                            <input type="text" id="mother_phone"  class="form-control" value="026 7318 4366" name="mother_phone">
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-primary" >提交</button>
+                                        <button  class="btn btn-primary" type="submit">提交</button>
                                     </div>
                                 </div>
                             </form>

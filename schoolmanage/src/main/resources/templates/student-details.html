@@ -41,7 +41,33 @@
 		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
 		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
 		<script type="text/javascript">
-
+			var url = document.location.toString();//获取url地址
+			var studentObj=null;
+			if(url.indexOf("?")!=-1)
+			{
+				var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+				var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+				var Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
+				console.log(Id)
+				$.ajax({
+					type:"post",
+					url:"student/findbyid",
+					dataType:"json",
+					data: {id:Id}
+				}).done(function (res) {
+					console.log(res)
+					obj=res;
+					var props = "";
+					// for(var p in obj){
+					// 	if(typeof(obj[p])=="function"){
+					// 		obj[p]();
+					// 	}else{
+					// 		if(document.getElementById(p)!=null)
+					// 			document.getElementById(p).value= obj[p];
+					// 	}
+					// }
+				})
+			}
 		</script>
     </head>
     <body>
@@ -92,8 +118,8 @@
 						</a>
 						<div class="dropdown-menu notifications">
 							<div class="topnav-dropdown-header">
-								<span class="notification-title">Notifications</span>
-								<a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+								<span class="notification-title">通知</span>
+								<a href="javascript:void(0)" class="clear-noti"> 全部清除 </a>
 							</div>
 							<div class="noti-content">
 								<ul class="notification-list">
@@ -152,7 +178,7 @@
 								</ul>
 							</div>
 							<div class="topnav-dropdown-footer">
-								<a href="#">View all Notifications</a>
+								<a href="#">查看所有通知</a>
 							</div>
 						</div>
 					</li>
@@ -173,9 +199,9 @@
 									<p class="text-muted mb-0">Administrator</p>
 								</div>
 							</div>
-							<a class="dropdown-item" href="profile.html">My Profile</a>
-							<a class="dropdown-item" href="inbox.html">Inbox</a>
-							<a class="dropdown-item" href="/admin/logout">Logout</a>
+							<a class="dropdown-item" href="profile.html">我的个人资料</a>
+							<a class="dropdown-item" href="inbox.html">收件箱</a>
+							<a class="dropdown-item" href="/admin/logout">注销</a>
 						</div>
 					</li>
 					<!-- /User Menu -->
@@ -355,10 +381,10 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col-sm-12">
-								<h3 class="page-title">Student Details</h3>
+								<h3 class="page-title">学生详情</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="students.html">Student</a></li>
-									<li class="breadcrumb-item active">Student Details</li>
+									<li class="breadcrumb-item"><a href="students.html">学生</a></li>
+									<li class="breadcrumb-item active">学生详情</li>
 								</ul>
 							</div>
 						</div>
@@ -369,34 +395,34 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="about-info">
-										<h4>About Me</h4>
+										<h4>关于我</h4>
 
 										<div class="media mt-3">
 											<img th:src="@{/assets/img/user.jpg}" class="mr-3" alt="...">
 											<div class="media-body">
 												<ul>
                                                     <li>
-                                                        <span class="title-span">Full Name : </span>
+                                                        <span class="title-span">姓名: </span>
                                                         <span class="info-span">Daisy Parks</span>
                                                     </li>
                                                     <li>
-                                                        <span class="title-span">Department : </span>
+                                                        <span class="title-span">学号 : </span>
                                                         <span class="info-span">Computer Science</span>
                                                     </li>
                                                     <li>
-                                                        <span class="title-span">Mobile : </span>
+                                                        <span class="title-span">现班级 : </span>
                                                         <span class="info-span">+91 89657 48512</span>
                                                     </li>
                                                     <li>
-                                                        <span class="title-span">Email : </span>
+                                                        <span class="title-span">现职务 : </span>
                                                         <span class="info-span">daisy@gmail.com</span>
                                                     </li>
                                                     <li>
-                                                        <span class="title-span">Gender : </span>
+                                                        <span class="title-span">联系方式 : </span>
                                                         <span class="info-span">Male</span>
                                                     </li>
                                                     <li>
-                                                        <span class="title-span">DOB : </span>
+                                                        <span class="title-span">学院: </span>
                                                         <span class="info-span">22 Apr 1995</span>
                                                     </li>
                                                 </ul>

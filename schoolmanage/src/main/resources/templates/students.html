@@ -53,15 +53,15 @@
                    console.log(n);
 					msg+="<tr>";
 					msg+="<td>"+n.id+"</td>";
-					msg+="<td>"+"<h2"+"  class="+"\"table-avatar\""+">"+"<a href="+"\"student-details.html\""+" class="+"\"avatar avatar-sm mr-2\""+" >"+"<img  class="+"\"avatar-img rounded-circle\""+"  src="+"\"/assets/img/profiles/avatar-01.jpg\""+"  alt="+"\"User Image\""+">"+"</a>"+"<a href="+"\"student-details.html\""+">"+n.name+"</a></h2></td>";
+					msg+="<td>"+"<h2"+"  class="+"\"table-avatar\""+">"+"<a href="+"\"student-details.html?id="+n.id+"\""+" class="+"\"avatar avatar-sm mr-2\""+" >"+"<img  class="+"\"avatar-img rounded-circle\""+"  src="+"\"/assets/img/profiles/avatar-01.jpg\""+"  alt="+"\"User Image\""+">"+"</a>"+"<a href="+"\"student-details.html\""+">"+n.name+"</a></h2></td>";
 					msg+="<td>"+n.present_class+"</td>";
 					msg+="<td>"+n.original_class+"</td>";
 					msg+="<td>"+n.present_post+"</td>";
 					msg+="<td>"+n.original_post+"</td>";
 					msg+="<td>"+n.clno+"</td>";
-					msg+="<td>"+n.bedroom_lou+"号楼"+n.bedroom_hao+"宿舍"+"</td>";
+					msg+="<td>"+n.bedroom_lou+n.bedroom_hao+"</td>";
 					msg+="<td>"+n.phone+"</td>";
-					msg+="<td"+" class="+"\"text-right\""+">"+"<div class="+"\"actions\""+">"+"<a href="+"\"edit-student.html?id="+n.id+"\""+" class="+"\"btn btn-sm bg-success-light mr-2\""+"><i class="+"\"fas fa-pen\""+"></i></a><a href="+"\"#\""+" class="+"\"btn btn-sm bg-danger-light\""+"><i class="+"\"fas fa-trash\""+"></i></a></div></td>";
+					msg+="<td"+" class="+"\"text-right\""+">"+"<div class="+"\"actions\""+">"+"<a href="+"\"edit-student.html?id="+n.id+"\""+" class="+"\"btn btn-sm bg-success-light mr-2\""+"><i class="+"\"fas fa-pen\""+"></i></a><a href="+"\"student/delete?id="+n.id+"\""+" class="+"\"btn btn-sm bg-danger-light\""+"><i class="+"\"fas fa-trash\""+"></i></a></div></td>";
 					msg+="</tr>";
 				});
                 console.log(msg);
