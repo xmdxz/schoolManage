@@ -58,14 +58,14 @@
 					console.log(res)
 					obj=res;
 					var props = "";
-					// for(var p in obj){
-					// 	if(typeof(obj[p])=="function"){
-					// 		obj[p]();
-					// 	}else{
-					// 		if(document.getElementById(p)!=null)
-					// 			document.getElementById(p).value= obj[p];
-					// 	}
-					// }
+					for(var p in obj){
+						if(typeof(obj[p])=="function"){
+							obj[p]();
+						}else{
+							if(document.getElementById(p)!=null)
+								document.getElementById(p).innerText=obj[p];
+						}
+					}
 				})
 			}
 		</script>
@@ -403,27 +403,27 @@
 												<ul>
                                                     <li>
                                                         <span class="title-span">姓名: </span>
-                                                        <span class="info-span">Daisy Parks</span>
+                                                        <span class="info-span" id="name"></span>
                                                     </li>
                                                     <li>
                                                         <span class="title-span">学号 : </span>
-                                                        <span class="info-span">Computer Science</span>
+                                                        <span class="info-span" id="id"></span>
                                                     </li>
                                                     <li>
                                                         <span class="title-span">现班级 : </span>
-                                                        <span class="info-span">+91 89657 48512</span>
+                                                        <span class="info-span" id="present_class"></span>
                                                     </li>
                                                     <li>
                                                         <span class="title-span">现职务 : </span>
-                                                        <span class="info-span">daisy@gmail.com</span>
+                                                        <span class="info-span" id="present_post"></span>
                                                     </li>
                                                     <li>
                                                         <span class="title-span">联系方式 : </span>
-                                                        <span class="info-span">Male</span>
+                                                        <span class="info-span" id="phone"></span>
                                                     </li>
                                                     <li>
                                                         <span class="title-span">学院: </span>
-                                                        <span class="info-span">22 Apr 1995</span>
+                                                        <span class="info-span" id="clno"></span>
                                                     </li>
                                                 </ul>
 											</div>

@@ -57,6 +57,17 @@
 			// 		}
 			// 	})
 			// });
+			var numbers;
+			$.ajax({
+				type:"post",
+				url:"student/findall",
+				dataType:"json",
+			}).done(function (res) {
+			     console.log(res.length)
+				numbers=res.length
+				document.getElementById("numbers").innerText=numbers;
+			})
+
 		</script>
 	</head>
 
@@ -402,7 +413,7 @@
 											<i class="fas fa-user-graduate"></i>
 										</div>
 										<div class="db-info">
-											<h3>50055</h3>
+											<h3 id="numbers"></h3>
 											<h6>学生</h6>
 										</div>
 									</div>
