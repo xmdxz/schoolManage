@@ -16,6 +16,12 @@ import java.util.List;
 @Repository
 public interface StudentDao {
     /**
+     * 批量插入学生
+     * @param list 参数为list集合
+     * @return
+     */
+    int insertBatchStudent(List<Student> list);
+    /**
      * 添加学生
      * @param student
      * @return
