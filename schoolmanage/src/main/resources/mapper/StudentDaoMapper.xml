@@ -11,6 +11,16 @@
                     #{original_class},#{original_post},#{present_post},#{nation},#{religion},#{bedroom_hao},
                     #{idcard},#{bank})
     </insert>
+    <insert id="insertBatchStudent" >
+        insert into student
+            values
+                <foreach collection="list" separator="," item="item">
+                    (#{item.id},#{item.name},#{item.sex},#{item.comy},#{item.clno},#{item.major},#{item.present_class},#{item.phone},#{item.bedroom_lou},
+                    #{item.birth},#{item.nativeplace},#{item.address},#{item.father_phone},#{item.mother_phone},#{item.photo},
+                    #{item.original_class},#{item.original_post},#{item.present_post},#{item.nation},#{item.religion},#{item.bedroom_hao},
+                    #{item.idcard},#{item.bank})
+                </foreach>
+    </insert>
     <update id="updateStudent">
         update student set
                            name = #{name},
