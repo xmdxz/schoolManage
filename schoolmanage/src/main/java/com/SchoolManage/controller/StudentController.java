@@ -39,6 +39,13 @@ public class StudentController {
         }
     }
 
+    @RequestMapping("findall")
+    @ResponseBody
+    public List<Student> findAll(){
+        List<Student> all = studentService.findAll();
+        return all;
+    }
+
     @RequestMapping("findbyid")
     @ResponseBody
     public Student findById(String id){

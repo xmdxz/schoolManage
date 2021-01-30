@@ -52,4 +52,9 @@ public class StudentServiceImpl implements StudentService {
     public int updateStudent(Student student) {
         return studentDao.updateStudent(student);
     }
+
+    @Override
+    public List<Student> findAll() {
+        return studentDao.findAll();
+    }
 }

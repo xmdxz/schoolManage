@@ -58,4 +58,13 @@ public interface StudentService {
      * @return
      */
     int updateStudent(Student student);
+
+    /**
+     * @Description: 查询所有的学生
+     * @Param: []
+     * @return: java.util.List<com.SchoolManage.pojo.Student>
+     * @Author: RainGoal
+     * @Date: 2021/1/30
+     */
+    List<Student> findAll();
 }

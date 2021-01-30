@@ -52,4 +52,7 @@
     <select id="findByClass_pe" resultType="com.SchoolManage.pojo.Student">
         select * from student where present_class like "%" #{present_class} "%"
     </select>
+    <select id="findAll" resultType="com.SchoolManage.pojo.Student">
+        select * from student;
+    </select>
 </mapper>
