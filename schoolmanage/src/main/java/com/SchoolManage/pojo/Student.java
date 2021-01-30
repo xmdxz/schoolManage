@@ -38,6 +38,10 @@ public class Student {
     private String nativeplace;
     //住址
     private String address;
+    //母亲姓名
+    private String mother_name;
+    //父亲姓名
+    private String father_name;
     //父亲联系方式
     private String father_phone;
     //母亲联系方式
