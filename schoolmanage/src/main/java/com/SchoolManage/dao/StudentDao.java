@@ -15,13 +15,21 @@ import java.util.List;
 @Mapper
 @Repository
 public interface StudentDao {
+    /**
+     * 分页查询，需service计算startPage
+     * @param startPage 从第几条开始 计算方法：(页数-1)*num
+     * @param num 需要拿多少条数据
+     * @return
+     */
+
+    List<Student> findPage(int startPage,int num);
 
     /**
      * 删除学生
-     * @param student
+     * @param id
      * @return
      */
-    int deleteStudent(Student student);
+    int deleteStudent(String id);
     /**
      * 根据条件查询学生的人数,当无查询条件时，传入参数两个为空即可
      * @param conditionName
@@ -90,13 +98,4 @@ public interface StudentDao {
        * @Date: 2021/1/30
     */
     List<Student> findAll();
-
-    /**
-       * @Description: 根据学号删除
-       * @Param: [id]
-       * @return: int
-       * @Author: RainGoal
-       * @Date: 2021/1/30
-    */
-    int deleteStudent(String id);
 }
