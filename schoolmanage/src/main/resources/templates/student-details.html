@@ -55,7 +55,7 @@
 					dataType:"json",
 					data: {id:Id}
 				}).done(function (res) {
-					console.log(res)
+					console.log(res);
 					obj=res;
 					var props = "";
 					for(var p in obj){
@@ -63,7 +63,10 @@
 							obj[p]();
 						}else{
 							if(document.getElementById(p)!=null)
+							{
+								document.getElementById(p).value= obj[p];
 								document.getElementById(p).innerText=obj[p];
+							}
 						}
 					}
 				})
@@ -437,7 +440,7 @@
 
 										<div class="row mt-3">
 											<div class="col-md-12">
-												<p>Hello I am Daisy Parks. Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.</p>
+												<p>你好，我是谁谁谁，所以爱会消失。</p>
 											</div>
 										</div>
 
@@ -445,129 +448,230 @@
                                             <div class="col-md-4 mb-3">
                                                 <div class="blue-box">
                                                     <h3>2850</h3>
-                                                    <p>Followers</p>
+                                                    <p>项荣誉</p>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <div class="blue-box">
                                                     <h3>2050</h3>
-                                                    <p>Following</p>
+                                                    <p>次请假</p>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <div class="blue-box">
                                                     <h3>2950</h3>
-                                                    <p>Friends</p>
+                                                    <p>挂科</p>
                                                 </div>
                                             </div>
 										</div>
-
-										<div class="row mt-2">
-											<div class="col-md-12">
-												<h5>Permanent Address</h5>
-												<p>480, Estern Avenue, Courtage area, New York</p>
-											</div>
-                                        </div>
-
-                                        <div class="row mt-2">
-											<div class="col-md-12">
-												<h5>Present Address</h5>
-												<p>480, Estern Avenue, Courtage area, New York</p>
-											</div>
-                                        </div>
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-sm-12">
 
+									<div class="card">
+										<div class="card-body">
+											<form action="student/update" method="post">
+												<div class="row">
+													<div class="col-12">
+														<h5 class="form-title"><span>具体信息</span></h5>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>原班级</label>
+															<input disabled type="text" id="original_class" class="form-control" value="Stephen Marley" name="original_class">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>原职务</label>
+															<input  disabled  type="text" id="original_post" class="form-control" value="Stephen Marley" name="original_post">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>专业</label>
+															<input disabled type="text" id="major" class="form-control" value="Stephen Marley" name="major">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>方向</label>
+															<input disabled type="text" id="direction" class="form-control" value="Stephen Marley" name="direction">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>出生日期</label>
+															<div>
+																<input disabled type="text" id="birth" class="form-control" value="26 Apr 1994" name="birth">
+															</div>
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>民族</label>
+															<input disabled type="text" id="nation" class="form-control" value="Stephen Marley" name="nation">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>宗教信仰</label>
+															<input disabled type="text" id="religion" class="form-control" value="Religion" name="religion">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>籍贯</label>
+															<input disabled type="text" id="nativeplace" class="form-control" value="籍贯" name="nativeplace">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>家庭住址</label>
+															<input disabled type="text" id="address" class="form-control" value="籍贯" name="address">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>宿舍楼</label>
+															<input disabled type="text" id="bedroom_lou" class="form-control" value="籍贯" name="bedroom_lou">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>宿舍号</label>
+															<input disabled type="text" id="bedroom_hao" class="form-control" value="籍贯" name="bedroom_hao">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>身份证号</label>
+															<input disabled type="text" id="idcard" class="form-control" value="籍贯" name="idcard">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>银行卡号</label>
+															<input disabled type="text" id="bank" class="form-control" value="籍贯" name="bank">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>入学年份</label>
+															<div>
+																<input disabled type="text"  id="comy" class="form-control" value="4 Jan 2002" name="comy">
+															</div>
+														</div>
+													</div>
+
+
+													<div class="col-12">
+														<h5 class="form-title"><span>父母信息</span></h5>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>父亲姓名</label>
+															<input disabled type="text" id="father_name" class="form-control" value="Stephen Marley" name="father_name">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>父亲的职业</label>
+															<input disabled type="text" id="father_profession" class="form-control" value="Technician" name="father_profession">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>父亲的手机号</label>
+															<input disabled type="text" id="father_phone" class="form-control" value="402 221 7523" name="father_phone">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>母亲姓名</label>
+															<input disabled type="text" id="mother_name" class="form-control" value="Cleary Wong" name="mother_name">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>母亲的职业</label>
+															<input disabled type="text" id="mother_profession"  class="form-control" value="Home Maker" name="mother_profession">
+														</div>
+													</div>
+													<div class="col-12 col-sm-6">
+														<div class="form-group">
+															<label>母亲的手机号</label>
+															<input disabled type="text" id="mother_phone"  class="form-control" value="026 7318 4366" name="mother_phone">
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 							<div class="row mt-2">
 								<div class="col-md-12">
 									<div class="skill-info">
-										<h4>Skills</h4>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry</p>
+										<h4>技能</h4>
+										<p>Lorem Ipsum 只是印刷和排版行业的虚拟文本， 只是印刷和排版行业的虚拟文本</p>
 
-										<ul>
-                                            <li>
-                                                <label>Lorem Ipsum is simply</label>
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <label>Lorem Ipsum is simply</label>
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="69" aria-valuemin="0" aria-valuemax="100" style="width: 69%"></div>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <label>Lorem Ipsum is simply</label>
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="width: 86%"></div>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <label>Lorem Ipsum is simply</label>
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%"></div>
-                                                </div>
-                                            </li>
-										</ul>
 
 										<div class="row mt-3">
 											<div class="col-md-12">
-												<h5>Education</h5>
-												<p class="mt-3">Secondary Schooling at xyz school of secondary education, Mumbai.</p>
-												<p>Higher Secondary Schooling at xyz school of higher secondary education, Mumbai.</p>
-												<p>Bachelor of Science at Abc College of Art and Science, Chennai.</p>
-												<p>Master of Science at Cdm College of Engineering and Technology, Pune.</p>
+												<h5>教育</h5>
+												<p class="mt-3">孟买西兹中学的中学教育。</p>
+												<p>孟买西兹高等中学的高中学校。</p>
+												<p>钦奈Abc艺术与科学学院理学学士。</p>
 											</div>
 										</div>
 
 										<div class="row mt-3">
 											<div class="col-md-12">
-												<h5>Certificates</h5>
-												<p class="mt-3">1st Prise in Running Competition.</p>
-												<p>Lorem Ipsum is simply dummy text.</p>
-												<p>Won overall star student in higher secondary education.</p>
-												<p>Lorem Ipsum is simply dummy text.</p>
+												<h5>证书</h5>
+												<p class="mt-3">跑步比赛的第一名。</p>
+												<p>洛雷姆 · 伊普苏姆只是虚拟文本。</p>
+												<p>获得普通明星学生在高等中等教育。</p>
 											</div>
                                         </div>
 									</div>
 								</div>
 							</div>
 
-							<div class="row mt-2">
-								<div class="col-md-12">
-									<div class="skill-info">
-										<h4>Settings</h4>
+<!--							<div class="row mt-2">-->
+<!--								<div class="col-md-12">-->
+<!--									<div class="skill-info">-->
+<!--										<h4>Settings</h4>-->
 
-										<form>
-											<div class="row mt-3">
-												<div class="col-12 col-sm-6">
-													<div class="form-group">
-														<label>Username</label>
-														<input type="text" class="form-control">
-													</div>
-												</div>
-												<div class="col-12 col-sm-6">
-													<div class="form-group">
-														<label>Current Password</label>
-														<input type="password" class="form-control">
-													</div>
-												</div>
-												<div class="col-12 col-sm-6">
-													<div class="form-group">
-														<label>New Password</label>
-														<input type="password" class="form-control">
-													</div>
-												</div>
-												<div class="col-12">
-													<button type="submit" class="btn btn-primary">Submit</button>
-												</div>
-											</div>
-										</form>
+<!--										<form>-->
+<!--											<div class="row mt-3">-->
+<!--												<div class="col-12 col-sm-6">-->
+<!--													<div class="form-group">-->
+<!--														<label>Username</label>-->
+<!--														<input type="text" class="form-control">-->
+<!--													</div>-->
+<!--												</div>-->
+<!--												<div class="col-12 col-sm-6">-->
+<!--													<div class="form-group">-->
+<!--														<label>Current Password</label>-->
+<!--														<input type="password" class="form-control">-->
+<!--													</div>-->
+<!--												</div>-->
+<!--												<div class="col-12 col-sm-6">-->
+<!--													<div class="form-group">-->
+<!--														<label>New Password</label>-->
+<!--														<input type="password" class="form-control">-->
+<!--													</div>-->
+<!--												</div>-->
+<!--												<div class="col-12">-->
+<!--													<button type="submit" class="btn btn-primary">Submit</button>-->
+<!--												</div>-->
+<!--											</div>-->
+<!--										</form>-->
 									</div>
 								</div>
 							</div>
