@@ -347,8 +347,6 @@ public class CaptchaCodeUtil {
             }
             stringBuilder1.append(c);
         }
-        System.out.println(stringBuilder);
-        System.out.println(stringBuilder1);
         if (stringBuilder.toString().equals(stringBuilder1.toString())){
             return "ok";
         }else return "failed";
