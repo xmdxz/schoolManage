@@ -68,7 +68,7 @@
 			  $("#student").html(msg);
 		  }).fail(function (err) {
                 alert("系统繁忙哈...")
-		  })
+		  });
 		  function deldec(id) {
           	var id =id;
 			  swal({
@@ -104,6 +104,12 @@
 					  });
 
 		  }
+		  //获取缓存中登录账号的信息
+		  var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
+		  var name=adminuserInfo.name;
+		  $(document).ready(function () {
+			  $('#InfoName').text(name)
+		  });
 		</script>
     </head>
     <body>
@@ -238,7 +244,7 @@
 										 class="avatar-img rounded-circle">
 								</div>
 								<div class="user-text">
-									<h6>Ryan Taylor</h6>
+									<h6 id="InfoName"></h6>
 									<p class="text-muted mb-0">管理员</p>
 								</div>
 							</div>

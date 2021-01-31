@@ -68,6 +68,12 @@
 					}
 				})
 			}
+			//获取缓存中登录账号的信息
+			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
+			var name=adminuserInfo.name;
+			$(document).ready(function () {
+				$('#InfoName').text(name)
+			});
 		</script>
     </head>
     <body>
@@ -195,8 +201,8 @@
 									<img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="User Image" class="avatar-img rounded-circle">
 								</div>
 								<div class="user-text">
-									<h6>Ryan Taylor</h6>
-									<p class="text-muted mb-0">Administrator</p>
+									<h6 id="InfoName"></h6>
+									<p class="text-muted mb-0">管理员</p>
 								</div>
 							</div>
 							<a class="dropdown-item" href="profile.html">我的个人资料</a>
