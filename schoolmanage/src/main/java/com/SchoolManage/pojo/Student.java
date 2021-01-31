@@ -36,6 +36,8 @@ public class Student {
     private String birth;
     //籍贯
     private String nativeplace;
+    //方向
+    private String direction;
     //住址
     private String address;
     //母亲姓名

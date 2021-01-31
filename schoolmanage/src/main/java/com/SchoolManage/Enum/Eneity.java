@@ -37,6 +37,7 @@ public enum Eneity {
         put("母亲姓名","mother_name");
         put("父亲职务","father_profession");
         put("母亲职务","mother_profession");
+        put("方向","direction");
     }});
 
     private Map<String, String> pojo;
