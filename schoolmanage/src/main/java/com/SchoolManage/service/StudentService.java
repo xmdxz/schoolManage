@@ -67,4 +67,21 @@ public interface StudentService {
      * @Date: 2021/1/30
      */
     List<Student> findAll();
+
+    /**
+     * @Description: 根据学号删除
+     * @Param: [id]
+     * @return: int
+     * @Author: RainGoal
+     * @Date: 2021/1/30
+     */
+    int deleteStudent(String id);
+
+    /**
+     * 根据条件查询学生的人数,当无查询条件时，传入参数两个为空即可
+     * @param conditionName
+     * @param conditionValue
+     * @return
+     */
+    int selectStudentNum(String conditionName,String conditionValue);
 }
