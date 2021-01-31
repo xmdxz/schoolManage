@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -56,21 +55,32 @@ public class AdminUserController {
         map.put("msg", "ok");
         map.put("code",200);
         request.getSession().setAttribute("administer", adminUser);
-        Cookie namecookie = new Cookie("name",adminUser.getName());
-        Cookie departcookie = new Cookie("department", adminUser.getDepartment());
-        Cookie phonecookie = new Cookie("phone", adminUser.getPhone());
-        Cookie positioncookie = new Cookie("position",adminUser.getPosition());
-        Cookie usercookie = new Cookie("username", adminUser.getUsername());
-        response.addCookie(namecookie);
-        response.addCookie(departcookie);
-        response.addCookie(phonecookie);
-        response.addCookie(positioncookie);
-        response.addCookie(usercookie);
+//        Cookie namecookie = new Cookie("name",adminUser.getName());
+//        namecookie.setMaxAge(60*60*24);
+//        Cookie departcookie = new Cookie("department", adminUser.getDepartment());
+//        departcookie.setMaxAge(60*60*24);
+//        Cookie phonecookie = new Cookie("phone", adminUser.getPhone());
+//        phonecookie.setMaxAge(60*60*24);
+//        Cookie positioncookie = new Cookie("position",adminUser.getPosition());
+//        positioncookie.setMaxAge(60*60*24);
+//        Cookie usercookie = new Cookie("username", adminUser.getUsername());
+//        usercookie.setMaxAge(60*60*24);
+//        response.addCookie(namecookie);
+//        response.addCookie(departcookie);
+//        response.addCookie(phonecookie);
+//        response.addCookie(positioncookie);
+//        response.addCookie(usercookie);
         return map;
 
     }
 
 
+    @RequestMapping("getadminuser")
+    @ResponseBody
+    public AdminUser findByName(String username){
+        AdminUser adminUser = adminUserService.getAdminUser(username);
+        return adminUser;
+    }
 
     @RequestMapping("captcha")
     public void drawCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -83,21 +93,21 @@ public class AdminUserController {
     @RequestMapping("logout")
     public String logOut(HttpServletRequest request,HttpServletResponse response){
         request.getSession().invalidate();
-        Cookie namecookie = new Cookie("name",null);
-        namecookie.setMaxAge(0);
-        Cookie departcookie = new Cookie("department", null);
-        departcookie.setMaxAge(0);
-        Cookie phonecookie = new Cookie("phone", null);
-        phonecookie.setMaxAge(0);
-        Cookie positioncookie = new Cookie("position",null);
-        positioncookie.setMaxAge(0);
-        Cookie usercookie = new Cookie("username", null);
-        usercookie.setMaxAge(0);
-        response.addCookie(namecookie);
-        response.addCookie(departcookie);
-        response.addCookie(phonecookie);
-        response.addCookie(positioncookie);
-        response.addCookie(usercookie);
+//        Cookie namecookie = new Cookie("name",null);
+//        namecookie.setMaxAge(0);
+//        Cookie departcookie = new Cookie("department", null);
+//        departcookie.setMaxAge(0);
+//        Cookie phonecookie = new Cookie("phone", null);
+//        phonecookie.setMaxAge(0);
+//        Cookie positioncookie = new Cookie("position",null);
+//        positioncookie.setMaxAge(0);
+//        Cookie usercookie = new Cookie("username", null);
+//        usercookie.setMaxAge(0);
+//        response.addCookie(namecookie);
+//        response.addCookie(departcookie);
+//        response.addCookie(phonecookie);
+//        response.addCookie(positioncookie);
+//        response.addCookie(usercookie);
         return "redirect:login.html";
     }
 
