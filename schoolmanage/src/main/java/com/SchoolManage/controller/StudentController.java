@@ -24,7 +24,6 @@ public class StudentController {
     private StudentService studentService;
 
     @RequestMapping("add")
-//    @ResponseBody
     public String addStudent(Student student) {
 //        Map<String, Object> map = new HashMap<>();
         int i = studentService.insertStudent(student);
