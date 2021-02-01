@@ -1,12 +1,12 @@
 package com.SchoolManage.pojo;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Setter
 @Getter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class PresentClass {
     /**
      * 班级号
