@@ -6,92 +6,139 @@
 <mapper namespace="com.SchoolManage.dao.StudentDao">
     <insert id="insertStudent">
         insert into student
-            values (#{id},#{name},#{sex},#{comy},#{clno},#{major},#{present_class},#{phone},#{bedroom_lou},
-                    #{birth},#{nativeplace},#{address},#{father_phone},#{mother_phone},#{photo},
-                    #{original_class},#{original_post},#{present_post},
-                    #{nation},#{religion},#{bedroom_hao},#{idcard},#{bank},#{father_name},#{mother_name},
-                    #{father_profession},
-                    #{mother_profession},#{direction})
+        values (#{id}, #{name}, #{sex}, #{comy}, #{clno}, #{major}, #{present_class}, #{phone}, #{bedroom_lou},
+                #{birth}, #{nativeplace}, #{address}, #{father_phone}, #{mother_phone}, #{photo},
+                #{original_class}, #{original_post}, #{present_post},
+                #{nation}, #{religion}, #{bedroom_hao}, #{idcard}, #{bank}, #{father_name}, #{mother_name},
+                #{father_profession},
+                #{mother_profession}, #{direction})
     </insert>
-    <insert id="insertBatchStudent" >
+    <insert id="insertBatchStudent">
         insert into student
-            values
-                <foreach collection="list" separator="," item="item">
-                    (#{item.id},#{item.name},#{item.sex},#{item.comy},#{item.clno},#{item.major},
-                     #{item.present_class},#{item.phone},#{item.bedroom_lou},
-                    #{item.birth},#{item.nativeplace},#{item.address},#{item.father_phone},
-                     #{item.mother_phone},#{item.photo},
-                    #{item.original_class},#{item.original_post},#{item.present_post},
-                    #{item.nation},#{item.religion},#{item.bedroom_hao},#{item.idcard},#{item.bank},
-                     #{item.father_name},#{item.mother_name},
-                    #{item.father_profession},
-                    #{item.mother_profession},#{item.direction})
-                </foreach>
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.id},#{item.name},#{item.sex},#{item.comy},#{item.clno},#{item.major},
+            #{item.present_class},#{item.phone},#{item.bedroom_lou},
+            #{item.birth},#{item.nativeplace},#{item.address},#{item.father_phone},
+            #{item.mother_phone},#{item.photo},
+            #{item.original_class},#{item.original_post},#{item.present_post},
+            #{item.nation},#{item.religion},#{item.bedroom_hao},#{item.idcard},#{item.bank},
+            #{item.father_name},#{item.mother_name},
+            #{item.father_profession},
+            #{item.mother_profession},#{item.direction})
+        </foreach>
     </insert>
     <update id="updateStudent">
-        update student set
-                           name = #{name},
-                           sex = #{sex},
-                           comy = #{comy},
-                           clno = #{clno},
-                           major = #{major},
-                           present_class = #{present_class},
-                           phone = #{phone},
-                           bedroom_lou = #{bedroom_lou},
-                           birth = #{birth},
-                           nativeplace = #{nativeplace},
-                           address = #{address},
-                           father_name = #{father_name},
-                           mother_name = #{mother_name},
-                           father_phone = #{father_phone},
-                           mother_phone = #{mother_phone},
-                           father_profession = #{father_profession},
-                           mother_profession = #{mother_profession},
-                           photo = #{photo},
-                           original_class = #{original_class},
-                           original_post = #{original_post},
-                           present_post = #{present_post},
-                           nation = #{nation},
-                           religion = #{religion},
-                           bedroom_hao = #{bedroom_hao},
-                           idcard = #{idcard},
-                           bank = #{bank},
-                           direction = #{direction}
+        update student
+        set name              = #{name},
+            sex               = #{sex},
+            comy              = #{comy},
+            clno              = #{clno},
+            major             = #{major},
+            present_class     = #{present_class},
+            phone             = #{phone},
+            bedroom_lou       = #{bedroom_lou},
+            birth             = #{birth},
+            nativeplace       = #{nativeplace},
+            address           = #{address},
+            father_name       = #{father_name},
+            mother_name       = #{mother_name},
+            father_phone      = #{father_phone},
+            mother_phone      = #{mother_phone},
+            father_profession = #{father_profession},
+            mother_profession = #{mother_profession},
+            photo             = #{photo},
+            original_class    = #{original_class},
+            original_post     = #{original_post},
+            present_post      = #{present_post},
+            nation            = #{nation},
+            religion          = #{religion},
+            bedroom_hao       = #{bedroom_hao},
+            idcard            = #{idcard},
+            bank              = #{bank},
+            direction         = #{direction}
         where id = #{id}
     </update>
     <select id="findById" resultType="com.SchoolManage.pojo.Student">
-        select * from student where id = #{id}
+        select *
+        from student
+        where id = #{id}
     </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.Student">
-        select * from student where name like "%" #{name} "%"
+        select *
+        from student
+        where name like "%" #{name} "%"
     </select>
     <select id="findByClass_or" resultType="com.SchoolManage.pojo.Student">
-        select * from student where original_class like "%" #{original_class} "%"
+        select *
+        from student
+        where original_class like "%" #{original_class} "%"
     </select>
     <select id="findByMajor" resultType="com.SchoolManage.pojo.Student">
-        select * from student where major like "%" #{major} "%"
+        select *
+        from student
+        where major like "%" #{major} "%"
     </select>
     <select id="findByClass_pe" resultType="com.SchoolManage.pojo.Student">
-        select * from student where present_class like "%" #{present_class} "%"
+        select *
+        from student
+        where present_class like "%" #{present_class} "%"
     </select>
     <select id="findAll" resultType="com.SchoolManage.pojo.Student">
-        select * from student;
+        select *
+        from student;
     </select>
     <select id="selectStudentNum" resultType="java.lang.Integer">
         select count(*) from student
-            <where>
-                <if test="conditionName != null and conditionName != '' and conditionValue != null and conditionValue != ''">
-                    and #{conditionName} = #{conditionValue}
-                </if>
-            </where>
+        <where>
+            <if test="conditionName != null and conditionName != '' and conditionValue != null and conditionValue != ''">
+                and #{conditionName} = #{conditionValue}
+            </if>
+        </where>
     </select>
     <select id="findPage" resultType="com.SchoolManage.pojo.Student">
-        select * from student limit #{startPage},#{num}
+        select *
+        from student limit #{startPage},#{num}
     </select>
     <select id="findByDirection" resultType="com.SchoolManage.pojo.Student">
-        select * from student where direction like "%" #{direction} "%"
+        select *
+        from student
+        where direction like "%" #{direction} "%"
     </select>
     <delete id="deleteStudent" parameterType="String">
-        delete from student where id = #{id}
+        delete
+        from student
+        where id = #{id}
     </delete>
+
+    <select id="findOriginalCadre" resultType="com.SchoolManage.pojo.Student">
+        select *
+        from student,
+             (select * from original_class where class = #{clazz}) temp
+        where student.id in
+              (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
+               temp.publicize);
+    </select>
+    <select id="findDirection" resultType="java.lang.String">
+        select direction
+        from student
+        group by direction
+    </select>
+    <select id="findPresentCadre" resultType="com.SchoolManage.pojo.Student">
+        select *
+        from student,
+             (select * from original_class where class = #{clazz}) temp
+        where student.id in
+              (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
+               temp.publicize);
+    </select>
+    <select id="findByMultipleConditions" resultType="com.SchoolManage.pojo.Student">
+        select * from student
+            <where>
+                <foreach collection="map" index="key" item="value" separator="and">
+                    #{key} = #{value}
+                </foreach>
+            </where>
+    </select>
+
 </mapper>

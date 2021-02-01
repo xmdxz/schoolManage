@@ -2,9 +2,11 @@ package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.Student;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author RainGoal
@@ -15,6 +17,32 @@ import java.util.List;
 @Mapper
 @Repository
 public interface StudentDao {
+    /**
+     * 根据多条条件查询
+     * @param conditions
+     * @return
+     */
+    List<Student> findByMultipleConditions(@Param(value = "map") Map<String, String> conditions);
+
+    /**
+     * 查询方向分类
+     * @return
+     */
+    List<String> findDirection();
+
+    /**
+     * 根据现班级查询
+     * @param clazz
+     * @return
+     */
+    List<Student> findPresentCadre(String clazz);
+
+    /**
+     * 根据原班级查询班干部
+     * @return
+     */
+    List<Student> findOriginalCadre(String clazz);
+
     /**
      * 根据方向查找
      * @param direction
@@ -48,7 +76,7 @@ public interface StudentDao {
      * @param list 参数为list集合
      * @return
      */
-    int insertBatchStudent(List<Student> list);
+    int insertBatchStudent(@Param(value = "list") List<Student> list);
     /**
      * 添加学生
      * @param student
