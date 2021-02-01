@@ -15,34 +15,34 @@ public class OriginalClass {
     /**
      * 班长
      */
-    private Student monitor;
+    private String monitor;
     /**
      * 学委
      */
-    private Student study;
+    private String study;
     /**
      * 团支书
      */
-    private Student league;
+    private String league;
     /**
      * 副班长
      */
-    private Student vice_monitor;
+    private String vice_monitor;
     /**
      * 心理委员
      */
-    private Student mentality;
+    private String mentality;
     /**
      * 文体委员
      */
-    private Student style;
+    private String style;
     /**
      * 组织委员
      */
-    private Student organization;
+    private String organization;
     /**
      * 宣传委员
      */
-    private Student publicize;
+    private String publicize;
 
 }
