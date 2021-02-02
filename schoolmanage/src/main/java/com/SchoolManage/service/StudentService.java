@@ -3,6 +3,7 @@ package com.SchoolManage.service;
 import com.SchoolManage.pojo.Student;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author RainGoal
@@ -100,4 +101,9 @@ public interface StudentService {
      * @return
      */
     int selectStudentNum(String conditionName,String conditionValue);
+    /**
+     * 根据多条件筛选
+     * @param conditions
+     */
+    List<Student> findByMultipleConditions(Map<String,String> conditions);
 }

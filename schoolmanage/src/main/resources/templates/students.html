@@ -180,11 +180,19 @@
             layui.use(['form', 'layedit', 'laydate'], function () {
                 var form = layui.form;
                 var layer = layui.layer;
+                var map = new Map();
                 form.on('select(major)', function (data) {
                     console.log(data);
+                    var key=data.elem.id;
                     info_1 = data.value;
+                    if(data.value!='0')
+                    map.set(key,info_1);
+                    console.log(map);
+                    if(info_1=="0"&&data.elem.id == "major")
+                        map.clear();
                     if (data.elem.id == "major") {
-
+                        if(info_1=="0")
+                            map.clear();
                         if (info_1 == "软件工程") {
                             $('#direction').find('option').remove();
                             $('#direction').append('<option value="0">请选择</option>');
@@ -319,6 +327,14 @@
                         }
                         layui.form.render("select");
                     }
+                    $.ajax({
+                        type:"post",
+                        url:"/student/findByMultipleConditions",
+                        dataType:"json",
+                        data:{'conditions':map},
+                    }).done(function(res){
+                        console.log(res)
+                    })
                 });
             })
         });

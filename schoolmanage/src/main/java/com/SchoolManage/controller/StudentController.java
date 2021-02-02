@@ -133,5 +133,10 @@ public class StudentController {
         return Integer.toString(i);
     }
 
+    @RequestMapping("findByMultipleConditions")
+    @ResponseBody
+    public List<Student> findByMultipleConditions(Map<String, String> conditions){
 
+        return studentService.findByMultipleConditions(conditions);
+    }
 }

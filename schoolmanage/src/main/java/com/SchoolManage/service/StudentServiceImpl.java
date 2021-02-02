@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author RainGoal
@@ -78,5 +79,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int selectStudentNum(String conditionName, String conditionValue) {
         return studentDao.selectStudentNum(conditionName, conditionValue);
+    }
+
+    @Override
+    public List<Student> findByMultipleConditions(Map<String, String> conditions) {
+        return studentDao.findByMultipleConditions(conditions);
     }
 }
