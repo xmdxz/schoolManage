@@ -187,7 +187,6 @@
                     info_1 = data.value;
                     if(data.value!='0')
                     map.set(key,info_1);
-                    console.log(map);
                     if(info_1=="0"&&data.elem.id == "major")
                         map.clear();
                     if (data.elem.id == "major") {
@@ -327,11 +326,14 @@
                         }
                         layui.form.render("select");
                     }
+                    console.log(map);
                     $.ajax({
                         type:"post",
                         url:"/student/findByMultipleConditions",
                         dataType:"json",
-                        data:{'conditions':map},
+                        data:{major:map.get("major"),direction:map.get("direction"),present_class:
+                        map.get("present_class"),original_class:map.get("original_class"),
+                            present_post:map.get("present_post"),original_post:map.get("original_post")},
                     }).done(function(res){
                         console.log(res)
                     })

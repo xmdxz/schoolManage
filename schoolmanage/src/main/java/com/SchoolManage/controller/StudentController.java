@@ -6,8 +6,7 @@ import com.SchoolManage.service.FeaturesService;
 import com.SchoolManage.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -145,7 +144,23 @@ public class StudentController {
     }
     @RequestMapping("findByMultipleConditions")
     @ResponseBody
-    public List<Student>findByMultipleConditions(Map<String,String> conditions ){
-        return studentService.findByMultipleConditions(conditions);
+    public List<Student>findByMultipleConditions(String major,String direction,String present_class
+    ,String original_class,String present_post,String original_post){
+
+        Map<String,String> map=new HashMap<>();
+        if(major!=null)
+        map.put("major",major);
+        if(direction!=null)
+            map.put("direction",direction);
+        if(present_class!=null)
+            map.put("present_class",present_class);
+        if(original_class!=null)
+            map.put("original_class",original_class);
+        if(present_post!=null)
+            map.put("present_post",present_post);
+        if(original_post!=null)
+            map.put("original_post",original_post);
+        System.out.println(map);
+        return studentService.findByMultipleConditions(map);
     }
 }
