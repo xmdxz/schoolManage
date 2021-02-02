@@ -1,6 +1,5 @@
 package com.SchoolManage.util;
 
-
 import com.SchoolManage.Enum.Eneity;
 import com.SchoolManage.exception.FieldNotExistException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -83,18 +82,18 @@ public class TableUtil<T> {
         return arrayList;
     }
 
-    public  T GetTableRowContent(int i) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException {
+    public T GetTableRowContent(int i) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException {
         Row row = sheet.getRow(i);
         T t = (T) clazz.newInstance();
         List<String> list = GetTableHead();
-        for (int index = 0,num = 0; index < list.size(); index++,num++) {
+        for (int index = 0, num = 0; index < list.size(); index++, num++) {
             String field = this.eneity.get(list.get(index));
             if (field == null) {
                 throw new FieldNotExistException("表头属性与实体类属性不对应，请检查！");
             }
             Cell cell = row.getCell(num);
-            while (cell == null){
-                cell = row.getCell(++num );
+            while (cell == null) {
+                cell = row.getCell(++num);
             }
             cell.setCellType(CellType.STRING);
             Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());

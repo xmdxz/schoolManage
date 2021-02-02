@@ -45,6 +45,13 @@ public class StudentController {
         return all;
     }
 
+    @RequestMapping("findbypage")
+    @ResponseBody
+    public List<Student> findByPage(int page,int num){
+        List<Student> page1 = studentService.findPage(page, num);
+        return page1;
+    }
+
     @RequestMapping("findbyid")
     @ResponseBody
     public Student findById(String id) {
@@ -117,4 +124,6 @@ public class StudentController {
         int i = studentService.selectStudentNum(conditionName, conditionValue);
         return Integer.toString(i);
     }
+
+
 }
