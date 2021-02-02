@@ -2,6 +2,7 @@ package com.SchoolManage.service;
 
 import com.SchoolManage.dao.FeaturesDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @Description TODO
  * @Version 1.0
  */
-
+@Service
 public class FeaturesServiceImpl implements FeaturesService {
 
     @Autowired
