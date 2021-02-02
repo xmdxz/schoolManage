@@ -1,6 +1,6 @@
 package com.SchoolManage.exception;
 
-public class FieldNotExistException extends RuntimeException {
+public class FieldNotExistException extends Exception {
 
     public FieldNotExistException() {
 

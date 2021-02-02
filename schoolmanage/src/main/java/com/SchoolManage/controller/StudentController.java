@@ -51,14 +51,14 @@ public class StudentController {
 
     @RequestMapping("findbypage")
     @ResponseBody
-    public List<Student> findByPage(int page,int num){
+    public List<Student> findByPage(int page, int num) {
         List<Student> page1 = studentService.findPage(page, num);
         return page1;
     }
 
     @RequestMapping("findbydirection")
     @ResponseBody
-    public List<Student> findByDirection(String direction){
+    public List<Student> findByDirection(String direction) {
         List<Student> byDirection = studentService.findByDirection(direction);
         return byDirection;
     }
@@ -131,35 +131,42 @@ public class StudentController {
 
     @RequestMapping("getcount")
     @ResponseBody
-    public String getCount(String conditionName,String conditionValue){
+    public String getCount(String conditionName, String conditionValue) {
         int i = studentService.selectStudentNum(conditionName, conditionValue);
         return Integer.toString(i);
     }
 
     @RequestMapping("getdirectionbymajor")
     @ResponseBody
-    public List<String> findDirectionByMajor(String major){
+    public List<String> findDirectionByMajor(String major) {
         List<String> directionByMajor = featuresService.findDirectionByMajor(major);
         return directionByMajor;
     }
+
     @RequestMapping("findByMultipleConditions")
     @ResponseBody
-    public List<Student>findByMultipleConditions(String major,String direction,String present_class
-    ,String original_class,String present_post,String original_post){
+    public List<Student> findByMultipleConditions(String major, String direction, String present_class
+            , String original_class, String present_post, String original_post) {
 
-        Map<String,String> map=new HashMap<>();
-        if(major!=null)
-        map.put("major",major);
-        if(direction!=null)
-            map.put("direction",direction);
-        if(present_class!=null)
-            map.put("present_class",present_class);
-        if(original_class!=null)
-            map.put("original_class",original_class);
-        if(present_post!=null)
-            map.put("present_post",present_post);
-        if(original_post!=null)
-            map.put("original_post",original_post);
+        Map<String, String> map = new HashMap<>();
+        if (major != null){
+            map.put("major", major);
+        }
+        if (direction != null) {
+            map.put("direction", direction);
+        }
+        if (present_class != null){
+            map.put("present_class", present_class);
+        }
+        if (original_class != null){
+            map.put("original_class", original_class);
+        }
+        if (present_post != null){
+            map.put("present_post", present_post);
+        }
+        if (original_post != null){
+            map.put("original_post", original_post);
+        }
         System.out.println(map);
         return studentService.findByMultipleConditions(map);
     }

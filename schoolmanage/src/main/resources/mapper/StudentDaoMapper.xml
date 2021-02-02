@@ -92,7 +92,7 @@
         select count(*) from student
         <where>
             <if test="conditionName != null and conditionName != '' and conditionValue != null and conditionValue != ''">
-                and #{conditionName} = #{conditionValue}
+                and ${conditionName} = #{conditionValue}
             </if>
         </where>
     </select>
@@ -136,7 +136,7 @@
         select * from student
             <where>
                 <foreach collection="map" index="key" item="value" separator="and">
-                    #{key} = #{value}
+                    ${key} = #{value}
                 </foreach>
             </where>
     </select>
