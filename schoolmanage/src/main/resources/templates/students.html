@@ -187,8 +187,31 @@
                     info_1 = data.value;
                     if(data.value!='0')
                     map.set(key,info_1);
-                    if(info_1=="0"&&data.elem.id == "major")
-                        map.clear();
+                    if(data.elem.id=="present_post"&&info_1=="0")
+                    {
+                        if(map.has("present_post"))
+                        map.delete("present_post");
+                    }
+
+                    if(data.elem.id=="original_post"&&info_1=="0")
+                    {   if(map.has("original_post"))
+                        map.delete("original_post");
+                    }
+                    if(data.elem.id=="direction"&&info_1=="0")
+                    {
+                        if(map.has("direction"))
+                            map.delete("direction");
+                    }
+
+                    if(data.elem.id=="original_class"&&info_1=="0")
+                    {   if(map.has("original_class"))
+                        map.delete("original_class");
+                    }
+                    if(data.elem.id=="present_class"&&info_1=="0")
+                    {   if(map.has("present_class"))
+                        map.delete("present_class");
+                    }
+
                     if (data.elem.id == "major") {
                         if(info_1=="0")
                             map.clear();
