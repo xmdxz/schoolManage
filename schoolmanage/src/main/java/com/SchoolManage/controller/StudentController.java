@@ -143,5 +143,9 @@ public class StudentController {
         List<String> directionByMajor = featuresService.findDirectionByMajor(major);
         return directionByMajor;
     }
-
+    @RequestMapping("findByMultipleConditions")
+    @ResponseBody
+    public List<Student>findByMultipleConditions(Map<String,String> conditions ){
+        return studentService.findByMultipleConditions(conditions);
+    }
 }
