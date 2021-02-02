@@ -2,6 +2,7 @@ package com.SchoolManage.controller;
 
 import com.SchoolManage.dao.StudentDao;
 import com.SchoolManage.pojo.Student;
+import com.SchoolManage.service.FeaturesService;
 import com.SchoolManage.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,9 @@ import java.util.Map;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private FeaturesService featuresService;
 
     @RequestMapping("add")
     public String addStudent(Student student) {
@@ -133,5 +137,11 @@ public class StudentController {
         return Integer.toString(i);
     }
 
+    @RequestMapping("getdirectionbymajor")
+    @ResponseBody
+    public List<String> findDirectionByMajor(String major){
+        List<String> directionByMajor = featuresService.findDirectionByMajor(major);
+        return directionByMajor;
+    }
 
 }
