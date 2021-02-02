@@ -14,8 +14,15 @@ import java.util.List;
 public interface StudentService {
 
     /**
+     * 根据方向查找
+     * @param direction
+     * @return
+     */
+    List<Student> findByDirection(String direction);
+
+    /**
      * 分页查询，需service计算startPage
-     * @param startPage 从第几条开始 计算方法：(页数-1)*num
+     * @param page 从第几条开始 计算方法：(页数-1)*num
      * @param num 需要拿多少条数据
      * @return
      */

@@ -19,6 +19,11 @@ public class StudentServiceImpl implements StudentService {
     private StudentDao studentDao;
 
     @Override
+    public List<Student> findByDirection(String direction) {
+        return studentDao.findByDirection(direction);
+    }
+
+    @Override
     public List<Student> findPage(int page, int num) {
         int startpage = (page-1)*num;
         List<Student> page1 = studentDao.findPage(startpage, num);

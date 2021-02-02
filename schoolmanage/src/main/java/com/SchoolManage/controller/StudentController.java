@@ -1,5 +1,6 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.dao.StudentDao;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,13 @@ public class StudentController {
     public List<Student> findByPage(int page,int num){
         List<Student> page1 = studentService.findPage(page, num);
         return page1;
+    }
+
+    @RequestMapping("findbydirection")
+    @ResponseBody
+    public List<Student> findByDirection(String direction){
+        List<Student> byDirection = studentService.findByDirection(direction);
+        return byDirection;
     }
 
     @RequestMapping("findbyid")
