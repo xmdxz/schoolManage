@@ -47,21 +47,21 @@
     <script th:src="@{/assets/js/bootstrap-paginator.js}"></script>
 
     <script type="text/javascript">
-        const  everypage = 2; //每页的数量
-        var allpage =1;
+        const everypage = 2; //每页的数量
+        var allpage = 1;
         $.ajax({
-            type:"post",
-            url:"student/getcount",
-            dataType:"json",
+            type: "post",
+            url: "student/getcount",
+            dataType: "json",
         }).done(function (res) {
-            console.log(Math.ceil(res/everypage))
-             allpage = Math.ceil(res/everypage);
+            console.log(Math.ceil(res / everypage))
+            allpage = Math.ceil(res / everypage);
         })
         $.ajax({
             type: "post",
             url: "student/findbypage",
             dataType: "json",
-            data: {'page':1,'num': everypage},
+            data: {'page': 1, 'num': everypage},
         }).done(function (res) {
             var msg = "";
             $.each(res, function (i, n) {
@@ -82,20 +82,25 @@
             $('#example').bootstrapPaginator({
                 currentPage: 1,//当前的请求页面。
                 totalPages: allpage,//一共多少页。
-                size:"normal",//应该是页眉的大小。
+                size: "normal",//应该是页眉的大小。
                 bootstrapMajorVersion: 4,//bootstrap的版本要求。
-                alignment:"right",
-                numberOfPages:5,//一页列出多少数据。
+                alignment: "right",
+                numberOfPages: 5,//一页列出多少数据。
                 itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
                     switch (type) {
-                        case "first": return "首页";
-                        case "prev": return "上一页";
-                        case "next": return "下一页";
-                        case "last": return "末页";
-                        case "page": return page;
+                        case "first":
+                            return "首页";
+                        case "prev":
+                            return "上一页";
+                        case "next":
+                            return "下一页";
+                        case "last":
+                            return "末页";
+                        case "page":
+                            return page;
                     }
                 },
-                onPageClicked:function (event, originalEvent, type, page) {
+                onPageClicked: function (event, originalEvent, type, page) {
                     newpage(page)
                 }
             });
@@ -104,12 +109,12 @@
         });
 
         function newpage(res) {
-            var page=res
+            var page = res
             $.ajax({
                 type: "post",
                 url: "student/findbypage",
                 dataType: "json",
-                data: {'page':page,'num': everypage},
+                data: {'page': page, 'num': everypage},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -127,7 +132,7 @@
                     msg += "</tr>";
                 });
                 $("#student").html(msg);
-        })
+            })
         }
 
         function deldec(id) {
@@ -165,19 +170,157 @@
                 });
 
         }
+
         //获取缓存中登录账号的信息
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         var info_1;
-            $(document).ready(function () {
+        $(document).ready(function () {
             $('#InfoName').text(name);
-                layui.use(['form', 'layedit', 'laydate'], function() {
-                    var form = layui.form;
-                        form.on('select(major)', function (data) {
-                            info_1 = data.value;
-                        console.log(info_1)
-                    });
-                })
+            layui.use(['form', 'layedit', 'laydate'], function () {
+                var form = layui.form;
+                var layer = layui.layer;
+                form.on('select(major)', function (data) {
+                    console.log(data);
+                    info_1 = data.value;
+                    if (data.elem.id == "major") {
+
+                        if (info_1 == "软件工程") {
+                            $('#direction').find('option').remove();
+                            $('#direction').append('<option value="0">请选择</option>');
+                            $('#direction').append('<option value="JavaEE">JavaEE</option>');
+                            $('#direction').append('<option value="人工智能">人工智能</option>');
+                            $('#direction').append('<option value="移动互联">移动互联</option>');
+                            $('#direction').append('<option value="大数据">大数据</option>');
+                            $('#direction').append('<option value="嵌入式">嵌入式</option>');
+                            layui.form.render("select");
+                            $('#original_class').find('option').remove();
+                            $('#original_class').append('<option value="0">请选择</option>');
+                            for (let i = 1; i <= 19; i++) {
+                                var banji = "软件190" + i;
+                                $('#original_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                            }
+                            layui.form.render("select");
+                        }  else if (info_1 == "数媒") {
+                            $('#direction').find('option').remove();
+                            $('#direction').append('<option value="0">请选择</option>');
+                            $('#direction').append('<option value="方向一">方向一</option>');
+                            $('#direction').append('<option value="方向二">方向二</option>');
+                            layui.form.render("select");
+                            $('#original_class').find('option').remove();
+                            $('#original_class').append('<option value="0">请选择</option>');
+                            for (let i = 1; i <= 2; i++) {
+                                var banji = "数媒190" + i;
+                                $('#original_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                            }
+                            layui.form.render("select");
+                        }
+                        else if(info_1=="智能")
+                        {
+                            $('#direction').find('option').remove();
+                            $('#direction').append('<option value="0">请选择</option>');
+                            layui.form.render("select");
+                            $('#present_class').find('option').remove();
+                            $('#present_class').append('<option value="0">请选择</option>');
+                            for (let i = 1; i <= 1; i++) {
+                                var banji = "智能190" + i;
+                                $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                            }
+                            layui.form.render("select");
+                            $('#original_class').find('option').remove();
+                            $('#original_class').append('<option value="0">请选择</option>');
+
+                            for (let i = 1; i <= 1; i++) {
+                                var banji = "智能190" + i;
+                                $('#original_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                            }
+                            layui.form.render("select");
+                        }
+                        else if (info_1 == "大数据方向") {
+                            $('#direction').find('option').remove();
+                            $('#direction').append('<option value="0">请选择</option>');
+                            layui.form.render("select");
+                            $('#present_class').find('option').remove();
+                            $('#present_class').append('<option value="0">请选择</option>');
+                            for (let i = 1; i <= 1; i++) {
+                                var banji = "大数据190" + i;
+                                $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                            }
+                            layui.form.render("select");
+                            $('#original_class').find('option').remove();
+                            $('#original_class').append('<option value="0">请选择</option>');
+                            for (let i = 1; i <= 1; i++) {
+                                var banji = "大数据190" + i;
+                                $('#original_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                            }
+                            layui.form.render("select");
+                        }
+                    }
+                    else if (info_1 == "JavaEE") {
+                        $('#present_class').find('option').remove();
+                        $('#present_class').append('<option value="0">请选择</option>');
+                        for (let i = 1; i <= 9; i++) {
+                            var banji = "软件190" + i;
+                            $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                        }
+
+                        layui.form.render("select");
+                    } else if (info_1 == "移动互联") {
+                        $('#present_class').find('option').remove();
+                        $('#present_class').append('<option value="0">请选择</option>');
+                        for (let i = 10; i <= 10; i++) {
+                            var banji = "软件190" + i;
+                            $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                        }
+                        layui.form.render("select");
+                    } else if (info_1 == "人工智能") {
+                        $('#present_class').find('option').remove();
+                        $('#present_class').append('<option value="0">请选择</option>');
+                        for (let i = 11; i <= 12; i++) {
+                            var banji = "软件190" + i;
+                            $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                        }
+                        layui.form.render("select");
+                    } else if (info_1 == "大数据") {
+                        $('#present_class').find('option').remove();
+                        $('#present_class').append('<option value="0">请选择</option>');
+                        for (let i = 13; i <= 22; i++) {
+                            var banji = "软件190" + i;
+                            $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                        }
+                        layui.form.render("select");
+                    } else if (info_1 == "方向一") {
+                        console.log("11")
+                        $('#present_class').find('option').remove();
+                        $('#present_class').append('<option value="0">请选择</option>');
+                        for (let i = 1; i <= 1; i++) {
+                            var banji = "数媒190" + i;
+                            $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                        }
+                        layui.form.render("select");
+                    } else if (info_1 == "方向二") {
+                        $('#present_class').find('option').remove();
+                        $('#present_class').append('<option value="0">请选择</option>');
+                        for (let i = 2; i <= 2; i++) {
+                            var banji = "数媒190" + i;
+                            $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
+
+                        }
+                        layui.form.render("select");
+                    }
+                });
+            })
         });
     </script>
 </head>
@@ -521,82 +664,83 @@
                 </div>
             </div>
             <!-- /Page Header -->
-			<form class="layui-form layui-form-pane" action="">
-				<div class="layui-form-item">
+            <form class="layui-form layui-form-pane" action="">
+                <div class="layui-form-item">
 
-					<div class="row">
-						<div class="col-xs-6 col-md-4">
-							<label class="layui-form-label">所属专业</label>
-							<div class="layui-input-inline">
-								<select name="major" id="major" lay-filter="major">
-                                    <option value="">请选择</option>
-									<option value="软件工程">软件工程</option>
-									<option value="大数据方向">大数据方向</option>
-									<option value="数媒">数媒</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-xs-6 col-md-4">
-							<label class="layui-form-label">所属方向</label>
-							<div class="layui-input-inline">
-								<select name="direction">
-									<option value="">请选择</option>
-									<option value="大数据">大数据</option>
-									<option value="javaee">javaee</option>
-									<option value="移动互联">移动互联</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-xs-6 col-md-4">
-							<label class="layui-form-label">现属班级</label>
-							<div class="layui-input-inline">
-								<select name="present_class">
-									<option value="">请选择</option>
-									<option value="软件1915" >软件1915</option>
-									<option value="软件1910">软件1910</option>
-									<option value="软件1903">软件1903</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-xs-6 col-md-4">
-							<label class="layui-form-label">原属班级</label>
-							<div class="layui-input-inline">
-								<select name="original_class">
-									<option value="">请选择</option>
-									<option value="软件1915" >软件1915</option>
-									<option value="软件1910">软件1910</option>
-									<option value="软件1903">软件1903</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-xs-6 col-md-4">
-							<label class="layui-form-label">现任职务</label>
-							<div class="layui-input-inline">
-								<select name="present_post">
-									<option value="">请选择</option>
-									<option value="班长">班长</option>
-									<option value="团支">团支</option>
-									<option value="学习委员">学习委员</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-xs-6 col-md-4">
-							<label class="layui-form-label">原任职务</label>
-							<div class="layui-input-inline">
-								<select name="original_post">
-									<option value="">请选择</option>
-									<option value="班长">班长</option>
-									<option value="团支">团支</option>
-									<option value="学习委员">学习委员</option>
-								</select>
-							</div>
-						</div>
-					</div>
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <label class="layui-form-label">所属专业</label>
+                            <div class="layui-input-inline">
+                                <select name="major" id="major" lay-filter="major">
+                                    <option value="0">请选择</option>
+                                    <option value="软件工程">软件工程</option>
+                                    <option value="大数据方向">大数据方向</option>
+                                    <option value="数媒">数媒</option>
+                                    <option value="智能">智能</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <label class="layui-form-label">所属方向</label>
+                            <div class="layui-input-inline">
+                                <select name="direction" lay-filter="major" id="direction">
+                                    <option value="0">请选择</option>
+                                    <!--									<option value="大数据">大数据</option>-->
+                                    <!--									<option value="javaee">javaee</option>-->
+                                    <!--									<option value="移动互联">移动互联</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <label class="layui-form-label">现属班级</label>
+                            <div class="layui-input-inline">
+                                <select name="present_class" lay-filter="major" id="present_class">
+                                    <option value="0">请选择</option>
+<!--                                    <option value="软件1915">软件1915</option>-->
+<!--                                    <option value="软件1910">软件1910</option>-->
+<!--                                    <option value="软件1903">软件1903</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <label class="layui-form-label">原属班级</label>
+                            <div class="layui-input-inline">
+                                <select name="original_class" lay-filter="major" id="original_class">
+                                    <option value="0">请选择</option>
+<!--                                    <option value="软件1915">软件1915</option>-->
+<!--                                    <option value="软件1910">软件1910</option>-->
+<!--                                    <option value="软件1903">软件1903</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <label class="layui-form-label">现任职务</label>
+                            <div class="layui-input-inline">
+                                <select name="present_post" lay-filter="major" id="present_post">
+                                    <option value="0">请选择</option>
+                                    <option value="班长">班长</option>
+                                    <option value="团支">团支</option>
+                                    <option value="学习委员">学习委员</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <label class="layui-form-label">原任职务</label>
+                            <div class="layui-input-inline">
+                                <select name="original_post" lay-filter="major" id="original_post">
+                                    <option value="0">请选择</option>
+                                    <option value="班长">班长</option>
+                                    <option value="团支">团支</option>
+                                    <option value="学习委员">学习委员</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-				</div>
-			</form>
+                </div>
+            </form>
 
-			<!---->
+            <!---->
             <div class="row">
                 <div class="col-sm-12">
 
@@ -649,7 +793,11 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="pagination"  style="text-align: center;float:right;margin-top:1.5625em;"> <div style="float: right;margin-right:0.1rem"><ul id="example"></ul> </div></div>
+                            <div class="pagination" style="text-align: center;float:right;margin-top:1.5625em;">
+                                <div style="float: right;margin-right:0.1rem">
+                                    <ul id="example"></ul>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
