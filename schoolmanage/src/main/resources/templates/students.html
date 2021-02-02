@@ -109,8 +109,16 @@
         //获取缓存中登录账号的信息
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
-        $(document).ready(function () {
-            $('#InfoName').text(name)
+        var info_1;
+            $(document).ready(function () {
+            $('#InfoName').text(name);
+                layui.use(['form', 'layedit', 'laydate'], function() {
+                    var form = layui.form;
+                        form.on('select(major)', function (data) {
+                            info_1 = data.value;
+                        console.log(info_1)
+                    });
+                })
         });
     </script>
 </head>
@@ -461,10 +469,10 @@
 						<div class="col-xs-6 col-md-4">
 							<label class="layui-form-label">所属专业</label>
 							<div class="layui-input-inline">
-								<select name="quiz1">
-									<option value="">请选择</option>
-									<option value="软件工程" selected="selected">软件工程</option>
-									<option value="大数据">大数据</option>
+								<select name="major" id="major" lay-filter="major">
+                                    <option value="">请选择</option>
+									<option value="软件工程">软件工程</option>
+									<option value="大数据方向">大数据方向</option>
 									<option value="数媒">数媒</option>
 								</select>
 							</div>
@@ -472,55 +480,55 @@
 						<div class="col-xs-6 col-md-4">
 							<label class="layui-form-label">所属方向</label>
 							<div class="layui-input-inline">
-								<select name="quiz1">
+								<select name="direction">
 									<option value="">请选择</option>
-									<option value="浙江" selected="selected">大数据</option>
-									<option value="你的工号">javaee</option>
-									<option value="你最喜欢的老师">移动互联</option>
+									<option value="大数据">大数据</option>
+									<option value="javaee">javaee</option>
+									<option value="移动互联">移动互联</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-xs-6 col-md-4">
 							<label class="layui-form-label">现属班级</label>
 							<div class="layui-input-inline">
-								<select name="quiz1">
+								<select name="present_class">
 									<option value="">请选择</option>
-									<option value="浙江" selected="selected">软件1915</option>
-									<option value="你的工号">软件1910</option>
-									<option value="你最喜欢的老师">软件1903</option>
+									<option value="软件1915" >软件1915</option>
+									<option value="软件1910">软件1910</option>
+									<option value="软件1903">软件1903</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-xs-6 col-md-4">
 							<label class="layui-form-label">原属班级</label>
 							<div class="layui-input-inline">
-								<select name="quiz1">
+								<select name="original_class">
 									<option value="">请选择</option>
-									<option value="浙江" selected="selected">软件1915</option>
-									<option value="你的工号">软件1910</option>
-									<option value="你最喜欢的老师">软件1903</option>
+									<option value="软件1915" >软件1915</option>
+									<option value="软件1910">软件1910</option>
+									<option value="软件1903">软件1903</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-xs-6 col-md-4">
 							<label class="layui-form-label">现任职务</label>
 							<div class="layui-input-inline">
-								<select name="quiz1">
+								<select name="present_post">
 									<option value="">请选择</option>
-									<option value="浙江" selected="selected">班长</option>
-									<option value="你的工号">团支</option>
-									<option value="你最喜欢的老师">学习委员</option>
+									<option value="班长">班长</option>
+									<option value="团支">团支</option>
+									<option value="学习委员">学习委员</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-xs-6 col-md-4">
 							<label class="layui-form-label">原任职务</label>
 							<div class="layui-input-inline">
-								<select name="quiz1">
+								<select name="original_post">
 									<option value="">请选择</option>
-									<option value="浙江" selected="selected">班长</option>
-									<option value="你的工号">团支</option>
-									<option value="你最喜欢的老师">学习委员</option>
+									<option value="班长">班长</option>
+									<option value="团支">团支</option>
+									<option value="学习委员">学习委员</option>
 								</select>
 							</div>
 						</div>
