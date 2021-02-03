@@ -1,16 +1,18 @@
 package com.SchoolManage.controller;
 
-import com.SchoolManage.dao.StudentDao;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.FeaturesService;
 import com.SchoolManage.service.StudentService;
+import com.SchoolManage.util.CreatData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @Author RainGoal
@@ -197,4 +199,51 @@ public class StudentController {
         int i = studentService.findByMultipleConditionsCount(map);
         return Integer.toString(i);
     }
+
+    @RequestMapping("creatdata")
+    @ResponseBody
+    public String creatData() {
+        String name = "";
+        String familyNameStr = "";
+        Random random = new Random();
+        int id = 10001;
+        String[] banji = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18",
+                "19", "20", "21", "22"};
+        String[] sex = {"男", "女"};
+        String[] position = {"班长", "学委", "心理委员", "副班长", "体育委员", "组织委员", "宣传委员", "团支书", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无", "无"};
+        String[] major = {"软件工程", "大数据", "数字媒体技术", "智能科学技术"};
+        int[] bedroom = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+        String[] direction = {"移动互联","JavaEE","大数据","人工智能"};
+
+        for (int i = 0; i < 20001; i++) {
+            Student student = new Student();
+            Boolean flag = random.nextBoolean();
+            familyNameStr = CreatData.getChineseFamilyName();
+            name = familyNameStr;
+            if (flag) {
+                name += CreatData.getChineseGivenName() + CreatData.getChineseGivenName();
+            } else name += CreatData.getChineseGivenName();
+            student.setName(name);
+            student.setClno("软件学院");
+            student.setBank("88888888888888");
+            student.setComy("2019");
+            student.setId(Integer.toString(id + 1));
+            student.setIdcard("140987200107349988");
+            student.setPresent_class("19" + banji[random.nextInt(22)]);
+            student.setOriginal_class("19" + banji[random.nextInt(22)]);
+            student.setReligion("佛教");
+            student.setNation("汉");
+            student.setSex(sex[random.nextInt(2)]);
+            student.setBedroom_lou(Integer.toString(bedroom[random.nextInt(20)]) + "号楼");
+            student.setPresent_post(position[random.nextInt(40)]);
+            student.setOriginal_post(position[random.nextInt(40)]);
+            student.setMajor(major[random.nextInt(4)]);
+            student.setDirection(direction[random.nextInt(4)]);
+            System.out.println(student);
+            studentService.insertStudent(student);
+            id = id + 1;
+        }
+        return "ok";
+    }
+
 }
