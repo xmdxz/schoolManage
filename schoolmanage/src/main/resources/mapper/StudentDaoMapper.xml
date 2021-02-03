@@ -141,10 +141,10 @@
             </where> limit #{startPage},#{num}
     </select>
     <select id="findByMultipleConditionsCount" resultType="java.lang.Integer">
-        select count (*) from student
+        select count(*) from student
         <where>
-            <foreach collection="maps" index="keys" item="values" separator="and">
-                ${keys} = #{values}
+            <foreach collection="maps" index="key" item="values" separator="and">
+                ${key} = #{values}
             </foreach>
         </where>
     </select>

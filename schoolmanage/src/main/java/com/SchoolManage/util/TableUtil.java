@@ -31,7 +31,7 @@ public class TableUtil<T> {
     public TableUtil(String path, Class clazz) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         String extString = path.substring(path.lastIndexOf("."));
         InputStream inputStream = new FileInputStream(path);
-        Field[] fields = Eneity.class.getDeclaredFields();
+        Field[] fields = Eneity.class.getFields();
         Method method = Eneity.class.getMethod("getPojo");
         for (Field field : fields) {
             if (field.getName().equals(clazz.getSimpleName().toUpperCase())) {
@@ -50,7 +50,7 @@ public class TableUtil<T> {
     public TableUtil(File file, Class clazz) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         String path = file.getName();
         String extString = path.substring(path.lastIndexOf("."));
-        Field[] fields = Eneity.class.getDeclaredFields();
+        Field[] fields = Eneity.class.getFields();
         Method method = Eneity.class.getMethod("getPojo");
         InputStream inputStream = new FileInputStream(file);
         for (Field field : fields) {
@@ -139,4 +139,6 @@ public class TableUtil<T> {
     public int GetRows() {
         return sheet.getLastRowNum() + 1;
     }
+
+
 }
