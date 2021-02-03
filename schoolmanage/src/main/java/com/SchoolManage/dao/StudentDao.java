@@ -36,11 +36,18 @@ public interface StudentDao {
     List<String> findDirection();
 
     /**
-     * 根据现班级查询
+     * 根据现班级查询班干部
      * @param clazz
      * @return
      */
     List<Student> findPresentCadre(String clazz,int startPage,int num);
+
+    /**
+     * 根据现班级职务查询数量
+     * @param clazz
+     * @return
+     */
+    int findPresentCadreCount(String clazz);
 
     /**
      * 根据原班级查询班干部
@@ -49,11 +56,25 @@ public interface StudentDao {
     List<Student> findOriginalCadre(String clazz,int startPage,int num);
 
     /**
+     * 根据原班级查询干部数量
+     * @param clazz
+     * @return
+     */
+    int findOriginalCadreCount(String clazz);
+
+    /**
      * 根据方向查找
      * @param direction
      * @return
      */
     List<Student> findByDirection(String direction,int startPage,int num);
+
+    /**
+     * 根据方向查找数量
+     * @param direction
+     * @return
+     */
+    int findByDirectionCount(String direction);
 
     /**
      * 分页查询，需service计算startPage
@@ -103,6 +124,13 @@ public interface StudentDao {
     List<Student> findByName(String name,int startPage,int num);
 
     /**
+     * 通过姓名查找数量
+     * @param name
+     * @return
+     */
+    int findByNameCount(String name);
+
+    /**
      * 以原班级为单位查询
      * @param original_class
      * @return
@@ -110,17 +138,38 @@ public interface StudentDao {
     List<Student> findByClass_or(String original_class,int startPage,int num);
 
     /**
+     * 根据原班级查询数量
+     * @param original_class
+     * @return
+     */
+    int findByClass_orCount(String original_class);
+
+    /**
      * 以现班级为单位查询
      * @param present_class
      * @return
      */
     List<Student> findByClass_pe(String present_class,int startPage,int num);
+
+    /**
+     * 根据现班级查询数量
+     * @param present_class
+     * @return
+     */
+    int findByClass_peCount(String present_class);
     /**
      * 以专业为单位查询，应该很少用
      * @param major
      * @return
      */
     List<Student> findByMajor(String major,int startPage,int num);
+
+    /**
+     * 根据专业查询数量
+     * @param major
+     * @return
+     */
+    int findByMajorCount(String major);
 
     /**
      * 更新信息

@@ -148,5 +148,46 @@
             </foreach>
         </where>
     </select>
+    <select id="findPresentCadreCount" resultType="java.lang.Integer">
+        select count(*)
+        from student,
+             (select * from original_class where class = #{clazz}) temp
+        where student.id in
+              (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
+               temp.publicize)
+    </select>
+    <select id="findOriginalCadreCount" resultType="java.lang.Integer">
+        select count(*)
+        from student,
+             (select * from original_class where class = #{clazz}) temp
+        where student.id in
+              (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
+               temp.publicize)
+    </select>
+    <select id="findByDirectionCount" resultType="java.lang.Integer">
+        select count(*)
+        from student
+        where direction like "%" #{direction} "%"
+    </select>
+    <select id="findByNameCount" resultType="java.lang.Integer">
+        select count (*)
+        from student
+        where name like "%" #{name} "%"
+    </select>
+    <select id="findByClass_orCount" resultType="java.lang.Integer">
+        select count (*)
+        from student
+        where original_class like "%" #{original_class} "%"
+    </select>
+    <select id="findByClass_peCount" resultType="java.lang.Integer">
+        select count (*)
+        from student
+        where present_class like "%" #{present_class} "%"
+    </select>
+    <select id="findByMajorCount" resultType="java.lang.Integer">
+        select count (*)
+        from student
+        where major like "%" #{major} "%"
+    </select>
 
 </mapper>
