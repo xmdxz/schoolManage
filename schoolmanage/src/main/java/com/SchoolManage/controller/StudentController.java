@@ -79,13 +79,16 @@ public class StudentController {
     @RequestMapping("findbyname")
     @ResponseBody
     public List<Student> findByName(String name,int page,int num) {
+        System.out.println("name"+name);
+        System.out.println("page"+page);
+        System.out.println("num"+num);
         List<Student> byName = studentService.findByName(name,page,num);
         return byName;
     }
     @RequestMapping("findByNameCount")
     @ResponseBody
     public String findByNameCount(String name) {
-        System.out.println(name);
+
         int i = studentService.findByNameCount(name);
         return Integer.toString(i);
     }
