@@ -223,6 +223,7 @@
                         $('#present_class').find('option').remove();
                         $('#present_class').append('<option value="0">请选择</option>');
                     }
+
                     if (data.elem.id == "major") {
                         if(info_1=="0")
                         {
@@ -244,6 +245,8 @@
                             $('#direction').append('<option value="大数据">大数据</option>');
                             $('#direction').append('<option value="嵌入式">嵌入式</option>');
                             layui.form.render("select");
+                            $('#present_class').find('option').remove();
+                            $('#present_class').append('<option value="0">请选择</option>');
                             $('#original_class').find('option').remove();
                             $('#original_class').append('<option value="0">请选择</option>');
                             for (let i = 1; i <= 19; i++) {
@@ -258,6 +261,8 @@
                             $('#direction').append('<option value="方向一">方向一</option>');
                             $('#direction').append('<option value="方向二">方向二</option>');
                             layui.form.render("select");
+                            $('#present_class').find('option').remove();
+                            $('#present_class').append('<option value="0">请选择</option>');
                             $('#original_class').find('option').remove();
                             $('#original_class').append('<option value="0">请选择</option>');
                             for (let i = 1; i <= 2; i++) {
