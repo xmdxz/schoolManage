@@ -53,9 +53,11 @@
             type: "post",
             url: "student/getcount",
             dataType: "json",
+            async: false,
         }).done(function (res) {
-            console.log(Math.ceil(res / everypage))
+            //console.log(Math.ceil(res / everypage))
             allpage = Math.ceil(res / everypage);
+          //  console.log(allpage)
         })
         $.ajax({
             type: "post",
@@ -85,7 +87,7 @@
                 size: "normal",//应该是页眉的大小。
                 bootstrapMajorVersion: 4,//bootstrap的版本要求。
                 alignment: "right",
-                numberOfPages: 5,//一页列出多少数据。
+                numberOfPages: 8,//一页列出多少数据。
                 itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
                     switch (type) {
                         case "first":
@@ -379,12 +381,13 @@
                         type:"post",
                         url:"/student/findByMultipleConditionsCount",
                         dataType:"json",
+                        async: false,
                         data:{major:map.get("major"),direction:map.get("direction"),present_class:
                                 map.get("present_class"),original_class:map.get("original_class"),
                             present_post:map.get("present_post"),original_post:map.get("original_post")}
                     }).done(function (res) {
-                        console.log(res)
                         allpage_1=Math.ceil(res / everypage_1);
+                        console.log(allpage_1)
                     })
                     $.ajax({
                         type:"post",
@@ -418,7 +421,7 @@
                             size: "normal",//应该是页眉的大小。
                             bootstrapMajorVersion: 4,//bootstrap的版本要求。
                             alignment: "right",
-                            numberOfPages: 5,//一页列出多少数据。
+                            numberOfPages: 8,//一页列出多少数据。
                             itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
                                 switch (type) {
                                     case "first":
