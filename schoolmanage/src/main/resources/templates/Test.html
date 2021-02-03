@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>下载测试</title>
+    <script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $("#bt1").click(function (){
+                $.ajax({
+                    url: 'student/Excle',
+                    dataType: 'text',
+                    success(res){
+                        console.log(res)
+                        $("#a").attr("href",res)
+                        console.log($("#a")[0])
+                        $("#a")[0].click()
+                    }
+                })
+            })
+        })
+    </script>
+
+</head>
+<body>
+<button type="button" id="bt1" >点击</button>
+<a download id="a" href="">下载</a>
+</body>
+</html>

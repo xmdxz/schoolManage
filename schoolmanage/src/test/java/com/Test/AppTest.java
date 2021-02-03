@@ -11,8 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class AppTest {
-//    @Test
-//    public void Test1(){
+    @Test
+    public void Test1(){
 //        try {
 //            //path写实际path
 //            TableUtil<Student> tableUtil = new TableUtil<Student>("path",Student.class);
@@ -30,5 +30,5 @@ public class AppTest {
 //            //此处应处理表格问题，返回前端
 //            e.printStackTrace();
 //        }
-//    }
+    }
 }

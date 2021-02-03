@@ -34,7 +34,7 @@ public class TableUtil<T> {
         Field[] fields = Eneity.class.getFields();
         Method method = Eneity.class.getMethod("getPojo");
         for (Field field : fields) {
-            if (field.getName().equals(clazz.getSimpleName().toUpperCase())) {
+            if (field.getName().equalsIgnoreCase(clazz.getSimpleName().toUpperCase())) {
                 this.eneity = (Map<String, String>) method.invoke((Eneity) field.get(field), null);
                 break;
             }
@@ -54,7 +54,7 @@ public class TableUtil<T> {
         Method method = Eneity.class.getMethod("getPojo");
         InputStream inputStream = new FileInputStream(file);
         for (Field field : fields) {
-            if (field.getName().equals(clazz.getSimpleName().toUpperCase())) {
+            if (field.getName().equalsIgnoreCase(clazz.getSimpleName().toUpperCase())) {
                 this.eneity = (Map<String, String>) method.invoke((Eneity) field.get(field), null);
                 break;
             }

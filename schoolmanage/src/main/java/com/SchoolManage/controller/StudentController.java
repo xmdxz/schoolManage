@@ -4,11 +4,15 @@ import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.FeaturesService;
 import com.SchoolManage.service.StudentService;
 import com.SchoolManage.util.CreatData;
+import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -244,6 +248,14 @@ public class StudentController {
             id = id + 1;
         }
         return "ok";
+    }
+
+    @RequestMapping(value = "Excle",produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException {
+        CreateExlceUtil<Student> createExlceUtil = new CreateExlceUtil<>(request,Student.class,"学生表");
+        List<Student> list = studentService.findAll();
+        return createExlceUtil.createExcle(list);
     }
 
 }
