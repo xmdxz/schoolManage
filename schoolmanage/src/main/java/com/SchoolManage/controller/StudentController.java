@@ -194,7 +194,6 @@ public class StudentController {
         if (original_post != null){
             map.put("original_post", original_post);
         }
-        System.out.println("新map"+map);
         int i = studentService.findByMultipleConditionsCount(map);
         return Integer.toString(i);
     }

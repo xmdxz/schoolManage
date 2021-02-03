@@ -218,9 +218,23 @@
                     {   map.clear();
                         map.set(key,info_1)
                     }
+                    if(data.elem.id=="direction"&&info_1!="0")
+                    {
+                        $('#present_class').find('option').remove();
+                        $('#present_class').append('<option value="0">请选择</option>');
+                    }
                     if (data.elem.id == "major") {
                         if(info_1=="0")
+                        {
                             map.clear();
+                            $('#direction').find('option').remove();
+                            $('#direction').append('<option value="0">请选择</option>');
+                            $('#present_class').find('option').remove();
+                            $('#present_class').append('<option value="0">请选择</option>');
+                            $('#original_class').find('option').remove();
+                            $('#original_class').append('<option value="0">请选择</option>');
+                            layui.form.render("select");
+                        }
                         if (info_1 == "软件工程") {
                             $('#direction').find('option').remove();
                             $('#direction').append('<option value="0">请选择</option>');
