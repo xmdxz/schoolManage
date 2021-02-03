@@ -105,5 +105,5 @@ public interface StudentService {
      * 根据多条件筛选
      * @param conditions
      */
-    List<Student> findByMultipleConditions(Map<String,String> conditions);
+    List<Student> findByMultipleConditions(Map<String,String> conditions,int page,int num);
 }

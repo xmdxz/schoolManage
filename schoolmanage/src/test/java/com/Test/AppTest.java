@@ -19,11 +19,11 @@ public class AppTest {
             List<Student> list = tableUtil.GetTableRowContent();
             //调用插入接口
             //批量上传，list集合过大，不知是否成功，如果有问题，转变为单一插入
-            StudentDao.insertBatchStudent(list);
+//            StudentDao.insertBatchStudent(list);
             //单一插入（二选一）
-            for (int i = 0 ;i <list.size();i++){
-                StudentDao.insertStudent(list.get(i));
-            }
+//            for (int i = 0 ;i <list.size();i++){
+////                StudentDao.insertStudent(list.get(i));
+//            }
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
         } catch (FieldNotExistException e) {

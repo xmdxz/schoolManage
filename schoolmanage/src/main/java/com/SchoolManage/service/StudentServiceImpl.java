@@ -82,7 +82,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByMultipleConditions(Map<String, String> conditions) {
-        return studentDao.findByMultipleConditions(conditions);
+    public List<Student> findByMultipleConditions(Map<String, String> conditions,int page, int num) {
+        int startpage = (page-1)*num;
+        return studentDao.findByMultipleConditions(conditions,startpage,num);
     }
 }

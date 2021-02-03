@@ -138,7 +138,7 @@
                 <foreach collection="map" index="key" item="value" separator="and">
                     ${key} = #{value}
                 </foreach>
-            </where>
+            </where> limit #{startPage},#{num}
     </select>
 
 </mapper>

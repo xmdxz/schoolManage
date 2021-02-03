@@ -146,7 +146,7 @@ public class StudentController {
     @RequestMapping("findByMultipleConditions")
     @ResponseBody
     public List<Student> findByMultipleConditions(String major, String direction, String present_class
-            , String original_class, String present_post, String original_post) {
+            , String original_class, String present_post, String original_post,int page, int num) {
 
         Map<String, String> map = new HashMap<>();
         if (major != null){
@@ -168,6 +168,6 @@ public class StudentController {
             map.put("original_post", original_post);
         }
         System.out.println(map);
-        return studentService.findByMultipleConditions(map);
+        return studentService.findByMultipleConditions(map,page,num);
     }
 }
