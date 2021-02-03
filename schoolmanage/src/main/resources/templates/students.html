@@ -47,7 +47,7 @@
     <script th:src="@{/assets/js/bootstrap-paginator.js}"></script>
 
     <script type="text/javascript">
-        const everypage = 2; //每页的数量
+        const everypage = 20; //每页的数量
         var allpage = 1;
         $.ajax({
             type: "post",
@@ -175,7 +175,7 @@
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         var info_1;
-        const everypage_1 = 2; //每页的数量
+        const everypage_1 = 20; //每页的数量
         var allpage_1 = 1;
         var map = new Map();
         $(document).ready(function () {
