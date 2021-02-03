@@ -357,14 +357,25 @@
                     console.log(map);
                     $.ajax({
                         type:"post",
+                        url:"/student/findByMultipleConditionsCount",
+                        dataType:"json",
+                        data:{major:map.get("major"),direction:map.get("direction"),present_class:
+                                map.get("present_class"),original_class:map.get("original_class"),
+                            present_post:map.get("present_post"),original_post:map.get("original_post")}
+                    }).done(function (res) {
+                        console.log(res)
+                        allpage_1=Math.ceil(res / everypage_1);
+                    })
+                    $.ajax({
+                        type:"post",
                         url:"/student/findByMultipleConditions",
                         dataType:"json",
                         data:{major:map.get("major"),direction:map.get("direction"),present_class:
                         map.get("present_class"),original_class:map.get("original_class"),
                             present_post:map.get("present_post"),original_post:map.get("original_post"),page: 1, num: everypage_1},
                     }).done(function(res){
-                        console.log(res.length);
-                        allpage_1=Math.ceil(res.length / everypage_1);
+                        //console.log(res.length);
+                        //allpage_1=Math.ceil(res.length / everypage_1);
                         var msg = "";
                         $.each(res, function (i, n) {
                             msg += "<tr>";

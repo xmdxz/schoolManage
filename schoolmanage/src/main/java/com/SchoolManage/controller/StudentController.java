@@ -170,4 +170,32 @@ public class StudentController {
         System.out.println(map);
         return studentService.findByMultipleConditions(map,page,num);
     }
+    @RequestMapping("findByMultipleConditionsCount")
+    @ResponseBody
+    public String findByMultipleConditionsCount(String major, String direction, String present_class
+            , String original_class, String present_post, String original_post) {
+
+        Map<String, String> map = new HashMap<>();
+        if (major != null){
+            map.put("major", major);
+        }
+        if (direction != null) {
+            map.put("direction", direction);
+        }
+        if (present_class != null){
+            map.put("present_class", present_class);
+        }
+        if (original_class != null){
+            map.put("original_class", original_class);
+        }
+        if (present_post != null){
+            map.put("present_post", present_post);
+        }
+        if (original_post != null){
+            map.put("original_post", original_post);
+        }
+        System.out.println("新map"+map);
+        int i = studentService.findByMultipleConditionsCount(map);
+        return Integer.toString(i);
+    }
 }

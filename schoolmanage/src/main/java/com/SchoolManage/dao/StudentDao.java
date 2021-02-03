@@ -23,7 +23,12 @@ public interface StudentDao {
      * @return
      */
     List<Student> findByMultipleConditions(@Param(value = "map") Map<String, String> conditions,int startPage,int num);
-
+    /**
+     * 多条件查询结果数量
+     * @param nconditions
+     * @return
+     */
+    int findByMultipleConditionsCount(@Param(value = "maps") Map<String, String> nconditions);
     /**
      * 查询方向分类
      * @return

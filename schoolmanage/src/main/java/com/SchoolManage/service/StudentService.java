@@ -106,4 +106,10 @@ public interface StudentService {
      * @param conditions
      */
     List<Student> findByMultipleConditions(Map<String,String> conditions,int page,int num);
+
+    /**
+     * 多条件查询结果数量
+     *
+     */
+    int findByMultipleConditionsCount(Map<String,String> nconditions);
 }

@@ -86,4 +86,10 @@ public class StudentServiceImpl implements StudentService {
         int startpage = (page-1)*num;
         return studentDao.findByMultipleConditions(conditions,startpage,num);
     }
+
+    @Override
+    public int findByMultipleConditionsCount(Map<String, String> nconditions) {
+        System.out.println("service层实现"+nconditions);
+        return studentDao.findByMultipleConditionsCount(nconditions);
+    }
 }
