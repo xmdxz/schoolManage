@@ -112,4 +112,8 @@ public interface StudentService {
      *
      */
     int findByMultipleConditionsCount(Map<String,String> nconditions);
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
 }

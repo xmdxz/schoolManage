@@ -1,10 +1,14 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.dao.StudentDao;
+import com.SchoolManage.exception.FieldNotExistException;
 import com.SchoolManage.pojo.Student;
+import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +30,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findPage(int page, int num) {
-        int startpage = (page-1)*num;
+        int startpage = (page - 1) * num;
         List<Student> page1 = studentDao.findPage(startpage, num);
         return page1;
     }
@@ -82,14 +86,40 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByMultipleConditions(Map<String, String> conditions,int page, int num) {
-        int startpage = (page-1)*num;
-        return studentDao.findByMultipleConditions(conditions,startpage,num);
+    public List<Student> findByMultipleConditions(Map<String, String> conditions, int page, int num) {
+        int startpage = (page - 1) * num;
+        return studentDao.findByMultipleConditions(conditions, startpage, num);
     }
 
     @Override
     public int findByMultipleConditionsCount(Map<String, String> nconditions) {
-        System.out.println("service层实现"+nconditions);
+        System.out.println("service层实现" + nconditions);
         return studentDao.findByMultipleConditionsCount(nconditions);
+    }
+
+    @Override
+    public int BatchAddition(String path) {
+        int num=0;
+        try {
+            //path写实际path
+            String Path=path;
+            TableUtil<Student> tableUtil = new TableUtil<Student>("Path", Student.class);
+            List<Student> list = tableUtil.GetTableRowContent();
+            //调用插入接口
+            //批量上传，list集合过大，不知是否成功，如果有问题，转变为单一插入
+            num=studentDao.insertBatchStudent(list);
+            //单一插入（二选一）
+            for (int i = 0; i < list.size(); i++) {
+                num=studentDao.insertStudent(list.get(i));
+            }
+        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
+            e.printStackTrace();
+            return  -2;
+        } catch (FieldNotExistException e) {
+            //此处应处理表格问题，返回前端
+            e.printStackTrace();
+            return  -3;
+        }
+        return num;
     }
 }

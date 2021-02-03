@@ -1,13 +1,17 @@
 package com.SchoolManage.controller;
 
-import com.SchoolManage.dao.StudentDao;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.FeaturesService;
 import com.SchoolManage.service.StudentService;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,55 +150,75 @@ public class StudentController {
     @RequestMapping("findByMultipleConditions")
     @ResponseBody
     public List<Student> findByMultipleConditions(String major, String direction, String present_class
-            , String original_class, String present_post, String original_post,int page, int num) {
+            , String original_class, String present_post, String original_post, int page, int num) {
 
         Map<String, String> map = new HashMap<>();
-        if (major != null){
+        if (major != null) {
             map.put("major", major);
         }
         if (direction != null) {
             map.put("direction", direction);
         }
-        if (present_class != null){
+        if (present_class != null) {
             map.put("present_class", present_class);
         }
-        if (original_class != null){
+        if (original_class != null) {
             map.put("original_class", original_class);
         }
-        if (present_post != null){
+        if (present_post != null) {
             map.put("present_post", present_post);
         }
-        if (original_post != null){
+        if (original_post != null) {
             map.put("original_post", original_post);
         }
         System.out.println(map);
-        return studentService.findByMultipleConditions(map,page,num);
+        return studentService.findByMultipleConditions(map, page, num);
     }
+
     @RequestMapping("findByMultipleConditionsCount")
     @ResponseBody
     public String findByMultipleConditionsCount(String major, String direction, String present_class
             , String original_class, String present_post, String original_post) {
 
         Map<String, String> map = new HashMap<>();
-        if (major != null){
+        if (major != null) {
             map.put("major", major);
         }
         if (direction != null) {
             map.put("direction", direction);
         }
-        if (present_class != null){
+        if (present_class != null) {
             map.put("present_class", present_class);
         }
-        if (original_class != null){
+        if (original_class != null) {
             map.put("original_class", original_class);
         }
-        if (present_post != null){
+        if (present_post != null) {
             map.put("present_post", present_post);
         }
-        if (original_post != null){
+        if (original_post != null) {
             map.put("original_post", original_post);
         }
         int i = studentService.findByMultipleConditionsCount(map);
         return Integer.toString(i);
+    }
+
+    @RequestMapping("BatchAddition")
+    @ResponseBody
+    public String BatchAddition(MultipartFile file) throws IOException {
+        String msg = null;
+        String path=null;
+        XSSFWorkbook wb = null;
+        InputStream input=file.getInputStream();
+        System.out.println(input);
+        wb=new XSSFWorkbook(input);
+        System.out.println(wb);
+        int i = studentService.BatchAddition(path);
+        if (i == -1 || i == -2 || i == -3) {
+            msg = "上传的表格不匹配,请进行修改后重先上传";
+        } else {
+            msg = Integer.toString(i);
+        }
+        return msg;
     }
 }
