@@ -67,22 +67,22 @@
     <select id="findByName" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where name like "%" #{name} "%"
+        where name like "%" #{name} "%" limit #{startPage},#{num}
     </select>
     <select id="findByClass_or" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where original_class like "%" #{original_class} "%"
+        where original_class like "%" #{original_class} "%" limit #{startPage},#{num}
     </select>
     <select id="findByMajor" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where major like "%" #{major} "%"
+        where major like "%" #{major} "%" limit #{startPage},#{num}
     </select>
     <select id="findByClass_pe" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where present_class like "%" #{present_class} "%"
+        where present_class like "%" #{present_class} "%" limit #{startPage},#{num}
     </select>
     <select id="findAll" resultType="com.SchoolManage.pojo.Student">
         select *
@@ -103,7 +103,7 @@
     <select id="findByDirection" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where direction like "%" #{direction} "%"
+        where direction like "%" #{direction} "%" limit #{startPage},#{num}
     </select>
     <delete id="deleteStudent" parameterType="String">
         delete
@@ -117,7 +117,7 @@
              (select * from original_class where class = #{clazz}) temp
         where student.id in
               (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
-               temp.publicize);
+               temp.publicize) limit #{startPage},#{num}
     </select>
     <select id="findDirection" resultType="java.lang.String">
         select direction
@@ -130,7 +130,7 @@
              (select * from original_class where class = #{clazz}) temp
         where student.id in
               (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
-               temp.publicize);
+               temp.publicize) limit #{startPage},#{num}
     </select>
     <select id="findByMultipleConditions" resultType="com.SchoolManage.pojo.Student">
         select * from student

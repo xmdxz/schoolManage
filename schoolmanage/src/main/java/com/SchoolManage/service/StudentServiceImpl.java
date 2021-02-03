@@ -24,8 +24,9 @@ public class StudentServiceImpl implements StudentService {
     private StudentDao studentDao;
 
     @Override
-    public List<Student> findByDirection(String direction) {
-        return studentDao.findByDirection(direction);
+    public List<Student> findByDirection(String direction,int page, int num) {
+        int startpage = (page - 1) * num;
+        return studentDao.findByDirection(direction,startpage,num);
     }
 
     @Override
@@ -46,23 +47,27 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByName(String name) {
-        return studentDao.findByName(name);
+    public List<Student> findByName(String name,int page, int num) {
+        int startpage = (page - 1) * num;
+        return studentDao.findByName(name,startpage,num);
     }
 
     @Override
-    public List<Student> findByClass_or(String original_class) {
-        return studentDao.findByClass_or(original_class);
+    public List<Student> findByClass_or(String original_class,int page, int num) {
+        int startpage = (page - 1) * num;
+        return studentDao.findByClass_or(original_class,startpage,num);
     }
 
     @Override
-    public List<Student> findByClass_pe(String present_class) {
-        return studentDao.findByClass_pe(present_class);
+    public List<Student> findByClass_pe(String present_class,int page,int num) {
+        int startpage = (page - 1) * num;
+        return studentDao.findByClass_pe(present_class,startpage,num);
     }
 
     @Override
-    public List<Student> findByMajor(String major) {
-        return studentDao.findByMajor(major);
+    public List<Student> findByMajor(String major,int page,int num) {
+        int startpage = (page - 1) * num;
+        return studentDao.findByMajor(major,startpage,num);
     }
 
     @Override

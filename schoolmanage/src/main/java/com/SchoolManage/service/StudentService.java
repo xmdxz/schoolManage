@@ -19,7 +19,7 @@ public interface StudentService {
      * @param direction
      * @return
      */
-    List<Student> findByDirection(String direction);
+    List<Student> findByDirection(String direction,int page, int num);
 
     /**
      * 分页查询，需service计算startPage
@@ -47,27 +47,27 @@ public interface StudentService {
      * @param name
      * @return 不排除同名学生，所以返回list
      */
-    List<Student> findByName(String name);
+    List<Student> findByName(String name,int page,int num);
 
     /**
      * 以原班级为单位查询
      * @param original_class
      * @return
      */
-    List<Student> findByClass_or(String original_class);
+    List<Student> findByClass_or(String original_class,int page,int num);
 
     /**
      * 以现班级为单位查询
      * @param present_class
      * @return
      */
-    List<Student> findByClass_pe(String present_class);
+    List<Student> findByClass_pe(String present_class,int page,int num);
     /**
      * 以专业为单位查询，应该很少用
      * @param major
      * @return
      */
-    List<Student> findByMajor(String major);
+    List<Student> findByMajor(String major,int page,int num);
 
     /**
      * 更新信息

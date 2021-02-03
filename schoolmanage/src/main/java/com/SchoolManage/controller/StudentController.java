@@ -64,8 +64,8 @@ public class StudentController {
 
     @RequestMapping("findbydirection")
     @ResponseBody
-    public List<Student> findByDirection(String direction) {
-        List<Student> byDirection = studentService.findByDirection(direction);
+    public List<Student> findByDirection(String direction,int page,int num) {
+        List<Student> byDirection = studentService.findByDirection(direction,page,num);
         return byDirection;
     }
 
@@ -78,29 +78,29 @@ public class StudentController {
 
     @RequestMapping("findbyname")
     @ResponseBody
-    public List<Student> findByName(String name) {
-        List<Student> byName = studentService.findByName(name);
+    public List<Student> findByName(String name,int page,int num) {
+        List<Student> byName = studentService.findByName(name,page,num);
         return byName;
     }
 
     @RequestMapping("findbyclass_or")
     @ResponseBody
-    public List<Student> findByClass_or(String original_class) {
-        List<Student> byClass_or = studentService.findByClass_or(original_class);
+    public List<Student> findByClass_or(String original_class,int page,int num) {
+        List<Student> byClass_or = studentService.findByClass_or(original_class,page,num);
         return byClass_or;
     }
 
     @RequestMapping("findbyclass_pe")
     @ResponseBody
-    public List<Student> findByClass_pe(String present_class) {
-        List<Student> byClass_pe = studentService.findByClass_pe(present_class);
+    public List<Student> findByClass_pe(String present_class,int page,int num) {
+        List<Student> byClass_pe = studentService.findByClass_pe(present_class,page,num);
         return byClass_pe;
     }
 
     @RequestMapping("findbymajor")
     @ResponseBody
-    public List<Student> findByMajor(String major) {
-        List<Student> bymajor = studentService.findByMajor(major);
+    public List<Student> findByMajor(String major,int page,int num) {
+        List<Student> bymajor = studentService.findByMajor(major,page,num);
         return bymajor;
     }
 
