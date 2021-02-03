@@ -442,8 +442,76 @@
 
                         });
                     })
+
                 });
-            })
+            });
+            $("#sousuo").click(function(){
+                var a=$("#Search").val();
+                if(isNumber(a))
+                {
+                    console.log(a);
+                    $.ajax({
+                        type:"post",
+                        url:"/student/findbyid",
+                        data:{'id':a},
+                        dataType:"json",
+                    }).done(function (res) {
+                        if(res!=null)
+                        {
+                            var msg = "";
+                                msg += "<tr>";
+                                msg += "<td>" + res.id + "</td>";
+                                msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + ">" + res.name + "</a></h2></td>";
+                                msg += "<td>" + res.present_class + "</td>";
+                                msg += "<td>" + res.original_class + "</td>";
+                                msg += "<td>" + res.present_post + "</td>";
+                                msg += "<td>" + res.original_post + "</td>";
+                                msg += "<td>" + res.clno + "</td>";
+                                msg += "<td>" + res.bedroom_lou + res.bedroom_hao + "</td>";
+                                msg += "<td>" + res.phone + "</td>";
+                                msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + res.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + res.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+                                msg += "</tr>";
+                            $("#student").html(msg);
+                            $('#example').bootstrapPaginator({
+                                currentPage: 1,//当前的请求页面。
+                                totalPages: 1,//一共多少页。
+                                size: "normal",//应该是页眉的大小。
+                                bootstrapMajorVersion: 4,//bootstrap的版本要求。
+                                alignment: "right",
+                                numberOfPages: 1,//一页列出多少数据。
+                                itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                                    switch (type) {
+                                        case "first":
+                                            return "首页";
+                                        case "prev":
+                                            return "上一页";
+                                        case "next":
+                                            return "下一页";
+                                        case "last":
+                                            return "末页";
+                                        case "page":
+                                            return page;
+                                    }
+                                },
+                            })
+                        }
+
+                    })
+                }
+                else {
+                    console.log(a);
+                    $.ajax({
+                        type: "post",
+                        url: "student/findByNameCount",
+                        data:{name:a},
+                        dataType: "json",
+                        async: false,
+                    }).done(function (res) {
+                        console.log(res)
+                    })
+                }
+            });
+
         });
         function newpage_1(res) {
             var page = res
@@ -473,6 +541,15 @@
                 $("#student").html(msg);
             })
         }
+        function isNumber(val) {
+            var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+            var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+            if(regPos.test(val) || regNeg.test(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     </script>
 </head>
 <body>
@@ -501,8 +578,8 @@
         <!-- Search Bar -->
         <div class="top-nav-search">
             <form>
-                <input type="text" class="form-control" placeholder="Search here">
-                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                <input type="text" class="form-control" placeholder="搜索" id="Search">
+                <button class="btn" type="button" id="sousuo"><i class="fas fa-search"></i></button>
             </form>
         </div>
         <!-- /Search Bar -->

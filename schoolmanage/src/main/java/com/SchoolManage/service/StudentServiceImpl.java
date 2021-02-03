@@ -103,6 +103,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public int findByNameCount(String name) {
+        return studentDao.findByNameCount(name);
+    }
+
+    @Override
     public int BatchAddition(String path) {
         int num=0;
         try {
