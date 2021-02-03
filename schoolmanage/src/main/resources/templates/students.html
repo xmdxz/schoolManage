@@ -177,12 +177,13 @@
         var info_1;
         const everypage_1 = 2; //每页的数量
         var allpage_1 = 1;
+        var map = new Map();
         $(document).ready(function () {
             $('#InfoName').text(name);
             layui.use(['form', 'layedit', 'laydate'], function () {
                 var form = layui.form;
                 var layer = layui.layer;
-                var map = new Map();
+
                 form.on('select(major)', function (data) {
                     console.log(data);
                     var key=data.elem.id;
