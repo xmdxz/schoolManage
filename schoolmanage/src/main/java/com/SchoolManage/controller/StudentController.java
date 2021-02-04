@@ -7,10 +7,14 @@ import com.SchoolManage.util.CreatData;
 import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -287,5 +291,35 @@ public class StudentController {
         List<Student> list = studentService.findByMultipleConditions(map,1,i);
         return createExlceUtil.createExcle(list);
     }
+    @PostMapping("upfile")
+    @ResponseBody
+    public String upfile(@RequestParam("file") MultipartFile file){
+        if (file==null){
+            return "请选择文件";
+        }
+        try {
+            String filename = file.getOriginalFilename();
+            String extFileName = filename.substring(filename.lastIndexOf("." ) +1,filename.length());
+//            System.out.println("文件名:\t"+filename);
+//            System.out.println("后缀名:\t"+extFileName);
+            //上传到本地,模拟上传到文件服务器
+            String filePath= "D:\\shixun\\";
+            String path = filePath + filename;
+            int i=studentService.BatchAddition(path);
+            //文件存储路径
+            File dest = new File(path);
+            if (!dest.getParentFile().exists()){
+                dest.getParentFile().mkdir();
+            }
+            file.transferTo(dest);
+            if(i==-1||i==-2||i==-3)
+                return "上传的表格不匹配,请进行修改后重先上传";
+            else
+                return "上传成功了";
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败了";
+    }
 }
