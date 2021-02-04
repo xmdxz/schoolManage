@@ -305,19 +305,20 @@ public class StudentController {
             //上传到本地,模拟上传到文件服务器
             String filePath= "D:\\shixun\\";
             String path = filePath + filename;
-            int i=66;
-            try {
-                i=studentService.BatchAddition(path);
-            }catch (Exception e)
-            {
-               return "上传的表格不匹配,请进行修改后重先上传";
-            }
             //文件存储路径
             File dest = new File(path);
             if (!dest.getParentFile().exists()){
                 dest.getParentFile().mkdir();
             }
             file.transferTo(dest);
+            int i=66;
+            try {
+                System.out.println(path);
+                i=studentService.BatchAddition(path);
+            }catch (Exception e)
+            {
+                return "上传的表格不匹配,请进行修改后重先上传";
+            }
                 return "上传成功了";
 
         } catch (IOException e) {
