@@ -111,16 +111,11 @@ public class StudentServiceImpl implements StudentService {
         int num=0;
         try {
             //path写实际path
-            String Path=path;
-            TableUtil<Student> tableUtil = new TableUtil<Student>("Path", Student.class);
+            TableUtil<Student> tableUtil = new TableUtil<Student>(path, Student.class);
             List<Student> list = tableUtil.GetTableRowContent();
             //调用插入接口
-            //批量上传，list集合过大，不知是否成功，如果有问题，转变为单一插入
+            //批量上传，list集合
             num=studentDao.insertBatchStudent(list);
-            //单一插入（二选一）
-            for (int i = 0; i < list.size(); i++) {
-                num=studentDao.insertStudent(list.get(i));
-            }
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
             return  -2;

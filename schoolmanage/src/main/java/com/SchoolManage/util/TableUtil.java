@@ -74,8 +74,11 @@ public class TableUtil<T> {
             Cell cell = row.getCell(i);
             if (cell != null) {
                 cell.setCellType(CellType.STRING);
-                if (!("".equals(cell.getStringCellValue()))) {
-                    arrayList.add(cell.getStringCellValue());
+                String field = cell.getStringCellValue();
+                if (!("".equals(field))) {
+                    field = field.trim();
+                    field = field.replaceAll(" ","");
+                    arrayList.add(field);
                 }
             }
         }

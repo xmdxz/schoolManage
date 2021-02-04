@@ -293,7 +293,7 @@ public class StudentController {
     }
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(@RequestParam("file") MultipartFile file){
+    public String upfile(HttpServletRequest request,@RequestParam("file") MultipartFile file){
         if (file==null){
             return "请选择文件";
         }
@@ -303,7 +303,7 @@ public class StudentController {
 //            System.out.println("文件名:\t"+filename);
 //            System.out.println("后缀名:\t"+extFileName);
             //上传到本地,模拟上传到文件服务器
-            String filePath= "D:\\shixun\\";
+            String filePath = request.getServletContext().getRealPath("/") + "File\\" ;
             String path = filePath + filename;
             //文件存储路径
             File dest = new File(path);
