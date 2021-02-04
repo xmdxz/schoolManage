@@ -315,11 +315,12 @@ public class StudentController {
             try {
                 System.out.println(path);
                 i=studentService.BatchAddition(path);
+                return "上传成功了";
             }catch (Exception e)
             {
                 return "上传的表格不匹配,请进行修改后重先上传";
             }
-                return "上传成功了";
+
 
         } catch (IOException e) {
             e.printStackTrace();
