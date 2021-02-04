@@ -172,13 +172,15 @@
                 });
 
         }
-
         //获取缓存中登录账号的信息
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         var info_1;
         const everypage_1 = 20; //每页的数量
         var allpage_1 = 1;
+        var a=null;
+        const everypage_2 = 20; //每页的数量
+        var allpage_2= 1;
         var map = new Map();
         $(document).ready(function () {
             $('#InfoName').text(name);
@@ -446,7 +448,7 @@
                 });
             });
             $("#sousuo").click(function(){
-                var a=$("#Search").val();
+                 a=$("#Search").val();
                 if(isNumber(a))
                 {
                     console.log(a);
@@ -499,7 +501,7 @@
                     })
                 }
                 else {
-                    console.log(a);
+                    console.log(a+"666");
                     $.ajax({
                         type: "post",
                         url: "student/findByNameCount",
@@ -508,6 +510,55 @@
                         async: false,
                     }).done(function (res) {
                         console.log(res)
+                        allpage_2 = Math.ceil(res / everypage_2);
+                    })
+                    $.ajax({
+                        type: "post",
+                        url: "student/findbyname",
+                        dataType: "json",
+                        data: {name:a,'page': 1, 'num': everypage_2},
+                    }).done(function (res) {
+                        var msg = "";
+                        $.each(res, function (i, n) {
+                            msg += "<tr>";
+                            msg += "<td>" + n.id + "</td>";
+                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                            msg += "<td>" + n.present_class + "</td>";
+                            msg += "<td>" + n.original_class + "</td>";
+                            msg += "<td>" + n.present_post + "</td>";
+                            msg += "<td>" + n.original_post + "</td>";
+                            msg += "<td>" + n.clno + "</td>";
+                            msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                            msg += "<td>" + n.phone + "</td>";
+                            msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+                            msg += "</tr>";
+                        });
+                        $("#student").html(msg);
+                        $('#example').bootstrapPaginator({
+                            currentPage: 1,//当前的请求页面。
+                            totalPages: allpage_2,//一共多少页。
+                            size: "normal",//应该是页眉的大小。
+                            bootstrapMajorVersion: 4,//bootstrap的版本要求。
+                            alignment: "right",
+                            numberOfPages: 8,//一页列出多少数据。
+                            itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                                switch (type) {
+                                    case "first":
+                                        return "首页";
+                                    case "prev":
+                                        return "上一页";
+                                    case "next":
+                                        return "下一页";
+                                    case "last":
+                                        return "末页";
+                                    case "page":
+                                        return page;
+                                }
+                            },
+                            onPageClicked: function (event, originalEvent, type, page) {
+                                newpage_2(page)
+                            }
+                        });
                     })
                 }
             });
@@ -549,6 +600,32 @@
             } else {
                 return false;
             }
+        }
+        function newpage_2(res) {
+            var page = res
+            $.ajax({
+                type: "post",
+                url: "student/findbyname",
+                dataType: "json",
+                data: {name:a,page: page, num: everypage_2},
+            }).done(function (res) {
+                var msg = "";
+                $.each(res, function (i, n) {
+                    msg += "<tr>";
+                    msg += "<td>" + n.id + "</td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                    msg += "<td>" + n.present_class + "</td>";
+                    msg += "<td>" + n.original_class + "</td>";
+                    msg += "<td>" + n.present_post + "</td>";
+                    msg += "<td>" + n.original_post + "</td>";
+                    msg += "<td>" + n.clno + "</td>";
+                    msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                    msg += "<td>" + n.phone + "</td>";
+                    msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+                    msg += "</tr>";
+                });
+                $("#student").html(msg);
+            })
         }
     </script>
 </head>
