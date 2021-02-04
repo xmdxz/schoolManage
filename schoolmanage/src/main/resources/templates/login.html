@@ -1,183 +1,393 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>学生信息管理系统 - 登录</title>
-		<!-- jQuery -->
-		<script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>学生信息管理系统 - 登录</title>
+    <!-- jQuery -->
+    <script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
 
-		<!-- Favicon -->
-        <link rel="shortcut icon" th:href="@{/assets/img/favicon.png}">
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/assets/img/favicon.png}">
 
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap">
 
-		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}">
 
-		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
-		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
 
-		<!-- Main CSS -->
-        <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-		<!-- alert beautiful-->
-		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
-		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
+    <!-- Main CSS -->
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <!-- alert beautiful-->
+    <link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
+    <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
 
-		<script type="text/javascript">
+    <script type="text/javascript">
 
-			//$("#captchacode").keydown(function (even) {
-			//	console.log(even)
-			//	if (even.which == 13) {
-			//		console.log("ok")
-			//		check();
-			//	}
-			//});
-			function enter(e ) {
-				var evt = window.event || e;
-				if (evt.keyCode==13){
-					setTimeout("check()", "10");
-				}
-			};
-			function next(e) {
-				var evt = window.event || e;
-				if (evt.keyCode==13){
-					$("#password").focus();
-				}
-			};
-			function nextt(e) {
-				var evt = window.event || e;
-				if (evt.keyCode==13){
-					$("#captchacode").focus();
-				}
-			};
-				function check(){
-				var username =$("#usname").val();
-				var password =$("#password").val();
-				var acode =$("#captchacode").val();
+        //$("#captchacode").keydown(function (even) {
+        //	console.log(even)
+        //	if (even.which == 13) {
+        //		console.log("ok")
+        //		check();
+        //	}
+        //});
+        function enter(e) {
+            var evt = window.event || e;
+            if (evt.keyCode == 13) {
+                setTimeout("check()", "10");
+            }
+        };
 
-				var flag = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]")
+        function next(e) {
+            var evt = window.event || e;
+            if (evt.keyCode == 13) {
+                $("#password").focus();
+            }
+        };
 
-				if(username==""||password==""){
-					swal("账号密码不得为空","","warning")
-					var autoimg = $("#autoimg").attr("src");
-					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+        function nextt(e) {
+            var evt = window.event || e;
+            if (evt.keyCode == 13) {
+                $("#captchacode").focus();
+            }
+        };
 
-				}else if(acode==""){
-					swal("验证码不得为空","","warning")
-					var autoimg = $("#autoimg").attr("src");
-					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
-				}else if(password.length<6){
-					swal("密码长度不得小于六位","","warning")
-					var autoimg = $("#autoimg").attr("src");
-					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
-				}else if(flag.test(username)){
-					swal("账号中不允许存在特殊符号","","warning")
-					var autoimg = $("#autoimg").attr("src");
-					$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
-				}else{
-					//请求登录接口
-					$.ajax({
-						type:"post",
-						url:"/admin/login",
-						dataType:"json",
-						data:{'username':username,'password':password,'captchacode':acode},
-					}).done(function(result){
-						if (result.code==500){
-							swal(result.msg,"","warning")
-							$("#captchacode").val("");
-							var autoimg = $("#autoimg").attr("src");
-							$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
-						}else if (result.code==200){
-							swal("登录成功！", "页面将在一秒后跳转", "success");
-							setTimeout("window.location.href='index.html'", "1200");
-							$.ajax({
-								type: "post",
-								url: "/admin/getadminuser",
-								dataType: "json",
-								data: {'username': username},
-							}).done(function (res) {
-							   var adminuserInfo=res;
-							   window.localStorage.setItem("adminuserInfo",JSON.stringify(adminuserInfo));
-							})
+        function check() {
+            var username = $("#usname").val();
+            var password = $("#password").val();
+            var acode = $("#captchacode").val();
 
-						}
-					}).fail(function(){
-						swal("服务器繁忙，请稍后","","warning")
-						var autoimg = $("#autoimg").attr("src");
-						$("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
-					})
+            var flag = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]")
 
-				}
+            if (username == "" || password == "") {
+                swal("账号密码不得为空", "", "warning")
+                var autoimg = $("#autoimg").attr("src");
+                $("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
 
-			}
-		</script>
-    </head>
-    <body>
+            } else if (acode == "") {
+                swal("验证码不得为空", "", "warning")
+                var autoimg = $("#autoimg").attr("src");
+                $("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+            } else if (password.length < 6) {
+                swal("密码长度不得小于六位", "", "warning")
+                var autoimg = $("#autoimg").attr("src");
+                $("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+            } else if (flag.test(username)) {
+                swal("账号中不允许存在特殊符号", "", "warning")
+                var autoimg = $("#autoimg").attr("src");
+                $("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+            } else {
+                //请求登录接口
+                $.ajax({
+                    type: "post",
+                    url: "/admin/login",
+                    dataType: "json",
+                    data: {'username': username, 'password': password, 'captchacode': acode},
+                }).done(function (result) {
+                    if (result.code == 500) {
+                        swal(result.msg, "", "warning")
+                        $("#captchacode").val("");
+                        var autoimg = $("#autoimg").attr("src");
+                        $("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+                    } else if (result.code == 200) {
+                        swal("登录成功！", "页面将在一秒后跳转", "success");
+                        setTimeout("window.location.href='index.html'", "1200");
+                        $.ajax({
+                            type: "post",
+                            url: "/admin/getadminuser",
+                            dataType: "json",
+                            data: {'username': username},
+                        }).done(function (res) {
+                            var adminuserInfo = res;
+                            window.localStorage.setItem("adminuserInfo", JSON.stringify(adminuserInfo));
+                        })
 
-		<!-- Main Wrapper -->
-        <div class="main-wrapper login-body">
-            <div class="login-wrapper">
-            	<div class="container">
-                	<div class="loginbox">
-                    	<div class="login-left">
-							<img class="img-fluid" th:src="@{/assets/img/logo-white.png}" alt="Logo">
+                    }
+                }).fail(function () {
+                    swal("服务器繁忙，请稍后", "", "warning")
+                    var autoimg = $("#autoimg").attr("src");
+                    $("#autoimg").attr("src", autoimg.replace(/\?.*$/, '') + '?' + Math.random());
+                })
+
+            }
+
+        }
+    </script>
+
+    <!--添加灯笼特效-->
+    <style>
+        .deng-box {
+            position: fixed;
+            top: -40px;
+            right: -20px;
+            z-index: 999;
+        }
+
+        .deng-box1 {
+            position: fixed;
+            top: -30px;
+            right: 10px;
+            z-index: 999;
+        }
+
+        .deng-box1 .deng {
+            position: relative;
+            width: 120px;
+            height: 90px;
+            margin: 50px;
+            background: #d8000f;
+            background: rgba(216, 0, 15, 0.8);
+            border-radius: 50% 50%;
+            -webkit-transform-origin: 50% -100px;
+            -webkit-animation: swing 5s infinite ease-in-out;
+            box-shadow: -5px 5px 30px 4px rgba(252, 144, 61, 1);
+        }
+
+        .deng {
+            position: relative;
+            width: 120px;
+            height: 90px;
+            margin: 50px;
+            background: #d8000f;
+            background: rgba(216, 0, 15, 0.8);
+            border-radius: 50% 50%;
+            -webkit-transform-origin: 50% -100px;
+            -webkit-animation: swing 3s infinite ease-in-out;
+            box-shadow: -5px 5px 50px 4px rgba(250, 108, 0, 1);
+        }
+
+        .deng-a {
+            width: 100px;
+            height: 90px;
+            background: #d8000f;
+            background: rgba(216, 0, 15, 0.1);
+            margin: 12px 8px 8px 8px;
+            border-radius: 50% 50%;
+            border: 2px solid #dc8f03;
+        }
+
+        .deng-b {
+            width: 45px;
+            height: 90px;
+            background: #d8000f;
+            background: rgba(216, 0, 15, 0.1);
+            margin: -4px 8px 8px 26px;
+            border-radius: 50% 50%;
+            border: 2px solid #dc8f03;
+        }
+
+        .xian {
+            position: absolute;
+            top: -20px;
+            left: 60px;
+            width: 2px;
+            height: 20px;
+            background: #dc8f03;
+        }
+
+        .shui-a {
+            position: relative;
+            width: 5px;
+            height: 20px;
+            margin: -5px 0 0 59px;
+            -webkit-animation: swing 4s infinite ease-in-out;
+            -webkit-transform-origin: 50% -45px;
+            background: #ffa500;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .shui-b {
+            position: absolute;
+            top: 14px;
+            left: -2px;
+            width: 10px;
+            height: 10px;
+            background: #dc8f03;
+            border-radius: 50%;
+        }
+
+        .shui-c {
+            position: absolute;
+            top: 18px;
+            left: -2px;
+            width: 10px;
+            height: 35px;
+            background: #ffa500;
+            border-radius: 0 0 0 5px;
+        }
+
+        .deng:before {
+            position: absolute;
+            top: -7px;
+            left: 29px;
+            height: 12px;
+            width: 60px;
+            content: " ";
+            display: block;
+            z-index: 999;
+            border-radius: 5px 5px 0 0;
+            border: solid 1px #dc8f03;
+            background: #ffa500;
+            background: linear-gradient(to right, #dc8f03, #ffa500, #dc8f03, #ffa500, #dc8f03);
+        }
+
+        .deng:after {
+            position: absolute;
+            bottom: -7px;
+            left: 10px;
+            height: 12px;
+            width: 60px;
+            content: " ";
+            display: block;
+            margin-left: 20px;
+            border-radius: 0 0 5px 5px;
+            border: solid 1px #dc8f03;
+            background: #ffa500;
+            background: linear-gradient(to right, #dc8f03, #ffa500, #dc8f03, #ffa500, #dc8f03);
+        }
+
+        .deng-t {
+            font-family: 华文行楷, Arial, Lucida Grande, Tahoma, sans-serif;
+            font-size: 3.2rem;
+            color: #dc8f03;
+            font-weight: bold;
+            line-height: 85px;
+            text-align: center;
+        }
+
+        .night .deng-t,
+        .night .deng-box,
+        .night .deng-box1 {
+            background: transparent !important;
+        }
+
+        @-moz-keyframes swing {
+            0% {
+                -moz-transform: rotate(-10deg)
+            }
+
+            50% {
+                -moz-transform: rotate(10deg)
+            }
+
+            100% {
+                -moz-transform: rotate(-10deg)
+            }
+        }
+
+        @-webkit-keyframes swing {
+            0% {
+                -webkit-transform: rotate(-10deg)
+            }
+
+            50% {
+                -webkit-transform: rotate(10deg)
+            }
+
+            100% {
+                -webkit-transform: rotate(-10deg)
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Main Wrapper -->
+<div class="main-wrapper login-body">
+    <div class="login-wrapper">
+        <div class="container">
+            <div class="loginbox">
+                <div class="login-left">
+                    <img class="img-fluid" th:src="@{/assets/img/logo-white.png}" alt="Logo">
+                </div>
+                <div class="login-right">
+                    <div class="login-right-wrap">
+                        <h1>登录</h1>
+                        <p class="account-subtitle"></p>
+
+                        <!-- Form -->
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control" type="text" id="usname" onkeydown="next(event)"
+                                       placeholder="账号">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="password" id="password" onkeydown="nextt(event)"
+                                       placeholder="密码">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" style="width:63%;float: left;" id="captchacode"
+                                       onkeydown="enter(event)" type="text" placeholder="验证码">
+                                <img style="width:30%;margin-left:7%;height:2.3125rem;margin-top:0.09375rem;border-radius:0.1875rem;"
+                                     onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新" id="autoimg"
+                                     alt="captcha" src="/admin/captcha"/>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block" type="button" onclick="check()">登录</button>
+                            </div>
+                        </form>
+                        <!-- /Form -->
+
+                        <div class="text-center forgotpass"><a href="forgot-password.html">忘记密码?</a></div>
+                        <div class="login-or">
+                            <span class="or-line"></span>
+                            <span class="span-or">or</span>
                         </div>
-                        <div class="login-right">
-							<div class="login-right-wrap">
-								<h1>登录</h1>
-								<p class="account-subtitle"></p>
 
-								<!-- Form -->
-								<form >
-									<div class="form-group">
-										<input class="form-control" type="text" id="usname" onkeydown="next(event)" placeholder="账号">
-									</div>
-									<div class="form-group">
-										<input class="form-control" type="password" id="password" onkeydown="nextt(event)" placeholder="密码">
-									</div>
-									<div class="form-group">
-										<input class="form-control" style="width:63%;float: left;" id="captchacode" onkeydown="enter(event)" type="text" placeholder="验证码">
-										<img style="width:30%;margin-left:7%;height:2.3125rem;margin-top:0.09375rem;border-radius:0.1875rem;" onclick="this.src=this.src+'?d='+Math.random();" title="点击刷新" id="autoimg" alt="captcha"src="/admin/captcha" />
-									</div>
-									<div class="form-group">
-										<button class="btn btn-primary btn-block" type="button" onclick="check()">登录</button>
-									</div>
-								</form>
-								<!-- /Form -->
+                        <!-- Social Login -->
+                        <div class="social-login">
+                            <span>Login with</span>
+                            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="#"
+                                                                                                 class="google"><i
+                                class="fab fa-google"></i></a>
+                        </div>
+                        <!-- /Social Login -->
 
-								<div class="text-center forgotpass"><a href="forgot-password.html">忘记密码?</a></div>
-								<div class="login-or">
-									<span class="or-line"></span>
-									<span class="span-or">or</span>
-								</div>
-
-								<!-- Social Login -->
-								<div class="social-login">
-									<span>Login with</span>
-									<a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a><a href="#" class="google"><i class="fab fa-google"></i></a>
-								</div>
-								<!-- /Social Login -->
-
-								<div class="text-center dont-have">Don’t have an account?<a href="register.html">Register</a></div>
-							</div>
+                        <div class="text-center dont-have">Don’t have an account?<a href="register.html">Register</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-		<!-- /Main Wrapper -->
+    </div>
+</div>
+<!-- /Main Wrapper -->
 
-		<!-- jQuery -->
-        <script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
+<!-- jQuery -->
+<script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
 
-		<!-- Bootstrap Core JS -->
-        <script th:src="@{/assets/js/popper.min.js}"></script>
-        <script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
+<!-- Bootstrap Core JS -->
+<script th:src="@{/assets/js/popper.min.js}"></script>
+<script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
 
-		<!-- Custom JS -->
-		<script th:src="@{/assets/js/script.js}"></script>
+<!-- Custom JS -->
+<script th:src="@{/assets/js/script.js}"></script>
 
-    </body>
+
+<!-- 灯笼1 -->
+<div class="deng-box">
+	<div class="deng">
+		<div class="xian"></div>
+		<div class="deng-a">
+			<div class="deng-b"><div class="deng-t">节</div></div>
+		</div>
+		<div class="shui shui-a"><div class="shui-c"></div><div class="shui-b"></div></div>
+	</div>
+</div>
+
+<!-- 灯笼2 -->
+<div class="deng-box1">
+	<div class="deng">
+		<div class="xian"></div>
+		<div class="deng-a">
+			<div class="deng-b"><div class="deng-t">春</div></div>
+		</div>
+		<div class="shui shui-a"><div class="shui-c"></div><div class="shui-b"></div></div>
+	</div>
+</div>
+</body>
 </html>
