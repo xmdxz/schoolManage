@@ -284,7 +284,7 @@ public class StudentController {
         }
         int i=studentService.findByMultipleConditionsCount(map);
         CreateExlceUtil<Student> createExlceUtil = new CreateExlceUtil<>(request,Student.class,"学生表");
-        List<Student> list = studentService.findByMultipleConditions(map,0,i);
+        List<Student> list = studentService.findByMultipleConditions(map,1,i);
         return createExlceUtil.createExcle(list);
     }
 

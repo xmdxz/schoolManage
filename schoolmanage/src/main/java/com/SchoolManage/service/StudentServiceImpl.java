@@ -98,7 +98,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int findByMultipleConditionsCount(Map<String, String> nconditions) {
-        System.out.println("service层实现" + nconditions);
         return studentDao.findByMultipleConditionsCount(nconditions);
     }
 
