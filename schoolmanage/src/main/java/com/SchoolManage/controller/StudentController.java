@@ -183,7 +183,6 @@ public class StudentController {
         if (original_post != null){
             map.put("original_post", original_post);
         }
-        System.out.println(map);
         return studentService.findByMultipleConditions(map,page,num);
     }
     @RequestMapping("findByMultipleConditionsCount")
@@ -262,9 +261,30 @@ public class StudentController {
 
     @RequestMapping(value = "Excle",produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException {
+    public String ExcleStudent(HttpServletRequest request,String major, String direction, String present_class
+            , String original_class, String present_post, String original_post) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException {
+        Map<String, String> map = new HashMap<>();
+        if (major != null){
+            map.put("major", major);
+        }
+        if (direction != null) {
+            map.put("direction", direction);
+        }
+        if (present_class != null){
+            map.put("present_class", present_class);
+        }
+        if (original_class != null){
+            map.put("original_class", original_class);
+        }
+        if (present_post != null){
+            map.put("present_post", present_post);
+        }
+        if (original_post != null){
+            map.put("original_post", original_post);
+        }
+        int i=studentService.findByMultipleConditionsCount(map);
         CreateExlceUtil<Student> createExlceUtil = new CreateExlceUtil<>(request,Student.class,"学生表");
-        List<Student> list = studentService.findAll();
+        List<Student> list = studentService.findByMultipleConditions(map,0,i);
         return createExlceUtil.createExcle(list);
     }
 

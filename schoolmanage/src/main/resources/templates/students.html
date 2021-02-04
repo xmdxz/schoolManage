@@ -562,6 +562,21 @@
                     })
                 }
             });
+            $("#bt1").click(function (){
+                $.ajax({
+                    url: 'student/Excle',
+                    dataType: 'text',
+                    data:{major:map.get("major"),direction:map.get("direction"),present_class:
+                            map.get("present_class"),original_class:map.get("original_class"),
+                        present_post:map.get("present_post"),original_post:map.get("original_post")},
+                    success(res){
+                        console.log(res);
+                        $("#downe").attr("href",res);
+                        console.log($("#a")[0]);
+                        $("#downe")[0].click()
+                    }
+                })
+            })
 
         });
         function newpage_1(res) {
@@ -963,7 +978,9 @@
                         </ul>
                     </div>
                     <div class="col-auto text-right float-right ml-auto">
-                        <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</a>
+                        <a download id="downe" href="" style="display: none"> </a>
+                        <button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</button>
+<!--                        <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</a>-->
                         <a href="add-student.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                     </div>
                 </div>
