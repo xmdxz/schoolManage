@@ -89,7 +89,7 @@ public class DepartmentController {
     public String insertData(DepartMent departMent){
         int i = departmentService.insertData(departMent);
         if (i!=0){
-            return "departments";
+            return "redirect:/departments.html";
         }else return "loginp";
     }
 
