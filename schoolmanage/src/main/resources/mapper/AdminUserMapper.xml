@@ -8,7 +8,7 @@
     <select id="findByName" resultType="com.SchoolManage.pojo.AdminUser">
         select * from adminuser where name like cancat('%',#{name},'%');
     </select>
-    adminUser.<insert id="addAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
+    <insert id="addAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
         insert into adminuser(username,password,phone,department,`position`,`name`) values(#{adminUser.username},#{adminUser.password},
         #{adminUser.phone},#{adminUser.department},#{adminUser.position},#{adminUser.name})
     </insert>
