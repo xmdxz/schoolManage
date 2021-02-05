@@ -1,20 +1,23 @@
-package com.SchoolManage.dao;
+package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.DepartMent;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Mapper
-@Repository
-public interface DepartMentDao {
+/**
+ * @Author RainGoal
+ * @Date 2021/2/5 16:51
+ * @Description TODO
+ * @Version 1.0
+ */
+
+public interface DepartmentService {
 
     /**
      * 查询全部部门信息
      */
-    List<DepartMent> findAll(int startPage, int num);
+    List<DepartMent> findAll(int Page, int num);
 
     /**
      * 查询全部部门数量
@@ -24,7 +27,7 @@ public interface DepartMentDao {
     /**
      * 根据部门名称查询
      */
-    List<DepartMent> findByName(String name, int startPage, int num);
+    List<DepartMent> findByName(String name, int Page, int num);
 
     /**
      * 根据id查询
@@ -42,7 +45,7 @@ public interface DepartMentDao {
      * 根据部长查询
      */
 
-    List<DepartMent> findByMinister(String Minister, int startPage, int num);
+    List<DepartMent> findByMinister(String Minister, int Page, int num);
 
     /**
      * 根据部长查询的数量
@@ -52,7 +55,7 @@ public interface DepartMentDao {
     /**
      * 根据所属院系查询
      */
-    List<DepartMent> findByCollege(String college, int startPage, int num);
+    List<DepartMent> findByCollege(String college, int Page, int num);
 
     /**
      * 根据所属院系的数量
