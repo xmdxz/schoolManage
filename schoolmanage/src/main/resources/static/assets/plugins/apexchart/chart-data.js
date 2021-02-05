@@ -3,31 +3,32 @@
 $(document).ready(function() {
 
 	// Area chart
-	
+	//在线测试网站 https://wow.techbrood.com/fiddle/41653
+	//属性大全 https://apexcharts.com/docs/options/chart/toolbar/
 	var options = {
 		chart: {
 			height: 350,
-			type: "area",
+			type: "area",	//图表类型  area为瀑布类型  bar为柱状图
 			toolbar: {
-				show: false
+				show: false	//隐藏右上角的图标 包括缩放 拖动 恢复等按钮
 			},
 		},
 		dataLabels: {
-			enabled: false
+			enabled: false		//是否在图标上显示数据
 		},
 		stroke: {
 			curve: "smooth"
 		},
-		series: [{
-			name: "Sales",
+		series: [{					//数据内容以及内容值
+			name: "请假人数",
 			data: [45, 60, 75, 51, 42, 42, 30]
 		}, {
-			name: "Expenses",
+			name: "准假人数",
 			color: '#FFBC53',
 			data: [24, 48, 56, 32, 34, 52, 25]
 		}],
-		xaxis: {
-			categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+		xaxis: {				//X周单位内容
+			categories: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
 		}
 	}
 	var chart = new ApexCharts(
