@@ -1,5 +1,6 @@
 package com.SchoolManage.service;
 
+import com.SchoolManage.dao.DepartMentDao;
 import com.SchoolManage.pojo.DepartMent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,74 +16,74 @@ import java.util.List;
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
-    private DepartmentService departmentService;
+    private DepartMentDao departMentDao;
 
     @Override
     public List<DepartMent> findAll(int Page, int num) {
         int startPage = (Page-1)*num;
-        return departmentService.findAll(startPage, num);
+        return departMentDao.findAll(startPage, num);
     }
 
     @Override
     public int findAllNum() {
-        return departmentService.findAllNum();
+        return departMentDao.findAllNum();
     }
 
     @Override
     public List<DepartMent> findByName(String name, int Page, int num) {
         int startPage = (Page-1)*num;
-        return departmentService.findByName(name,startPage,num);
+        return departMentDao.findByName(name,startPage,num);
     }
 
     @Override
     public DepartMent findById(Integer id) {
-        return departmentService.findById(id);
+        return departMentDao.findById(id);
     }
 
     @Override
     public int findByNameNum(String name) {
-        return departmentService.findByNameNum(name);
+        return departMentDao.findByNameNum(name);
     }
 
     @Override
     public List<DepartMent> findByMinister(String Minister, int Page, int num) {
         int startPage = (Page-1)*num;
-        return departmentService.findByMinister(Minister,startPage,num);
+        return departMentDao.findByMinister(Minister,startPage,num);
     }
 
     @Override
     public int findByMinisterNum(String minister) {
-        return departmentService.findByMinisterNum(minister);
+        return departMentDao.findByMinisterNum(minister);
     }
 
     @Override
     public List<DepartMent> findByCollege(String college, int Page, int num) {
         int startPage = (Page-1)*num;
-        return departmentService.findByCollege(college,startPage,num);
+        return departMentDao.findByCollege(college,startPage,num);
     }
 
     @Override
     public int findByCollegeNum(String college) {
-        return departmentService.findByCollegeNum(college);
+        return departMentDao.findByCollegeNum(college);
     }
 
     @Override
     public int insertData(DepartMent departMent) {
-        return departmentService.insertData(departMent);
+        return departMentDao.insertData(departMent);
     }
 
     @Override
     public int insertDatas(List<DepartMent> departMents) {
-        return departmentService.insertDatas(departMents);
+        return departMentDao.insertDatas(departMents);
     }
 
     @Override
     public int updateData(DepartMent departMent) {
-        return departmentService.updateData(departMent);
+        return departMentDao.updateData(departMent);
     }
 
     @Override
     public int deleteData(Integer id) {
-        return departmentService.deleteData(id);
+        return departMentDao.deleteData(id);
     }
 }
