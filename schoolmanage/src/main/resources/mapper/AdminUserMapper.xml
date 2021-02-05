@@ -8,18 +8,18 @@
     <select id="findByName" resultType="com.SchoolManage.pojo.AdminUser">
         select * from adminuser where name like cancat('%',#{name},'%');
     </select>
-    <insert id="addAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
-        insert into adminuser(username,password,phone,department,`position`,`name`) values(#{username},#{password},
-        #{phone},#{department},#{position},#{name})
+    adminUser.<insert id="addAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
+        insert into adminuser(username,password,phone,department,`position`,`name`) values(#{adminUser.username},#{adminUser.password},
+        #{adminUser.phone},#{adminUser.department},#{adminUser.position},#{adminUser.name})
     </insert>
     <update id="updateAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
-        update adminuser set username = #{username},
-        password = #{password},
-        phone = #{phone},
-        department = #{department},
-        `position` = #{position},
-        `name` = #{name}
-        where id = #{id}
+        update adminuser set username = #{adminUser.username},
+        password = #{adminUser.password},
+        phone = #{adminUser.phone},
+        department = #{adminUser.department},
+        `position` = #{adminUser.position},
+        `name` = #{adminUser.name}
+        where id = #{adminUser.id}
     </update>
     <select id="getAdminUser" resultType="com.SchoolManage.pojo.AdminUser">
         select * from adminuser where username = #{username}
