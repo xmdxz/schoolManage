@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.DepartMentDao">
+    <insert id="insertData">
+        insert into department(name,college,minister,phone)
+            values (#{departMent.name},#{departMent.college},#{departMent.minister},#{departMent.phone})
+    </insert>
+    <insert id="insertDatas">
+        insert into department(name,college,minister,phone)
+        values
+            <foreach collection="list" separator="," item="item">
+                (#{item.name},#{item.college},#{item.minister},#{item.phone})
+            </foreach>
+    </insert>
+    <update id="updateData">
+        update department
+        set
+            name = #{departMent.name},
+            college = #{departMent.college},
+            minister = #{departMent.minister},
+            phone = #{departMent.phone}
+        where name = #{departMent.name}
+    </update>
+    <delete id="deleteData">
+        delete from department where name = #{name}
+    </delete>
+
+
+    <select id="findAll" resultType="com.SchoolManage.pojo.DepartMent">
+        select *,(select count(*) from member where member.department = department.name) from
+            department limit #{startPage},#{num};
+    </select>
+    <select id="findByName" resultType="com.SchoolManage.pojo.DepartMent">
+        select *,(select count(*) from member where member.department = department.name) from
+            department where department.name like "%" #{name} "%" limit #{startPage},#{num};
+    </select>
+    <select id="findByMinister" resultType="com.SchoolManage.pojo.DepartMent">
+        select *,(select count(*) from member where member.department = department.name) from
+            department where department.minister like "%" #{minister} "%" limit #{startPage},#{num};
+    </select>
+    <select id="findByCollege" resultType="com.SchoolManage.pojo.DepartMent">
+        select *,(select count(*) from member where member.department = department.name) from
+            department where department.college like "%" #{college} "%" limit #{startPage},#{num};
+    </select>
+    <select id="findAllNum" resultType="java.lang.Integer">
+        select count(*) from
+            department
+    </select>
+    <select id="findByNameNum" resultType="java.lang.Integer">
+        select count(*) from
+            department where department.name like "%" #{name} "%"
+    </select>
+    <select id="findByMinisterNum" resultType="java.lang.Integer">
+        select count(*) from
+            department where department.minister like "%" #{minister} "%"
+    </select>
+    <select id="findByCollegeNum" resultType="java.lang.Integer">
+        select count(*) from
+            department where department.college like "%" #{college} "%"
+    </select>
+
+
+</mapper>

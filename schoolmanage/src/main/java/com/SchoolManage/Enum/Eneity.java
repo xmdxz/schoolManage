@@ -39,6 +39,22 @@ public enum Eneity {
         put("母亲姓名","mother_name");
         put("父亲职务","father_profession");
         put("母亲职务","mother_profession");
+    }}),
+
+    DEPARTMENT(new LinkedHashMap<String, String>(){{
+        put("部门名称","name");
+        put("所属学院","college");
+        put("部长姓名","minister");
+        put("部长电话","phone");
+    }}),
+
+    Member(new LinkedHashMap<String, String>(){{
+        put("学号","id");
+        put("姓名","name");
+        put("所属部门","department");
+        put("部门职位","position");
+        put("联系方式","phone");
+        put("QQ","qq");
     }});
 
     private Map<String, String> pojo;

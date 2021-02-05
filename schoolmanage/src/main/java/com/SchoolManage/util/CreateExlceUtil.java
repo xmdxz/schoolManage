@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.SchoolManage.Enum.Eneity;
+import com.SchoolManage.exception.NameNullException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -26,14 +27,16 @@ public class CreateExlceUtil<T> {
 
     private String dowloadPath;
 
-    public CreateExlceUtil(HttpServletRequest request,Class cl,String name) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public CreateExlceUtil(HttpServletRequest request,Class cl,String name) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NameNullException {
+        if (name == null || name == ""){
+            throw new NameNullException("文件名不能为空！请检查name属性");
+        }
         this.path = request.getServletContext().getRealPath("/") + "Excle\\" ;
         File file = new File(path);
         if (!file.exists()){
             file.mkdirs();
         }
         this.path = this.path + name + ".xlsx";
-        System.out.println(this.path);
         this.dowloadPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/Excle/" + name + ".xlsx";
         Class clazz = Eneity.class;
         Field[] fields = clazz.getFields();

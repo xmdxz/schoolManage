@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.MemberDao">
+    <insert id="insertData">
+        insert into member(id,name,department,position,phone,qq,clazz)
+            values (#{member.id},#{member.name},#{member.department},#{member.position},#{member.phone},#{member.qq},#{member.clazz})
+    </insert>
+    <insert id="insertDatas">
+        insert into member(id,name,department,position,phone,qq,clazz)
+            values
+                <foreach collection="list" separator="," item="item">
+                    (#{item.id},#{item.name},#{item.department},#{item.positon},#{item.phone},#{item.qq},#{item.clazz})
+                </foreach>
+    </insert>
+    <update id="updateData">
+        update member
+            set
+                id = #{member.id},
+                name = #{member.name},
+                department = #{member.department},
+                position = #{member.position},
+                phone = #{member.phone},
+                qq = #{member.qq},
+                clazz = #{member.clazz}
+        where id = #{member.id}
+    </update>
+    <delete id="deleteData">
+        delete from member
+            where id = #{id}
+    </delete>
+    <select id="findAll" resultType="com.SchoolManage.pojo.Member">
+        select * from member limit #{startPage},#{num}
+    </select>
+    <select id="findByDepartment" resultType="com.SchoolManage.pojo.Member">
+        select * from member where department like "%" #{department} "%"
+        limit #{startPage},#{num}
+    </select>
+    <select id="findById" resultType="com.SchoolManage.pojo.Member">
+        select * from member where id = #{id}
+    </select>
+    <select id="findByName" resultType="com.SchoolManage.pojo.Member">
+        select * from member where name like "%" #{name} "%" limit #{startPage},#{num}
+    </select>
+    <select id="findByPosition" resultType="com.SchoolManage.pojo.Member">
+        select * from member where position like "%" #{position} "%" limit #{startPage},#{num}
+    </select>
+    <select id="findByConditions" resultType="com.SchoolManage.pojo.Member">
+        select * from  member
+            <if test="map != null">
+                <where>
+                    <foreach collection="map" item="value" index="key" separator="and">
+                        ${key} = #{value}
+                    </foreach>
+                </where>
+            </if>
+    </select>
+    <select id="findAllNum" resultType="java.lang.Integer">
+        select count(*) from member
+    </select>
+    <select id="findByDepartmentNum" resultType="java.lang.Integer">
+        select count(*) from member where department like "%" #{department} "%"
+    </select>
+    <select id="findByNameNum" resultType="java.lang.Integer">
+        select count(*) from member where name like "%" #{name} "%"
+    </select>
+    <select id="findByPositionNum" resultType="java.lang.Integer">
+        select count(*) from member where position like "%" #{position} "%"
+    </select>
+    <select id="findByConditionsNum" resultType="java.lang.Integer">
+        select count(*) from  member
+        <if test="map != null">
+            <where>
+                <foreach collection="map" item="value" index="key" separator="and">
+                    ${key} = #{value}
+                </foreach>
+            </where>
+        </if>
+    </select>
+
+</mapper>

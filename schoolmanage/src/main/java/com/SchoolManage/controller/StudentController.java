@@ -1,5 +1,6 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.FeaturesService;
 import com.SchoolManage.service.StudentService;
@@ -266,7 +267,7 @@ public class StudentController {
     @RequestMapping(value = "Excle",produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent(HttpServletRequest request,String major, String direction, String present_class
-            , String original_class, String present_post, String original_post) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException {
+            , String original_class, String present_post, String original_post) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         Map<String, String> map = new HashMap<>();
         if (major != null){
             map.put("major", major);
@@ -315,9 +316,11 @@ public class StudentController {
             try {
                 System.out.println(path);
                 i=studentService.BatchAddition(path);
+                dest.delete();
                 return "上传成功了";
             }catch (Exception e)
             {
+                dest.delete();
                 return "上传的表格不匹配,请进行修改后重先上传";
             }
 
