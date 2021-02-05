@@ -99,7 +99,7 @@ public class DepartmentController {
         System.out.println(departMent);
         int i = departmentService.updateData(departMent);
         if (i!=0){
-            return "departments";
+            return "redirect:/departments.html";
          }else return "loginp";
     }
 
