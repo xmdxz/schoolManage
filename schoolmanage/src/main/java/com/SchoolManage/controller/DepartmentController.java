@@ -98,8 +98,8 @@ public class DepartmentController {
         System.out.println(departMent);
         int i = departmentService.updateData(departMent);
         if (i!=0){
-            return "department";
-        }else return "loginp_1";
+            return "redirect:/departments.html";
+        }else return "loginp";
     }
 
     @RequestMapping("deletedata")

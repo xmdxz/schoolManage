@@ -6,7 +6,7 @@
 <mapper namespace="com.SchoolManage.dao.DepartMentDao">
     <insert id="insertData">
         insert into department(name,college,minister,phone)
-            values (#{departMent.name},#{departMent.college},#{departMent.minister},#{departMent.phone})
+            values (#{name},#{college},#{minister},#{phone})
     </insert>
     <insert id="insertDatas">
         insert into department(name,college,minister,phone)
@@ -18,11 +18,11 @@
     <update id="updateData">
         update department
         set
-            name = #{departMent.name},
-            college = #{departMent.college},
-            minister = #{departMent.minister},
-            phone = #{departMent.phone}
-        where id = #{departMent.id}
+            name = #{name},
+            college = #{college},
+            minister = #{minister},
+            phone = #{phone}
+        where id = #{id}
     </update>
     <delete id="deleteData">
         delete from department where id = #{id}
