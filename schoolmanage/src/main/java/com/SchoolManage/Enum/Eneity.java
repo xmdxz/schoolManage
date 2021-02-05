@@ -46,6 +46,7 @@ public enum Eneity {
         put("所属学院","college");
         put("部长姓名","minister");
         put("部长电话","phone");
+        put("人数","num");
     }}),
 
     Member(new LinkedHashMap<String, String>(){{

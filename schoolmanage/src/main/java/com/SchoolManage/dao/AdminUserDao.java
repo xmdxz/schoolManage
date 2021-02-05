@@ -2,6 +2,7 @@ package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.AdminUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface AdminUserDao {
        * @Author: RainGoal
        * @Date: 2021/1/26
     */
-    int addAdminUser(AdminUser adminUser);
+    int addAdminUser(@Param(value = "adminUser") AdminUser adminUser);
 
     /**
        * @Description: 根据id删除管理员用户
@@ -31,7 +32,7 @@ public interface AdminUserDao {
        * @Author: RainGoal
        * @Date: 2021/1/26
     */
-    int deleteAdminUser(int id);
+    int deleteAdminUser(@Param(value = "id") int id);
 
     /**
        * @Description: 查询所有的管理员用户
@@ -49,7 +50,7 @@ public interface AdminUserDao {
        * @Author: RainGoal
        * @Date: 2021/1/26
     */
-    AdminUser getAdminUser(String username);
+    AdminUser getAdminUser(@Param(value = "username") String username);
 
     /**
        * @Description: 更改管理员账户信息
@@ -58,7 +59,7 @@ public interface AdminUserDao {
        * @Author: RainGoal
        * @Date: 2021/1/26
     */
-    int updateAdminUser(AdminUser adminUser);
+    int updateAdminUser(@Param(value = "adminUser") AdminUser adminUser);
 
     /**
        * @Description: 根据姓名模糊查询
@@ -67,5 +68,5 @@ public interface AdminUserDao {
        * @Author: RainGoal
        * @Date: 2021/1/26
     */
-    List<AdminUser> findByName(String name);
+    List<AdminUser> findByName(@Param(value = "name") String name);
 }

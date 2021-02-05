@@ -62,7 +62,7 @@
             department where department.college like "%" #{college} "%"
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.DepartMent">
-        select * from department where id = #{id}
+        select *,(select count(*) from member where member.department = department.name) as num from department where id = #{id}
     </select>
 
 
