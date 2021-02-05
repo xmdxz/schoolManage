@@ -6,7 +6,7 @@
 <mapper namespace="com.SchoolManage.dao.LogDao">
     <insert id="insertLog">
         insert into log(time,type,message,operation_teacher,operation_student,operation_table)
-        values (#{time},#{type},#{message},#{operation_teacher},#{operation_student},#{operation_table})
+        values (#{log.time},#{log.type},#{log.message},#{log.operation_teacher},#{log.operation_student},#{log.operation_table})
     </insert>
 
 
