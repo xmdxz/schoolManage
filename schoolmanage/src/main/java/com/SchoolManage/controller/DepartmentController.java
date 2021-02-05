@@ -96,7 +96,7 @@ public class DepartmentController {
     public String updateData(DepartMent departMent){
         int i = departmentService.updateData(departMent);
         if (i!=0){
-            return "department";
+            return "departments";
         }else return "loginp";
     }
 
