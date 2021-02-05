@@ -40,6 +40,32 @@
 			var name=adminuserInfo.name;
 			$(document).ready(function () {
 				$('#InfoName').text(name)
+				$("#bt1").click(function () {
+					$('#excelFile').trigger("click");
+					$('#excelFile').change(function (event) {
+						var files = event.target.files;
+						var formData=new FormData();
+						var temp=files[0];
+						if(temp)
+						{
+							formData.append('file',temp);
+							$.ajax({
+								url:'department/upfile',
+								type:'post',
+								data: formData,
+								processData: false, // 告诉jQuery不要去处理发送的数据
+								contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+								success: function(res){
+									console.log(res)
+									swal(res);
+								}
+
+							})
+						}
+
+					});
+
+				})
 			});
 		</script>
     </head>
@@ -69,7 +95,7 @@
 				<!-- Search Bar -->
 				<div class="top-nav-search">
 					<form>
-						<input type="text" class="form-control" placeholder="Search here">
+						<input type="text" class="form-control" placeholder="搜索">
 						<button class="btn" type="submit"><i class="fas fa-search"></i></button>
 					</form>
 				</div>
@@ -218,7 +244,7 @@
 								<ul>
 									<li><a href="departments.html">部门列表</a></li>
 									<li><a href="add-department.html">部门添加</a></li>
-									<li><a href="edit-department.html">部门编辑</a></li>
+<!--									<li><a href="edit-department.html">部门编辑</a></li>-->
 								</ul>
 							</li>
 							<!-- 	<li class="submenu">
@@ -354,11 +380,15 @@
 					<div class="page-header">
 						<div class="row align-items-center">
 							<div class="col">
-								<h3 class="page-title">Add Department</h3>
+								<h3 class="page-title">添加部门</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="departments.html">Department</a></li>
-									<li class="breadcrumb-item active">Add Department</li>
+									<li class="breadcrumb-item"><a href="departments.html">部门</a></li>
+									<li class="breadcrumb-item active">添加部门</li>
 								</ul>
+							</div>
+							<div class="col-auto text-right float-right ml-auto">
+								<input type="file" name="excelFile" id="excelFile" style="display:none" accept=".xls,.xlsx">
+								<button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 批量添加</button>
 							</div>
 						</div>
 					</div>
@@ -369,43 +399,43 @@
 						
 							<div class="card">
 								<div class="card-body">
-									<form>
+									<form action="department/insertdata" method="post">
 										<div class="row">
 											<div class="col-12">
-												<h5 class="form-title"><span>Department Details</span></h5>
+												<h5 class="form-title"><span>部门详细信息</span></h5>
 											</div>
-											<div class="col-12 col-sm-6">  
+											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>Department ID</label>
-													<input type="text" class="form-control">
+													<label>部门ID</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" name="id" id="id">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>Department Name</label>
-													<input type="text" class="form-control">
+													<label>部门名字</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="name" name="name">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>Head of Department</label>
-													<input type="text" class="form-control">
+													<label>部长</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="minister" name="minister">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>Department Start Date</label>
-													<input type="date" class="form-control">
+													<label>联系电话</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="phone" name="phone">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>No of Students</label>
-													<input type="text" class="form-control">
+													<label>学院</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="college" name="college">
 												</div>
 											</div>
 											<div class="col-12">
-												<button type="submit" class="btn btn-primary">Submit</button>
+												<button type="submit" class="btn btn-primary">提交</button>
 											</div>
 										</div>
 									</form>

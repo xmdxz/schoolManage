@@ -1,6 +1,7 @@
 package com.SchoolManage.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface FeaturesDao {
      * @param major
      * @return
      */
-    List<String> findDirectionByMajor(String major);
+    List<String> findDirectionByMajor(@Param(value = "major") String major);
 
 
 }

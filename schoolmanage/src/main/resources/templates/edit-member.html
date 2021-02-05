@@ -41,32 +41,33 @@
     <link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
     <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
     <script type="text/javascript">
-		var url = document.location.toString();//获取url地址
-		var studentObj=null;
-		if(url.indexOf("?")!=-1)
-		{
-			var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
-			var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
-			var Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
-			$.ajax({
-				type:"post",
-				url:"student/findbyid",
-				dataType:"json",
-				data: {id:Id}
-			}).done(function (res) {
-				console.log(res)
-				obj=res;
-				var props = "";
-				for(var p in obj){
-					if(typeof(obj[p])=="function"){
-						obj[p]();
-					}else{
-						if(document.getElementById(p)!=null)
-						document.getElementById(p).value= obj[p];
-					}
-				}
-			})
-		}
+        var url = document.location.toString();//获取url地址
+        var studentObj=null;
+        if(url.indexOf("?")!=-1)
+        {
+            var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+            var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+            var Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
+            $.ajax({
+                type:"post",
+                url:"department/findbyid",
+                dataType:"json",
+                data: {id:Id}
+            }).done(function (res) {
+                console.log(res)
+                res.num=1;
+                obj=res;
+                var props = "";
+                for(var p in obj){
+                    if(typeof(obj[p])=="function"){
+                        obj[p]();
+                    }else{
+                        if(document.getElementById(p)!=null)
+                            document.getElementById(p).value= obj[p];
+                    }
+                }
+            })
+        }
         //获取缓存中登录账号的信息
         var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name=adminuserInfo.name;
@@ -78,7 +79,7 @@
 <body>
 
 <!-- Main Wrapper -->
-<div class="main-wrapper" id="mains">
+<div class="main-wrapper">
 
     <!-- Header -->
     <div class="header">
@@ -101,7 +102,7 @@
         <!-- Search Bar -->
         <div class="top-nav-search">
             <form>
-                <input type="text" class="form-control" placeholder="Search here">
+                <input type="text" class="form-control" placeholder="搜索">
                 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
@@ -132,12 +133,10 @@
                                 <a href="#">
                                     <div class="media">
 												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image"
-                                                         th:src="@{/assets/img/profiles/avatar-02.jpg}">
+													<img class="avatar-img rounded-circle" alt="User Image" th:src="@{/assets/img/profiles/avatar-02.jpg}">
 												</span>
                                         <div class="media-body">
-                                            <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
-                                                approved <span class="noti-title">your estimate</span></p>
+                                            <p class="noti-details"><span class="noti-title">Carlson Tech</span> has approved <span class="noti-title">your estimate</span></p>
                                             <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
                                         </div>
                                     </div>
@@ -147,13 +146,10 @@
                                 <a href="#">
                                     <div class="media">
 												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image"
-                                                         th:src="@{/assets/img/profiles/avatar-11.jpg}">
+													<img class="avatar-img rounded-circle" alt="User Image" th:src="@{/assets/img/profiles/avatar-11.jpg}">
 												</span>
                                         <div class="media-body">
-                                            <p class="noti-details"><span
-                                                    class="noti-title">International Software Inc</span> has sent you a
-                                                invoice in the amount of <span class="noti-title">$218</span></p>
+                                            <p class="noti-details"><span class="noti-title">International Software Inc</span> has sent you a invoice in the amount of <span class="noti-title">$218</span></p>
                                             <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
                                         </div>
                                     </div>
@@ -163,12 +159,10 @@
                                 <a href="#">
                                     <div class="media">
 												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image"
-                                                         th:src="@{/assets/img/profiles/avatar-17.jpg}">
+													<img class="avatar-img rounded-circle" alt="User Image" th:src="@{/assets/img/profiles/avatar-17.jpg}">
 												</span>
                                         <div class="media-body">
-                                            <p class="noti-details"><span class="noti-title">John Hendry</span> sent a
-                                                cancellation request <span class="noti-title">Apple iPhone XR</span></p>
+                                            <p class="noti-details"><span class="noti-title">John Hendry</span> sent a cancellation request <span class="noti-title">Apple iPhone XR</span></p>
                                             <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
                                         </div>
                                     </div>
@@ -178,13 +172,10 @@
                                 <a href="#">
                                     <div class="media">
 												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image"
-                                                         th:src="@{/assets/img/profiles/avatar-13.jpg}">
+													<img class="avatar-img rounded-circle" alt="User Image" th:src="@{assets/img/profiles/avatar-13.jpg}">
 												</span>
                                         <div class="media-body">
-                                            <p class="noti-details"><span class="noti-title">Mercury Software Inc</span>
-                                                added a new product <span class="noti-title">Apple MacBook Pro</span>
-                                            </p>
+                                            <p class="noti-details"><span class="noti-title">Mercury Software Inc</span> added a new product <span class="noti-title">Apple MacBook Pro</span></p>
                                             <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
                                         </div>
                                     </div>
@@ -202,14 +193,12 @@
             <!-- User Menu -->
             <li class="nav-item dropdown has-arrow">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                    <span class="user-img"><img class="rounded-circle" th:src="@{/assets/img/profiles/avatar-01.jpg}"
-                                                width="31" alt="Ryan Taylor"></span>
+                    <span class="user-img"><img class="rounded-circle" th:src="@{/assets/img/profiles/avatar-01.jpg}" width="31" alt="Ryan Taylor"></span>
                 </a>
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="User Image"
-                                 class="avatar-img rounded-circle">
+                            <img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="User Image" class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
                             <h6 id="InfoName"></h6>
@@ -218,7 +207,7 @@
                     </div>
                     <a class="dropdown-item" href="profile.html">我的个人资料</a>
                     <a class="dropdown-item" href="inbox.html">收件箱</a>
-                    <a class="dropdown-item" href="/admin/logout">注销</a>
+                    <a class="dropdown-item" href="login.html">注销</a>
                 </div>
             </li>
             <!-- /User Menu -->
@@ -240,33 +229,30 @@
                     <li>
                         <a href="index.html"><i class="fas fa-th-large"></i> <span>仪表板</span></a>
                     </li>
-                    <li class="submenu active">
-                        <a href="#"><i class="fas fa-user-graduate"></i> <span> 学生</span> <span
-                                class="menu-arrow"></span></a>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-user-graduate"></i> <span> 学生</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="students.html">学生列表</a></li>
-<!--                            <li><a href="student-details.html">学生信息</a></li>-->
+                            <!--									<li><a href="student-details.html">学生信息</a></li>-->
                             <li><a href="add-student.html">学生添加</a></li>
-<!--                            <li><a href="edit-student.html" class="active">学生编辑</a></li>-->
+                            <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> 教师</span> <span
-                                class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="teachers.html">教授列表</a></li>
+                            <li><a href="teachers.html">教师列表</a></li>
                             <li><a href="teacher-details.html">教师信息</a></li>
                             <li><a href="add-teacher.html">教师添加</a></li>
                             <li><a href="edit-teacher.html">教师编辑</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span
-                                class="menu-arrow"></span></a>
+                    <li class="submenu active">
+                        <a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="departments.html">部门列表</a></li>
                             <li><a href="add-department.html">部门添加</a></li>
-<!--                            <li><a href="edit-department.html">部门编辑</a></li>-->
+                            <!--									<li><a href="edit-department.html" class="active">部门编辑</a></li>-->
                         </ul>
                     </li>
                     <!--							<li class="submenu">-->
@@ -308,11 +294,11 @@
                     <li>
                         <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>
                     </li>
-                    <!--							<li>-->
+                    <!--							<li> -->
                     <!--								<a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>-->
                     <!--							</li>-->
 
-                    <!--							<li class="menu-title">-->
+                    <!--							<li class="menu-title"> -->
                     <!--								<span>Pages</span>-->
                     <!--							</li>-->
 
@@ -325,7 +311,7 @@
                     <!--									<li><a href="error-404.html">Error Page</a></li>-->
                     <!--								</ul>-->
                     <!--							</li>-->
-                    <!--							<li>-->
+                    <!--							<li> -->
                     <!--								<a href="blank-page.html"><i class="fas fa-file"></i> <span>Blank Page</span></a>-->
                     <!--							</li>-->
 
@@ -333,19 +319,19 @@
                         <span>其他</span>
                     </li>
 
-                    <!--							<li>-->
+                    <!--							<li> -->
                     <!--								<a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>-->
                     <!--							</li>-->
                     <li>
                         <a href="hostel.html"><i class="fas fa-hotel"></i> <span>宿舍</span></a>
                     </li>
-                    <!--							<li>-->
+                    <!--							<li> -->
                     <!--								<a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>-->
                     <!--							</li>-->
-                    <!--							<li class="menu-title">-->
+                    <!--							<li class="menu-title"> -->
                     <!--								<span>UI Interface</span>-->
                     <!--							</li>-->
-                    <!--							<li>-->
+                    <!--							<li> -->
                     <!--								<a href="components.html"><i class="fas fa-vector-square"></i> <span>Components</span></a>-->
                     <!--							</li>-->
                     <!--							<li class="submenu">-->
@@ -402,10 +388,10 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">编辑学生</h3>
+                        <h3 class="page-title">成员编辑</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="students.html">学生</a></li>
-                            <li class="breadcrumb-item active">编辑学生</li>
+                            <li class="breadcrumb-item"><a href="departments.html">部门</a></li>
+                            <li class="breadcrumb-item active">成员编辑</li>
                         </ul>
                     </div>
                 </div>
@@ -417,200 +403,65 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <form action="student/update" method="post">
+                            <form action="department/updatedata" method="post">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5 class="form-title"><span>学生信息</span></h5>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>姓名</label>
-                                            <input type="text" id="name" class="form-control" name="name" value="Nathan Humphries">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>性别</label>
-                                            <select class="form-control" id="sex" name="sex">
-                                                <option selected>男</option>
-                                                <option>女</option>
-                                            </select>
-                                        </div>
+                                        <h5 class="form-title"><span>成员信息</span></h5>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>学号</label>
-                                            <input type="text" id="id" class="form-control" value="PRE1234" name="id">
-                                        </div>
-                                    </div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>学院</label>
-											<input type="text" id="clno" class="form-control" value="10" name="clno">
-										</div>
-									</div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>原班级</label>
-                                            <input type="text" id="original_class" class="form-control" value="Stephen Marley" name="original_class">
-                                        </div>
-                                    </div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>现班级</label>
-											<input type="text" id="present_class" class="form-control" value="Stephen Marley" name="present_class">
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>原职务</label>
-											<input type="text" id="original_post" class="form-control" value="Stephen Marley" name="original_post">
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>现职务</label>
-											<input type="text" id="present_post" class="form-control" value="Stephen Marley" name="present_post">
-										</div>
-									</div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>专业</label>
-                                            <input type="text" id="major" class="form-control" value="Stephen Marley" name="major">
+                                            <input type="text" class="form-control" value="PRE1534" name="id" id="id">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>方向</label>
-                                            <input type="text" id="direction" class="form-control" value="Stephen Marley" name="direction">
+                                            <label>姓名</label>
+                                            <input type="text" class="form-control" value="MCA" id="name" name="name">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>出生日期</label>
-                                            <div>
-                                                <input type="text" id="birth" class="form-control" value="26 Apr 1994" name="birth">
-                                            </div>
+                                            <label>班级</label>
+                                            <input type="text" class="form-control" value="MCA" id="clazz" name="clazz">
                                         </div>
                                     </div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>民族</label>
-											<input type="text" id="nation" class="form-control" value="Stephen Marley" name="nation">
-										</div>
-									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>宗教信仰</label>
-                                            <input type="text" id="religion" class="form-control" value="Religion" name="religion">
+                                            <label>所属部门</label>
+                                            <input type="text" class="form-control" value="Lois A" id="department" name="department">
                                         </div>
                                     </div>
-									<div class="col-12 col-sm-6">
-									<div class="form-group">
-										<label>籍贯</label>
-										<input type="text" id="nativeplace" class="form-control" value="籍贯" name="nativeplace">
-									</div>
-								</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>家庭住址</label>
-											<input type="text" id="address" class="form-control" value="籍贯" name="address">
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>宿舍楼</label>
-											<input type="text" id="bedroom_lou" class="form-control" value="籍贯" name="bedroom_lou">
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>宿舍号</label>
-											<input type="text" id="bedroom_hao" class="form-control" value="籍贯" name="bedroom_hao">
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>身份证号</label>
-											<input type="text" id="idcard" class="form-control" value="籍贯" name="idcard">
-										</div>
-									</div>
-									<div class="col-12 col-sm-6">
-										<div class="form-group">
-											<label>银行卡号</label>
-											<input type="text" id="bank" class="form-control" value="籍贯" name="bank">
-										</div>
-									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>入学年份</label>
-                                            <div>
-                                                <input type="text"  id="comy" class="form-control" value="4 Jan 2002" name="comy">
-                                            </div>
+                                            <label>部门职位</label>
+                                            <input type="text" class="form-control" value="1992" id="position" name="position">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>联系方式</label>
-                                            <input type="text" id="phone" class="form-control" value="077 3499 9959" name="phone">
+                                            <input type="text" class="form-control" value="200" id="phone" name="phone">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>一寸照片</label>
-                                            <input type="file" id="photo" class="form-control" name="photo">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <h5 class="form-title"><span>父母信息</span></h5>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>父亲姓名</label>
-                                            <input type="text" id="father_name" class="form-control" value="Stephen Marley" name="father_name">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>父亲的职业</label>
-                                            <input type="text" id="father_profession" class="form-control" value="Technician" name="father_profession">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>父亲的手机号</label>
-                                            <input type="text" id="father_phone" class="form-control" value="402 221 7523" name="father_phone">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>母亲姓名</label>
-                                            <input type="text" id="mother_name" class="form-control" value="Cleary Wong" name="mother_name">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>母亲的职业</label>
-                                            <input type="text" id="mother_profession"  class="form-control" value="Home Maker" name="mother_profession">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>母亲的手机号</label>
-                                            <input type="text" id="mother_phone"  class="form-control" value="026 7318 4366" name="mother_phone">
+                                            <label>QQ</label>
+                                            <input type="text" class="form-control" value="200" id="qq" name="qq">
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button  class="btn btn-primary" type="submit">提交</button>
+                                        <button type="submit" class="btn btn-primary">提交</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
+
     </div>
     <!-- /Page Wrapper -->
 
