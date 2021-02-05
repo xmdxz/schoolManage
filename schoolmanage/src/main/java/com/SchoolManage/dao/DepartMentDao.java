@@ -3,6 +3,7 @@ package com.SchoolManage.dao;
 import com.SchoolManage.pojo.DepartMent;
 import org.apache.ibatis.annotations.Param;
 
+import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 public interface DepartMentDao {
@@ -21,6 +22,13 @@ public interface DepartMentDao {
      * 根据部门名称查询
      */
     List<DepartMent> findByName(String name, int startPage, int num);
+
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
+    DepartMent findById(Integer id);
 
     /**
      * 根据姓名查询的数量
@@ -66,5 +74,5 @@ public interface DepartMentDao {
     /**
      * 删除记录
      */
-    int deleteData(String name);
+    int deleteData(Integer id);
 }

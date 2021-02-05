@@ -10,6 +10,11 @@ import lombok.ToString;
 public class DepartMent {
 
     /**
+     * id
+     */
+    private Integer id;
+
+    /**
      * 部门名称
      */
     private String name;
@@ -32,5 +37,5 @@ public class DepartMent {
     /**
      * 部门成员数量
      */
-    private int num;
+    private Integer num;
 }
