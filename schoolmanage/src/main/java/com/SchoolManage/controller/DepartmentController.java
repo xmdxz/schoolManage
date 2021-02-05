@@ -87,6 +87,7 @@ public class DepartmentController {
 
     @RequestMapping("insertdata")
     public String insertData(DepartMent departMent){
+        System.out.println(departMent);
         int i = departmentService.insertData(departMent);
         if (i!=0){
             return "departments";

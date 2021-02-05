@@ -22,7 +22,7 @@ public interface StudentDao {
      * @param conditions
      * @return
      */
-    List<Student> findByMultipleConditions(@Param(value = "map") Map<String, String> conditions,int startPage,int num);
+    List<Student> findByMultipleConditions(@Param(value = "map") Map<String, String> conditions,@Param(value = "startPage") int startPage,@Param(value = "num") int num);
     /**
      * 多条件查询结果数量
      * @param nconditions
@@ -40,41 +40,41 @@ public interface StudentDao {
      * @param clazz
      * @return
      */
-    List<Student> findPresentCadre(String clazz,int startPage,int num);
+    List<Student> findPresentCadre(@Param(value = "clazz") String clazz,@Param(value = "startPage") int startPage,@Param(value = "num") int num);
 
     /**
      * 根据现班级职务查询数量
      * @param clazz
      * @return
      */
-    int findPresentCadreCount(String clazz);
+    int findPresentCadreCount(@Param(value = "clazz") String clazz);
 
     /**
      * 根据原班级查询班干部
      * @return
      */
-    List<Student> findOriginalCadre(String clazz,int startPage,int num);
+    List<Student> findOriginalCadre(@Param(value = "clazz") String clazz,@Param(value = "startPage") int startPage,@Param(value = "num") int num);
 
     /**
      * 根据原班级查询干部数量
      * @param clazz
      * @return
      */
-    int findOriginalCadreCount(String clazz);
+    int findOriginalCadreCount(@Param(value = "clazz") String clazz);
 
     /**
      * 根据方向查找
      * @param direction
      * @return
      */
-    List<Student> findByDirection(String direction,int startPage,int num);
+    List<Student> findByDirection(@Param(value = "direction") String direction,@Param(value = "startPage") int startPage,@Param(value = "num") int num);
 
     /**
      * 根据方向查找数量
      * @param direction
      * @return
      */
-    int findByDirectionCount(String direction);
+    int findByDirectionCount(@Param(value = "direction") String direction);
 
     /**
      * 分页查询，需service计算startPage
@@ -82,21 +82,21 @@ public interface StudentDao {
      * @param num 需要拿多少条数据
      * @return
      */
-    List<Student> findPage(int startPage,int num);
+    List<Student> findPage(@Param(value = "startPage") int startPage,@Param(value = "num") int num);
 
     /**
      * 删除学生
      * @param id
      * @return
      */
-    int deleteStudent(String id);
+    int deleteStudent(@Param(value = "id") String id);
     /**
      * 根据条件查询学生的人数,当无查询条件时，传入参数两个为空即可
      * @param conditionName
      * @param conditionValue
      * @return
      */
-    int selectStudentNum(String conditionName,String conditionValue);
+    int selectStudentNum(@Param(value = "conditionName") String conditionName,@Param(value = "conditionValue") String conditionValue);
     /**
      * 批量插入学生
      * @param list 参数为list集合
@@ -108,75 +108,80 @@ public interface StudentDao {
      * @param student
      * @return
      */
-    int insertStudent(Student student);
+    int insertStudent(@Param(value = "student") Student student);
     /**
      * 通过学号查找
      * @param id
      * @return
      */
-    Student findById(String id);
+    Student findById(@Param(value = "id") String id);
 
     /**
      * 通过姓名查找
      * @param name
+     * @param startPage
+     * @param num
      * @return 不排除同名学生，所以返回list
      */
-    List<Student> findByName(String name,int startPage,int num);
+    List<Student> findByName(@Param(value = "name") String name,@Param(value = "startPage") int startPage,@Param(value = "num") int num);
 
     /**
      * 通过姓名查找数量
      * @param name
      * @return
      */
-    int findByNameCount(String name);
+    int findByNameCount(@Param(value = "name") String name);
+
 
     /**
      * 以原班级为单位查询
      * @param original_class
+     * @param startPage
+     * @param num
      * @return
      */
-    List<Student> findByClass_or(String original_class,int startPage,int num);
+    List<Student> findByClass_or(@Param(value = "original_class") String original_class,@Param(value = "startPage") int startPage,@Param(value = "num") int num);
 
     /**
      * 根据原班级查询数量
      * @param original_class
      * @return
      */
-    int findByClass_orCount(String original_class);
+    int findByClass_orCount(@Param(value = "original_class") String original_class);
 
     /**
      * 以现班级为单位查询
      * @param present_class
      * @return
      */
-    List<Student> findByClass_pe(String present_class,int startPage,int num);
+    List<Student> findByClass_pe(@Param(value = "present_class") String present_class,@Param(value = "startPage") int startPage,@Param(value = "num") int num);
 
     /**
      * 根据现班级查询数量
      * @param present_class
      * @return
      */
-    int findByClass_peCount(String present_class);
+    int findByClass_peCount(@Param(value = "present_class") String present_class);
     /**
      * 以专业为单位查询，应该很少用
      * @param major
      * @return
      */
-    List<Student> findByMajor(String major,int startPage,int num);
+    List<Student> findByMajor(@Param(value = "major") String major,@Param(value = "startPage") int startPage,@Param(value = "num") int num);
 
     /**
      * 根据专业查询数量
      * @param major
      * @return
      */
-    int findByMajorCount(String major);
+    int findByMajorCount(@Param(value = "major") String major);
 
     /**
      * 更新信息
      * @param student
      * @return
      */
-    int updateStudent(Student student);
+    int updateStudent(@Param(value = "student") Student student);
 
     /**
        * @Description: 查询所有的学生
