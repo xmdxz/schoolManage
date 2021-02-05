@@ -18,6 +18,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Controller
+@RequestMapping("department")
 public class DepartmentController {
 
     @Autowired
@@ -94,10 +95,11 @@ public class DepartmentController {
 
     @RequestMapping("updatedata")
     public String updateData(DepartMent departMent){
+        System.out.println(departMent);
         int i = departmentService.updateData(departMent);
         if (i!=0){
             return "department";
-        }else return "loginp";
+        }else return "loginp_1";
     }
 
     @RequestMapping("deletedata")

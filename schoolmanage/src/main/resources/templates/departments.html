@@ -51,6 +51,124 @@
 			$(document).ready(function () {
 				$('#InfoName').text(name)
 			});
+			const everypage = 10; //每页的数量
+			var allpage = 1;
+			$.ajax({
+				type: "post",
+				url: "department/findallnum",
+				dataType: "json",
+				async: false,
+			}).done(function (res) {
+				console.log(res)
+				allpage = Math.ceil(res / everypage);
+			});
+			$.ajax({
+				type: "post",
+				url: "department/findall",
+				dataType: "json",
+				data: {'page': 1, 'num': everypage},
+			}).done(function (res) {
+				console.log(res)
+				res.num=1;
+				var msg = "";
+				$.each(res, function (i, n) {
+					msg += "<tr>";
+					msg += "<td>" + n.id + "</td>";
+					msg += "<td>" + n.name + "</td>";
+					msg += "<td>" + n.minister + "</td>";
+					msg += "<td>" + n.phone + "</td>";
+					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.num +"人"+"</a></h2></td>";
+					msg += "<td>" + n.college + "</td>";
+					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-department.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+					msg += "</tr>";
+				});
+				$("#departments").html(msg);
+				$('#example').bootstrapPaginator({
+					currentPage: 1,//当前的请求页面。
+					totalPages: allpage,//一共多少页。
+					size: "normal",//应该是页眉的大小。
+					bootstrapMajorVersion: 4,//bootstrap的版本要求。
+					alignment: "right",
+					numberOfPages: 8,//一页列出多少数据。
+					itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+						switch (type) {
+							case "first":
+								return "首页";
+							case "prev":
+								return "上一页";
+							case "next":
+								return "下一页";
+							case "last":
+								return "末页";
+							case "page":
+								return page;
+						}
+					},
+					onPageClicked: function (event, originalEvent, type, page) {
+						newpage(page)
+					}
+				});
+			}).fail(function (err) {
+				alert("系统繁忙哈...")
+			});
+			function newpage(res) {
+				var page = res
+				$.ajax({
+					type: "post",
+					url: "department/findall",
+					dataType: "json",
+					data: {'page': page, 'num': everypage},
+				}).done(function (res) {
+					var msg = "";
+					$.each(res, function (i, n) {
+						msg += "<tr>";
+						msg += "<td>" + n.id + "</td>";
+						msg += "<td>" + n.name + "</td>";
+						msg += "<td>" + n.minister + "</td>";
+						msg += "<td>" + n.phone + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.num + "</a></h2></td>";
+						msg += "<td>" + n.college + "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-department.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "</tr>";
+					});
+					$("#departments").html(msg);
+				})
+			}
+			function deldec(id) {
+				var id = id;
+				swal({
+							title: "确定删除吗？",
+							text: "你将无法恢复该部门信息！",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "确定删除！",
+							cancelButtonText: "取消删除！",
+							closeOnConfirm: false,
+							closeOnCancel: false
+						},
+						function (isConfirm) {
+							if (isConfirm) {
+								$.ajax({
+									type: "post",
+									url: "/department/deletedata",
+									dataType: "json",
+									data: {'id': id},
+								}).done(function (res) {
+									if (res.code == 500) {
+										swal("删除失败", "服务器繁忙中...", "warning");
+									} else if (res.code == 200) {
+										swal("删除成功！", "即将返回部门列表", "success");
+										setTimeout("window.location.href='departments.html'", "1200");
+									}
+								})
+							} else {
+								swal("取消！", "你的部门信息是安全的XD:)",
+										"error");
+							}
+						});
+
+			}
 		</script>
     </head>
     <body>
@@ -79,7 +197,7 @@
 				<!-- Search Bar -->
 				<div class="top-nav-search">
 					<form>
-						<input type="text" class="form-control" placeholder="Search here">
+						<input type="text" class="form-control" placeholder="搜索">
 						<button class="btn" type="submit"><i class="fas fa-search"></i></button>
 					</form>
 				</div>
@@ -392,38 +510,44 @@
 											<thead>
 												<tr>
 													<th>编号</th>
-													<th>名字</th>
+													<th>部门名字</th>
 													<th>部长</th>
-													<th>开始年</th>
-													<th>人数</th>
+													<th>联系电话</th>
+													<th>部门人数</th>
+													<th>学院</th>
 													<th class="text-right">编辑</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td>10001</td>
-													<td>
-														<h2>
-															<a>自律部</a>
-														</h2>
-													</td>
-													<td>谁谁谁</td>
-													<td>1995</td>
-													<td>180</td>
-													<td class="text-right">
-														<div class="actions">
-															<a href="edit-department.html" class="btn btn-sm bg-success-light mr-2">
-																<i class="fas fa-pen"></i>
-															</a>
-															<a href="#" class="btn btn-sm bg-danger-light">
-																<i class="fas fa-trash"></i>
-															</a>
-														</div>
-													</td>
-												</tr>
+											<tbody id="departments">
+<!--												<tr>-->
+<!--													<td>10001</td>-->
+<!--													<td>-->
+<!--														<h2>-->
+<!--															<a>自律部</a>-->
+<!--														</h2>-->
+<!--													</td>-->
+<!--													<td>谁谁谁</td>-->
+<!--													<td>1995</td>-->
+<!--													<td>180</td>-->
+<!--													<td class="text-right">-->
+<!--														<div class="actions">-->
+<!--															<a href="edit-department.html" class="btn btn-sm bg-success-light mr-2">-->
+<!--																<i class="fas fa-pen"></i>-->
+<!--															</a>-->
+<!--															<a href="#" class="btn btn-sm bg-danger-light">-->
+<!--																<i class="fas fa-trash"></i>-->
+<!--															</a>-->
+<!--														</div>-->
+<!--													</td>-->
+<!--												</tr>-->
 
 											</tbody>
 										</table>
+									</div>
+									<div class="pagination" style="text-align: center;float:right;margin-top:1.5625em;">
+										<div style="float: right;margin-right:0.1rem">
+											<ul id="example"></ul>
+										</div>
 									</div>
 								</div>
 							</div>
