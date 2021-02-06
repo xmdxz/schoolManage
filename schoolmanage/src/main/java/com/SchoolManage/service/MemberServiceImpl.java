@@ -1,10 +1,15 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.dao.MemberDao;
+import com.SchoolManage.exception.FieldNotExistException;
+import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.pojo.Member;
+import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -114,4 +119,26 @@ public class MemberServiceImpl implements MemberService {
     public int findByDepartmentAndNameNum(String department, String name) {
         return memberDao.findByDepartmentAndNameNum(department,name);
     }
+
+    @Override
+    public int BatchAddition(String path) {
+        int num=0;
+        try {
+            //path写实际path
+            TableUtil<Member> tableUtil = new TableUtil<Member>(path, Member.class);
+            List<Member> list = tableUtil.GetTableRowContent();
+            //调用插入接口
+            //批量上传，list集合
+            num=memberDao.insertDatas(list);
+        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
+            e.printStackTrace();
+            return  -2;
+        } catch (FieldNotExistException e) {
+            //此处应处理表格问题，返回前端
+            e.printStackTrace();
+            return  -3;
+        }
+        return num;
+    }
+
 }

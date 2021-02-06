@@ -111,4 +111,8 @@ public interface MemberService {
      * @return
      */
     int findByDepartmentAndNameNum(String department, String name);
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
 }

@@ -78,13 +78,14 @@
 				$.each(res, function (i, n) {
 					msg += "<tr>";
 					msg += "<td>" + n.id + "</td>";
-					msg += "<td>" + n.name + "</td>";
+					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
 					msg += "<td>" + n.clazz + "</td>";
 					msg += "<td>" + n.department + "</td>";
 					msg += "<td>" + n.position + "</td>";
 					msg += "<td>" + n.phone + "</td>";
 					msg += "<td>" + n.qq + "</td>";
-					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-department.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + n.id +"&department="+n.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+
 					msg += "</tr>";
 				});
 				$("#departments").html(msg);
@@ -157,13 +158,13 @@
 								var msg = "";
 								msg += "<tr>";
 								msg += "<td>" + res.id + "</td>";
-								msg += "<td>" + res.name + "</td>";
+								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + res.id + "\"" + ">" + res.name + "</a></h2></td>";
 								msg += "<td>" + res.clazz + "</td>";
 								msg += "<td>" + res.department + "</td>";
 								msg += "<td>" + res.position + "</td>";
 								msg += "<td>" + res.phone + "</td>";
 								msg += "<td>" + res.qq + "</td>";
-								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-department.html?id=" + res.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + res.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + res.id +"&department="+res.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + res.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 								msg += "</tr>";
 								$("#departments").html(msg);
 								$('#example').bootstrapPaginator({
@@ -213,13 +214,13 @@
 							$.each(res, function (i, n) {
 								msg += "<tr>";
 								msg += "<td>" + n.id + "</td>";
-								msg += "<td>" + n.name + "</td>";
+								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
 								msg += "<td>" + n.clazz + "</td>";
 								msg += "<td>" + n.department + "</td>";
 								msg += "<td>" + n.position + "</td>";
 								msg += "<td>" + n.phone + "</td>";
 								msg += "<td>" + n.qq + "</td>";
-								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-department.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + n.id +"&department="+n.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 								msg += "</tr>";
 							});
 							$("#departments").html(msg);
@@ -264,13 +265,13 @@
 					$.each(res, function (i, n) {
 						msg += "<tr>";
 						msg += "<td>" + n.id + "</td>";
-						msg += "<td>" + n.name + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
 						msg += "<td>" + n.clazz + "</td>";
 						msg += "<td>" + n.department + "</td>";
 						msg += "<td>" + n.position + "</td>";
 						msg += "<td>" + n.phone + "</td>";
 						msg += "<td>" + n.qq + "</td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-department.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + n.id +"&department="+n.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 						msg += "</tr>";
 					});
 					$("#departments").html(msg);
@@ -288,13 +289,13 @@
 					$.each(res, function (i, n) {
 						msg += "<tr>";
 						msg += "<td>" + n.id + "</td>";
-						msg += "<td>" + n.name + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
 						msg += "<td>" + n.clazz + "</td>";
 						msg += "<td>" + n.department + "</td>";
 						msg += "<td>" + n.position + "</td>";
 						msg += "<td>" + n.phone + "</td>";
 						msg += "<td>" + n.qq + "</td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-department.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + n.id +"&department="+n.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 						msg += "</tr>";
 					});
 					$("#departments").html(msg);
@@ -317,7 +318,7 @@
 							if (isConfirm) {
 								$.ajax({
 									type: "post",
-									url: "/department/deletedata",
+									url: "member/deletedata",
 									dataType: "json",
 									data: {'id': id},
 								}).done(function (res) {
@@ -673,7 +674,7 @@
 								<a download id="downe" href="" style="display: none"> </a>
 								<button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</button>
 								<!--                        <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</a>-->
-								<a href="add-department.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+								<a href="add-member.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
 							</div>
 						</div>
 					</div>
