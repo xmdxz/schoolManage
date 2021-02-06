@@ -79,5 +79,48 @@
             </where>
         </if>
     </select>
+    <select id="findByDepartmentAndId" resultType="com.SchoolManage.pojo.Member">
+        select * from member where department = #{department} and id = #{id}
+    </select>
+    <select id="findByDepartmenrAndName" resultType="com.SchoolManage.pojo.Member">
+        select * from member where department = #{department} and name like "%" #{name} "%" limit #{startPage},#{num}
+    </select>
+    <select id="findByDepartmentAndPosition" resultType="com.SchoolManage.pojo.Member">
+        select * from member where department = #{department} and position like "%" #{position} "%" limit #{startPage},#{num}
+    </select>
+    <select id="findByDepartmentAndClazz" resultType="com.SchoolManage.pojo.Member">
+        select * from member where department = #{department} and clazz like "%" #{clazz} "#" limit #{startPage},#{num}
+    </select>
+    <select id="findByDepartmentAndConditions" resultType="com.SchoolManage.pojo.Member">
+        select * from member
+            <where>
+                    department = #{department},
+                <if test="map != null">
+                    <foreach collection="map" separator="and" item="value" index="key">
+                        ${key} = #{value}
+                    </foreach>
+                </if>
+            </where> limit #{startPage},#{num}
+    </select>
+    <select id="findByDepartmentAndNameNum" resultType="java.lang.Integer">
+        select count(*) from member where department = #{department} and name like "%" #{name} "%"
+    </select>
+    <select id="findByDepartmentAndPositionNum" resultType="java.lang.Integer">
+        select count(*) from member where department = #{department} and position like "%" #{position} "%"
+    </select>
+    <select id="findByDepartmentAndClazzNum" resultType="java.lang.Integer">
+        select count(*) from member where department = #{department} and clazz like "%" #{clazz} "#"
+    </select>
+    <select id="findByDepartmentAndConditionsNum" resultType="java.lang.Integer">
+        select count(*) from member
+        <where>
+            department = #{department},
+            <if test="map != null">
+                <foreach collection="map" separator="and" item="value" index="key">
+                    ${key} = #{value}
+                </foreach>
+            </if>
+        </where>
+    </select>
 
 </mapper>

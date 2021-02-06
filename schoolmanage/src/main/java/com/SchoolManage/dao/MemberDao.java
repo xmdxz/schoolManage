@@ -33,6 +33,75 @@ public interface MemberDao {
     int findByDepartmentNum(@Param(value = "department") String department);
 
     /**
+     * 根据部门和id查询成员
+     * @param department
+     * @param id
+     * @return
+     */
+    Member findByDepartmentAndId(@Param(value = "department")String department,@Param(value = "id") String id);
+
+    /**
+     * 根据部门和姓名查询成员
+     * @param department
+     * @param name
+     * @return
+     */
+    List<Member> findByDepartmenrAndName(@Param(value = "department")String department,@Param(value = "name") String name,@Param(value = "startPage")int startPage,@Param(value = "num")int num);
+
+    /**
+     * 根据部门和姓名查询成员数量
+     * @param department
+     * @param name
+     * @return
+     */
+    int findByDepartmentAndNameNum(@Param(value = "department")String department,@Param(value = "name") String name);
+
+    /**
+     * 根据部门和职位查询成员
+     * @param department
+     * @param position
+     * @return
+     */
+    List<Member> findByDepartmentAndPosition(@Param(value = "department")String department,@Param(value = "position") String position,@Param(value = "startPage") int startPage,@Param(value = "num")int num);
+
+    /**
+     * 根据部门和职位查询数量
+     * @param department
+     * @param position
+     * @return
+     */
+    int findByDepartmentAndPositionNum(@Param(value = "department")String department,@Param(value = "position") String position);
+    /**
+     * 根据部门和班级查询成员
+     * @param department
+     * @param clazz
+     * @return
+     */
+    List<Member> findByDepartmentAndClazz(@Param(value = "department")String department,@Param(value = "clazz") String clazz,@Param(value = "startPage") int startPage,@Param(value = "num")int num);
+
+    /**
+     * 根据部门和班级查询数量
+     * @param department
+     * @param clazz
+     * @return
+     */
+    int findByDepartmentAndClazzNum(@Param(value = "department")String department,@Param(value = "clazz") String clazz);
+    /**
+     * 根据部门和多条件查询成员
+     * @param department
+     * @param map
+     * @return
+     */
+    List<Member> findByDepartmentAndConditions(@Param(value = "department")String department,@Param(value = "map")Map<String,String> map,@Param(value = "startPage") int startPage,@Param(value = "num")int num);
+
+    /**
+     * 根据部门和多条件查询数量
+     * @param department
+     * @param map
+     * @return
+     */
+    int findByDepartmentAndConditionsNum(@Param(value = "department")String department,@Param(value = "map")Map<String,String> map);
+    /**
      * 根据学号查询
      */
     Member findById(@Param(value = "id") String id);
