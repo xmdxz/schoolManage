@@ -113,7 +113,7 @@ public class MemberController {
     public String insertData(Member member){
         int i = memberService.insertData(member);
         if (i!=0){
-            return "loginp_1";
+            return "redirect:/loginp_1.html?name="+member.getDepartment();
         }else return "redirect:/departments.html";
     }
 
