@@ -98,4 +98,19 @@ public class MemberServiceImpl implements MemberService {
     public int deleteData(String id) {
         return memberDao.deleteData(id);
     }
+
+    @Override
+    public Member findByDepartmentAndId(String department, String id) {
+        return memberDao.findByDepartmentAndId(department,id);
+    }
+
+    @Override
+    public List<Member> findByDepartmentAndName(String department, String name, int startPage, int num) {
+        return memberDao.findByDepartmentAndName(department,name,startPage,num);
+    }
+
+    @Override
+    public int findByDepartmentAndNameNum(String department, String name) {
+        return memberDao.findByDepartmentAndNameNum(department,name);
+    }
 }

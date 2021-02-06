@@ -148,8 +148,8 @@
 						console.log(a);
 						$.ajax({
 							type:"post",
-							url:"member/findbyid",
-							data:{'id':a},
+							url:"member/findByDepartmentAndId",
+							data:{id:a,department:Name},
 							dataType:"json",
 						}).done(function (res) {
 							if(res!=null)
@@ -195,8 +195,8 @@
 					else {
 						$.ajax({
 							type: "post",
-							url: "member/findbynamenum",
-							data:{name:a},
+							url: "member/findByDepartmentAndNameNum",
+							data:{name:a,department:Name},
 							dataType: "json",
 							async: false,
 						}).done(function (res) {
@@ -205,9 +205,9 @@
 						})
 						$.ajax({
 							type: "post",
-							url: "member/findbyname",
+							url: "member/findByDepartmentAndName",
 							dataType: "json",
-							data: {name:a,'page': 1, 'num': everypage_2},
+							data: {name:a,department:Name,startPage: 1, num: everypage_2},
 						}).done(function (res) {
 							var msg = "";
 							$.each(res, function (i, n) {
@@ -280,9 +280,9 @@
 				var page = res
 				$.ajax({
 					type: "post",
-					url: "member/findbyname",
+					url: "member/findByDepartmentAndName",
 					dataType: "json",
-					data: {name:a,page: page, num: everypage_2},
+					data: {name:a,department:Name,startPage: page, num: everypage_2},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {

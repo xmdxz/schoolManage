@@ -46,7 +46,7 @@ public interface MemberDao {
      * @param name
      * @return
      */
-    List<Member> findByDepartmenrAndName(@Param(value = "department")String department,@Param(value = "name") String name,@Param(value = "startPage")int startPage,@Param(value = "num")int num);
+    List<Member> findByDepartmentAndName(@Param(value = "department")String department,@Param(value = "name") String name,@Param(value = "startPage")int startPage,@Param(value = "num")int num);
 
     /**
      * 根据部门和姓名查询成员数量

@@ -52,7 +52,6 @@ public class MemberController {
     @RequestMapping("findbydepartmentnum")
     @ResponseBody
     public String findByDepartmentNum(String department){
-        System.out.println(department);
         return Integer.toString(memberService.findByDepartmentNum(department));
     }
 
@@ -90,6 +89,24 @@ public class MemberController {
         return byPositionNum;
     }
 
+    @RequestMapping("findByDepartmentAndId")
+    @ResponseBody
+    public Member findByDepartmentAndId(String department, String id){
+        return memberService.findByDepartmentAndId(department,id);
+    }
+    @RequestMapping("findByDepartmentAndName")
+    @ResponseBody
+    public List<Member> findByDepartmentAndName(String department, String name, int startPage, int num){
+        System.out.println(department+name);
+        System.out.println(startPage+num);
+        return memberService.findByDepartmentAndName(department,name,startPage,num);
+    }
+    @RequestMapping("findByDepartmentAndNameNum")
+    @ResponseBody
+    public String findByDepartmentAndNameNum(String department, String name){
+        int i = memberService.findByDepartmentAndNameNum(department,name);
+        return Integer.toString(i);
+    }
     @RequestMapping("insertdata")
     public String insertData(Member member){
         int i = memberService.insertData(member);
