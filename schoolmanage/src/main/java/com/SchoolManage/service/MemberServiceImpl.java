@@ -106,7 +106,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> findByDepartmentAndName(String department, String name, int startPage, int num) {
-        return memberDao.findByDepartmentAndName(department,name,startPage,num);
+        int Page = (startPage-1)*num ;
+        return memberDao.findByDepartmentAndName(department,name,Page,num);
     }
 
     @Override

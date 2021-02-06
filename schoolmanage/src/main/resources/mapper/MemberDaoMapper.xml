@@ -82,7 +82,7 @@
     <select id="findByDepartmentAndId" resultType="com.SchoolManage.pojo.Member">
         select * from member where department = #{department} and id = #{id}
     </select>
-    <select id="findByDepartmenrAndName" resultType="com.SchoolManage.pojo.Member">
+    <select id="findByDepartmentAndName" resultType="com.SchoolManage.pojo.Member">
         select * from member where department = #{department} and name like "%" #{name} "%" limit #{startPage},#{num}
     </select>
     <select id="findByDepartmentAndPosition" resultType="com.SchoolManage.pojo.Member">
