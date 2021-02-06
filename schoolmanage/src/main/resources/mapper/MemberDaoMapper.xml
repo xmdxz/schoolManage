@@ -12,7 +12,7 @@
         insert into member(id,name,department,position,phone,qq,clazz)
             values
                 <foreach collection="list" separator="," item="item">
-                    (#{item.id},#{item.name},#{item.department},#{item.positon},#{item.phone},#{item.qq},#{item.clazz})
+                    (#{item.id},#{item.name},#{item.department},#{item.position},#{item.phone},#{item.qq},#{item.clazz})
                 </foreach>
     </insert>
     <update id="updateData">
