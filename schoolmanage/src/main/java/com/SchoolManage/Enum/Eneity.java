@@ -49,13 +49,14 @@ public enum Eneity {
         put("人数","num");
     }}),
 
-    Member(new LinkedHashMap<String, String>(){{
+    MEMBER(new LinkedHashMap<String, String>(){{
         put("学号","id");
         put("姓名","name");
         put("所属部门","department");
         put("部门职位","position");
         put("联系方式","phone");
         put("QQ","qq");
+        put("班级","clazz");
     }});
 
     private Map<String, String> pojo;
