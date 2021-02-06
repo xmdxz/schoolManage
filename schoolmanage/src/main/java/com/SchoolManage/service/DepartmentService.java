@@ -81,4 +81,8 @@ public interface DepartmentService {
      * 删除记录
      */
     int deleteData(Integer id);
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
 }
