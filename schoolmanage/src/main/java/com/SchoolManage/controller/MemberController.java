@@ -5,6 +5,7 @@ import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.pojo.Member;
 import com.SchoolManage.service.MemberService;
 import com.SchoolManage.util.CreateExlceUtil;
+import com.SchoolManage.util.UnicodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -112,8 +113,11 @@ public class MemberController {
     @RequestMapping("insertdata")
     public String insertData(Member member){
         int i = memberService.insertData(member);
+        UnicodeUtil util = new UnicodeUtil();
+        String str =util.gbEncoding(member.getDepartment());//中文换为unicode编码
+        str =str.replace('\\','_'); //url中不允许出现、 所以转换
         if (i!=0){
-            return "redirect:/loginp_1.html?name="+member.getDepartment();
+            return "redirect:/loginp_1.html?name="+str;
         }else return "redirect:/departments.html";
     }
 

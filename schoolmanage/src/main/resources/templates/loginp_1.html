@@ -33,6 +33,8 @@
                 var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
                 Name= arr[0].split("=")[1];//获取数组中第一个参数//
                 Name=decodeURI(Name);//转码将解码方式换为decodeURI，将中文参数获取
+                Name=Name.replace(/_/g,'\\');
+                Name=eval("'"+Name+"'");
                 console.log(Name)
             }
             $(document).ready(function(){
