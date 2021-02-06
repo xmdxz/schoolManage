@@ -1,12 +1,18 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.exception.NameNullException;
+import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.pojo.Member;
 import com.SchoolManage.service.MemberService;
+import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +24,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Controller
+@RequestMapping("member")
 public class MemberController {
     @Autowired
     private MemberService memberService;
@@ -44,8 +51,9 @@ public class MemberController {
 
     @RequestMapping("findbydepartmentnum")
     @ResponseBody
-    public int findByDepartmentNum(String department){
-        return memberService.findByDepartmentNum(department);
+    public String findByDepartmentNum(String department){
+        System.out.println(department);
+        return Integer.toString(memberService.findByDepartmentNum(department));
     }
 
     @RequestMapping("findbyid")
@@ -64,8 +72,8 @@ public class MemberController {
 
     @RequestMapping("findbynamenum")
     @ResponseBody
-    public int findByNameNum(String name){
-        return memberService.findByNameNum(name);
+    public String findByNameNum(String name){
+        return Integer.toString(memberService.findByNameNum(name));
     }
 
     @RequestMapping("findbyposition")
@@ -113,6 +121,13 @@ public class MemberController {
             return map;
         }
     }
-
+    @RequestMapping(value = "Excle",produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent(HttpServletRequest request,String name) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i=memberService.findByDepartmentNum(name);
+        CreateExlceUtil<Member> createExlceUtil = new CreateExlceUtil<>(request,Member.class,"部门成员表");
+        List<Member> list =memberService.findByDepartment(name,1,i);
+        return createExlceUtil.createExcle(list);
+    }
 
 }
