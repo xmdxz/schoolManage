@@ -325,7 +325,7 @@
 									if (res.code == 500) {
 										swal("删除失败", "服务器繁忙中...", "warning");
 									} else if (res.code == 200) {
-										swal("删除成功！", "即将返回部门列表", "success");
+										swal("删除成功！", "即将返回部门成员列表", "success");
 										setTimeout("window.location.href='member.html?name='+Name", "1200");
 									}
 								})
