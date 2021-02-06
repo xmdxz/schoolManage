@@ -124,8 +124,11 @@ public class MemberController {
     @RequestMapping("updatedata")
     public String updateData(Member member){
         int i = memberService.updateData(member);
+        UnicodeUtil util = new UnicodeUtil();
+        String str =util.gbEncoding(member.getDepartment());//中文换为unicode编码
+        str =str.replace('\\','_'); //url中不允许出现、 所以转换
         if (i!=0){
-            return "loginp_1";
+            return "redirect:/loginp_1.html?name="+str;
         }else return "redirect:/departments.html";
     }
 
