@@ -1854,7 +1854,7 @@ footer p {
 }
 .login-wrapper .loginbox .login-left {
     align-items: center;
-    background: #18aefa;
+    /*background: #18aefa;*/
     background-image: url(../img/login.jpg);
     border-radius: 6px 0 0 6px;
     flex-direction: column;
@@ -1862,7 +1862,7 @@ footer p {
     padding: 80px;
     width: 400px;
     display: flex;
-    background-blend-mode: multiply;
+    /*background-blend-mode: multiply;*/
 }
 .login-wrapper .loginbox .login-right {
     align-items: center;
