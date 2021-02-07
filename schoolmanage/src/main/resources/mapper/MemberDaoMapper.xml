@@ -12,7 +12,7 @@
         insert into member(id,name,department,position,phone,qq,clazz)
             values
                 <foreach collection="list" separator="," item="item">
-                    (#{item.id},#{item.name},#{item.department},#{item.positon},#{item.phone},#{item.qq},#{item.clazz})
+                    (#{item.id},#{item.name},#{item.department},#{item.position},#{item.phone},#{item.qq},#{item.clazz})
                 </foreach>
     </insert>
     <update id="updateData">
@@ -82,7 +82,7 @@
     <select id="findByDepartmentAndId" resultType="com.SchoolManage.pojo.Member">
         select * from member where department = #{department} and id = #{id}
     </select>
-    <select id="findByDepartmenrAndName" resultType="com.SchoolManage.pojo.Member">
+    <select id="findByDepartmentAndName" resultType="com.SchoolManage.pojo.Member">
         select * from member where department = #{department} and name like "%" #{name} "%" limit #{startPage},#{num}
     </select>
     <select id="findByDepartmentAndPosition" resultType="com.SchoolManage.pojo.Member">

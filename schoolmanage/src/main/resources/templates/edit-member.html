@@ -43,19 +43,23 @@
     <script type="text/javascript">
         var url = document.location.toString();//获取url地址
         var studentObj=null;
+        var Id=null;
+        var Name=null;
         if(url.indexOf("?")!=-1)
         {
             var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
             var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
-            var Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
+            Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
+            Name=arr[1].split("=")[1];
+            Name=decodeURI(Name);
+            console.log(Name+Id);
             $.ajax({
                 type:"post",
-                url:"department/findbyid",
+                url:"member/findByDepartmentAndId",
                 dataType:"json",
-                data: {id:Id}
+                data: {department:Name,id:Id}
             }).done(function (res) {
                 console.log(res)
-                res.num=1;
                 obj=res;
                 var props = "";
                 for(var p in obj){
@@ -403,7 +407,7 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <form action="department/updatedata" method="post">
+                            <form action="member/updatedata" method="post">
                                 <div class="row">
                                     <div class="col-12">
                                         <h5 class="form-title"><span>成员信息</span></h5>

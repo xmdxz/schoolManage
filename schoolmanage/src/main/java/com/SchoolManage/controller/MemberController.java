@@ -5,12 +5,17 @@ import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.pojo.Member;
 import com.SchoolManage.service.MemberService;
 import com.SchoolManage.util.CreateExlceUtil;
+import com.SchoolManage.util.UnicodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -52,7 +57,6 @@ public class MemberController {
     @RequestMapping("findbydepartmentnum")
     @ResponseBody
     public String findByDepartmentNum(String department){
-        System.out.println(department);
         return Integer.toString(memberService.findByDepartmentNum(department));
     }
 
@@ -90,20 +94,42 @@ public class MemberController {
         return byPositionNum;
     }
 
+    @RequestMapping("findByDepartmentAndId")
+    @ResponseBody
+    public Member findByDepartmentAndId(String department, String id){
+        return memberService.findByDepartmentAndId(department,id);
+    }
+    @RequestMapping("findByDepartmentAndName")
+    @ResponseBody
+    public List<Member> findByDepartmentAndName(String department, String name, int startPage, int num){
+        return memberService.findByDepartmentAndName(department,name,startPage,num);
+    }
+    @RequestMapping("findByDepartmentAndNameNum")
+    @ResponseBody
+    public String findByDepartmentAndNameNum(String department, String name){
+        int i = memberService.findByDepartmentAndNameNum(department,name);
+        return Integer.toString(i);
+    }
     @RequestMapping("insertdata")
     public String insertData(Member member){
         int i = memberService.insertData(member);
+        UnicodeUtil util = new UnicodeUtil();
+        String str =util.gbEncoding(member.getDepartment());//中文换为unicode编码
+        str =str.replace('\\','_'); //url中不允许出现、 所以转换
         if (i!=0){
-            return "redirect:/departments.html";
-        }else return "loginp";
+            return "redirect:/loginp_1.html?name="+str;
+        }else return "redirect:/departments.html";
     }
 
     @RequestMapping("updatedata")
     public String updateData(Member member){
         int i = memberService.updateData(member);
+        UnicodeUtil util = new UnicodeUtil();
+        String str =util.gbEncoding(member.getDepartment());//中文换为unicode编码
+        str =str.replace('\\','_'); //url中不允许出现、 所以转换
         if (i!=0){
-            return "redirect:/departments.html";
-        }else return "loginp";
+            return "redirect:/loginp_1.html?name="+str;
+        }else return "redirect:/departments.html";
     }
 
     @RequestMapping("deletedata")
@@ -129,5 +155,42 @@ public class MemberController {
         List<Member> list =memberService.findByDepartment(name,1,i);
         return createExlceUtil.createExcle(list);
     }
+    @PostMapping("upfile")
+    @ResponseBody
+    public String upfile(HttpServletRequest request,@RequestParam("file") MultipartFile file){
+        if (file==null){
+            return "请选择文件";
+        }
+        try {
+            String filename = file.getOriginalFilename();
+            String extFileName = filename.substring(filename.lastIndexOf("." ) +1,filename.length());
+//            System.out.println("文件名:\t"+filename);
+//            System.out.println("后缀名:\t"+extFileName);
+            //上传到本地,模拟上传到文件服务器
+            String filePath = request.getServletContext().getRealPath("/") + "File\\" ;
+            String path = filePath + filename;
+            //文件存储路径
+            File dest = new File(path);
+            if (!dest.getParentFile().exists()){
+                dest.getParentFile().mkdir();
+            }
+            file.transferTo(dest);
+            int i=66;
+            try {
+                System.out.println(path);
+                i=memberService.BatchAddition(path);
+                dest.delete();
+                return "上传成功了";
+            }catch (Exception e)
+            {
+                dest.delete();
+                return "上传的表格不匹配,请进行修改后重先上传";
+            }
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败了";
+    }
 }

@@ -25,9 +25,22 @@
         <link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
         <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
         <script type="text/javascript">
+            var url = document.location.toString();//获取url地址
+            var Name=null;
+            if(url.indexOf("?")!=-1)
+            {
+                var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+                var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+                Name= arr[0].split("=")[1];//获取数组中第一个参数//
+                Name=decodeURI(Name);//转码将解码方式换为decodeURI，将中文参数获取
+                Name=Name.replace(/_/g,'\\');
+                Name=eval("'"+Name+"'");
+                console.log(Name)
+            }
             $(document).ready(function(){
                 swal("操作成功！", "即将返回部门列表", "success");
-                setTimeout("window.location.href='/departments.html'", "1200");
+                if (Name!=""&&Name!=null){setTimeout("window.location.href='/member.html?name='+Name", "1200");}
+                else {setTimeout("window.location.href='/departments.html'", "1200");}
             });
 
         </script>

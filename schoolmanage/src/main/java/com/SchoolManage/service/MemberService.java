@@ -1,6 +1,7 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Member;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -88,5 +89,31 @@ public interface MemberService {
      * 删除
      */
     int deleteData(String id);
+    /**
+     * 根据部门和id查询成员
+     * @param department
+     * @param id
+     * @return
+     */
+    Member findByDepartmentAndId(String department, String id);
 
+    /**
+     * 根据部门和姓名查询成员
+     * @param department
+     * @param name
+     * @return
+     */
+    List<Member> findByDepartmentAndName(String department,String name,int startPage,int num);
+
+    /**
+     * 根据部门和姓名查询成员数量
+     * @param department
+     * @param name
+     * @return
+     */
+    int findByDepartmentAndNameNum(String department, String name);
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
 }
