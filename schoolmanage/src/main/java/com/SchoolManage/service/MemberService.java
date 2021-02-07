@@ -18,7 +18,7 @@ public interface MemberService {
     /**
      * 查询全部成员，这里的全部只得是，无论哪个部门
      */
-    List<Member> findAll( int Page, int num);
+    List<Member> findAll(int Page, int num);
 
     /**
      * 查询全部成员数量
@@ -28,12 +28,12 @@ public interface MemberService {
     /**
      * 根据部门查询成员
      */
-    List<Member> findByDepartment( String department, int Page,int num);
+    List<Member> findByDepartment(String department, int Page, int num);
 
     /**
      * 根据部门查询成员数量
      */
-    int findByDepartmentNum( String department);
+    int findByDepartmentNum(String department);
 
     /**
      * 根据学号查询
@@ -43,17 +43,17 @@ public interface MemberService {
     /**
      * 根据姓名查找
      */
-    List<Member> findByName( String name, int Page, int num);
+    List<Member> findByName(String name, int Page, int num);
 
     /**
      * 根据姓名查询数量
      */
-    int findByNameNum( String name);
+    int findByNameNum(String name);
 
     /**
      * 根据职位查找
      */
-    List<Member> findByPosition( String position,int Page,int num);
+    List<Member> findByPosition(String position, int Page, int num);
 
     /**
      * 根据职位查找数量
@@ -68,7 +68,8 @@ public interface MemberService {
     /**
      * 根据多条件查询的数量
      */
-    int findByConditionsNum(Map<String,String> map);
+    int findByConditionsNum(Map<String, String> map);
+
     /**
      * 单条插入
      */
@@ -80,7 +81,7 @@ public interface MemberService {
     int insertDatas(List<Member> members);
 
     /**
-     *更新
+     * 更新
      */
     int updateData(Member member);
 
