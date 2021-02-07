@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> findAll(int Page, int num) {
-        int startPage = (Page-1)*num;
+        int startPage = (Page - 1) * num;
         return memberDao.findAll(startPage, num);
     }
 
@@ -33,8 +33,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> findByDepartment(String department, int Page, int num) {
-        int startPage = (Page-1)*num;
-        return memberDao.findByDepartment(department,startPage,num);
+        int startPage = (Page - 1) * num;
+        return memberDao.findByDepartment(department, startPage, num);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> findByName(String name, int Page, int num) {
-        int startPage = (Page-1)*num;
+        int startPage = (Page - 1) * num;
         return memberDao.findByName(name, startPage, num);
     }
 
@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> findByPosition(String position, int Page, int num) {
-        int startPage = (Page-1)*num ;
+        int startPage = (Page - 1) * num;
         return memberDao.findByPosition(position, startPage, num);
     }
 

@@ -25,7 +25,7 @@ import java.util.Map;
 public class AdminUserController {
     @Autowired
     private AdminUserService adminUserService;
-    
+
     @RequestMapping("login")
     @ResponseBody
     public Map<String,Object> adminUserLogin(String username,String password,String captchacode,
