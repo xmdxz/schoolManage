@@ -16,7 +16,7 @@
 
     /* on drop */											//拖动事件的时候触发  这个操作目前有点问题 分辨率不对劲会报错
     CalendarApp.prototype.onDrop = function (eventObj, date) { 
-		console.log(eventObj);
+		//console.log(eventObj);
         var $this = this;
             // retrieve the dropped element's stored Event Object  检索已删除元素的存储事件对象
             var originalEventObject = eventObj.data('eventObject');
@@ -37,7 +37,7 @@
     },
     /* on click on event */												//当点击事件后触发
     CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
-		console.log(calEvent)
+		console.log(calEvent.id)
         var $this = this;
             var form = $("<form></form>");
             form.append("<label>修改事件</label>");
@@ -63,7 +63,6 @@
     },
     /* on select */													//创建事件时触发
     CalendarApp.prototype.onSelect = function (start, end, allDay) {
-		console.log(start)
         var $this = this;
             $this.$modal.modal({
                 backdrop: 'static'
@@ -100,7 +99,7 @@
                     $this.$modal.modal('hide');
                 }
                 else{
-                    alert('你必须添加事件的内容！');
+                    swal('你必须添加事件的内容！','','warning');
                 }
                 return false;
                 
@@ -141,6 +140,7 @@
                 className: 'bg-purple'
             },
             {
+                id:23,
                 title: 'Test Event 1',
                 start: today,
                 end: today,
