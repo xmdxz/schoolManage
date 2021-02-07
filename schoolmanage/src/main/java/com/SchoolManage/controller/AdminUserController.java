@@ -28,32 +28,32 @@ public class AdminUserController {
 
     @RequestMapping("login")
     @ResponseBody
-    public Map<String,Object> adminUserLogin(String username,String password,String captchacode,
-                                             HttpServletRequest request,HttpServletResponse response){
+    public Map<String, Object> adminUserLogin(String username, String password, String captchacode,
+                                              HttpServletRequest request, HttpServletResponse response) {
         String captchacode1 = (String) request.getSession().getAttribute("captchacode");
         Map<String, Object> map = new HashMap<>();
-        if (CaptchaCodeUtil.verifyCode(captchacode, captchacode1).equals("failed")){
+        if (CaptchaCodeUtil.verifyCode(captchacode, captchacode1).equals("failed")) {
             map.put("msg", "验证码有误");
-            map.put("code",500);
+            map.put("code", 500);
             return map;
         }
 
         AdminUser adminUser = adminUserService.getAdminUser(username);
-        if (adminUser==null){
+        if (adminUser == null) {
             map.put("msg", "账号不存在");
-            map.put("code",500);
+            map.put("code", 500);
             return map;
         }
 
 
-        if (!adminUser.getPassword().equals(password)){
+        if (!adminUser.getPassword().equals(password)) {
             map.put("msg", "密码错误");
-            map.put("code",500);
+            map.put("code", 500);
             return map;
         }
 
         map.put("msg", "ok");
-        map.put("code",200);
+        map.put("code", 200);
         request.getSession().setAttribute("administer", adminUser);
 //        Cookie namecookie = new Cookie("name",adminUser.getName());
 //        namecookie.setMaxAge(60*60*24);
@@ -77,7 +77,7 @@ public class AdminUserController {
 
     @RequestMapping("getadminuser")
     @ResponseBody
-    public AdminUser findByName(String username){
+    public AdminUser findByName(String username) {
         AdminUser adminUser = adminUserService.getAdminUser(username);
         return adminUser;
     }
@@ -86,12 +86,12 @@ public class AdminUserController {
     public void drawCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String code = new CaptchaCodeUtil().randomStr(4);
         request.getSession().setAttribute("captchacode", code);
-        CaptchaCodeUtil vcode = new CaptchaCodeUtil(120,38,4,10,code);
+        CaptchaCodeUtil vcode = new CaptchaCodeUtil(120, 38, 4, 10, code);
         vcode.write(response.getOutputStream());
     }
 
     @RequestMapping("logout")
-    public String logOut(HttpServletRequest request,HttpServletResponse response){
+    public String logOut(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().invalidate();
 //        Cookie namecookie = new Cookie("name",null);
 //        namecookie.setMaxAge(0);
