@@ -57,6 +57,13 @@ public enum Eneity {
         put("联系方式","phone");
         put("QQ","qq");
         put("班级","clazz");
+    }}),
+
+    DORMITORY(new LinkedHashMap<String, String>(){{
+        put("宿舍楼","building");
+        put("宿舍号","number");
+        put("宿舍长","manage");
+        put("人数","num");
     }});
 
     private Map<String, String> pojo;

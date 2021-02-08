@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.DormitoryDao">
+    <insert id="insertData">
+        insert into dormitory
+        values (#{dormitory.building}, #{dormitory.number}, #{dormitory.manage})
+    </insert>
+    <insert id="insertDatas">
+        insert into dormitory
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.building},#{item.number},#{item.manage})
+        </foreach>
+    </insert>
+    <update id="updateData">
+        update dormitory
+        set building = #{dormitory.building},
+            number   = #{dormitory.number},
+            manager  = #{dormitory.manage}
+        where building = #{dormitory.building}
+          and number = #{dormitory.number}
+    </update>
+    <delete id="deleteData">
+        delete
+        from dormitory
+        where building = #{building}
+          and number = #{number}
+    </delete>
+
+    <select id="findDormitoryMember" resultType="com.SchoolManage.pojo.Student">
+        select *
+        from student
+        where bedroom_lou = #{dormitory.building}
+          and bedroom_hao = #{dormitory.number} limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findDormitoryMemberNum" resultType="java.lang.Integer">
+        select count(*)
+        from student
+        where bedroom_lou = #{dormitory.building}
+          and bedroom_hao = #{dormitory.number}
+    </select>
+    <select id="findAll" resultType="com.SchoolManage.pojo.Dormitory">
+        select *,
+               (select count(*)
+                from student
+                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+        from dormitory limit #{startPage},#{num}
+    </select>
+    <select id="findAllNum" resultType="java.lang.Integer">
+        select count(*)
+        from dormitory
+    </select>
+    <select id="findByName" resultType="com.SchoolManage.pojo.Dormitory">
+        select *,
+               (select count(*)
+                from student
+                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+        from dormitory
+        where manage = #{name} limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByNameNum" resultType="java.lang.Integer">
+        select count(*)
+        from dormitory
+        where manage = #{name}
+    </select>
+    <select id="findById" resultType="com.SchoolManage.pojo.Dormitory">
+        select *,
+               (select count(*)
+                from student
+                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+        from dormitory
+        where manage = (select name from student where id = #{id})
+    </select>
+    <select id="findByBuilding" resultType="com.SchoolManage.pojo.Dormitory">
+        select *,
+               (select count(*)
+                from student
+                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+        from dormitory
+        where building = #{building} limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByBuildingNum" resultType="java.lang.Integer">
+        select count(*)
+        from dormitory
+        where building = #{building}
+    </select>
+    <select id="findByNumber" resultType="com.SchoolManage.pojo.Dormitory">
+        select *,
+               (select count(*)
+                from student
+                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+        from dormitory
+        where number = #{number} limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByNumberNum" resultType="java.lang.Integer">
+        select count(*),
+               (select count(*)
+                from student
+                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+        from dormitory
+        where number = #{number}
+    </select>
+    <select id="findByBuildingAndNumber" resultType="com.SchoolManage.pojo.Dormitory">
+        select *,
+               (select count(*)
+                from student
+                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+        from dormitory
+        where building = #{building}
+          and number = #{number}
+    </select>
+</mapper>
