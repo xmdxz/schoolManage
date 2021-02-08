@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.LogsDao">
+
+    <insert id="insertData">
+        insert into logs(title, start, end, className)
+        values (#{logs.title}, #{logs.start}, #{logs.end}, #{logs.className})
+    </insert>
+    <insert id="insertDatas">
+        insert into logs(title,start,end,className)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.title},#{item.start},#{item.end},#{item.className})
+        </foreach>
+    </insert>
+    <update id="updateData">
+        update logs
+        set title     = #{logs.title},
+            start     = #{logs.start},
+            end       = #{logs.end},
+            className = #{logs.className}
+        where id = #{logs.id}
+    </update>
+    <delete id="deleteData">
+        delete
+        from logs
+        where id = #{id}
+    </delete>
+    <select id="findAll" resultType="com.SchoolManage.pojo.Logs">
+        select *
+        from logs
+    </select>
+    <select id="findAllNum" resultType="java.lang.Integer">
+        select count(*)
+        from logs
+    </select>
+</mapper>
