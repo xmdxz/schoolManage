@@ -22,5 +22,4 @@ public class Logs {
     private Timestamp start;
     private Timestamp end;
     private String className;
-
 }
