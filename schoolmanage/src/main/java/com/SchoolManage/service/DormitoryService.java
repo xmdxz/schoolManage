@@ -150,4 +150,8 @@ public interface DormitoryService {
      * @return
      */
     int updateData(Dormitory dormitory);
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
 }

@@ -197,7 +197,6 @@
 				data: {'page': 1, 'num': everypage},
 			}).done(function (res) {
 				console.log(res)
-				res.num=1;
 				var msg = "";
 				$.each(res, function (i, n) {
 					msg += "<tr>";

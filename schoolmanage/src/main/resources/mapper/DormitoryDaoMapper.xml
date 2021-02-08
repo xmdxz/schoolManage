@@ -19,7 +19,7 @@
         update dormitory
         set building = #{dormitory.building},
             number   = #{dormitory.number},
-            manager  = #{dormitory.manage}
+            manage  = #{dormitory.manage}
         where building = #{dormitory.building}
           and number = #{dormitory.number}
     </update>
