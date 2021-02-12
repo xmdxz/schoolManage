@@ -56,5 +56,10 @@ public interface LogsDao {
      * @return
      */
     int updateData(@Param(value = "logs")Logs logs);
-
+    /**
+     * 通过主键查找
+     * @param  id
+     * @return
+     */
+    Logs findbyId(@Param(value = "id") Integer id);
 }

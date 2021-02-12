@@ -25,7 +25,6 @@ public class LogsController {
     }
 
     @RequestMapping("new")
-    @ResponseBody
     public  String Insertnew(String title, Timestamp start,Timestamp end,String className){
         Logs logs=new Logs();
         logs.setClassName(className);
@@ -34,8 +33,8 @@ public class LogsController {
         logs.setTitle(title);
         int i =logsService.insertLogs(logs);
         if (i ==1)
-        return "success";
-        else return "fail";
+        return "redirect:/event.html";
+        else return "redirect:/event.html";
     }
     @RequestMapping("delect")
     @ResponseBody
@@ -59,5 +58,11 @@ public class LogsController {
         if (i ==1)
             return "success";
         else return "fail";
+    }
+
+    @RequestMapping("findById")
+    @ResponseBody
+    public Logs findById(Integer id){
+        return logsService.findById(id);
     }
 }

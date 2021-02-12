@@ -33,6 +33,11 @@
         select *
         from logs
     </select>
+    <select id="findbyId" resultType="com.SchoolManage.pojo.Logs">
+        select *
+        from logs
+        where id =#{id}
+    </select>
     <select id="findAllNum" resultType="java.lang.Integer">
         select count(*)
         from logs

@@ -35,4 +35,9 @@ public class LogsServiceImpl implements LogsService {
     public int updataLogs(Logs logs) {
         return logsDao.updateData(logs);
     }
+
+    @Override
+    public Logs findById(Integer id) {
+        return logsDao.findbyId(id);
+    }
 }

@@ -30,13 +30,6 @@
             // render the event on the calendar
             $this.$calendar.fullCalendar('renderEvent', copiedEventObject, true);
             console.log(copiedEventObject)
-        $.ajax({
-            type: "post",
-            url: "logs/updata",
-            data: {'id':copiedEventObject.id,'title': copiedEventObject.title,'start':copiedEventObject.start,
-                'end': copiedEventObject.end,
-                'className': copiedEventObject.categoryClass},
-        })
             // is the "remove after drop" checkbox checked?
             if ($('#drop-remove').is(':checked')) {			//删除原来的事件
                 // if so, remove the element from the "Draggable Events" list
@@ -45,7 +38,7 @@
     },
     /* on click on event */												//当点击事件后触发
     CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
-		console.log(calEvent)
+        console.log(calEvent)
         var $this = this;
             var form = $("<form></form>");
             form.append("<label>修改事件</label>");
@@ -68,14 +61,23 @@
 			//点击保存时触发
             $this.$modal.find('form').on('submit', function () {
                 calEvent.title = form.find("input[type=text]").val();
-                console.log("开始更新了！")
-               /** $.ajax({
-                    type: "post",
-                    url: "logs/updata",
-                    data: {'id':calEvent.id,'title': calEvent.title,'start':calEvent.start,
-                        'end': calEvent.end,
-                        'className': calEvent.categoryClass},
-                })**/
+               $.ajax({
+                   type: "post",
+                   dataType: "json",
+                   url: "logs/findById",
+                   async: false,
+                   data:{'id':calEvent.id}
+               }).done(function (res) {
+                   var starts =moment(res.start).format('Y-MM-DD HH:mm:ss');
+                   var ends =moment(res.end).format('Y-MM-DD HH:mm:ss');
+                   $.ajax({
+                       type: "post",
+                       url: "logs/updata",
+                       data: {'id':calEvent.id,'title': calEvent.title,'start':starts,
+                           'end': ends,
+                           'className': res.className},
+                   })
+               })
                 $this.$calendarObj.fullCalendar('updateEvent', calEvent);//更新事件
                 $this.$modal.modal('hide');
                 return false;
@@ -111,13 +113,7 @@
 
                 var starts =moment(start).format('Y-MM-DD HH:mm:ss');
                 var ends =moment(end).format('Y-MM-DD HH:mm:ss');
-                $.ajax({
-                    type: "post",
-                    url: "logs/new",
-                    data: {'title': title,'start':starts,
-                        'end': ends,
-                        'className': categoryClass},
-                })
+
                 if (title !== null && title.length != 0) {
                     $this.$calendarObj.fullCalendar('renderEvent', {			//对表对象进行一个设定 包括上述获取到的内容 然后用renderEvent来发送事件到表里
                         title: title,											
@@ -127,6 +123,14 @@
                         className: categoryClass
                     }, true);  
                     $this.$modal.modal('hide');
+                    $.ajax({
+                        type: "post",
+                        url: "logs/new",
+                        data: {'title': title,'start':starts,
+                            'end': ends,
+                            'className': categoryClass},
+                    })
+                    location.reload();
                 }
                 else{
                     swal('你必须添加事件的内容！','','warning');

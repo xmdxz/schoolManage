@@ -28,4 +28,9 @@ public interface LogsService {
      * @param logs
      */
     int updataLogs(Logs logs);
+    /**
+     * 查找
+     * @param id
+     */
+    Logs findById(Integer id);
 }
