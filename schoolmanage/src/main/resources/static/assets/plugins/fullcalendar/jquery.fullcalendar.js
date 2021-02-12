@@ -14,7 +14,7 @@
     };
 
 
-    /* on drop */											//拖动事件的时候触发  这个操作目前有点问题 分辨率不对劲会报错
+    /* on drop */											//拖动事件的时候触发
     CalendarApp.prototype.onDrop = function (eventObj, date) { 
 		//console.log(eventObj);
         var $this = this;
@@ -29,6 +29,14 @@
                 copiedEventObject['className'] = [$categoryClass];
             // render the event on the calendar
             $this.$calendar.fullCalendar('renderEvent', copiedEventObject, true);
+            console.log(copiedEventObject)
+        $.ajax({
+            type: "post",
+            url: "logs/updata",
+            data: {'id':copiedEventObject.id,'title': copiedEventObject.title,'start':copiedEventObject.start,
+                'end': copiedEventObject.end,
+                'className': copiedEventObject.categoryClass},
+        })
             // is the "remove after drop" checkbox checked?
             if ($('#drop-remove').is(':checked')) {			//删除原来的事件
                 // if so, remove the element from the "Draggable Events" list
@@ -37,7 +45,7 @@
     },
     /* on click on event */												//当点击事件后触发
     CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
-		console.log(calEvent.id)
+		console.log(calEvent)
         var $this = this;
             var form = $("<form></form>");
             form.append("<label>修改事件</label>");
@@ -48,14 +56,26 @@
 			//点击删除时触发
             $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function () {
                 $this.$calendarObj.fullCalendar('removeEvents', function (ev) {
-					//console.log("删除了！");
                     return (ev._id == calEvent._id);
                 });
+                $.ajax({
+                    type: "post",
+                    url: "logs/delect",
+                    data: {'id': calEvent.id},
+                })
                 $this.$modal.modal('hide');
             });
 			//点击保存时触发
             $this.$modal.find('form').on('submit', function () {
                 calEvent.title = form.find("input[type=text]").val();
+                console.log("开始更新了！")
+               /** $.ajax({
+                    type: "post",
+                    url: "logs/updata",
+                    data: {'id':calEvent.id,'title': calEvent.title,'start':calEvent.start,
+                        'end': calEvent.end,
+                        'className': calEvent.categoryClass},
+                })**/
                 $this.$calendarObj.fullCalendar('updateEvent', calEvent);//更新事件
                 $this.$modal.modal('hide');
                 return false;
@@ -88,6 +108,16 @@
                 var beginning = form.find("input[name='beginning']").val();		//获取事件开始和结束时间
                 var ending = form.find("input[name='ending']").val();
                 var categoryClass = form.find("select[name='category'] option:checked").val();//获取事件颜色（紧急程度
+
+                var starts =moment(start).format('Y-MM-DD HH:mm:ss');
+                var ends =moment(end).format('Y-MM-DD HH:mm:ss');
+                $.ajax({
+                    type: "post",
+                    url: "logs/new",
+                    data: {'title': title,'start':starts,
+                        'end': ends,
+                        'className': categoryClass},
+                })
                 if (title !== null && title.length != 0) {
                     $this.$calendarObj.fullCalendar('renderEvent', {			//对表对象进行一个设定 包括上述获取到的内容 然后用renderEvent来发送事件到表里
                         title: title,											
@@ -133,29 +163,21 @@
         var y = date.getFullYear();
         var form = '';
         var today = new Date($.now());//$.now() 函数用于返回当前时间距1970年1月1日午夜所经过的毫秒数。
+        var defaultEvents =[];
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "logs/all",
+            async: false,
+        }).done(function (res) {
+            for(var i =0;i<res.length;i++){
+                var obj =res[i];
+                obj.start=new Date(obj.start);
+                obj.end=new Date(obj.end);
+            }
+            defaultEvents = res.valueOf()
+        })
 
-        var defaultEvents =  [{			//事件对象数组
-                title: 'Event Name 4',
-                start: new Date($.now() + 148000000),
-                className: 'bg-purple'
-            },
-            {
-                id:23,
-                title: 'Test Event 1',
-                start: today,
-                end: today,
-                className: 'bg-success'
-            },
-            {
-                title: 'Test Event 2',
-                start: new Date($.now() + 168000000),
-                className: 'bg-info'
-            },
-            {
-                title: 'Test Event 3',
-                start: new Date($.now() + 338000000),
-                className: 'bg-primary'
-            }];
 
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({

@@ -55,6 +55,6 @@ public interface LogsDao {
      * @param logs
      * @return
      */
-    int updateData(Logs logs);
+    int updateData(@Param(value = "logs")Logs logs);
 
 }
