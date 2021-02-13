@@ -25,16 +25,15 @@ public class LogsController {
     }
 
     @RequestMapping("new")
-    public  String Insertnew(String title, Timestamp start,Timestamp end,String className){
+    @ResponseBody
+    public  int Insertnew(String title, Timestamp start,Timestamp end,String className){
         Logs logs=new Logs();
         logs.setClassName(className);
         logs.setEnd(end);
         logs.setStart(start);
         logs.setTitle(title);
-        int i =logsService.insertLogs(logs);
-        if (i ==1)
-        return "redirect:/event.html";
-        else return "redirect:/event.html";
+        logsService.insertLogs(logs);
+        return logs.getId();
     }
     @RequestMapping("delect")
     @ResponseBody

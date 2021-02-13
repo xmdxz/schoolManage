@@ -5,7 +5,7 @@
 
 <mapper namespace="com.SchoolManage.dao.LogsDao">
 
-    <insert id="insertData">
+    <insert id="insertData" useGeneratedKeys="true" keyProperty="id">
         insert into logs(title, start, end, className)
         values (#{logs.title}, #{logs.start}, #{logs.end}, #{logs.className})
     </insert>

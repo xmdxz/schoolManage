@@ -15,7 +15,8 @@
 
 
     /* on drop */											//拖动事件的时候触发
-    CalendarApp.prototype.onDrop = function (eventObj, date) { 
+    CalendarApp.prototype.onDrop = function (eventObj, date) {
+        console.log(3214)
 		//console.log(eventObj);
         var $this = this;
             // retrieve the dropped element's stored Event Object  检索已删除元素的存储事件对象
@@ -38,7 +39,6 @@
     },
     /* on click on event */												//当点击事件后触发
     CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
-        console.log(calEvent)
         var $this = this;
             var form = $("<form></form>");
             form.append("<label>修改事件</label>");
@@ -115,22 +115,27 @@
                 var ends =moment(end).format('Y-MM-DD HH:mm:ss');
 
                 if (title !== null && title.length != 0) {
-                    $this.$calendarObj.fullCalendar('renderEvent', {			//对表对象进行一个设定 包括上述获取到的内容 然后用renderEvent来发送事件到表里
-                        title: title,											
-                        start:start,
-                        end: end,
-                        allDay: false,
-                        className: categoryClass
-                    }, true);  
-                    $this.$modal.modal('hide');
                     $.ajax({
                         type: "post",
                         url: "logs/new",
                         data: {'title': title,'start':starts,
                             'end': ends,
                             'className': categoryClass},
+                    }).done(function (res) {
+                        $this.$calendarObj.fullCalendar('renderEvent', {			//对表对象进行一个设定 包括上述获取到的内容 然后用renderEvent来发送事件到表里
+                            id:res,
+                            title: title,
+                            start:start,
+                            end: end,
+                            allDay: false,
+                            className: categoryClass
+                        }, true);
                     })
-                    location.reload();
+
+
+                    $this.$modal.modal('hide');
+
+
                 }
                 else{
                     swal('你必须添加事件的内容！','','warning');
@@ -205,7 +210,7 @@
                 right: 'month,agendaWeek,agendaDay'
             },
             events: defaultEvents,				//事件对象数组
-            editable: true,
+            editable: false,
             droppable: true, // this allows things to be dropped onto the calendar !!!
             eventLimit: true, //数据条数太多时，限制各自里显示的数据条数（多余的以“+2more”格式显示），默认false不限制,支持输入数字设定固定的显示条数
             selectable: true,
@@ -217,7 +222,7 @@
 			dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],  //同理monthNamesShort
 			
 			
-            drop: function(date) { $this.onDrop($(this), date); },	//拖动
+            eventDrop: function(date) { $this.onDrop($(this), date); },	//拖动
             select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
             eventClick: function(calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
 
