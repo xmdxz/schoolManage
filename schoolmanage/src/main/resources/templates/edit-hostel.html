@@ -49,6 +49,7 @@
 				var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
 				var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
 				building= arr[0].split("=")[1];//获取数组中第一个参数//
+				building=decodeURI(building);
 				number= arr[1].split("=")[1];//获取数组中第二个参数//
 				console.log(building);
 				console.log(number);
@@ -250,7 +251,7 @@
 									<li><a href="edit-teacher.html">教师编辑</a></li>
 								</ul>
 							</li>
-							<li class="submenu active">
+							<li class="submenu">
 								<a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="departments.html">部门列表</a></li>

@@ -146,6 +146,14 @@ public class DormitoryController {
         List<Dormitory> list =dormitoryService.findAll(1,i);
         return createExlceUtil.createExcle(list);
     }
+    @RequestMapping(value = "Excle2",produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String Excle2Student(HttpServletRequest request,Dormitory dormitory) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i=dormitoryService.findDormitoryMemberNum(dormitory);
+        CreateExlceUtil<Student> createExlceUtil = new CreateExlceUtil<>(request,Student.class,"宿舍成员表");
+        List<Student> list =dormitoryService.findDormitoryMember(dormitory,1,i);
+        return createExlceUtil.createExcle(list);
+    }
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request,@RequestParam("file") MultipartFile file){
