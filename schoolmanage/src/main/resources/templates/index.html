@@ -67,6 +67,16 @@
 				numbers=res.length;
 				document.getElementById("numbers").innerText=numbers;
 			});
+			var number;
+			$.ajax({
+				type:"post",
+				url:"department/findallnum",
+				dataType:"json",
+			}).done(function (res) {
+				console.log(res);
+				number=res;
+				document.getElementById("number").innerText=number;
+			});
 			//获取缓存中登录账号的信息
 			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
 			var name=adminuserInfo.name;
@@ -454,7 +464,7 @@
 											<i class="fas fa-building"></i>
 										</div>
 										<div class="db-info">
-											<h3>30</h3>
+											<h3 id="number"></h3>
 											<h6>部门</h6>
 										</div>
 									</div>
