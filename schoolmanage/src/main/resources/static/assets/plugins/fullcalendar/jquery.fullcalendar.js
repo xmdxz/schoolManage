@@ -42,22 +42,53 @@
         var $this = this;
             var form = $("<form></form>");
             form.append("<label>修改事件</label>");
-            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-append'><button type='submit' class='btn btn-success'><i class='fa fa-check'></i> 保存</button></span></div>");
+            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-append'><button  type='submit' class='btn btn-success'><i class='fa fa-check'></i> 保存</button></span></div><br><button style='margin-left: 28%' class='btn btn-success save-event submit-btn' id='add' type='button'>添加事件内容</button>");
             $this.$modal.modal({
                 backdrop: 'static'
             });
 			//点击删除时触发
             $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function () {
-                $this.$calendarObj.fullCalendar('removeEvents', function (ev) {
-                    return (ev._id == calEvent._id);
-                });
-                $.ajax({
-                    type: "post",
-                    url: "logs/delect",
-                    data: {'id': calEvent.id},
-                })
+                swal({
+                        title: "确定删除吗？",
+                        text: "你将无法恢复该日志！",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "确定删除！",
+                        cancelButtonText: "取消删除！",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            $this.$calendarObj.fullCalendar('removeEvents', function (ev) {
+                                return (ev._id == calEvent._id);
+                            });
+                            $.ajax({
+                                type: "post",
+                                url: "logs/delect",
+                                data: {'id': calEvent.id},
+                            }).done(function (res) {
+                                if (res =="fail") {
+                                    swal("删除失败", "服务器繁忙中...", "warning");
+                                } else if (res == "success") {
+                                    swal("删除成功！", "", "success");
+                                }
+                            })
+                        } else {
+                            swal("取消！", "您的日志安全的XD:)",
+                                "error");
+                        }
+                    });
+
                 $this.$modal.modal('hide');
             });
+
+            $this.$modal.find('#add').unbind('click').click(function (res) {
+                console.log(res)
+                console.log(calEvent.id)
+            })
+
 			//点击保存时触发
             $this.$modal.find('form').on('submit', function () {
                 calEvent.title = form.find("input[type=text]").val();
@@ -95,9 +126,9 @@
                 .append("<div class='form-group'><label class='control-label'>时间名称</label><input class='form-control' placeholder='请输入事件' type='text' name='title'/></div>")
                 .append("<div class='form-group mb-0'><label class='control-label'>事件程度:</label><select class='form-control' name='category'></select></div>")
                 .find("select[name='category']")
-                .append("<option value='bg-danger'>红色</option>")
+                .append("<option value='bg-danger'>会议</option>")
                 .append("<option value='bg-success'>绿色</option>")
-                .append("<option value='bg-purple'>紫色</option>")
+                .append("<option value='bg-purple'>学生谈话</option>")
                 .append("<option value='bg-primary'>浅色</option>")
                 .append("<option value='bg-info'>蓝色</option>")
                 .append("<option value='bg-warning'>黄色</option></div></div>");
