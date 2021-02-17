@@ -50,16 +50,7 @@
 			// 		}
 			// 	})
 			// });
-			var numbers;
-			$.ajax({
-				type:"post",
-				url:"student/findall",
-				dataType:"json",
-			}).done(function (res) {
-			     console.log(res.length);
-				numbers=res.length;
-				document.getElementById("numbers").innerText=numbers;
-			});
+
 			var number;
 			$.ajax({
 				type:"post",
