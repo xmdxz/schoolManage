@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.HonourDao">
+    <insert id="insertHon">
+        insert into honour(student, type, prize, time)
+        values (#{honour.student}, #{honour.type}, #{honour.prize}, #{honour.time,jdbcType=Date})
+    </insert>
+    <insert id="insertHons">
+        insert into honour(student,type,prize,time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.student},#{item.type},#{item.prize},#{item.time,jdbcType=Date})
+        </foreach>
+    </insert>
+    <delete id="deleteHon">
+        delete
+        from honour
+        where id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+    </select>
+    <select id="findByStudent" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where student = #{student}
+    </select>
+    <select id="findByType" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where type like "%" #{type} "%"
+    </select>
+    <select id="findByPrize" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where prize like "%" #{prize} "%"
+    </select>
+    <select id="findByTime" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where time = #{time}
+    </select>
+    <select id="findByConditions" resultType="com.SchoolManage.pojo.Honour">
+        select * from honour
+        <if test="map != null">
+            <where>
+                <foreach collection="map" item="item" index="key" separator="and">
+                    ${key} = #{item}
+                </foreach>
+            </where>
+        </if>
+    </select>
+</mapper>
