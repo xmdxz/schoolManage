@@ -11,14 +11,14 @@
         #{talk.student},
         #{talk.teacher},
         #{talk.content},
-        #{talk.time,jdbcType=Date}
+        #{talk.time,jdbcType=DATE}
         )
     </insert>
     <insert id="insertAllTalk">
         insert into talk(student,teacher,content,time)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.student},#{item.teacher},#{item.content},#{item.time,jdbcType=Date})
+            (#{item.student},#{item.teacher},#{item.content},#{item.time,jdbcType=DATE})
         </foreach>
     </insert>
     <delete id="deleteTalk">

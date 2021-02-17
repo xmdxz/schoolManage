@@ -13,8 +13,8 @@
         insert into qingjia(student,teacher,start_time,end_time,cause)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.student}, #{item.teacher}, #{item.start_time,jdbcType=Timestamp},
-            #{item.end_time,jdbcType=Timestamp}, #{item.cause})
+            (#{item.student}, #{item.teacher}, #{item.start_time,jdbcType=TIMESTAMP},
+            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause})
         </foreach>
     </insert>
     <delete id="deleteQingjia">
