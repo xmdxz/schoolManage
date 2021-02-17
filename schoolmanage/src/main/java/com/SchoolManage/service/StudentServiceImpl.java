@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,9 +25,9 @@ public class StudentServiceImpl implements StudentService {
     private StudentDao studentDao;
 
     @Override
-    public List<Student> findByDirection(String direction,int page, int num) {
+    public List<Student> findByDirection(String direction, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByDirection(direction,startpage,num);
+        return studentDao.findByDirection(direction, startpage, num);
     }
 
     @Override
@@ -47,27 +48,27 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByName(String name,int page, int num) {
+    public List<Student> findByName(String name, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByName(name,startpage,num);
+        return studentDao.findByName(name, startpage, num);
     }
 
     @Override
-    public List<Student> findByClass_or(String original_class,int page, int num) {
+    public List<Student> findByClass_or(String original_class, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByClass_or(original_class,startpage,num);
+        return studentDao.findByClass_or(original_class, startpage, num);
     }
 
     @Override
-    public List<Student> findByClass_pe(String present_class,int page,int num) {
+    public List<Student> findByClass_pe(String present_class, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByClass_pe(present_class,startpage,num);
+        return studentDao.findByClass_pe(present_class, startpage, num);
     }
 
     @Override
-    public List<Student> findByMajor(String major,int page,int num) {
+    public List<Student> findByMajor(String major, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByMajor(major,startpage,num);
+        return studentDao.findByMajor(major, startpage, num);
     }
 
     @Override
@@ -108,22 +109,33 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public int BatchAddition(String path) {
-        int num=0;
+        int num = 0;
         try {
             //path写实际path
             TableUtil<Student> tableUtil = new TableUtil<Student>(path, Student.class);
             List<Student> list = tableUtil.GetTableRowContent();
             //调用插入接口
             //批量上传，list集合
-            num=studentDao.insertBatchStudent(list);
+            num = studentDao.insertBatchStudent(list);
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
-            return  -2;
+            return -2;
         } catch (FieldNotExistException e) {
             //此处应处理表格问题，返回前端
             e.printStackTrace();
-            return  -3;
+            return -3;
         }
         return num;
+    }
+
+    @Override
+    public Map<String, Integer> findByArea(List<String> arealist) {
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < arealist.size(); i++) {
+            String area = arealist.get(i);
+            int byArea = studentDao.findByArea(area);
+            map.put(area, byArea);
+        }
+        return map;
     }
 }
