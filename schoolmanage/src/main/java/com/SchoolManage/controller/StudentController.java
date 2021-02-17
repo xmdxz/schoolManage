@@ -266,29 +266,44 @@ public class StudentController {
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent(HttpServletRequest request, String major, String direction, String present_class
-            , String original_class, String present_post, String original_post) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        Map<String, String> map = new HashMap<>();
-        if (major != null) {
-            map.put("major", major);
+            , String original_class, String present_post, String original_post,String nativeplace) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        CreateExlceUtil<Student>  createExlceUtil;
+        List<Student> list;
+        if(nativeplace!=null)
+        {
+            ArrayList<String> arealist = new ArrayList<>();
+            arealist.add(nativeplace);
+            Map<String, Integer> a=studentService.findByArea(arealist);
+            int i=a.get(nativeplace);
+             createExlceUtil = new CreateExlceUtil<>(request, Student.class, "学生表");
+             list = studentService.findByAreaStudent(nativeplace, 1, i);
         }
-        if (direction != null) {
-            map.put("direction", direction);
+        else
+        {
+            Map<String, String> map = new HashMap<>();
+            if (major != null) {
+                map.put("major", major);
+            }
+            if (direction != null) {
+                map.put("direction", direction);
+            }
+            if (present_class != null) {
+                map.put("present_class", present_class);
+            }
+            if (original_class != null) {
+                map.put("original_class", original_class);
+            }
+            if (present_post != null) {
+                map.put("present_post", present_post);
+            }
+            if (original_post != null) {
+                map.put("original_post", original_post);
+            }
+            int i = studentService.findByMultipleConditionsCount(map);
+            createExlceUtil = new CreateExlceUtil<>(request, Student.class, "学生表");
+            list = studentService.findByMultipleConditions(map, 1, i);
         }
-        if (present_class != null) {
-            map.put("present_class", present_class);
-        }
-        if (original_class != null) {
-            map.put("original_class", original_class);
-        }
-        if (present_post != null) {
-            map.put("present_post", present_post);
-        }
-        if (original_post != null) {
-            map.put("original_post", original_post);
-        }
-        int i = studentService.findByMultipleConditionsCount(map);
-        CreateExlceUtil<Student> createExlceUtil = new CreateExlceUtil<>(request, Student.class, "学生表");
-        List<Student> list = studentService.findByMultipleConditions(map, 1, i);
+
         return createExlceUtil.createExcle(list);
     }
 
@@ -334,10 +349,39 @@ public class StudentController {
     @ResponseBody
     public Map<String, Integer> findByArea(String area1,
                                            String area2,
-                                           String area3) {
+                                           String area3,
+                                           String area4,
+                                           String area5,
+                                           String area6,
+                                           String area7,
+                                           String area8,
+                                           String area9,
+                                           String area10,
+                                           String area11,
+                                           String area12,
+                                           String area13,
+                                           String area14,
+                                           String area15,
+                                           String area16
+    ) {
         //这里想获取哪些区域的数目就写几个参数 area  记得把这些area加入到这个arraylist中
         ArrayList<String> arealist = new ArrayList<>();
         arealist.add(area1);
+        arealist.add(area2);
+        arealist.add(area3);
+        arealist.add(area4);
+        arealist.add(area5);
+        arealist.add(area6);
+        arealist.add(area7);
+        arealist.add(area8);
+        arealist.add(area9);
+        arealist.add(area10);
+        arealist.add(area11);
+        arealist.add(area12);
+        arealist.add(area13);
+        arealist.add(area14);
+        arealist.add(area15);
+        arealist.add(area16);
         Map<String, Integer> byArea = studentService.findByArea(arealist);
         return byArea;
     }
@@ -345,7 +389,19 @@ public class StudentController {
     @RequestMapping("findbyareastudent")
     @ResponseBody
     public List<Student> findByAreaStudent(String area, int page, int num) {
+        System.out.println("打印"+area);
+        System.out.println(page);
+        System.out.println(num);
         List<Student> byAreaStudent = studentService.findByAreaStudent(area, page, num);
         return byAreaStudent;
+    }
+    @RequestMapping("findbyareastudentNum")
+    @ResponseBody
+    public Integer findByAreaStudent(String area) {
+        ArrayList<String> arealist = new ArrayList<>();
+        arealist.add(area);
+        Map<String, Integer> a=studentService.findByArea(arealist);
+        int i=a.get(area);
+        return i;
     }
 }
