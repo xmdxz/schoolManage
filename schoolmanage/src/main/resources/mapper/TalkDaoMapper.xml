@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.TalkDao">
+    <insert id="insertTalk">
+        inser
+        into talk(student,teacher,content,time)
+            values (
+        #{talk.student},
+        #{talk.teacher},
+        #{talk.content},
+        #{talk.time,jdbcType=DATE}
+        )
+    </insert>
+    <insert id="insertAllTalk">
+        insert into talk(student,teacher,content,time)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.student},#{item.teacher},#{item.content},#{item.time,jdbcType=DATE})
+        </foreach>
+    </insert>
+    <delete id="deleteTalk">
+        delete
+        from talk
+        where id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.SchoolManage.pojo.Talk">
+        select *
+        from talk;
+    </select>
+    <select id="findByStudent" resultType="com.SchoolManage.pojo.Talk">
+        select *
+        from talk
+        where student = #{student}
+    </select>
+    <select id="findByTeacher" resultType="com.SchoolManage.pojo.Talk">
+        select *
+        from talk
+        where teacher like "%" #{teacher} "%"
+    </select>
+    <select id="findByTime" resultType="com.SchoolManage.pojo.Talk">
+        select *
+        from talk
+        where time = #{time}
+    </select>
+</mapper>

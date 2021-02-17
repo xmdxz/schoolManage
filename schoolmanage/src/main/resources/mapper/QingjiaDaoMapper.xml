@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.QingjiaDao">
+    <insert id="insertQingjia">
+        insert into qingjia(student, teacher, start_time, end_time, cause)
+        values (#{qingjia.student}, #{qingjia.teacher}, #{qingjia.start_time,jdbcType=TIMESTAMP},
+                #{qingjia.end_time,jdbcType=TIMESTAMP}, #{qingjia.cause})
+    </insert>
+    <insert id="insertQingjias">
+        insert into qingjia(student,teacher,start_time,end_time,cause)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.student}, #{item.teacher}, #{item.start_time,jdbcType=TIMESTAMP},
+            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause})
+        </foreach>
+    </insert>
+    <delete id="deleteQingjia">
+        delete
+        from qingjia
+        where id = #{id}
+    </delete>
+
+
+    <select id="findAll" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+    </select>
+    <select id="findByStudent" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+        where student = #{student}
+    </select>
+    <select id="findByTeacher" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+        where teacher = #{teacher}
+    </select>
+</mapper>

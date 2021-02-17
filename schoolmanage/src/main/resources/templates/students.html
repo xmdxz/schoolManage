@@ -47,6 +47,75 @@
     <script th:src="@{/assets/js/bootstrap-paginator.js}"></script>
 
     <script type="text/javascript">
+        var url = document.location.toString();//获取url地址
+        var area=null;
+        const everypage_3 = 20; //每页的数量
+        var allpage_3 = 1;
+        if(url.indexOf("?")!=-1)
+        {
+            var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+            var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+            area= arr[0].split("=")[1];//获取数组中第一个参数//
+            area=decodeURI(area);
+            $.ajax({
+                type: "post",
+                url: "student/findbyareastudentNum",
+                data:{area:area},
+                dataType: "json",
+                async: false,
+            }).done(function (res) {
+                console.log(res)
+                allpage_3 = Math.ceil(res / everypage_3);
+            })
+            $.ajax({
+                type: "post",
+                url: "student/findbyareastudent",
+                dataType: "json",
+                data: {area:area,'page': 1, 'num': everypage_3},
+            }).done(function (res) {
+                var msg = "";
+                $.each(res, function (i, n) {
+                    msg += "<tr>";
+                    msg += "<td>" + n.id + "</td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                    msg += "<td>" + n.present_class + "</td>";
+                    msg += "<td>" + n.original_class + "</td>";
+                    msg += "<td>" + n.present_post + "</td>";
+                    msg += "<td>" + n.original_post + "</td>";
+                    msg += "<td>" + n.clno + "</td>";
+                    msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                    msg += "<td>" + n.phone + "</td>";
+                    msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+                    msg += "</tr>";
+                });
+                $("#student").html(msg);
+                $('#example').bootstrapPaginator({
+                    currentPage: 1,//当前的请求页面。
+                    totalPages: allpage_3,//一共多少页。
+                    size: "normal",//应该是页眉的大小。
+                    bootstrapMajorVersion: 4,//bootstrap的版本要求。
+                    alignment: "right",
+                    numberOfPages: 8,//一页列出多少数据。
+                    itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                        switch (type) {
+                            case "first":
+                                return "首页";
+                            case "prev":
+                                return "上一页";
+                            case "next":
+                                return "下一页";
+                            case "last":
+                                return "末页";
+                            case "page":
+                                return page;
+                        }
+                    },
+                    onPageClicked: function (event, originalEvent, type, page) {
+                        newpage_3(page)
+                    }
+                });
+            })
+        }
         const everypage = 20; //每页的数量
         var allpage = 1;
         $.ajax({
@@ -65,6 +134,7 @@
             dataType: "json",
             data: {'page': 1, 'num': everypage},
         }).done(function (res) {
+            console.log(res)
             var msg = "";
             $.each(res, function (i, n) {
                 msg += "<tr>";
@@ -572,7 +642,7 @@
                     dataType: 'text',
                     data:{major:map.get("major"),direction:map.get("direction"),present_class:
                             map.get("present_class"),original_class:map.get("original_class"),
-                        present_post:map.get("present_post"),original_post:map.get("original_post")},
+                        present_post:map.get("present_post"),original_post:map.get("original_post"),nativeplace:area},
                     success(res){
                         console.log(res);
                         $("#downe").attr("href",res);
@@ -628,6 +698,32 @@
                 url: "student/findbyname",
                 dataType: "json",
                 data: {name:a,page: page, num: everypage_2},
+            }).done(function (res) {
+                var msg = "";
+                $.each(res, function (i, n) {
+                    msg += "<tr>";
+                    msg += "<td>" + n.id + "</td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                    msg += "<td>" + n.present_class + "</td>";
+                    msg += "<td>" + n.original_class + "</td>";
+                    msg += "<td>" + n.present_post + "</td>";
+                    msg += "<td>" + n.original_post + "</td>";
+                    msg += "<td>" + n.clno + "</td>";
+                    msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                    msg += "<td>" + n.phone + "</td>";
+                    msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+                    msg += "</tr>";
+                });
+                $("#student").html(msg);
+            })
+        }
+        function newpage_3(res) {
+            var page = res
+            $.ajax({
+                type: "post",
+                url: "student/findbyareastudent",
+                dataType: "json",
+                data: {area:area,page: page, num: everypage_3},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {

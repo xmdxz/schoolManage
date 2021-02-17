@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.ActivityDao">
+    <insert id="insertAc">
+        insert into activity(student, active, time)
+        values (#{activity.student}, #{activity.active}, #{activity.time,jdbcType=DATE})
+    </insert>
+    <insert id="insertAcs">
+        insert into activity(student,active,time)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.student},#{item.active},#{item.time,jdbcType=DATE})
+        </foreach>
+    </insert>
+    <delete id="deleteAc">
+        delete
+        from activity
+        where id = #{id}
+    </delete>
+
+
+    <select id="findAll" resultType="com.SchoolManage.pojo.Activity">
+        select *
+        from activity
+    </select>
+    <select id="findByStudent" resultType="com.SchoolManage.pojo.Activity">
+        select *
+        from activity
+        where student = #{student}
+    </select>
+    <select id="findByActive" resultType="com.SchoolManage.pojo.Activity">
+        select *
+        from activuty
+        where active like "%" #{active} "%"
+    </select>
+    <select id="findByTime" resultType="com.SchoolManage.pojo.Activity">
+        select *
+        from activity
+        where time = #{time}
+    </select>
+</mapper>

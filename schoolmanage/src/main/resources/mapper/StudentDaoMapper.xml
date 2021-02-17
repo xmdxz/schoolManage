@@ -6,10 +6,13 @@
 <mapper namespace="com.SchoolManage.dao.StudentDao">
     <insert id="insertStudent">
         insert into student
-        values (#{student.id}, #{student.name}, #{student.sex}, #{student.comy}, #{student.clno}, #{student.major}, #{student.present_class}, #{student.phone}, #{student.bedroom_lou},
-                #{student.birth}, #{student.nativeplace}, #{student.address}, #{student.father_phone}, #{student.mother_phone}, #{student.photo},
+        values (#{student.id}, #{student.name}, #{student.sex}, #{student.comy}, #{student.clno}, #{student.major},
+                #{student.present_class}, #{student.phone}, #{student.bedroom_lou},
+                #{student.birth}, #{student.nativeplace}, #{student.address}, #{student.father_phone},
+                #{student.mother_phone}, #{student.photo},
                 #{student.original_class}, #{student.original_post}, #{student.present_post},
-                #{student.nation}, #{student.religion}, #{student.bedroom_hao}, #{student.idcard}, #{student.bank}, #{student.father_name}, #{student.mother_name},
+                #{student.nation}, #{student.religion}, #{student.bedroom_hao}, #{student.idcard}, #{student.bank},
+                #{student.father_name}, #{student.mother_name},
                 #{student.father_profession},
                 #{student.mother_profession}, #{student.direction})
     </insert>
@@ -67,22 +70,26 @@
     <select id="findByName" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where name like "%" #{name} "%" limit #{startPage},#{num}
+        where name like "%" #{name} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByClass_or" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where original_class like "%" #{original_class} "%" limit #{startPage},#{num}
+        where original_class like "%" #{original_class} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByMajor" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where major like "%" #{major} "%" limit #{startPage},#{num}
+        where major like "%" #{major} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByClass_pe" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where present_class like "%" #{present_class} "%" limit #{startPage},#{num}
+        where present_class like "%" #{present_class} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findAll" resultType="com.SchoolManage.pojo.Student">
         select *
@@ -103,7 +110,8 @@
     <select id="findByDirection" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where direction like "%" #{direction} "%" limit #{startPage},#{num}
+        where direction like "%" #{direction} "%" limit #{startPage}
+            , #{num}
     </select>
     <delete id="deleteStudent" parameterType="String">
         delete
@@ -117,7 +125,9 @@
              (select * from original_class where class = #{clazz}) temp
         where student.id in
               (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
-               temp.publicize) limit #{startPage},#{num}
+               temp.publicize)
+            limit #{startPage}
+            , #{num}
     </select>
     <select id="findDirection" resultType="java.lang.String">
         select direction
@@ -130,27 +140,30 @@
              (select * from original_class where class = #{clazz}) temp
         where student.id in
               (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
-               temp.publicize) limit #{startPage},#{num}
+               temp.publicize)
+            limit #{startPage}
+            , #{num}
     </select>
     <select id="findByMultipleConditions" resultType="com.SchoolManage.pojo.Student">
         select * from student
-         <if test="map != null">
-             <where>
-                 <foreach collection="map" index="key" item="value" separator="and">
-                     ${key} = #{value}
-                 </foreach>
-             </where> limit #{startPage},#{num}
-         </if>
+        <if test="map != null">
+            <where>
+                <foreach collection="map" index="key" item="value" separator="and">
+                    ${key} = #{value}
+                </foreach>
+            </where>
+            limit #{startPage},#{num}
+        </if>
     </select>
     <select id="findByMultipleConditionsCount" resultType="java.lang.Integer">
         select count(*) from student
-            <if test="maps != null">
-                <where>
-                    <foreach collection="maps" index="key" item="values" separator="and">
-                        ${key} = #{values}
-                    </foreach>
-                </where>
-            </if>
+        <if test="maps != null">
+            <where>
+                <foreach collection="maps" index="key" item="values" separator="and">
+                    ${key} = #{values}
+                </foreach>
+            </where>
+        </if>
     </select>
     <select id="findPresentCadreCount" resultType="java.lang.Integer">
         select count(*)
@@ -193,5 +206,15 @@
         from student
         where major like "%" #{major} "%"
     </select>
-
+    <select id="findByArea" parameterType="String" resultType="int">
+        select count(*)
+        from student
+        where nativeplace like concat('%', #{area}, '%');
+    </select>
+    <select id="findByAreaStudent" resultType="com.SchoolManage.pojo.Student">
+        select *
+        from student
+        where nativeplace like concat('%', #{area}, '%') limit #{startPage}
+            , #{num}
+    </select>
 </mapper>
