@@ -143,4 +143,9 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findByAreaStudent(String area, int Page, int num) {
         return studentDao.findByAreaStudent(area, (Page - 1) * num, num);
     }
+
+    @Override
+    public int findAllNum() {
+        return studentDao.findAllNum();
+    }
 }

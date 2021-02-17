@@ -56,6 +56,12 @@ public class StudentController {
         List<Student> all = studentService.findAll();
         return all;
     }
+    @RequestMapping("findallnum")
+    @ResponseBody
+    public int findAllNum() {
+        int all = studentService.findAllNum();
+        return all;
+    }
 
     @RequestMapping("findbypage")
     @ResponseBody

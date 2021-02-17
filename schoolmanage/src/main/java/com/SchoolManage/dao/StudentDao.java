@@ -240,4 +240,11 @@ public interface StudentDao {
      * @Date: 2021/2/17
      */
     List<Student> findByAreaStudent(@Param("area") String area, @Param("startPage") int startPage, @Param("num") int num);
+
+    /**
+     * 查找总数
+     *
+     * @return
+     */
+    int findAllNum();
 }

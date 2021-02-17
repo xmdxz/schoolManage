@@ -153,4 +153,8 @@ public interface StudentService {
      * @Date: 2021/2/17
      */
     List<Student> findByAreaStudent(String area, int Page, int num);
+    /**
+     * 查询总数
+     */
+    int findAllNum();
 }

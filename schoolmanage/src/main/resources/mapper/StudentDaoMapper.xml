@@ -107,6 +107,9 @@
         select *
         from student limit #{startPage},#{num}
     </select>
+    <select id="findAllNum" resultType="java.lang.Integer">
+        select count(*) from student;
+    </select>
     <select id="findByDirection" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
