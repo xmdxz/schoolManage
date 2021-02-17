@@ -37,10 +37,10 @@ public interface LogsDao {
 
     /**
      * 查找
-     *
+     * @param user
      * @return
      */
-    List<Logs> findAll();
+    List<Logs> findAll(@Param(value = "user")String user);
 
     /**
      * 查找数量

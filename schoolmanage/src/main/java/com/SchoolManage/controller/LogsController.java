@@ -1,5 +1,6 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.Logs;
 import com.SchoolManage.service.LogsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,22 @@ public class LogsController {
     @RequestMapping("all")
     @ResponseBody
     public List<Logs> findAll(HttpServletRequest request) {
-        return logsService.findAll();
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+        String user =a.getUsername();
+        return logsService.findAll(user);
     }
 
     @RequestMapping("new")
     @ResponseBody
-    public  int Insertnew(String title, Timestamp start,Timestamp end,String className){
+    public  int Insertnew(String title, Timestamp start,Timestamp end,String className,HttpServletRequest request){
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+        String user =a.getUsername();
         Logs logs=new Logs();
         logs.setClassName(className);
         logs.setEnd(end);
         logs.setStart(start);
         logs.setTitle(title);
+        logs.setUser(user);
         logsService.insertLogs(logs);
         return logs.getId();
     }
@@ -45,14 +51,17 @@ public class LogsController {
     }
     @RequestMapping("updata")
     @ResponseBody
-    public String updataLogs(Integer id,String title, Timestamp start,Timestamp end,String className){
-        System.out.println("开始更新！");
+    public String updataLogs(Integer id,String title, Timestamp start,Timestamp end,String className,HttpServletRequest request){
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+        String user =a.getUsername();
+
         Logs logs=new Logs();
         logs.setClassName(className);
         logs.setEnd(end);
         logs.setStart(start);
         logs.setTitle(title);
         logs.setId(id);
+        logs.setUser(user);
         int i =logsService.updataLogs(logs);
         if (i ==1)
             return "success";

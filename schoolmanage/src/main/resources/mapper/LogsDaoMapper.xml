@@ -6,14 +6,14 @@
 <mapper namespace="com.SchoolManage.dao.LogsDao">
 
     <insert id="insertData" useGeneratedKeys="true" keyProperty="id">
-        insert into logs(title, start, end, className)
-        values (#{logs.title}, #{logs.start}, #{logs.end}, #{logs.className})
+        insert into logs(title, start, end, className,user)
+        values (#{logs.title}, #{logs.start}, #{logs.end}, #{logs.className}, #{logs.user})
     </insert>
     <insert id="insertDatas">
-        insert into logs(title,start,end,className)
+        insert into logs(title,start,end,className,user)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.title},#{item.start},#{item.end},#{item.className})
+            (#{item.title},#{item.start},#{item.end},#{item.className}, #{logs.user})
         </foreach>
     </insert>
     <update id="updateData">
@@ -21,7 +21,9 @@
         set title     = #{logs.title},
             start     = #{logs.start},
             end       = #{logs.end},
-            className = #{logs.className}
+            className = #{logs.className},
+            user  = #{logs.user},
+            maid =#{logs.maid}
         where id = #{logs.id}
     </update>
     <delete id="deleteData">
@@ -32,6 +34,7 @@
     <select id="findAll" resultType="com.SchoolManage.pojo.Logs">
         select *
         from logs
+        where user =#{user}
     </select>
     <select id="findbyId" resultType="com.SchoolManage.pojo.Logs">
         select *

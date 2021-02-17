@@ -12,7 +12,7 @@ public interface LogsService {
     /**
      * 查询全部
      */
-    List<Logs> findAll();
+    List<Logs> findAll(String user);
     /**
      * 插入
      * @param logs

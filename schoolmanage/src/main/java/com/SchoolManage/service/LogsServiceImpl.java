@@ -17,8 +17,8 @@ public class LogsServiceImpl implements LogsService {
     }
 
     @Override
-    public List<Logs> findAll() {
-        return logsDao.findAll();
+    public List<Logs> findAll(String user) {
+        return logsDao.findAll(user);
     }
 
     @Override
