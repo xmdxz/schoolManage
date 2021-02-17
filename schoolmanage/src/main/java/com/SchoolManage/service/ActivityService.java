@@ -1,16 +1,18 @@
-package com.SchoolManage.dao;
+package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Activity;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
 
-@Mapper
-@Repository
-public interface ActivityDao {
+/**
+ * @Author RainGoal
+ * @Date 2021/2/17 16:42
+ * @Description TODO
+ * @Version 1.0
+ */
+
+public interface ActivityService {
 
     /**
      * 查找全部
@@ -25,7 +27,7 @@ public interface ActivityDao {
      * @param student
      * @return
      */
-    List<Activity> findByStudent(@Param(value = "student") String student);
+    List<Activity> findByStudent(String student);
 
     /**
      * 根据活动查询
@@ -33,7 +35,7 @@ public interface ActivityDao {
      * @param active
      * @return
      */
-    List<Activity> findByActive(@Param(value = "active") String active);
+    List<Activity> findByActive(String active);
 
     /**
      * 根据时间查询
@@ -41,7 +43,7 @@ public interface ActivityDao {
      * @param date
      * @return
      */
-    List<Activity> findByTime(@Param(value = "time") Date date);
+    List<Activity> findByTime(Date date);
 
     /**
      * 插入单挑
@@ -49,7 +51,7 @@ public interface ActivityDao {
      * @param activity
      * @return
      */
-    int insertAc(@Param(value = "activity") Activity activity);
+    int insertAc(Activity activity);
 
     /**
      * 批量插入
@@ -57,7 +59,7 @@ public interface ActivityDao {
      * @param list
      * @return
      */
-    int insertAcs(@Param(value = "list") List<Activity> list);
+    int insertAcs(List<Activity> list);
 
     /**
      * 删除
@@ -65,5 +67,5 @@ public interface ActivityDao {
      * @param id
      * @return
      */
-    int deleteAc(@Param(value = "id") Integer id);
+    int deleteAc(Integer id);
 }

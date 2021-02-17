@@ -144,4 +144,13 @@ public interface StudentService {
      * @Date: 2021/2/17
      */
     Map<String, Integer> findByArea(List<String> arealist);
+
+    /**
+     * @Description: 根据地区模糊查询学生
+     * @Param: [area]
+     * @return: java.util.List<com.SchoolManage.pojo.Student>
+     * @Author: RainGoal
+     * @Date: 2021/2/17
+     */
+    List<Student> findByAreaStudent(String area, int Page, int num);
 }

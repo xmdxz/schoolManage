@@ -341,4 +341,11 @@ public class StudentController {
         Map<String, Integer> byArea = studentService.findByArea(arealist);
         return byArea;
     }
+
+    @RequestMapping("findbyareastudent")
+    @ResponseBody
+    public List<Student> findByAreaStudent(String area, int page, int num) {
+        List<Student> byAreaStudent = studentService.findByAreaStudent(area, page, num);
+        return byAreaStudent;
+    }
 }

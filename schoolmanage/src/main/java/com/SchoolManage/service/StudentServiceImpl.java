@@ -138,4 +138,9 @@ public class StudentServiceImpl implements StudentService {
         }
         return map;
     }
+
+    @Override
+    public List<Student> findByAreaStudent(String area, int Page, int num) {
+        return studentDao.findByAreaStudent(area, (Page - 1) * num, num);
+    }
 }

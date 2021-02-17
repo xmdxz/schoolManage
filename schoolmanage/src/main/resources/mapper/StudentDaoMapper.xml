@@ -211,4 +211,10 @@
         from student
         where nativeplace like concat('%', #{area}, '%');
     </select>
+    <select id="findByAreaStudent" parameterType="area" resultType="com.SchoolManage.pojo.Student">
+        select *
+        from student
+        where nativeplace like concat('%', #{area}, '%') limit #{startPage}
+            , #{num}
+    </select>
 </mapper>

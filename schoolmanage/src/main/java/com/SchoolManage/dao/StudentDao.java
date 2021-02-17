@@ -231,4 +231,13 @@ public interface StudentDao {
      * @Date: 2021/2/17
      */
     int findByArea(@Param(value = "area") String area);
+
+    /**
+     * @Description: 根据地区模糊查询学生
+     * @Param: [area]
+     * @return: java.util.List<com.SchoolManage.pojo.Student>
+     * @Author: RainGoal
+     * @Date: 2021/2/17
+     */
+    List<Student> findByAreaStudent(@Param("area") String area, @Param("startPage") int startPage, @Param("num") int num);
 }
