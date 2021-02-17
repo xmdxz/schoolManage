@@ -6,8 +6,8 @@
 <mapper namespace="com.SchoolManage.dao.QingjiaDao">
     <insert id="insertQingjia">
         insert into qingjia(student, teacher, start_time, end_time, cause)
-        values (#{qingjia.student}, #{qingjia.teacher}, #{qingjia.start_time,jdbcType=Timestamp},
-                #{qingjia.end_time,jdbcType=Timestamp}, #{qingjia.cause})
+        values (#{qingjia.student}, #{qingjia.teacher}, #{qingjia.start_time,jdbcType=TIMESTAMP},
+                #{qingjia.end_time,jdbcType=TIMESTAMP}, #{qingjia.cause})
     </insert>
     <insert id="insertQingjias">
         insert into qingjia(student,teacher,start_time,end_time,cause)

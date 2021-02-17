@@ -1,12 +1,16 @@
 package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.Honour;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
+@Mapper
+@Repository
 public interface HonourDao {
 
     /**

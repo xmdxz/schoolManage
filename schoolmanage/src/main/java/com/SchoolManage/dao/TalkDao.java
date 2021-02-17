@@ -1,11 +1,15 @@
 package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.Talk;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
 
+@Mapper
+@Repository
 public interface TalkDao {
 
     /**

@@ -1,10 +1,14 @@
 package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.Qingjia;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Mapper
+@Repository
 public interface QingjiaDao {
 
     List<Qingjia> findAll();
