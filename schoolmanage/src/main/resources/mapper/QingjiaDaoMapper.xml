@@ -26,9 +26,9 @@
 
     <select id="findAll" resultType="com.SchoolManage.pojo.Qingjia">
         select *
-        from qingjia
+        from qingjia limit #{startPage},#{num}
     </select>
-    <select id="findByStudent" resultType="com.SchoolManage.pojo.Qingjia">
+    <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Qingjia">
         select *
         from qingjia
         where student = #{student}
@@ -37,5 +37,62 @@
         select *
         from qingjia
         where teacher = #{teacher}
+    </select>
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select count(*)
+        from qingjia
+    </select>
+    <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+        where student = #{student} limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByStudentCount" resultType="java.lang.Integer">
+        select count(*)
+        from qingjia
+        where student = #{student}
+    </select>
+    <select id="findByTimeYearAndMonthAndDay" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+        where date_format(start_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+           or date_format(end_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+            limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByTimeYearAndMonthAndDayCount" resultType="java.lang.Integer">
+        select count(*)
+        from qingjia
+        where date_format(start_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+           or date_format(end_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+    </select>
+    <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+        where date_format(start_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+           or date_format(end_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+            limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByTimeYearAndMonthCount" resultType="java.lang.Integer">
+        select count(*)
+        from qingjia
+        where date_format(start_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+           or date_format(end_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+    </select>
+    <select id="findByTimeYear" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+        where date_format(start_time, '%Y') = date_format(#{time}, '%Y')
+           or date_format(end_time, '%Y') = date_format(#{time}, '%Y')
+            limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByTimeYearCount" resultType="java.lang.Integer">
+        select count(*)
+        from qingjia
+        where date_format(start_time, '%Y') = date_format(#{time}, '%Y')
+           or date_format(end_time, '%Y') = date_format(#{time}, '%Y')
     </select>
 </mapper>

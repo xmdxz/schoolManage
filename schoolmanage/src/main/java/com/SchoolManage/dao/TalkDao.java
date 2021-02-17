@@ -17,7 +17,14 @@ public interface TalkDao {
      *
      * @return
      */
-    List<Talk> findAll();
+    List<Talk> findAll(@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 查询总数
+     *
+     * @return
+     */
+    int findAllCount();
 
     /**
      * 插入谈话数据
@@ -28,12 +35,30 @@ public interface TalkDao {
     int insertTalk(@Param(value = "talk") Talk talk);
 
     /**
-     * 根据学号查找
+     * 根据学号查找,不分页，用于个人详细信息的展示
      *
      * @param student
      * @return
      */
-    List<Talk> findByStudent(String student);
+    List<Talk> findByStudentNoPage(@Param(value = "student") String student);
+
+    /**
+     * 根据学号查找，分页，用于整个页面展示
+     *
+     * @param student
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Talk> findByStudentPage(@Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据学号查询总数
+     *
+     * @param student
+     * @return
+     */
+    int findByStudentCount(@Param(value = "student") String student);
 
     /**
      * 根据教师查找
@@ -41,7 +66,7 @@ public interface TalkDao {
      * @param teacher
      * @return
      */
-    List<Talk> findByTeacher(String teacher);
+    List<Talk> findByTeacher(@Param(value = "teacher") String teacher, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 删除谈话
@@ -60,10 +85,36 @@ public interface TalkDao {
     int insertAllTalk(@Param(value = "list") List<Talk> list);
 
     /**
-     * 根据时间查找
+     * 根据具体时间查找，也就是某一天
      *
      * @param date
      * @return
      */
-    List<Talk> findByTime(@Param(value = "time") Date date);
+    List<Talk> findByTime(@Param(value = "time") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据具体时间查找数量，某一天
+     *
+     * @param date
+     * @return
+     */
+    int findByTimeCount(@Param(value = "time") Date date);
+
+    /**
+     * 根据年月查找，也就是某一月
+     *
+     * @param date
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Talk> findByTimeYearAndMonth(@Param(value = "time") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据年月查找数量，也就是某一月
+     *
+     * @param date
+     * @return
+     */
+    int findByTimeYearAndMonthCount(@Param(value = "time") Date date);
 }

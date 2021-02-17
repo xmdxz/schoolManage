@@ -29,9 +29,9 @@
 
     <select id="findAll" resultType="com.SchoolManage.pojo.Talk">
         select *
-        from talk;
+        from talk limit #{startPage},#{num};
     </select>
-    <select id="findByStudent" resultType="com.SchoolManage.pojo.Talk">
+    <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Talk">
         select *
         from talk
         where student = #{student}
@@ -39,11 +39,44 @@
     <select id="findByTeacher" resultType="com.SchoolManage.pojo.Talk">
         select *
         from talk
-        where teacher like "%" #{teacher} "%"
+        where teacher like "%" #{teacher} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByTime" resultType="com.SchoolManage.pojo.Talk">
         select *
         from talk
+        where time = #{time} limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select count(*)
+        from talk
+    </select>
+    <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Talk">
+        select *
+        from talk
+        where student = #{student} limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByStudentCount" resultType="java.lang.Integer">
+        select count(*)
+        from talk
+        where student = #{student}
+    </select>
+    <select id="findByTimeCount" resultType="java.lang.Integer">
+        select count(*)
+        from talk
         where time = #{time}
+    </select>
+    <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Talk">
+        select *
+        from talk
+        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m') limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByTimeYearAndMonthCount" resultType="java.lang.Integer">
+        select count(*)
+        from talk
+        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
     </select>
 </mapper>

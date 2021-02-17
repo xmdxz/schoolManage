@@ -20,24 +20,70 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityDao activityDao;
 
+
     @Override
-    public List<Activity> findAll() {
-        return activityDao.findAll();
+    public List<Activity> findAll(Integer Page, Integer num) {
+        return activityDao.findAll((Page - 1) * num, num);
     }
 
     @Override
-    public List<Activity> findByStudent(String student) {
-        return activityDao.findByStudent(student);
+    public int findAllCount() {
+        return activityDao.findAllCount();
     }
 
     @Override
-    public List<Activity> findByActive(String active) {
-        return activityDao.findByActive(active);
+    public List<Activity> findByStudentPage(String student, Integer Page, Integer num) {
+        return activityDao.findByStudentPage(student, (Page - 1) * num, num);
     }
 
     @Override
-    public List<Activity> findByTime(Date date) {
-        return activityDao.findByTime(date);
+    public List<Activity> findByStudentNoPage(String student) {
+        return activityDao.findByStudentNoPage(student);
+    }
+
+    @Override
+    public int findByStudentCount(String student) {
+        return activityDao.findByStudentCount(student);
+    }
+
+    @Override
+    public List<Activity> findByActive(String active, Integer Page, Integer num) {
+        return activityDao.findByActive(active, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByActiceCount(String active) {
+        return activityDao.findByActiceCount(active);
+    }
+
+    @Override
+    public List<Activity> findByTime(Date date, Integer Page, Integer num) {
+        return activityDao.findByTime(date, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByTimeCount(Date date) {
+        return activityDao.findByTimeCount(date);
+    }
+
+    @Override
+    public List<Activity> findByTimeYearAndMonth(Date time, Integer Page, Integer num) {
+        return activityDao.findByTimeYearAndMonth(time, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByTimeYearAndMonthCount(Date time) {
+        return activityDao.findByTimeYearAndMonthCount(time);
+    }
+
+    @Override
+    public List<Activity> findByTimeYear(Date time, Integer Page, Integer num) {
+        return activityDao.findByTimeYear(time, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByTimeYearCount(Date time) {
+        return activityDao.findByTimeYearCount(time);
     }
 
     @Override
