@@ -24,21 +24,71 @@
 
     <select id="findAll" resultType="com.SchoolManage.pojo.Activity">
         select *
-        from activity
+        from activity limit #{startPage},#{num}
     </select>
-    <select id="findByStudent" resultType="com.SchoolManage.pojo.Activity">
+    <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Activity">
         select *
         from activity
-        where student = #{student}
+        where student = #{student} limit #{startPage}
+            , #{num}
     </select>
     <select id="findByActive" resultType="com.SchoolManage.pojo.Activity">
         select *
         from activuty
-        where active like "%" #{active} "%"
+        where active like "%" #{active} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByTime" resultType="com.SchoolManage.pojo.Activity">
         select *
         from activity
-        where time = #{time}
+        where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d') limit #{startPage}
+            , #{num}
     </select>
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select count(*)
+        from activity
+    </select>
+    <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Activity">
+        select *
+        from activity
+        where student = #{student}
+    </select>
+    <select id="findByStudentCount" resultType="java.lang.Integer">
+        select count(*)
+        from activity
+        where student = #{student}
+    </select>
+    <select id="findByActiceCount" resultType="java.lang.Integer">
+        select count(*)
+        from activuty
+        where active like "%" #{active} "%"
+    </select>
+    <select id="findByTimeCount" resultType="java.lang.Integer">
+        select count(*)
+        from activity
+        where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+    </select>
+    <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Activity">
+        select *
+        from activity
+        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m') limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByTimeYearAndMonthCount" resultType="java.lang.Integer">
+        select count(*)
+        from activity
+        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+    </select>
+    <select id="findByTimeYear" resultType="com.SchoolManage.pojo.Activity">
+        select *
+        from activity
+        where date_format(time, '%Y') = date_format(#{time}, '%Y') limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByTimeYearCount" resultType="java.lang.Integer">
+        select count(*)
+        from activity
+        where date_format(time, '%Y') = date_format(#{time}, '%Y')
+    </select>
+
 </mapper>

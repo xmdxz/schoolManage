@@ -17,7 +17,14 @@ public interface ActivityDao {
      *
      * @return
      */
-    List<Activity> findAll();
+    List<Activity> findAll(@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 查询全部数量
+     *
+     * @return
+     */
+    int findAllCount();
 
     /**
      * 根据学生查询
@@ -25,7 +32,23 @@ public interface ActivityDao {
      * @param student
      * @return
      */
-    List<Activity> findByStudent(@Param(value = "student") String student);
+    List<Activity> findByStudentPage(@Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据学生查询，无分页
+     *
+     * @param student
+     * @return
+     */
+    List<Activity> findByStudentNoPage(@Param(value = "student") String student);
+
+    /**
+     * 根据学生查询数量
+     *
+     * @param student
+     * @return
+     */
+    int findByStudentCount(@Param(value = "student") String student);
 
     /**
      * 根据活动查询
@@ -33,15 +56,66 @@ public interface ActivityDao {
      * @param active
      * @return
      */
-    List<Activity> findByActive(@Param(value = "active") String active);
+    List<Activity> findByActive(@Param(value = "active") String active, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
-     * 根据时间查询
+     * 根据活动查询数量
+     *
+     * @param active
+     * @return
+     */
+    int findByActiceCount(@Param(value = "actice") String active);
+
+    /**
+     * 根据年月日时间查询,活动的话，应该不会使用
      *
      * @param date
      * @return
      */
-    List<Activity> findByTime(@Param(value = "time") Date date);
+    List<Activity> findByTime(@Param(value = "time") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据年月日查询数量
+     *
+     * @param date
+     * @return
+     */
+    int findByTimeCount(@Param(value = "time") Date date);
+
+    /**
+     * 根据年月查询
+     *
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Activity> findByTimeYearAndMonth(@Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据年月查询数量
+     *
+     * @param time
+     * @return
+     */
+    int findByTimeYearAndMonthCount(@Param(value = "time") Date time);
+
+    /**
+     * 根据年查询
+     *
+     * @param time
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Activity> findByTimeYear(@Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据年查询数量
+     *
+     * @param time
+     * @return
+     */
+    int findByTimeYearCount(@Param(value = "time") Date time);
 
     /**
      * 插入单挑

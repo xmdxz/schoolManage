@@ -23,27 +23,31 @@
 
     <select id="findAll" resultType="com.SchoolManage.pojo.Honour">
         select *
-        from honour
+        from honour limit #{startPage},#{num}
     </select>
-    <select id="findByStudent" resultType="com.SchoolManage.pojo.Honour">
+    <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where student = #{student}
+        where student = #{student} limit #{startPage}
+            , #{num}
     </select>
     <select id="findByType" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where type like "%" #{type} "%"
+        where type like "%" #{type} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByPrize" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where prize like "%" #{prize} "%"
+        where prize like "%" #{prize} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByTime" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where time = #{time}
+        where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d') limit #{startPage}
+            , #{num}
     </select>
     <select id="findByConditions" resultType="com.SchoolManage.pojo.Honour">
         select * from honour
@@ -54,5 +58,56 @@
                 </foreach>
             </where>
         </if>
+    </select>
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+    </select>
+    <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where student = #{student}
+    </select>
+    <select id="findByStudentCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+        where student = #{student}
+    </select>
+    <select id="findByTypeCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+        where type like "%" #{type} "%"
+    </select>
+    <select id="findByPrizeCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+        where prize like "%" #{prize} "%"
+    </select>
+    <select id="findByTimeCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+        where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+    </select>
+    <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m') limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByTimeYearAndMonthCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+    </select>
+    <select id="findByTimeYear" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where date_format(time, '%Y') = date_format(#{time}, '%Y') limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByTimeYearCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+        where date_format(time, '%Y') = date_format(#{time}, '%Y')
     </select>
 </mapper>
