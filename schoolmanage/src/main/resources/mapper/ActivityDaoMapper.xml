@@ -5,14 +5,14 @@
 
 <mapper namespace="com.SchoolManage.dao.ActivityDao">
     <insert id="insertAc">
-        insert into activity(student, active, time)
-        values (#{activity.student}, #{activity.active}, #{activity.time,jdbcType=DATE})
+        insert into activity(responsible, remarks, active, time)
+        values (#{activity.responsible}, #{activity.remarks}, #{activity.active} #{activity.time,jdbcType=DATE})
     </insert>
     <insert id="insertAcs">
-        insert into activity(student,active,time)
+        insert into activity(responsible,remarks, active, time)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.student},#{item.active},#{item.time,jdbcType=DATE})
+            (#{item.responsible},#{item.remarks},#{item.active},#{item.time,jdbcType=DATE})
         </foreach>
     </insert>
     <delete id="deleteAc">
