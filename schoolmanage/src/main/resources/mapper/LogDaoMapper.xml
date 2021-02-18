@@ -15,6 +15,7 @@
         select *
         from log
         order by time desc
+        limit #{page},7
     </select>
 
     <select id="findLogByTime" resultType="com.SchoolManage.pojo.Log">

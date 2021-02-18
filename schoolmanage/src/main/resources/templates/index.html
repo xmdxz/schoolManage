@@ -27,6 +27,7 @@
 
 		<!-- Bootstrap Core JS -->
 		<script th:src="@{/assets/js/popper.min.js}"></script>
+		<script th:src="@{/assets/js/moment.min.js}"></script>
 		<script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
 
 		<!-- Slimscroll JS -->
@@ -35,7 +36,50 @@
 		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
 		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
 		<script type="text/javascript">
+			var jiluPage =1;
+			var msg="";
+			$.ajax({
+				type:"post",
+				url:"log/all",
+				dataType:"json",
+				data:{'page':jiluPage},
+			}).done(function (res) {
 
+				for(var i =0;i<res.length;i++){
+					var obj =res[i];
+					obj.time=moment(obj.time).format('MM月DD日 HH:mm:ss');
+				}
+				$.each(res,function (i,n) {
+					msg += "<li class='feed-item'>";
+					msg +="<div class='feed-date'>"+n.time+"</div>";
+					msg +="<span class='feed-text'><a>"+n.operation_teacher+"</a>在"+n.operation_table+"中"+n.type+"了"+n.operation_student+n.message+"</span>";
+					msg +="</li>";
+				})
+				$("#jilu").html(msg);
+			})
+			//更多记录
+			function morejilu() {
+				jiluPage+=1;
+				$.ajax({
+					type:"post",
+					url:"log/all",
+					dataType:"json",
+					data:{'page':jiluPage},
+				}).done(function (res) {
+
+					for(var i =0;i<res.length;i++){
+						var obj =res[i];
+						obj.time=moment(obj.time).format('MM月DD日 HH:mm:ss');
+					}
+					$.each(res,function (i,n) {
+						msg += "<li class='feed-item'>";
+						msg +="<div class='feed-date'>"+n.time+"</div>";
+						msg +="<span class='feed-text'><a>"+n.operation_teacher+"</a>在"+n.operation_table+"中"+n.type+"了"+n.operation_student+n.message+"</span>";
+						msg +="</li>";
+					})
+					$("#jilu").html(msg);
+				})
+			}
 			// $(document).ready(function(){
 			//
 			// 	$.ajax({
@@ -625,23 +669,8 @@
 									<h5 class="card-title">学生记录</h5>
 								</div>
 								<div class="card-body">
-									<ul class="activity-feed">
-										<li class="feed-item">
-											<div class="feed-date">9月13日</div>
-											<span class="feed-text"><a>秦宇泽</a> 获得 <a>"啥奖项"</a></span>
-										</li>
-										<li class="feed-item">
-											<div class="feed-date">8月21日</div>
-											<span class="feed-text"><a>李雨胜</a> 获得 <a href="invoice.html">"啥奖项"</a></span>
-										</li>
-										<li class="feed-item">
-											<div class="feed-date">7月2日</div>
-											<span class="feed-text"><a>袁鑫</a>参加什么<a href="profile.html">"比赛"</a></span>
-										</li>
-										<li class="feed-item">
-											<div class="feed-date">6月13日</div>
-											<span class="feed-text"><a>杨树博</a> 今天 <a>"生日"</a></span>
-										</li>
+									<ul class="activity-feed" id="jilu">
+
 									</ul>
 								</div>
 							</div>
