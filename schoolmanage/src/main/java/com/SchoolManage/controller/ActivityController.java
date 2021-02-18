@@ -124,7 +124,6 @@ public class ActivityController {
 
     @RequestMapping("insertac")
     public String insertAc(Activity activity) {
-        System.out.println(activity);
         int i = activityService.insertAc(activity);
         if (i != 0) {
             return "loginp_3";
@@ -153,7 +152,13 @@ public class ActivityController {
     public Activity findById(int id) {
         return activityService.findById(id);
     }
-
+    @RequestMapping("update")
+    public String update(Activity activity) {
+        int i = activityService.updateData(activity);
+        if (i != 0) {
+            return "loginp_3";
+        } else return "redirect:/activity.html";
+    }
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {

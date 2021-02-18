@@ -48,9 +48,9 @@
 				id= arr[0].split("=")[1];//获取数组中第一个参数//
 				$.ajax({
 					type:"post",
-					url:"dormitory/findByBuildingAndNumber",
+					url:"activity/findbyid",
 					dataType:"json",
-					data: {building:building,number:number}
+					data: {id:id}
 				}).done(function (res) {
 					console.log(res);
 					obj=res;
@@ -326,7 +326,7 @@
 									<li><a href="add-hostel.html" >宿舍添加</a></li>
 								</ul>
 							</li>
-							<li class="submenu active>
+							<li class="submenu active">
 								<a href="#"><i class="fas fa-hotel"></i> <span>活动</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="activity.html" class="active">活动列表</a></li>
@@ -411,10 +411,16 @@
 						
 							<div class="card">
 								<div class="card-body">
-									<form action="dormitory/updateData" method="post">
+									<form action="activity/update" method="post">
 										<div class="row">
 											<div class="col-12">
 												<h5 class="form-title"><span>活动详细信息</span></h5>
+											</div>
+											<div class="col-12 col-sm-6">
+												<div class="form-group">
+													<label>编号</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" name="id" id="id">
+												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
