@@ -27,8 +27,18 @@
 		<link rel="stylesheet" th:href="@{/assets/css/style.css}">
 		<!-- alert beautiful-->
 		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
+		<!-- jQuery -->
+		<script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
 		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
-
+        <script type="text/javascript">
+			//获取缓存中登录账号的信息
+			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
+			var name=adminuserInfo.name;
+			$(document).ready(function () {
+				$('#InfoName').text(name)
+				console.log(name)
+			});
+		</script>
 	</head>
     <body>
 	

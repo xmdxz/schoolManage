@@ -89,7 +89,7 @@ $(document).ready(function () {
             }
         },
         series: [{
-            name: "学生地区分布",
+            name: "该地区学生人数",
             color: '#19affb',
             data: datas,
         }],
