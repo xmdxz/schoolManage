@@ -89,6 +89,18 @@ public class ActivityController {
         return activityService.findByTimeYearAndMonth(time, Page, num);
     }
 
+    @RequestMapping("findbyres")
+    @ResponseBody
+    public List<Activity> findByRes(String responsible, Integer Page, Integer num) {
+        return activityService.findByRes(responsible, Page, num);
+    }
+
+    @RequestMapping("findbyrescount")
+    @ResponseBody
+    public int findByResCount(String responsible) {
+        return activityService.findByResCount(responsible);
+    }
+
     @RequestMapping("findbytimeyear")
     @ResponseBody
     public List<Activity> findByTimeYear(Date time, Integer Page, Integer num) {

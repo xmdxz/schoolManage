@@ -84,6 +84,22 @@ public interface ActivityService {
     int findByTimeCount(Date date);
 
     /**
+     * 根据负责人查找
+     *
+     * @param responsible
+     * @return
+     */
+    List<Activity> findByRes(String responsible, Integer Page, Integer num);
+
+    /**
+     * 根据负责人查询数量
+     *
+     * @param responsible
+     * @return
+     */
+    int findByResCount(String responsible);
+
+    /**
      * 根据年月查询
      *
      * @param Page
