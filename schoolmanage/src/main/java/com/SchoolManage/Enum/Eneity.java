@@ -66,6 +66,7 @@ public enum Eneity {
         put("人数","num");
     }});
 
+
     private Map<String, String> pojo;
 
     Eneity(Map<String, String> pojo){

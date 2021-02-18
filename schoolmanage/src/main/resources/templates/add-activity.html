@@ -31,6 +31,9 @@
 		<!-- Slimscroll JS -->
 		<script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
+
+		<!-- Custom JS -->
+		<script th:src="@{/assets/js/script.js}"></script>
 		<!-- alert beautiful-->
 		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
 		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
@@ -50,7 +53,7 @@
 						{
 							formData.append('file',temp);
 							$.ajax({
-								url:'department/upfile',
+								url:'dormitory/upfile',
 								type:'post',
 								data: formData,
 								processData: false, // 告诉jQuery不要去处理发送的数据
@@ -241,7 +244,7 @@
 								<a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="departments.html">部门列表</a></li>
-									<li><a href="add-department.html"  class="active">部门添加</a></li>
+									<li><a href="add-department.html" >部门添加</a></li>
 <!--									<li><a href="edit-department.html">部门编辑</a></li>-->
 								</ul>
 							</li>
@@ -312,18 +315,18 @@
 							<!-- 	<li> 
 								<a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>体育</span></a>
 							</li> -->
-							<li class="submenu">
+							<li class="submenu active">
 								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="hostel.html">宿舍列表</a></li>
-									<li><a href="add-hostel.html">宿舍添加</a></li>
+									<li><a href="hostel.html" >宿舍列表</a></li>
+									<li><a href="add-hostel.html" class="active">宿舍添加</a></li>
 								</ul>
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="fas fa-hotel"></i> <span>活动</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="activity.html">活动列表</a></li>
-									<li><a href="add-hostel.html">活动添加</a></li>
+									<li><a href="add-activity.html" class="active">活动添加</a></li>
 								</ul>
 							</li>
 							<!-- <li> 
@@ -389,10 +392,10 @@
 					<div class="page-header">
 						<div class="row align-items-center">
 							<div class="col">
-								<h3 class="page-title">添加部门</h3>
+								<h3 class="page-title">添加活动</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="departments.html">部门</a></li>
-									<li class="breadcrumb-item active">添加部门</li>
+									<li class="breadcrumb-item"><a href="departments.html">活动</a></li>
+									<li class="breadcrumb-item active">添加活动</li>
 								</ul>
 							</div>
 							<div class="col-auto text-right float-right ml-auto">
@@ -408,39 +411,33 @@
 						
 							<div class="card">
 								<div class="card-body">
-									<form action="department/insertdata" method="post">
+									<form action="activity/insertac" method="post">
 										<div class="row">
 											<div class="col-12">
-												<h5 class="form-title"><span>部门详细信息</span></h5>
+												<h5 class="form-title"><span>活动详细信息</span></h5>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>部门ID</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" name="id" id="id">
+													<label>活动名称</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" name="active" id="active">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>部门名字</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="name" name="name">
+													<label>开始时间</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="time" name="time">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>部长</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="minister" name="minister">
+													<label>负责部门(人)</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="responsible" name="responsible">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>联系电话</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="phone" name="phone">
-												</div>
-											</div>
-											<div class="col-12 col-sm-6">
-												<div class="form-group">
-													<label>学院</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="college" name="college">
+													<label>备注</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="remarks" name="remarks">
 												</div>
 											</div>
 											<div class="col-12">

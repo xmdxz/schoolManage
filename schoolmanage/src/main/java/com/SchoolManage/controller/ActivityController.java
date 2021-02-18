@@ -67,7 +67,7 @@ public class ActivityController {
 
     @RequestMapping("findbyactivecount")
     @ResponseBody
-    public int findByActiveCount(String active) {
+    public Integer findByActiveCount(String active) {
         return activityService.findByActiveCount(active);
     }
 
@@ -115,10 +115,11 @@ public class ActivityController {
 
     @RequestMapping("insertac")
     public String insertAc(Activity activity) {
+        System.out.println(activity);
         int i = activityService.insertAc(activity);
-        if (i != 0) {
-            return "redirect:这里改跳转页面地址";
-        } else return "redirect:这里改跳转页面地址";
+        if (i!=0){
+            return  "loginp_3";
+        }else return "redirect:/activity.html";
     }
 
     @RequestMapping("deleteac")

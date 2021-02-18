@@ -65,7 +65,7 @@ public interface ActivityDao {
      * @param active
      * @return
      */
-    int findByActiveCount(@Param(value = "actice") String active);
+    int findByActiveCount(@Param(value = "active") String active);
 
     /**
      * 根据年月日时间查询,活动的话，应该不会使用

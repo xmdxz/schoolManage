@@ -34,7 +34,7 @@
     </select>
     <select id="findByActive" resultType="com.SchoolManage.pojo.Activity">
         select *, (select count(*) from activemember where activemember.activity = activity.id) as number
-        from activuty
+        from activity
         where active like "%" #{active} "%" limit #{startPage}
             , #{num}
     </select>
@@ -60,7 +60,7 @@
     </select>
     <select id="findByActiveCount" resultType="java.lang.Integer">
         select count(*)
-        from activuty
+        from activity
         where active like "%" #{active} "%"
     </select>
     <select id="findByTimeCount" resultType="java.lang.Integer">
