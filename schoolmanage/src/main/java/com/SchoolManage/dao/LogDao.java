@@ -23,10 +23,11 @@ public interface LogDao {
 
     /**
      * 查找全部操作记录,并根据时间排序
-     *
+     *顺带分页
+     * @param page
      * @return
      */
-    List<Log> findLog();
+    List<Log> findLog(@Param(value = "page") Integer page);
 
     /**
      * 根据年月日时间查找日志
