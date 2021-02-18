@@ -45,8 +45,6 @@
 			//获取缓存中登录账号的信息
 			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
 			var name=adminuserInfo.name;
-			const everypage_2 = 20; //每页的数量
-			var allpage_2= 1;
 			const everypage_1 = 20; //每页的数量
 			var allpage_1 = 1;
 			var a=null;
@@ -97,7 +95,7 @@
 								msg += "<td>" + n.responsible + "</td>";
 								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.number+"人"+"</a></h2></td>";
 								msg += "<td>" + n.remarks + "</td>";
-								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 								msg += "</tr>";
 							});
 							$("#dormitory").html(msg);
@@ -157,7 +155,8 @@
 					msg += "<td>" + n.responsible + "</td>";
 					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.number+"人"+"</a></h2></td>";
 					msg += "<td>" + n.remarks + "</td>";
-					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+
 					msg += "</tr>";
 				});
 				$("#dormitory").html(msg);
@@ -206,30 +205,7 @@
 						msg += "<td>" + n.responsible + "</td>";
 						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.number+"人"+"</a></h2></td>";
 						msg += "<td>" + n.remarks + "</td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
-						msg += "</tr>";
-					});
-					$("#dormitory").html(msg);
-				})
-			}
-			function newpage_2(res) {
-				var page = res
-				$.ajax({
-					type: "post",
-					url: "dormitory/findByNumber",
-					dataType: "json",
-					data: {number:a,page: page, num: everypage_2},
-				}).done(function (res) {
-					var msg = "";
-					$.each(res, function (i, n) {
-						msg += "<tr>";
-						msg += "<td>" + n.id+"</td>";
-						msg += "<td>" + n.active + "</td>";
-						msg += "<td>" + n.time+ "</td>";
-						msg += "<td>" + n.responsible + "</td>";
-						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.number+"人"+"</a></h2></td>";
-						msg += "<td>" + n.remarks + "</td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 						msg += "</tr>";
 					});
 					$("#dormitory").html(msg);
@@ -252,19 +228,18 @@
 						msg += "<td>" + n.responsible + "</td>";
 						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.number+"人"+"</a></h2></td>";
 						msg += "<td>" + n.remarks + "</td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+
 						msg += "</tr>";
 					});
 					$("#dormitory").html(msg);
 				})
 			}
-			function deldec(res) {
-				var arr=res.split(',');
-				var building=arr[0];
-				var number=arr[1];
+			function deldec(id) {
+				var id = id;
 				swal({
 							title: "确定删除吗？",
-							text: "你将无法恢复该学生信息！",
+							text: "你将无法恢复该活动信息！",
 							type: "warning",
 							showCancelButton: true,
 							confirmButtonColor: "#DD6B55",
@@ -277,15 +252,15 @@
 							if (isConfirm) {
 								$.ajax({
 									type: "post",
-									url: "dormitory/deleteData",
+									url: "activity/deleteac",
 									dataType: "json",
-									data: {'building': building,'number':number},
+									data: {'id': id},
 								}).done(function (res) {
 									if (res.code == 500) {
 										swal("删除失败", "服务器繁忙中...", "warning");
 									} else if (res.code == 200) {
-										swal("删除成功！", "即将返回宿舍列表", "success");
-										setTimeout("window.location.href='hostel.html'", "1200");
+										swal("删除成功！", "即将返回活动列表", "success");
+										setTimeout("window.location.href='activity.html'", "1200");
 									}
 								})
 							} else {
