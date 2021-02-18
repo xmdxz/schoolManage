@@ -23,7 +23,7 @@ public class LogsController {
     @ResponseBody
     public List<Logs> findAll(HttpServletRequest request) {
         AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-        String user =a.getUsername();
+        String user =a.getName();
         return logsService.findAll(user);
     }
 
@@ -31,7 +31,7 @@ public class LogsController {
     @ResponseBody
     public  int Insertnew(String title, Timestamp start,Timestamp end,String className,HttpServletRequest request){
         AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-        String user =a.getUsername();
+        String user =a.getName();
         Logs logs=new Logs();
         logs.setClassName(className);
         logs.setEnd(end);
@@ -51,9 +51,9 @@ public class LogsController {
     }
     @RequestMapping("updata")
     @ResponseBody
-    public String updataLogs(Integer id,String title, Timestamp start,Timestamp end,String className,HttpServletRequest request){
+    public String updataLogs(Integer id,String title, Timestamp start,Timestamp end,String className,Integer maid,HttpServletRequest request){
         AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-        String user =a.getUsername();
+        String user =a.getName();
 
         Logs logs=new Logs();
         logs.setClassName(className);
@@ -61,6 +61,7 @@ public class LogsController {
         logs.setStart(start);
         logs.setTitle(title);
         logs.setId(id);
+        logs.setMaid(maid);
         logs.setUser(user);
         int i =logsService.updataLogs(logs);
         if (i ==1)

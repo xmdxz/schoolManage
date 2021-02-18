@@ -39,6 +39,7 @@
     },
     /* on click on event */												//当点击事件后触发
     CalendarApp.prototype.onEventClick =  function (calEvent, jsEvent, view) {
+        console.log(calEvent);
         var $this = this;
             var form = $("<form></form>");
             form.append("<label>修改事件</label>");
@@ -83,10 +84,70 @@
 
                 $this.$modal.modal('hide');
             });
-
+            //点击添加事件内容时触发
             $this.$modal.find('#add').unbind('click').click(function (res) {
-                console.log(res)
-                console.log(calEvent.id)
+                if (calEvent.maid==null) {
+                    swal({
+                            title: "请输入要绑定的内容编号",
+                            text: "编号在谈话列表界面查看",
+                            type: "input",
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            cancelButtonText: "取消",
+                            confirmButtonText: "确认",
+                        }, function (isConfirm) {
+                            if (isConfirm) {
+                                //检测编号权限隶属
+                                //ajax
+                                //不处于自己则报错
+                                //若属于
+                                $.ajax({
+                                    type: "post",
+                                    dataType: "json",
+                                    url: "logs/findById",
+                                    async: false,
+                                    data: {'id': calEvent.id}
+                                }).done(function (res) {
+                                    var starts = moment(res.start).format('Y-MM-DD HH:mm:ss');
+                                    var ends = moment(res.end).format('Y-MM-DD HH:mm:ss');
+                                    $.ajax({
+                                        type: "post",
+                                        url: "logs/updata",
+                                        data: {
+                                            'id': calEvent.id, 'title': res.title, 'start': starts,
+                                            'end': ends,
+                                            'className': res.className,
+                                            'maid': isConfirm
+                                        },
+                                    }).done(function (res) {
+                                        swal("添加成功！", "", "success")
+                                        //延时跳转   非常重要 不然有bug
+                                        window.location.href="/event.html"
+                                    })
+                                })
+                            } else {
+                                swal("请输入对应的编号！", "", "warning");
+                            }
+                        }
+                    )
+                }else {
+                    swal({
+                            title: "已经绑定过事件",
+                            text: "是否进行跳转？",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            closeOnConfirm: false,
+                            closeOnCancel: true,
+                            cancelButtonText: "取消",
+                            confirmButtonText: "确认",
+                        },
+                        function (isConfirm) {
+                            if (isConfirm) {//进行跳转
+                                window.location.href="/event.html"
+                                }
+                    })
+                }
             })
 
 			//点击保存时触发
@@ -124,14 +185,14 @@
             form.append("<div class='event-inputs'></div>");
             form.find(".event-inputs")
                 .append("<div class='form-group'><label class='control-label'>时间名称</label><input class='form-control' placeholder='请输入事件' type='text' name='title'/></div>")
-                .append("<div class='form-group mb-0'><label class='control-label'>事件程度:</label><select class='form-control' name='category'></select></div>")
+                .append("<div class='form-group mb-0'><label class='control-label'>事件:</label><select class='form-control' name='category'></select></div>")
                 .find("select[name='category']")
                 .append("<option value='bg-danger'>会议</option>")
-                .append("<option value='bg-success'>绿色</option>")
+                .append("<option value='bg-success'>活动</option>")
                 .append("<option value='bg-purple'>学生谈话</option>")
-                .append("<option value='bg-primary'>浅色</option>")
-                .append("<option value='bg-info'>蓝色</option>")
-                .append("<option value='bg-warning'>黄色</option></div></div>");
+                .append("<option value='bg-primary'>其他</option>")
+                .append("<option value='bg-info'>学生请假</option>")
+                .append("<option value='bg-warning'>陪同学生出行</option></div></div>");
             $this.$modal.find('.delete-event').hide().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.save-event').unbind('click').click(function () {
                 form.submit();
             });					//对提供提交表单的内容进行绑定，即提交表单的按钮在前端页面自定义
