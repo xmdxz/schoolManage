@@ -111,4 +111,9 @@ public class ActivityServiceImpl implements ActivityService {
     public int deleteAc(Integer id) {
         return activityDao.deleteAc(id);
     }
+
+    @Override
+    public Activity findById(int id) {
+        return activityDao.findById(id);
+    }
 }

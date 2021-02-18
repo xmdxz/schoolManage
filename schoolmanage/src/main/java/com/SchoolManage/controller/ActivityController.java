@@ -117,9 +117,9 @@ public class ActivityController {
     public String insertAc(Activity activity) {
         System.out.println(activity);
         int i = activityService.insertAc(activity);
-        if (i!=0){
-            return  "loginp_3";
-        }else return "redirect:/activity.html";
+        if (i != 0) {
+            return "loginp_3";
+        } else return "redirect:/activity.html";
     }
 
     @RequestMapping("deleteac")
@@ -136,6 +136,12 @@ public class ActivityController {
             map.put("code", 500);
             return map;
         }
+    }
+
+    @RequestMapping("findbyid")
+    @ResponseBody
+    public Activity findById(int id) {
+        return activityService.findById(id);
     }
 }
 
