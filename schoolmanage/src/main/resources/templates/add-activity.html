@@ -53,7 +53,7 @@
 						{
 							formData.append('file',temp);
 							$.ajax({
-								url:'dormitory/upfile',
+								url:'activity/upfile',
 								type:'post',
 								data: formData,
 								processData: false, // 告诉jQuery不要去处理发送的数据
@@ -315,14 +315,14 @@
 							<!-- 	<li> 
 								<a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>体育</span></a>
 							</li> -->
-							<li class="submenu active">
+							<li class="submenu">
 								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="hostel.html" >宿舍列表</a></li>
-									<li><a href="add-hostel.html" class="active">宿舍添加</a></li>
+									<li><a href="add-hostel.html">宿舍添加</a></li>
 								</ul>
 							</li>
-							<li class="submenu">
+							<li class="submenu active">
 								<a href="#"><i class="fas fa-hotel"></i> <span>活动</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="activity.html">活动列表</a></li>

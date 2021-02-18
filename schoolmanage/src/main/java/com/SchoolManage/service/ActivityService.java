@@ -157,4 +157,8 @@ public interface ActivityService {
      * @return
      */
     int deleteAc(Integer id);
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
 }
