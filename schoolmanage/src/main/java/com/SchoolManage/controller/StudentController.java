@@ -1,8 +1,10 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
+import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.FeaturesService;
+import com.SchoolManage.service.LogService;
 import com.SchoolManage.service.StudentService;
 import com.SchoolManage.util.CreatData;
 import com.SchoolManage.util.CreateExlceUtil;
@@ -31,17 +33,21 @@ import java.util.*;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private LogService logService;
 
     @Autowired
     private FeaturesService featuresService;
 
     @RequestMapping("add")
-    public String addStudent(Student student) {
+    public String addStudent(Student student,HttpServletRequest request) {
 //        Map<String, Object> map = new HashMap<>();
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
         int i = studentService.insertStudent(student);
         if (i != 0) {
 //            map.put("msg", "添加成功");
 //            map.put("code", 200);
+            logService.insertNew("添加","的学生信息 ",a.getName(),"学号为"+student.getId(),"学生表");
             return "loginp";
         } else {
 //            map.put("msg", "添加失败");
@@ -124,10 +130,12 @@ public class StudentController {
     }
 
     @RequestMapping("update")
-    public String updateStudent(Student student) {
+    public String updateStudent(Student student,HttpServletRequest request) {
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
 //        Map<String, Object> map = new HashMap<>();
         int i = studentService.updateStudent(student);
         if (i != 0) {
+             logService.insertNew("更新"," 的学生信息",a.getName(),"学号为"+student.getId(),"学生表");
 //            map.put("msg", "修改成功");
 //            map.put("code", 200);
             return "loginp";
@@ -140,10 +148,12 @@ public class StudentController {
 
     @RequestMapping("delete")
     @ResponseBody
-    public Map<String, Object> deleteStudent(String id) {
+    public Map<String, Object> deleteStudent(String id,HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
         int i = studentService.deleteStudent(id);
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
         if (i != 0) {
+            logService.insertNew("删除","的学生信息",a.getName(),"学号为"+id,"学生表");
             map.put("msg", "删除成功");
             map.put("code", 200);
             return map;

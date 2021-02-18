@@ -122,7 +122,7 @@
                                     }).done(function (res) {
                                         swal("添加成功！", "", "success")
                                         //延时跳转   非常重要 不然有bug
-                                        window.location.href="/event.html"
+                                        setTimeout("window.location.href='/event.html'", "700");
                                     })
                                 })
                             } else {
@@ -144,7 +144,7 @@
                         },
                         function (isConfirm) {
                             if (isConfirm) {//进行跳转
-                                window.location.href="/event.html"
+                                setTimeout("window.location.href='/event.html'", "100");
                                 }
                     })
                 }

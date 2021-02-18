@@ -2,6 +2,8 @@ package com.SchoolManage.pojo;
 
 import lombok.*;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -9,7 +11,7 @@ import lombok.*;
 @ToString
 public class Log {
     //操作时间
-    private String time;
+    private Timestamp time;
 
     //操作类型
     private String type;
