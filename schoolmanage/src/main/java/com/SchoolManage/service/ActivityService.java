@@ -65,7 +65,7 @@ public interface ActivityService {
      * @param active
      * @return
      */
-    int findByActiceCount(String active);
+    int findByActiveCount(String active);
 
     /**
      * 根据年月日时间查询,活动的话，应该不会使用

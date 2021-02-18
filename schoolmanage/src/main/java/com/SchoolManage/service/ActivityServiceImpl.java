@@ -52,8 +52,8 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public int findByActiceCount(String active) {
-        return activityDao.findByActiceCount(active);
+    public int findByActiveCount(String active) {
+        return activityDao.findByActiveCount(active);
     }
 
     @Override
