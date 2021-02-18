@@ -37,14 +37,14 @@
     <!--        </association>-->
     <!--    </resultMap>-->
     <insert id="insertData">
-        insert into activemember(activity, student, clazz)
-        values (#{activemember.activity.id}, #{activemember.student}, #{activemember.clazz})
+        insert into activemember(activity, student, clazz, name)
+        values (#{activemember.activity.id}, #{activemember.student}, #{activemember.clazz}, #{activemember.name})
     </insert>
     <insert id="insertDatas">
-        insert into activemember(activity,student,clazz)
+        insert into activemember(activity,student,clazz,name)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.activity.id},#{item.student},#{item.clazz})
+            (#{item.activity.id},#{item.student},#{item.clazz},#{item.name})
         </foreach>
     </insert>
     <delete id="deleteData">
