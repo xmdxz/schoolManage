@@ -109,5 +109,9 @@
         from activity
         where responsible like "%" #{responsible} "%"
     </select>
-
+    <select id="findById" resultType="com.SchoolManage.pojo.Activity">
+        select *
+        from activity
+        where id = #{id}
+    </select>
 </mapper>

@@ -27,7 +27,7 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public List<Log> findAll() {
-        return logDao.findLog();
+    public List<Log> findAll(Integer page) {
+        return logDao.findLog((page-1)*7);
     }
 }
