@@ -31,41 +31,45 @@
 		<!-- Slimscroll JS -->
 		<script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
+
+
+		<!-- Custom JS -->
+		<script th:src="@{/assets/js/script.js}"></script>
 		<!-- alert beautiful-->
 		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
 		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
 		<script type="text/javascript">
+			var url = document.location.toString();//获取url地址
+			var id=null;
+			if(url.indexOf("?")!=-1)
+			{
+				var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+				var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+				id= arr[0].split("=")[1];//获取数组中第一个参数//
+				$.ajax({
+					type:"post",
+					url:"dormitory/findByBuildingAndNumber",
+					dataType:"json",
+					data: {building:building,number:number}
+				}).done(function (res) {
+					console.log(res);
+					obj=res;
+					var props = "";
+					for(var p in obj){
+						if(typeof(obj[p])=="function"){
+							obj[p]();
+						}else{
+							if(document.getElementById(p)!=null)
+								document.getElementById(p).value= obj[p];
+						}
+					}
+				})
+			}
 			//获取缓存中登录账号的信息
 			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
 			var name=adminuserInfo.name;
 			$(document).ready(function () {
 				$('#InfoName').text(name)
-				$("#bt1").click(function () {
-					$('#excelFile').trigger("click");
-					$('#excelFile').change(function (event) {
-						var files = event.target.files;
-						var formData=new FormData();
-						var temp=files[0];
-						if(temp)
-						{
-							formData.append('file',temp);
-							$.ajax({
-								url:'department/upfile',
-								type:'post',
-								data: formData,
-								processData: false, // 告诉jQuery不要去处理发送的数据
-								contentType: false, // 告诉jQuery不要去设置Content-Type请求头
-								success: function(res){
-									console.log(res)
-									swal(res);
-								}
-
-							})
-						}
-
-					});
-
-				})
 			});
 		</script>
     </head>
@@ -165,7 +169,7 @@
 										<a href="#">
 											<div class="media">
 												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image" th:src="@{/assets/img/profiles/avatar-13.jpg}">
+													<img class="avatar-img rounded-circle" alt="User Image" th:src="@{assets/img/profiles/avatar-13.jpg}">
 												</span>
 												<div class="media-body">
 													<p class="noti-details"><span class="noti-title">Mercury Software Inc</span> added a new product <span class="noti-title">Apple MacBook Pro</span></p>
@@ -211,27 +215,30 @@
             </div>
 			<!-- /Header -->
 			
-			<div class="sidebar" id="sidebar">
-				<div class="sidebar-inner slimscroll">
+			<!-- Sidebar -->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
 					<div id="sidebar-menu" class="sidebar-menu">
 						<ul>
-							<li class="menu-title">
+							<li class="menu-title"> 
 								<span>主菜单</span>
 							</li>
-							<li>
+							<li> 
 								<a href="index.html"><i class="fas fa-th-large"></i> <span>仪表板</span></a>
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="fas fa-user-graduate"></i> <span> 学生</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="students.html">学生名单</a></li>
+									<li><a href="students.html">学生列表</a></li>
+<!--									<li><a href="student-details.html">学生信息</a></li>-->
 									<li><a href="add-student.html">学生添加</a></li>
+<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> 教师</span> <span class="menu-arrow"></span></a>
+								<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="teachers.html">教师名单</a></li>
+									<li><a href="teachers.html">教师列表</a></li>
 									<li><a href="teacher-details.html">教师信息</a></li>
 									<li><a href="add-teacher.html">教师添加</a></li>
 									<li><a href="edit-teacher.html">教师编辑</a></li>
@@ -241,144 +248,144 @@
 								<a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="departments.html">部门列表</a></li>
-									<li><a href="add-department.html"  class="active">部门添加</a></li>
-<!--									<li><a href="edit-department.html">部门编辑</a></li>-->
+									<li><a href="add-department.html">部门添加</a></li>
+<!--									<li><a href="edit-department.html" class="active">部门编辑</a></li>-->
 								</ul>
 							</li>
-							<!-- 	<li class="submenu">
-								<a href="#"><i class="fas fa-book-reader"></i> <span> 科目</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="subjects.html">Subject List</a></li>
-									<li><a href="add-subject.html">Subject Add</a></li>
-									<li><a href="edit-subject.html">Subject Edit</a></li>
-								</ul>
-							</li> -->
-			
-							<li class="menu-title">
+<!--							<li class="submenu">-->
+<!--								<a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span class="menu-arrow"></span></a>-->
+<!--								<ul>-->
+<!--									<li><a href="subjects.html">Subject List</a></li>-->
+<!--									<li><a href="add-subject.html">Subject Add</a></li>-->
+<!--									<li><a href="edit-subject.html">Subject Edit</a></li>-->
+<!--								</ul>-->
+<!--							</li>-->
+
+							<li class="menu-title"> 
 								<span>管理</span>
 							</li>
-			
-							<!-- <li class="submenu">
-								<a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> 账户</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="fees-collections.html">费用收取</a></li>
-									<li><a href="expenses.html">费用</a></li>
-									<li><a href="salary.html">工资</a></li>
-									<li><a href="add-fees-collection.html">添加费用</a></li>
-									<li><a href="add-expenses.html">添加费用</a></li>
-									<li><a href="add-salary.html">添加工资</a></li>
-								</ul>
-							</li> -->
-							<li>
+
+<!--							<li class="submenu">-->
+<!--								<a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> Accounts</span> <span class="menu-arrow"></span></a>-->
+<!--								<ul>-->
+<!--									<li><a href="fees-collections.html">Fees Collection</a></li>-->
+<!--									<li><a href="expenses.html">Expenses</a></li>-->
+<!--									<li><a href="salary.html">Salary</a></li>-->
+<!--									<li><a href="add-fees-collection.html">Add Fees</a></li>-->
+<!--									<li><a href="add-expenses.html">Add Expenses</a></li>-->
+<!--									<li><a href="add-salary.html">Add Salary</a></li>-->
+<!--								</ul>-->
+<!--							</li>-->
+							<li> 
 								<a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>假期</span></a>
 							</li>
-							<li>
+							<li> 
 								<a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>
 							</li>
-							<li>
+							<li> 
 								<a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>
 							</li>
-							<li>
+							<li> 
 								<a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
 							</li>
-							<li>
+							<li> 
 								<a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>
 							</li>
-							<!-- <li> 
-								<a href="library.html"><i class="fas fa-book"></i> <span>图书馆</span></a>
-							</li> -->
-			
-							<!-- 			<li class="menu-title"> 
-								<span>页面</span>
-							</li>
-			
-							<li class="submenu">
-								<a href="#"><i class="fas fa-shield-alt"></i> <span> 认证 </span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="login.html">Login</a></li>
-									<li><a href="register.html">Register</a></li>
-									<li><a href="forgot-password.html">Forgot Password</a></li>
-									<li><a href="error-404.html">Error Page</a></li>
-								</ul>
-							</li>
-							<li> 
-								<a href="blank-page.html"><i class="fas fa-file"></i> <span>空白页</span></a>
-							</li> -->
-			
-							<li class="menu-title">
+<!--							<li> -->
+<!--								<a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>-->
+<!--							</li>-->
+
+<!--							<li class="menu-title"> -->
+<!--								<span>Pages</span>-->
+<!--							</li>-->
+
+<!--							<li class="submenu">-->
+<!--								<a href="#"><i class="fas fa-shield-alt"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>-->
+<!--								<ul>-->
+<!--									<li><a href="login.html">Login</a></li>-->
+<!--									<li><a href="register.html">Register</a></li>-->
+<!--									<li><a href="forgot-password.html">Forgot Password</a></li>-->
+<!--									<li><a href="error-404.html">Error Page</a></li>-->
+<!--								</ul>-->
+<!--							</li>-->
+<!--							<li> -->
+<!--								<a href="blank-page.html"><i class="fas fa-file"></i> <span>Blank Page</span></a>-->
+<!--							</li>-->
+
+							<li class="menu-title"> 
 								<span>其他</span>
 							</li>
-			
-							<!-- 	<li> 
-								<a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>体育</span></a>
-							</li> -->
+
+<!--							<li> -->
+<!--								<a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>-->
+<!--							</li>-->
 							<li class="submenu">
 								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="hostel.html">宿舍列表</a></li>
-									<li><a href="add-hostel.html">宿舍添加</a></li>
+									<li><a href="hostel.html" class="active">宿舍列表</a></li>
+									<li><a href="add-hostel.html" >宿舍添加</a></li>
 								</ul>
 							</li>
-							<li class="submenu">
+							<li class="submenu active>
 								<a href="#"><i class="fas fa-hotel"></i> <span>活动</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="activity.html">活动列表</a></li>
+									<li><a href="activity.html" class="active">活动列表</a></li>
 									<li><a href="add-hostel.html">活动添加</a></li>
 								</ul>
 							</li>
-							<!-- <li> 
-								<a href="transport.html"><i class="fas fa-bus"></i> <span>运输</span></a>
-							</li> -->
-							<!-- <li class="menu-title"> 
-								<span>ui接口</span>
-							</li> -->
-							<!-- <li> 
-								<a href="components.html"><i class="fas fa-vector-square"></i> <span>组件</span></a>
-							</li> -->
-							<!-- <li class="submenu">
-								<a href="#"><i class="fas fa-columns"></i> <span> 形式 </span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="form-basic-inputs.html">Basic Inputs </a></li>
-									<li><a href="form-input-groups.html">Input Groups </a></li>
-									<li><a href="form-horizontal.html">Horizontal Form </a></li>
-									<li><a href="form-vertical.html"> Vertical Form </a></li>
-									<li><a href="form-mask.html"> Form Mask </a></li>
-									<li><a href="form-validation.html"> Form Validation </a></li>
+<!--							<li> -->
+<!--								<a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>-->
+<!--							</li>-->
+<!--							<li class="menu-title"> -->
+<!--								<span>UI Interface</span>-->
+<!--							</li>-->
+<!--							<li> -->
+<!--								<a href="components.html"><i class="fas fa-vector-square"></i> <span>Components</span></a>-->
+<!--							</li>-->
+<!--							<li class="submenu">-->
+<!--								<a href="#"><i class="fas fa-columns"></i> <span> Forms </span> <span class="menu-arrow"></span></a>-->
+<!--								<ul>-->
+<!--									<li><a href="form-basic-inputs.html">Basic Inputs </a></li>-->
+<!--									<li><a href="form-input-groups.html">Input Groups </a></li>-->
+<!--									<li><a href="form-horizontal.html">Horizontal Form </a></li>-->
+<!--									<li><a href="form-vertical.html"> Vertical Form </a></li>-->
+<!--									<li><a href="form-mask.html"> Form Mask </a></li>-->
+<!--									<li><a href="form-validation.html"> Form Validation </a></li>-->
+<!--								</ul>-->
+<!--							</li>-->
+<!--							<li class="submenu">-->
+<!--								<a href="#"><i class="fas fa-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>-->
+<!--								<ul>-->
+<!--									<li><a href="tables-basic.html">Basic Tables </a></li>-->
+<!--									<li><a href="data-tables.html">Data Table </a></li>-->
+<!--								</ul>-->
+<!--							</li>-->
+<!--							<li class="submenu">-->
+<!--								<a href="javascript:void(0);"><i class="fas fa-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>-->
+<!--								<ul>-->
+<!--									<li class="submenu">-->
+<!--										<a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>-->
+<!--										<ul>-->
+<!--											<li><a href="javascript:void(0);"><span>Level 2</span></a></li>-->
+<!--											<li class="submenu">-->
+<!--												<a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>-->
+<!--												<ul>-->
+<!--													<li><a href="javascript:void(0);">Level 3</a></li>-->
+<!--													<li><a href="javascript:void(0);">Level 3</a></li>-->
+<!--												</ul>-->
+<!--											</li>-->
+<!--											<li><a href="javascript:void(0);"> <span>Level 2</span></a></li>-->
+<!--										</ul>-->
+<!--									</li>-->
+<!--									<li>-->
+<!--										<a href="javascript:void(0);"> <span>Level 1</span></a>-->
+<!--									</li>-->
 								</ul>
-							</li> -->
-							<!-- <li class="submenu">
-								<a href="#"><i class="fas fa-table"></i> <span> 表 </span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="tables-basic.html">Basic Tables </a></li>
-									<li><a href="data-tables.html">Data Table </a></li>
-								</ul>
-							</li> -->
-							<!-- 	<li class="submenu">
-								<a href="javascript:void(0);"><i class="fas fa-code"></i> <span>多级</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li class="submenu">
-										<a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="javascript:void(0);"><span>Level 2</span></a></li>
-											<li class="submenu">
-												<a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
-												<ul>
-													<li><a href="javascript:void(0);">Level 3</a></li>
-													<li><a href="javascript:void(0);">Level 3</a></li>
-												</ul>
-											</li>
-											<li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="javascript:void(0);"> <span>Level 1</span></a>
-									</li> -->
-						</ul>
-						</li>
+							</li>
 						</ul>
 					</div>
-				</div>
-			</div>
+                </div>
+            </div>
 			<!-- /Sidebar -->
 			
 			<!-- Page Wrapper -->
@@ -389,15 +396,11 @@
 					<div class="page-header">
 						<div class="row align-items-center">
 							<div class="col">
-								<h3 class="page-title">添加部门</h3>
+								<h3 class="page-title">编辑活动</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="departments.html">部门</a></li>
-									<li class="breadcrumb-item active">添加部门</li>
+									<li class="breadcrumb-item"><a href="departments.html">活动</a></li>
+									<li class="breadcrumb-item active">编辑活动</li>
 								</ul>
-							</div>
-							<div class="col-auto text-right float-right ml-auto">
-								<input type="file" name="excelFile" id="excelFile" style="display:none" accept=".xls,.xlsx">
-								<button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 批量添加</button>
 							</div>
 						</div>
 					</div>
@@ -408,39 +411,33 @@
 						
 							<div class="card">
 								<div class="card-body">
-									<form action="department/insertdata" method="post">
+									<form action="dormitory/updateData" method="post">
 										<div class="row">
 											<div class="col-12">
-												<h5 class="form-title"><span>部门详细信息</span></h5>
+												<h5 class="form-title"><span>活动详细信息</span></h5>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>部门ID</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" name="id" id="id">
+													<label>活动名称</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" name="active" id="active">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>部门名字</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="name" name="name">
+													<label>开始时间</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="time" name="time">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>部长</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="minister" name="minister">
+													<label>负责部门(人)</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="responsible" name="responsible">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>联系电话</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="phone" name="phone">
-												</div>
-											</div>
-											<div class="col-12 col-sm-6">
-												<div class="form-group">
-													<label>学院</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="college" name="college">
+													<label>备注</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="remarks" name="remarks">
 												</div>
 											</div>
 											<div class="col-12">

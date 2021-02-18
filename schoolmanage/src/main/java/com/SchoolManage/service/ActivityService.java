@@ -157,4 +157,20 @@ public interface ActivityService {
      * @return
      */
     int deleteAc(Integer id);
+
+
+    /**
+     * @Description: 根据id查询活动
+     * @Param: [id]
+     * @return: com.SchoolManage.pojo.Activity
+     * @Author: RainGoal
+     * @Date: 2021/2/18
+     */
+    Activity findById(int id);
+
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
+
 }

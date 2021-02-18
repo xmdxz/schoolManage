@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ActivityDao {
-    
+
 
     /**
      * 查找全部
@@ -65,7 +65,7 @@ public interface ActivityDao {
      * @param active
      * @return
      */
-    int findByActiveCount(@Param(value = "actice") String active);
+    int findByActiveCount(@Param(value = "active") String active);
 
     /**
      * 根据年月日时间查询,活动的话，应该不会使用
@@ -157,4 +157,15 @@ public interface ActivityDao {
      * @return
      */
     int deleteAc(@Param(value = "id") Integer id);
+
+
+    /**
+     * @Description: 根据id查询活动
+     * @Param: [id]
+     * @return: com.SchoolManage.pojo.Activity
+     * @Author: RainGoal
+     * @Date: 2021/2/18
+     */
+    Activity findById(@Param("id") int id);
+
 }

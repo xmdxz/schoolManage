@@ -1,12 +1,21 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Activity;
 import com.SchoolManage.service.ActivityService;
+import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +76,7 @@ public class ActivityController {
 
     @RequestMapping("findbyactivecount")
     @ResponseBody
-    public int findByActiveCount(String active) {
+    public Integer findByActiveCount(String active) {
         return activityService.findByActiveCount(active);
     }
 
@@ -115,10 +124,11 @@ public class ActivityController {
 
     @RequestMapping("insertac")
     public String insertAc(Activity activity) {
+        System.out.println(activity);
         int i = activityService.insertAc(activity);
         if (i != 0) {
-            return "redirect:这里改跳转页面地址";
-        } else return "redirect:这里改跳转页面地址";
+            return "loginp_3";
+        } else return "redirect:/activity.html";
     }
 
     @RequestMapping("deleteac")
@@ -135,6 +145,62 @@ public class ActivityController {
             map.put("code", 500);
             return map;
         }
+    }
+
+
+    @RequestMapping("findbyid")
+    @ResponseBody
+    public Activity findById(int id) {
+        return activityService.findById(id);
+    }
+
+    @PostMapping("upfile")
+    @ResponseBody
+    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        if (file == null) {
+            return "请选择文件";
+        }
+        try {
+            String filename = file.getOriginalFilename();
+            String extFileName = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+//            System.out.println("文件名:\t"+filename);
+//            System.out.println("后缀名:\t"+extFileName);
+            //上传到本地,模拟上传到文件服务器
+            String filePath = request.getServletContext().getRealPath("/") + "File\\";
+            String path = filePath + filename;
+            //文件存储路径
+            File dest = new File(path);
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdir();
+            }
+            file.transferTo(dest);
+            int i = 66;
+            try {
+                System.out.println(path);
+                i = activityService.BatchAddition(path);
+                dest.delete();
+                return "上传成功了";
+            } catch (Exception e) {
+                dest.delete();
+                return "上传的表格不匹配,请进行修改后重先上传";
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败了";
+    }
+
+    @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent(HttpServletRequest request) throws
+            NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i = activityService.findAllCount();
+        CreateExlceUtil<Activity> createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
+        List<Activity> list = activityService.findAll(1, i);
+        return createExlceUtil.createExcle(list);
+
     }
 }
 
