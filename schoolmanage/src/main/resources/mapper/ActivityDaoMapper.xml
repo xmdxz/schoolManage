@@ -6,7 +6,7 @@
 <mapper namespace="com.SchoolManage.dao.ActivityDao">
     <insert id="insertAc">
         insert into activity(responsible, remarks, active, time)
-        values (#{activity.responsible}, #{activity.remarks}, #{activity.active} ,#{activity.time,jdbcType=DATE})
+        values (#{activity.responsible}, #{activity.remarks}, #{activity.active}, #{activity.time,jdbcType=DATE})
     </insert>
     <insert id="insertAcs">
         insert into activity(responsible,remarks, active, time)
@@ -15,6 +15,14 @@
             (#{item.responsible},#{item.remarks},#{item.active},#{item.time,jdbcType=DATE})
         </foreach>
     </insert>
+    <update id="updateData">
+        update activity
+        set responsible = #{activity.responsible},
+            remarks     = #{activity.remarks},
+            active      = #{activity.active},
+            time        = #{activity.time}
+        where id = #{activity.id}
+    </update>
     <delete id="deleteAc">
         delete
         from activity

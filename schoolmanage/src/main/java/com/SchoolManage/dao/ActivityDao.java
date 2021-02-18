@@ -167,4 +167,12 @@ public interface ActivityDao {
      */
     int updateData(@Param(value = "activity") Activity activity);
 
+    /**
+     * 根据id
+     *
+     * @param id
+     * @return
+     */
+    Activity findById(@Param(value = "id") Integer id);
+
 }
