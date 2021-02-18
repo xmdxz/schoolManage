@@ -158,6 +158,7 @@ public interface ActivityService {
      */
     int deleteAc(Integer id);
 
+
     /**
      * @Description: 根据id查询活动
      * @Param: [id]
@@ -166,4 +167,10 @@ public interface ActivityService {
      * @Date: 2021/2/18
      */
     Activity findById(int id);
+
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
+
 }

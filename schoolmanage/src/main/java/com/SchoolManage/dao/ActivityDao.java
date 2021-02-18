@@ -158,6 +158,7 @@ public interface ActivityDao {
      */
     int deleteAc(@Param(value = "id") Integer id);
 
+
     /**
      * @Description: 根据id查询活动
      * @Param: [id]
@@ -166,4 +167,5 @@ public interface ActivityDao {
      * @Date: 2021/2/18
      */
     Activity findById(@Param("id") int id);
+
 }
