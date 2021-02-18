@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ActivityDao {
-    
+
 
     /**
      * 查找全部
@@ -42,6 +42,7 @@ public interface ActivityDao {
      * @return
      */
     List<Activity> findByStudentNoPage(@Param(value = "student") String student);
+
 
     /**
      * 根据学生查询数量
@@ -157,5 +158,13 @@ public interface ActivityDao {
      * @return
      */
     int deleteAc(@Param(value = "id") Integer id);
+
+    /**
+     * 更新记录
+     *
+     * @param activity
+     * @return
+     */
+    int updateData(@Param(value = "activity") Activity activity);
 
 }
