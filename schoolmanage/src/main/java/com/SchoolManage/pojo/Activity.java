@@ -17,9 +17,15 @@ public class Activity {
     private Integer id;
 
     /**
-     * 学生
+     * 负责
      */
-    private String student;
+    private String responsible;
+
+    /**
+     * 备注
+     */
+    private String remarks;
+
 
     /**
      * 参加的活动
@@ -30,4 +36,9 @@ public class Activity {
      * 时间
      */
     private Date time;
+
+    /**
+     * 参加活动总人数
+     */
+    private Integer number;
 }

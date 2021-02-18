@@ -7,32 +7,54 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
+
 @Mapper
 @Repository
 public interface LogDao {
     /**
      * 更新日志
+     *
      * @param log
      * @return
      */
     int insertLog(@Param(value = "log") Log log);
 
     /**
-     * 查找全部操作记录
+     * 查找全部操作记录,并根据时间排序
+     *
      * @return
      */
     List<Log> findLog();
 
     /**
-     * 根据时间查找日志
+     * 根据年月日时间查找日志
+     *
      * @param time
      * @return
      */
-    List<Log> findLogByTime(@Param(value = "time") String time);
+    List<Log> findLogByTime(@Param(value = "time") Timestamp time);
+
+    /**
+     * 根据年月查询
+     *
+     * @param time
+     * @return
+     */
+    List<Log> findLogByTimeYearAndMonth(@Param(value = "time") Timestamp time);
+
+    /**
+     * 根据年查询
+     *
+     * @param time
+     * @return
+     */
+    List<Log> findLogByTimeYear(@Param(value = "time") Timestamp time);
 
     /**
      * 根据操作员即教师查询
+     *
      * @param adminUser
      * @return
      */
@@ -40,6 +62,7 @@ public interface LogDao {
 
     /**
      * 根据学生查找
+     *
      * @param student
      * @return
      */
@@ -47,6 +70,7 @@ public interface LogDao {
 
     /**
      * 根据表查询，不知道有没有用，万一呢
+     *
      * @param table
      * @return
      */

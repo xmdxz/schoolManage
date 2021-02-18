@@ -5,29 +5,56 @@
 
 <mapper namespace="com.SchoolManage.dao.LogDao">
     <insert id="insertLog">
-        insert into log(time,type,message,operation_teacher,operation_student,operation_table)
-        values (#{log.time},#{log.type},#{log.message},#{log.operation_teacher},#{log.operation_student},#{log.operation_table})
+        insert into log(time, type, message, operation_teacher, operation_student, operation_table)
+        values (#{log.time}, #{log.type}, #{log.message}, #{log.operation_teacher}, #{log.operation_student},
+                #{log.operation_table})
     </insert>
 
 
     <select id="findLog" resultType="com.SchoolManage.pojo.Log">
-        select * from log
+        select *
+        from log
+        order by time desc
     </select>
 
     <select id="findLogByTime" resultType="com.SchoolManage.pojo.Log">
-        select * from log where time like "%" #{time} "%"
+        select *
+        from log
+        where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+        order by time desc
     </select>
 
     <select id="findLogByTeacher" resultType="com.SchoolManage.pojo.Log">
-        select * from log where operation_teacher = #{username}
+        select *
+        from log
+        where operation_teacher = #{username}
+        order by time desc
     </select>
 
     <select id="findLogByStudent" resultType="com.SchoolManage.pojo.Log">
-        select * from log where operation_student = #{id}
+        select *
+        from log
+        where operation_student = #{id}
+        order by time desc
     </select>
 
     <select id="findLogByTable" resultType="com.SchoolManage.pojo.Log">
-        select * from log where operation_table = #{table}
+        select *
+        from log
+        where operation_table = #{table}
+        order by time desc
+    </select>
+    <select id="findLogByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Log">
+        select *
+        from log
+        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+        order by time desc
+    </select>
+    <select id="findLogByTimeYear" resultType="com.SchoolManage.pojo.Log">
+        select *
+        from log
+        where date_format(time, '%Y') = date_format(#{time}, '%Y')
+        order by time desc
     </select>
 
 </mapper>

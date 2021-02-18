@@ -67,6 +67,17 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public List<Activity> findByRes(String responsible, Integer Page, Integer num) {
+        return activityDao.findByRes(responsible, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByResCount(String responsible) {
+        return activityDao.findByResCount(responsible);
+    }
+
+
+    @Override
     public List<Activity> findByTimeYearAndMonth(Date time, Integer Page, Integer num) {
         return activityDao.findByTimeYearAndMonth(time, (Page - 1) * num, num);
     }

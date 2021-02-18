@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ActivityDao {
+    
 
     /**
      * 查找全部
@@ -81,6 +82,22 @@ public interface ActivityDao {
      * @return
      */
     int findByTimeCount(@Param(value = "time") Date date);
+
+    /**
+     * 根据负责人查找
+     *
+     * @param responsible
+     * @return
+     */
+    List<Activity> findByRes(@Param(value = "responsible") String responsible, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据负责人查询数量
+     *
+     * @param responsible
+     * @return
+     */
+    int findByResCount(@Param(value = "responsible") String responsible);
 
     /**
      * 根据年月查询
