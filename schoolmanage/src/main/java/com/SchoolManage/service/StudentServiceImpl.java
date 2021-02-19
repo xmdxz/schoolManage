@@ -113,7 +113,8 @@ public class StudentServiceImpl implements StudentService {
         try {
             //path写实际path
             TableUtil<Student> tableUtil = new TableUtil<Student>(path, Student.class);
-            List<Student> list = tableUtil.GetTableRowContent();
+            List<Student> database = studentDao.findAll();
+            List<Student> list = tableUtil.GetTableRowContent(database);
             //调用插入接口
             //批量上传，list集合
             num = studentDao.insertBatchStudent(list);

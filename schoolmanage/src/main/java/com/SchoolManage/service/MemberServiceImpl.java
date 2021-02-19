@@ -2,7 +2,6 @@ package com.SchoolManage.service;
 
 import com.SchoolManage.dao.MemberDao;
 import com.SchoolManage.exception.FieldNotExistException;
-import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.pojo.Member;
 import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,37 +105,38 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member findByDepartmentAndId(String department, String id) {
-        return memberDao.findByDepartmentAndId(department,id);
+        return memberDao.findByDepartmentAndId(department, id);
     }
 
     @Override
     public List<Member> findByDepartmentAndName(String department, String name, int startPage, int num) {
-        int Page = (startPage-1)*num ;
-        return memberDao.findByDepartmentAndName(department,name,Page,num);
+        int Page = (startPage - 1) * num;
+        return memberDao.findByDepartmentAndName(department, name, Page, num);
     }
 
     @Override
     public int findByDepartmentAndNameNum(String department, String name) {
-        return memberDao.findByDepartmentAndNameNum(department,name);
+        return memberDao.findByDepartmentAndNameNum(department, name);
     }
 
     @Override
     public int BatchAddition(String path) {
-        int num=0;
+        int num = 0;
         try {
             //path写实际path
             TableUtil<Member> tableUtil = new TableUtil<Member>(path, Member.class);
-            List<Member> list = tableUtil.GetTableRowContent();
+            List<Member> database = memberDao.findAllNoPage();
+            List<Member> list = tableUtil.GetTableRowContent(database);
             //调用插入接口
             //批量上传，list集合
-            num=memberDao.insertDatas(list);
+            num = memberDao.insertDatas(list);
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
-            return  -2;
+            return -2;
         } catch (FieldNotExistException e) {
             //此处应处理表格问题，返回前端
             e.printStackTrace();
-            return  -3;
+            return -3;
         }
         return num;
     }

@@ -5,72 +5,92 @@
 
 <mapper namespace="com.SchoolManage.dao.MemberDao">
     <insert id="insertData">
-        insert into member(id,name,department,position,phone,qq,clazz)
-            values (#{member.id},#{member.name},#{member.department},#{member.position},#{member.phone},#{member.qq},#{member.clazz})
+        insert into member(id, name, department, position, phone, qq, clazz)
+        values (#{member.id}, #{member.name}, #{member.department}, #{member.position}, #{member.phone}, #{member.qq},
+                #{member.clazz})
     </insert>
     <insert id="insertDatas">
         insert into member(id,name,department,position,phone,qq,clazz)
-            values
-                <foreach collection="list" separator="," item="item">
-                    (#{item.id},#{item.name},#{item.department},#{item.position},#{item.phone},#{item.qq},#{item.clazz})
-                </foreach>
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.id},#{item.name},#{item.department},#{item.position},#{item.phone},#{item.qq},#{item.clazz})
+        </foreach>
     </insert>
     <update id="updateData">
         update member
-            set
-                id = #{member.id},
-                name = #{member.name},
-                department = #{member.department},
-                position = #{member.position},
-                phone = #{member.phone},
-                qq = #{member.qq},
-                clazz = #{member.clazz}
+        set id         = #{member.id},
+            name       = #{member.name},
+            department = #{member.department},
+            position   = #{member.position},
+            phone      = #{member.phone},
+            qq         = #{member.qq},
+            clazz      = #{member.clazz}
         where id = #{member.id}
     </update>
     <delete id="deleteData">
-        delete from member
-            where id = #{id}
+        delete
+        from member
+        where id = #{id}
     </delete>
     <select id="findAll" resultType="com.SchoolManage.pojo.Member">
-        select * from member limit #{startPage},#{num}
+        select *
+        from member limit #{startPage},#{num}
     </select>
     <select id="findByDepartment" resultType="com.SchoolManage.pojo.Member">
-        select * from member where department like "%" #{department} "%"
-        limit #{startPage},#{num}
+        select *
+        from member
+        where department like "%" #{department} "%"
+        limit #{startPage}
+            , #{num}
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Member">
-        select * from member where id = #{id}
+        select *
+        from member
+        where id = #{id}
     </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.Member">
-        select * from member where name like "%" #{name} "%" limit #{startPage},#{num}
+        select *
+        from member
+        where name like "%" #{name} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByPosition" resultType="com.SchoolManage.pojo.Member">
-        select * from member where position like "%" #{position} "%" limit #{startPage},#{num}
+        select *
+        from member
+        where position like "%" #{position} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByConditions" resultType="com.SchoolManage.pojo.Member">
-        select * from  member
-            <if test="map != null">
-                <where>
-                    <foreach collection="map" item="value" index="key" separator="and">
-                        ${key} = #{value}
-                    </foreach>
-                </where>
-            </if>
+        select * from member
+        <if test="map != null">
+            <where>
+                <foreach collection="map" item="value" index="key" separator="and">
+                    ${key} = #{value}
+                </foreach>
+            </where>
+        </if>
     </select>
     <select id="findAllNum" resultType="java.lang.Integer">
-        select count(*) from member
+        select count(*)
+        from member
     </select>
     <select id="findByDepartmentNum" resultType="java.lang.Integer">
-        select count(*) from member where department like "%" #{department} "%"
+        select count(*)
+        from member
+        where department like "%" #{department} "%"
     </select>
     <select id="findByNameNum" resultType="java.lang.Integer">
-        select count(*) from member where name like "%" #{name} "%"
+        select count(*)
+        from member
+        where name like "%" #{name} "%"
     </select>
     <select id="findByPositionNum" resultType="java.lang.Integer">
-        select count(*) from member where position like "%" #{position} "%"
+        select count(*)
+        from member
+        where position like "%" #{position} "%"
     </select>
     <select id="findByConditionsNum" resultType="java.lang.Integer">
-        select count(*) from  member
+        select count(*) from member
         <if test="map != null">
             <where>
                 <foreach collection="map" item="value" index="key" separator="and">
@@ -80,36 +100,61 @@
         </if>
     </select>
     <select id="findByDepartmentAndId" resultType="com.SchoolManage.pojo.Member">
-        select * from member where department = #{department} and id = #{id}
+        select *
+        from member
+        where department = #{department}
+          and id = #{id}
     </select>
     <select id="findByDepartmentAndName" resultType="com.SchoolManage.pojo.Member">
-        select * from member where department = #{department} and name like "%" #{name} "%" limit #{startPage},#{num}
+        select *
+        from member
+        where department = #{department}
+          and name like "%" #{name} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByDepartmentAndPosition" resultType="com.SchoolManage.pojo.Member">
-        select * from member where department = #{department} and position like "%" #{position} "%" limit #{startPage},#{num}
+        select *
+        from member
+        where department = #{department}
+          and position like "%" #{position} "%" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByDepartmentAndClazz" resultType="com.SchoolManage.pojo.Member">
-        select * from member where department = #{department} and clazz like "%" #{clazz} "#" limit #{startPage},#{num}
+        select *
+        from member
+        where department = #{department}
+          and clazz like "%" #{clazz} "#" limit #{startPage}
+            , #{num}
     </select>
     <select id="findByDepartmentAndConditions" resultType="com.SchoolManage.pojo.Member">
         select * from member
-            <where>
-                    department = #{department},
-                <if test="map != null">
-                    <foreach collection="map" separator="and" item="value" index="key">
-                        ${key} = #{value}
-                    </foreach>
-                </if>
-            </where> limit #{startPage},#{num}
+        <where>
+            department = #{department},
+            <if test="map != null">
+                <foreach collection="map" separator="and" item="value" index="key">
+                    ${key} = #{value}
+                </foreach>
+            </if>
+        </where>
+        limit #{startPage},#{num}
     </select>
     <select id="findByDepartmentAndNameNum" resultType="java.lang.Integer">
-        select count(*) from member where department = #{department} and name like "%" #{name} "%"
+        select count(*)
+        from member
+        where department = #{department}
+          and name like "%" #{name} "%"
     </select>
     <select id="findByDepartmentAndPositionNum" resultType="java.lang.Integer">
-        select count(*) from member where department = #{department} and position like "%" #{position} "%"
+        select count(*)
+        from member
+        where department = #{department}
+          and position like "%" #{position} "%"
     </select>
     <select id="findByDepartmentAndClazzNum" resultType="java.lang.Integer">
-        select count(*) from member where department = #{department} and clazz like "%" #{clazz} "#"
+        select count(*)
+        from member
+        where department = #{department}
+          and clazz like "%" #{clazz} "#"
     </select>
     <select id="findByDepartmentAndConditionsNum" resultType="java.lang.Integer">
         select count(*) from member
@@ -121,6 +166,10 @@
                 </foreach>
             </if>
         </where>
+    </select>
+    <select id="findAllNoPage" resultType="com.SchoolManage.pojo.Member">
+        select *
+        from member
     </select>
 
 </mapper>

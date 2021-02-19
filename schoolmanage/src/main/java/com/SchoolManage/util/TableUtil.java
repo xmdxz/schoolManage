@@ -87,6 +87,37 @@ public class TableUtil<T> {
         return arrayList;
     }
 
+    public List<T> GetTableRowContent(List<T> database) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
+        List<T> Ts = new ArrayList<>();
+        for (int i = 1; i < GetRows(); i++) {
+            Row row = sheet.getRow(i);
+            T t = (T) clazz.newInstance();
+            List<String> list = GetTableHead();
+            for (int index = 0, num = 0; index < list.size(); index++, num++) {
+                String field = this.eneity.get(list.get(index));
+                if (field == null) {
+                    throw new FieldNotExistException("实体类中没有与表格中表头:" + list.get(index) + "对应的属性");
+                }
+                Cell cell = row.getCell(num);
+                while (cell == null) {
+                    cell = row.getCell(++num);
+                }
+                cell.setCellType(CellType.STRING);
+                Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
+                method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+            }
+            if (!Ts.contains(t)) {
+                Ts.add(t);
+            }
+        }
+        for (T pojo : database) {
+            if (Ts.contains(pojo)) {
+                Ts.remove(pojo);
+            }
+        }
+        return Ts;
+    }
+
     public List<T> GetTableRowContent() throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
         List<T> Ts = new ArrayList<>();
         for (int i = 1; i < GetRows(); i++) {
@@ -106,7 +137,9 @@ public class TableUtil<T> {
                 Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
                 method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
             }
-            Ts.add(t);
+            if (!Ts.contains(t)) {
+                Ts.add(t);
+            }
         }
         return Ts;
     }

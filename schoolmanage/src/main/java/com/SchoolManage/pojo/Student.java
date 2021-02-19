@@ -2,6 +2,8 @@ package com.SchoolManage.pojo;
 
 import lombok.*;
 
+import java.util.Objects;
+
 /**
  * @Author RainGoal
  * @Date 2021/1/28 8:41
@@ -70,4 +72,21 @@ public class Student {
     private String idcard;
     //银行卡号
     private String bank;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Student)) {
+            return false;
+        }
+        Student student = (Student) o;
+        return Objects.equals(getId(), student.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }
