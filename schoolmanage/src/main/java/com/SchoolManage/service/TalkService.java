@@ -1,6 +1,7 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Talk;
+import org.apache.ibatis.annotations.Param;
 
 import java.sql.Date;
 import java.util.List;
@@ -18,14 +19,14 @@ public interface TalkService {
      *
      * @return
      */
-    List<Talk> findAll(Integer Page, Integer num);
+    List<Talk> findAll(Integer Page,String teacher);
 
     /**
      * 查询总数
      *
      * @return
      */
-    int findAllCount();
+    int findAllCount(String teacher);
 
     /**
      * 插入谈话数据
@@ -39,9 +40,10 @@ public interface TalkService {
      * 根据学号查找,不分页，用于个人详细信息的展示
      *
      * @param student
+     * @param teacher
      * @return
      */
-    List<Talk> findByStudentNoPage(String student);
+    List<Talk> findByStudentNoPage(String student,String teacher);
 
     /**
      * 根据学号查找，分页，用于整个页面展示
@@ -49,17 +51,19 @@ public interface TalkService {
      * @param student
      * @param Page
      * @param num
+     * @param teacher
      * @return
      */
-    List<Talk> findByStudentPage(String student, Integer Page, Integer num);
+    List<Talk> findByStudentPage(String student, Integer Page,String teacher);
 
     /**
      * 根据学号查询总数
      *
      * @param student
+     * @param teacher
      * @return
      */
-    int findByStudentCount(String student);
+    int findByStudentCount(String student,String teacher);
 
     /**
      * 根据教师查找
@@ -73,9 +77,10 @@ public interface TalkService {
      * 删除谈话
      *
      * @param id
+     * @param teacher
      * @return
      */
-    int deleteTalk(Integer id);
+    int deleteTalk(Integer id,String teacher);
 
     /**
      * 批量插入
@@ -97,9 +102,10 @@ public interface TalkService {
      * 根据具体时间查找数量，某一天
      *
      * @param date
+     * @param teacher
      * @return
      */
-    int findByTimeCount(Date date);
+    int findByTimeCount(Date date,String teacher);
 
     /**
      * 根据年月查找，也就是某一月
@@ -118,4 +124,10 @@ public interface TalkService {
      * @return
      */
     int findByTimeYearAndMonthCount(Date date);
+    /**
+     * 根据id查找
+     * @param id
+     * @return
+     */
+    Talk findById(Integer id);
 }

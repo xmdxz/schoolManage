@@ -20,13 +20,13 @@ public class TalkServiceImpl implements TalkService {
     private TalkDao talkDao;
 
     @Override
-    public List<Talk> findAll(Integer Page, Integer num) {
-        return talkDao.findAll((Page - 1) * num, num);
+    public List<Talk> findAll(Integer Page, String teacher) {
+        return talkDao.findAll((Page - 1) * 20, 20,teacher);
     }
 
     @Override
-    public int findAllCount() {
-        return talkDao.findAllCount();
+    public int findAllCount(String teacher) {
+        return talkDao.findAllCount(teacher);
     }
 
     @Override
@@ -35,18 +35,18 @@ public class TalkServiceImpl implements TalkService {
     }
 
     @Override
-    public List<Talk> findByStudentNoPage(String student) {
-        return talkDao.findByStudentNoPage(student);
+    public List<Talk> findByStudentNoPage(String student,String teacher) {
+        return talkDao.findByStudentNoPage(student,teacher);
     }
 
     @Override
-    public List<Talk> findByStudentPage(String student, Integer Page, Integer num) {
-        return talkDao.findByStudentPage(student, (Page - 1) * num, num);
+    public List<Talk> findByStudentPage(String student, Integer Page,String teacher) {
+        return talkDao.findByStudentPage(student, (Page - 1) * 20, 20,teacher);
     }
 
     @Override
-    public int findByStudentCount(String student) {
-        return talkDao.findByStudentCount(student);
+    public int findByStudentCount(String student,String teacher) {
+        return talkDao.findByStudentCount(student,teacher);
     }
 
     @Override
@@ -55,8 +55,8 @@ public class TalkServiceImpl implements TalkService {
     }
 
     @Override
-    public int deleteTalk(Integer id) {
-        return talkDao.deleteTalk(id);
+    public int deleteTalk(Integer id,String teacher) {
+        return talkDao.deleteTalk(id,teacher);
     }
 
     @Override
@@ -70,8 +70,8 @@ public class TalkServiceImpl implements TalkService {
     }
 
     @Override
-    public int findByTimeCount(Date date) {
-        return talkDao.findByTimeCount(date);
+    public int findByTimeCount(Date date,String teacher) {
+        return talkDao.findByTimeCount(date,teacher);
     }
 
     @Override
@@ -82,5 +82,10 @@ public class TalkServiceImpl implements TalkService {
     @Override
     public int findByTimeYearAndMonthCount(Date date) {
         return talkDao.findByTimeYearAndMonthCount(date);
+    }
+
+    @Override
+    public Talk findById(Integer id) {
+        return talkDao.findById(id);
     }
 }
