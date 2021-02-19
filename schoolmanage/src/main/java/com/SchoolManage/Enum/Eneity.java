@@ -85,10 +85,10 @@ public enum Eneity {
         private static final long serialVersionUID = -4167670706477524067L;
 
         {
-            put("负责者", "responsible");
+            put("活动名称", "active");
+            put("开始时间", "time");
+            put("负责部门(人)","responsible");
             put("备注", "remarks");
-            put("活动", "active");
-            put("时间", "time");
         }
     }),
 

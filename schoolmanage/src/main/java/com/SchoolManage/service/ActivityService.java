@@ -1,6 +1,7 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Activity;
+import org.apache.ibatis.annotations.Param;
 
 import java.sql.Date;
 import java.util.List;
@@ -167,7 +168,10 @@ public interface ActivityService {
      * @Date: 2021/2/18
      */
     Activity findById(int id);
-
+    /**
+     * 更新信息的
+     */
+    int updateData(@Param(value = "activity") Activity activity);
     /**
      * 批量添加学生
      */

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.SchoolManage.dao.ActivememberDao">
+<mapper namespace="com.SchoolManage.dao.ActiveMemberDao">
     <!--    <sql id="columns">-->
     <!--        select activemember.id as id,-->
     <!--               student,-->
@@ -47,6 +47,14 @@
             (#{item.activity.id},#{item.student},#{item.clazz},#{item.name})
         </foreach>
     </insert>
+    <update id="updateDara">
+        update activemember
+        set activity = #{activemember.activity},
+            student  = #{activemember.student},
+            clazz    = #{activemember.clazz},
+            name     = #{activemember.name}
+        where id = #{activemember.id}
+    </update>
     <delete id="deleteData">
         delete
         from activemember
@@ -94,6 +102,11 @@
         from activemember
         where activity = #{id}
           and clazz = #{clazz}
+    </select>
+    <select id="findById" resultType="com.SchoolManage.pojo.Activemember">
+        set
+        * from activemember where id =
+        #{id}
     </select>
 
 </mapper>

@@ -9,7 +9,15 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface ActivememberDao {
+public interface ActiveMemberDao {
+
+    /**
+     * 根据id
+     *
+     * @param id
+     * @return
+     */
+    Activemember findById(@Param(value = "id") Integer id);
 
     /**
      * 获取全部
@@ -103,4 +111,12 @@ public interface ActivememberDao {
      * @return
      */
     int deleteData(@Param(value = "id") Integer id);
+
+    /**
+     * 更新
+     *
+     * @param activemember
+     * @return
+     */
+    int updateDara(@Param(value = "activemember") Activemember activemember);
 }
