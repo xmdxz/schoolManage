@@ -18,6 +18,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Controller
+@RequestMapping("activemember")
 public class ActiveMemberController {
     @Autowired
     private ActiveMemberService activeMemberService;
