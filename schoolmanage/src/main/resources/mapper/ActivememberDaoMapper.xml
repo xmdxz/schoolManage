@@ -116,9 +116,10 @@
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Activemember">
         select *
+        <include refid="activeName"></include>
         from activemember
         where id =
-              #{id}
+        #{id}
     </select>
 
 </mapper>

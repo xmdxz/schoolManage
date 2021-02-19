@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +79,7 @@ public class TableUtil<T> {
                 String field = cell.getStringCellValue();
                 if (!("".equals(field))) {
                     field = field.trim();
-                    field = field.replaceAll(" ","");
+                    field = field.replaceAll(" ", "");
                     arrayList.add(field);
                 }
             }
@@ -87,7 +89,7 @@ public class TableUtil<T> {
 
     public List<T> GetTableRowContent() throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
         List<T> Ts = new ArrayList<>();
-        for (int i = 1; i < GetRows(); i++){
+        for (int i = 1; i < GetRows(); i++) {
             Row row = sheet.getRow(i);
             T t = (T) clazz.newInstance();
             List<String> list = GetTableHead();
@@ -123,6 +125,12 @@ public class TableUtil<T> {
             value1 = Double.parseDouble(value);
         } else if ("boolean".equalsIgnoreCase(type)) {
             value1 = Boolean.parseBoolean(value);
+        } else if ("date".equalsIgnoreCase(type)) {
+            value1 = Date.valueOf(value);
+        } else if ("datetime".equalsIgnoreCase(type)) {
+            value1 = Timestamp.valueOf(value);
+        } else if ("timestamp".equalsIgnoreCase(type)) {
+            value1 = Timestamp.valueOf(value);
         }
         return value1;
     }
