@@ -34,4 +34,13 @@ public class Activemember {
      */
     private String clazz;
 
+    /**
+     * 联系方式
+     */
+    private String phone;
+
+    /**
+     * 活动名称
+     */
+    private String activeName;
 }

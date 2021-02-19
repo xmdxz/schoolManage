@@ -36,15 +36,19 @@
     <!--            <result property="time" column="time/"-->
     <!--        </association>-->
     <!--    </resultMap>-->
+    <sql id="activeName">
+        ,(select active from activity where activity.id = activemember.activity) as activeName
+    </sql>
     <insert id="insertData">
-        insert into activemember(activity, student, clazz, name)
-        values (#{activemember.activity.id}, #{activemember.student}, #{activemember.clazz}, #{activemember.name})
+        insert into activemember(activity, student, clazz, name, phone)
+        values (#{activemember.activity.id}, #{activemember.student}, #{activemember.clazz}, #{activemember.name},
+                #{activemember.phone})
     </insert>
     <insert id="insertDatas">
-        insert into activemember(activity,student,clazz,name)
+        insert into activemember(activity,student,clazz,name,phone)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.activity.id},#{item.student},#{item.clazz},#{item.name})
+            (#{item.activity.id},#{item.student},#{item.clazz},#{item.name},#{item.phone})
         </foreach>
     </insert>
     <update id="updateDara">
@@ -52,7 +56,8 @@
         set activity = #{activemember.activity},
             student  = #{activemember.student},
             clazz    = #{activemember.clazz},
-            name     = #{activemember.name}
+            name     = #{activemember.name},
+            phone    = #{activemember.phone}
         where id = #{activemember.id}
     </update>
     <delete id="deleteData">
@@ -62,6 +67,7 @@
     </delete>
     <select id="findAll" resultType="com.SchoolManage.pojo.Activemember">
         select *
+        <include refid="activeName"></include>
         from activemember limit #{startPage},#{num}
     </select>
     <select id="findAllCount" resultType="java.lang.Integer">
@@ -70,9 +76,10 @@
     </select>
     <select id="findByActive" resultType="com.SchoolManage.pojo.Activemember">
         select *
+        <include refid="activeName"></include>
         from activemember
         where activity = #{id} limit #{startPage}
-            , #{num}
+        , #{num}
     </select>
     <select id="findByActiveCount" resultType="java.lang.Integer">
         select count(*)
@@ -81,32 +88,37 @@
     </select>
     <select id="findByClazz" resultType="com.SchoolManage.pojo.Activemember">
         select *
+        <include refid="activeName"></include>
         from activemember
         where clazz like "%" #{clazz} "%" limit #{startPage}
-            , #{num}
+        , #{num}
     </select>
     <select id="findByClazzCount" resultType="java.lang.Integer">
         select *
+        <include refid="activeName"></include>
         from activemember
         where clazz like "%" #{clazz} "%"
     </select>
     <select id="findByActiveAndClazz" resultType="com.SchoolManage.pojo.Activemember">
         select *
+        <include refid="activeName"></include>
         from activemember
         where activity = #{id}
-          and clazz = #{clazz} limit #{startPage}
-            , #{num}
+        and clazz = #{clazz} limit #{startPage}
+        , #{num}
     </select>
     <select id="findByActiveAndClazzCount" resultType="java.lang.Integer">
         select *
+        <include refid="activeName"></include>
         from activemember
         where activity = #{id}
-          and clazz = #{clazz}
+        and clazz = #{clazz}
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Activemember">
-        set
-        * from activemember where id =
-        #{id}
+        select *
+        from activemember
+        where id =
+              #{id}
     </select>
 
 </mapper>
