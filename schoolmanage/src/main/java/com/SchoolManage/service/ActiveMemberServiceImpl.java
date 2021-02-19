@@ -81,7 +81,7 @@ public class ActiveMemberServiceImpl implements ActiveMemberService {
 
     @Override
     public List<Activemember> findByName(String name,Integer activity, int startPage, int num) {
-        return activeMemberDao.findByName(name,activity,startPage,num);
+        return activeMemberDao.findByName(name,activity,startPage-1,num);
     }
 
     @Override
