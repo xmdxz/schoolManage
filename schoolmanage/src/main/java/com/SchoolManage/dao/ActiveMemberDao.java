@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface ActivememberDao {
+public interface ActiveMemberDao {
 
     /**
      * 获取全部
