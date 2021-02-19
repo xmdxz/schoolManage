@@ -52,7 +52,7 @@
 				$.each(res,function (i,n) {
 					msg += "<li class='feed-item'>";
 					msg +="<div class='feed-date'>"+n.time+"</div>";
-					msg +="<span class='feed-text'><a>"+n.operation_teacher+"</a>在"+n.operation_table+"中"+n.type+"了"+n.operation_student+n.message+"</span>";
+					msg +="<span class='feed-text'><a>"+n.operation_teacher+"</a>在"+n.operation_table+"中<a>"+n.type+"</a>了"+n.operation_student+n.message+"</span>";
 					msg +="</li>";
 				})
 				$("#jilu").html(msg);
@@ -66,19 +66,22 @@
 					dataType:"json",
 					data:{'page':jiluPage},
 				}).done(function (res) {
-
-					for(var i =0;i<res.length;i++){
-						var obj =res[i];
-						obj.time=moment(obj.time).format('MM月DD日 HH:mm:ss');
+					if (res.length==0){
+						swal("没有更多信息啦");
+					}else {
+							for (var i = 0; i < res.length; i++) {
+								var obj = res[i];
+								obj.time = moment(obj.time).format('MM月DD日 HH:mm:ss');
+							}
+							$.each(res, function (i, n) {
+								msg += "<li class='feed-item'>";
+								msg += "<div class='feed-date'>" + n.time + "</div>";
+								msg += "<span class='feed-text'><a>" + n.operation_teacher + "</a>在" + n.operation_table + "中<a>" + n.type + "</a>了" + n.operation_student + n.message + "</span>";
+								msg += "</li>";
+							})
+							$("#jilu").html(msg);
 					}
-					$.each(res,function (i,n) {
-						msg += "<li class='feed-item'>";
-						msg +="<div class='feed-date'>"+n.time+"</div>";
-						msg +="<span class='feed-text'><a>"+n.operation_teacher+"</a>在"+n.operation_table+"中"+n.type+"了"+n.operation_student+n.message+"</span>";
-						msg +="</li>";
 					})
-					$("#jilu").html(msg);
-				})
 			}
 			// $(document).ready(function(){
 			//
