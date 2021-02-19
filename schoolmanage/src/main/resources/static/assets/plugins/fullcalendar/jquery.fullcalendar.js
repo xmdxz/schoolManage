@@ -100,31 +100,44 @@
                                 //检测编号权限隶属
                                 //ajax
                                 //不处于自己则报错
-                                //若属于
+
                                 $.ajax({
-                                    type: "post",
-                                    dataType: "json",
-                                    url: "logs/findById",
-                                    async: false,
-                                    data: {'id': calEvent.id}
+                                    type:"post",
+                                    url:"talk/checkuser",
+                                    data:{'id':isConfirm}
                                 }).done(function (res) {
-                                    var starts = moment(res.start).format('Y-MM-DD HH:mm:ss');
-                                    var ends = moment(res.end).format('Y-MM-DD HH:mm:ss');
-                                    $.ajax({
-                                        type: "post",
-                                        url: "logs/updata",
-                                        data: {
-                                            'id': calEvent.id, 'title': res.title, 'start': starts,
-                                            'end': ends,
-                                            'className': res.className,
-                                            'maid': isConfirm
-                                        },
-                                    }).done(function (res) {
-                                        swal("添加成功！", "", "success")
-                                        //延时跳转   非常重要 不然有bug
-                                        setTimeout("window.location.href='/event.html'", "700");
-                                    })
+                                    console.log(res)
+                                    if (res){
+                                        //若属于
+                                        $.ajax({
+                                            type: "post",
+                                            dataType: "json",
+                                            url: "logs/findById",
+                                            async: false,
+                                            data: {'id': calEvent.id}
+                                        }).done(function (res) {
+                                            var starts = moment(res.start).format('Y-MM-DD HH:mm:ss');
+                                            var ends = moment(res.end).format('Y-MM-DD HH:mm:ss');
+                                            $.ajax({
+                                                type: "post",
+                                                url: "logs/updata",
+                                                data: {
+                                                    'id': calEvent.id, 'title': res.title, 'start': starts,
+                                                    'end': ends,
+                                                    'className': res.className,
+                                                    'maid': isConfirm
+                                                },
+                                            }).done(function (res) {
+                                                swal("添加成功！", "", "success")
+                                                //延时跳转   非常重要 不然有bug
+                                                setTimeout("window.location.href='/event.html'", "700");
+                                            })
+                                        })
+                                    }else {
+                                        swal("添加失败", "请检查您输入的编号", "warning")
+                                    }
                                 })
+
                             } else {
                                 swal("请输入对应的编号！", "", "warning");
                             }

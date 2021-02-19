@@ -1,5 +1,6 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.Talk;
 import com.SchoolManage.service.TalkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,18 +28,22 @@ public class TalkController {
 
     @RequestMapping("findall")
     @ResponseBody
-    public List<Talk> findAll(Integer Page, Integer num) {
-        return talkService.findAll(Page, num);
+    public List<Talk> findAll(Integer Page, HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        return talkService.findAll(Page, a.getName());
     }
 
     @RequestMapping("findallcount")
     @ResponseBody
-    public int findAllCount() {
-        return talkService.findAllCount();
+    public int findAllCount(HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        return talkService.findAllCount(a.getName());
     }
 
     @RequestMapping("inserttalk")
-    public String insertTalk(Talk talk) {
+    public String insertTalk(Talk talk, HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        talk.setTeacher(a.getName());
         int i = talkService.insertTalk(talk);
         if (i != 0) {
             return "redirect:改变地址";
@@ -46,20 +52,23 @@ public class TalkController {
 
     @RequestMapping("findbystudentnopage")
     @ResponseBody
-    public List<Talk> findByStudentNoPage(String student) {
-        return talkService.findByStudentNoPage(student);
+    public List<Talk> findByStudentNoPage(String student,HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        return talkService.findByStudentNoPage(student,a.getName());
     }
 
     @RequestMapping("findbystudentpage")
     @ResponseBody
-    public List<Talk> findByStudentPage(String student, Integer Page, Integer num) {
-        return talkService.findByStudentPage(student, Page, num);
+    public List<Talk> findByStudentPage(String student, Integer Page,HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        return talkService.findByStudentPage(student, Page,a.getName());
     }
 
     @RequestMapping("findbystudentcount")
     @ResponseBody
-    public int findByStudentCount(String student) {
-        return talkService.findByStudentCount(student);
+    public int findByStudentCount(String student,HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        return talkService.findByStudentCount(student,a.getName());
     }
 
     @RequestMapping("findbyteacher")
@@ -70,8 +79,9 @@ public class TalkController {
 
     @RequestMapping("deletetalk")
     @ResponseBody
-    public Map<String, Object> deleteTalk(Integer id) {
-        int i = talkService.deleteTalk(id);
+    public Map<String, Object> deleteTalk(Integer id,HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        int i = talkService.deleteTalk(id,a.getName());
         HashMap<String, Object> map = new HashMap<>();
         if (i != 0) {
             map.put("msg", "success");
@@ -92,8 +102,9 @@ public class TalkController {
 
     @RequestMapping("findbytimecount")
     @ResponseBody
-    public int findByTimeCount(Date date) {
-        return talkService.findByTimeCount(date);
+    public int findByTimeCount(Date date,HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        return talkService.findByTimeCount(date,a.getName());
     }
 
     @RequestMapping("findbytimeyearandmonth")
@@ -106,5 +117,26 @@ public class TalkController {
     @ResponseBody
     public int findByTimeYearAndMonthCount(Date date) {
         return talkService.findByTimeYearAndMonthCount(date);
+    }
+
+    //这个接口用于绑定的时候验证权限
+    @RequestMapping("checkuser")
+    @ResponseBody
+    public boolean check(Integer id, HttpServletRequest request) {
+        Talk talk = talkService.findById(id);
+        if (talk == null) return false;
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        if (talk.getTeacher().equals(a.getName())) return true;
+        else return false;
+    }
+
+    @RequestMapping("findbyid")
+    @ResponseBody
+    public Talk findById(Integer id, HttpServletRequest request) {
+        Talk talk = talkService.findById(id);
+        if (talk == null) return null;
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        if (talk.getTeacher().equals(a.getName())) return talk;
+        else return null;
     }
 }
