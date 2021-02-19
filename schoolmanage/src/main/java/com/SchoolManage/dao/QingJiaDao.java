@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface QingjiaDao {
+public interface QingJiaDao {
 
     /**
      * 查询全部

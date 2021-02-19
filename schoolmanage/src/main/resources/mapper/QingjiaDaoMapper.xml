@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.SchoolManage.dao.QingjiaDao">
+<mapper namespace="com.SchoolManage.dao.QingJiaDao">
     <insert id="insertQingjia">
         insert into qingjia(student, teacher, start_time, end_time, cause)
         values (#{qingjia.student}, #{qingjia.teacher}, #{qingjia.start_time,jdbcType=TIMESTAMP},
