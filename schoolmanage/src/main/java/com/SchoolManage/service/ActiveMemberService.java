@@ -109,4 +109,9 @@ public interface ActiveMemberService {
     int findByNameCount(String name,Integer activity);
     List<Activemember> findByName(String name,Integer activity, int startPage, int num);
     Activemember findByStudent(String student,Integer activity);
+    int updateDara(Activemember activemember);
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
 }

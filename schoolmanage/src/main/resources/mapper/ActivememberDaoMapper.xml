@@ -40,15 +40,15 @@
         ,(select active from activity where activity.id = activemember.activity) as activeName
     </sql>
     <insert id="insertData">
-        insert into activemember(activity, student, clazz, name, phone)
-        values (#{activemember.activity.id}, #{activemember.student}, #{activemember.clazz}, #{activemember.name},
-                #{activemember.phone})
+        insert into activemember(activity, student, clazz, name,activeName,phone)
+        values (#{activemember.activity}, #{activemember.student}, #{activemember.clazz}, #{activemember.name},#{activemember.activeName},
+        #{activemember.phone})
     </insert>
     <insert id="insertDatas">
-        insert into activemember(activity,student,clazz,name,phone)
+        insert into activemember(activity,student,clazz,name,activeName,phone)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.activity.id},#{item.student},#{item.clazz},#{item.name},#{item.phone})
+            (#{item.activity},#{item.student},#{item.clazz},#{item.name},#{item.activeName},#{item.phone})
         </foreach>
     </insert>
     <update id="updateDara">

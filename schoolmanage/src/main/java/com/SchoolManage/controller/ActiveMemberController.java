@@ -1,18 +1,20 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
-import com.SchoolManage.pojo.Activemember;
-import com.SchoolManage.pojo.Activity;
-import com.SchoolManage.pojo.Member;
-import com.SchoolManage.pojo.Student;
+import com.SchoolManage.pojo.*;
 import com.SchoolManage.service.ActiveMemberService;
 import com.SchoolManage.util.CreateExlceUtil;
+import com.SchoolManage.util.UnicodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -81,12 +83,11 @@ public class ActiveMemberController {
 
     @RequestMapping("insertdata")
     public String insertData(Activemember activemember) {
+        System.out.println(activemember);
         int i = activeMemberService.insertData(activemember);
-        if (i != 0) {
-            return "redirect:改变跳转地址";
-        } else {
-            return "redirect:改变跳转地址";
-        }
+        if (i!=0){
+            return "redirect:/loginp_4.html?id="+activemember.getActivity();
+        }else return "redirect:/activity.html";
     }
 
     @RequestMapping("deletedata")
@@ -129,5 +130,51 @@ public class ActiveMemberController {
 
         int i = activeMemberService.findByNameCount(name,activity);
         return Integer.toString(i);
+    }
+    @RequestMapping("updatedata")
+    public String updateData(Activemember activemember){
+        int i = activeMemberService.updateDara(activemember);
+
+        if (i!=0){
+            return "redirect:/loginp_4.html?id="+activemember.getActivity();
+        }else return "redirect:/activity.html";
+    }
+    @PostMapping("upfile")
+    @ResponseBody
+    public String upfile(HttpServletRequest request,@RequestParam("file") MultipartFile file){
+        if (file==null){
+            return "请选择文件";
+        }
+        try {
+            String filename = file.getOriginalFilename();
+            String extFileName = filename.substring(filename.lastIndexOf("." ) +1,filename.length());
+//            System.out.println("文件名:\t"+filename);
+//            System.out.println("后缀名:\t"+extFileName);
+            //上传到本地,模拟上传到文件服务器
+            String filePath = request.getServletContext().getRealPath("/") + "File\\" ;
+            String path = filePath + filename;
+            //文件存储路径
+            File dest = new File(path);
+            if (!dest.getParentFile().exists()){
+                dest.getParentFile().mkdir();
+            }
+            file.transferTo(dest);
+            int i=66;
+            try {
+                System.out.println(path);
+                i=activeMemberService.BatchAddition(path);
+                dest.delete();
+                return "上传成功了";
+            }catch (Exception e)
+            {
+                dest.delete();
+                return "上传的表格不匹配,请进行修改后重先上传";
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败了";
     }
 }
