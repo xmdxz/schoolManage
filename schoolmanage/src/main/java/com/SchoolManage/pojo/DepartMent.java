@@ -30,7 +30,7 @@ public class DepartMent {
     private String minister;
 
     /**
-     *  部长电话
+     * 部长电话
      */
     private String phone;
 
@@ -38,4 +38,5 @@ public class DepartMent {
      * 部门成员数量
      */
     private Integer num;
+
 }

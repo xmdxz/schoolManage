@@ -42,44 +42,38 @@
 		<script th:src="@{/assets/js/bootstrap-paginator.js}"></script>
 		<script type="text/javascript">
 			var url = document.location.toString();//获取url地址
-			var building=null;
-			var number=null;
+			var id=null;
 			if(url.indexOf("?")!=-1)
 			{
 				var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
 				var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
-				building= arr[0].split("=")[1];//获取数组中第一个参数//
-				building=decodeURI(building);
-				number= arr[1].split("=")[1];//获取数组中第二个参数//
-				console.log(building);
-				console.log(number);
+				id= arr[0].split("=")[1];//获取数组中第一个参数//
 			}
 			const everypage = 10; //每页的数量
 			var allpage = 1;
 			$.ajax({
 				type: "post",
-				url: "dormitory/findDormitoryMemberNum",
+				url: "activemember/findbyactivecount",
 				dataType: "json",
-				data:{building:building,number:number},
+				data:{id:id},
 				async: false,
 			}).done(function (res) {
 				allpage = Math.ceil(res / everypage);
 			});
 			$.ajax({
 				type: "post",
-				url: "dormitory/findDormitoryMember",
+				url: "activemember/findbyactive",
 				dataType: "json",
-				data: {building:building,number:number,'Page': 1, 'num': everypage},
+				data: {id:id,'Page': 1, 'num': everypage},
 			}).done(function (res) {
 				console.log(res)
 				var msg = "";
 				$.each(res, function (i, n) {
 					msg += "<tr>";
-					msg += "<td>" + n.id + "</td>";
-					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
-					msg += "<td>" + n.present_class + "</td>";
-					msg += "<td>" + n.present_post + "</td>";
-					msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+					msg += "<td>" + n.student + "</td>";
+					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+					msg += "<td>" + n.clazz + "</td>";
+					msg += "<td>" + n.activeName + "</td>";
 					msg += "<td>" + n.phone + "</td>";
 					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 					msg += "</tr>";
@@ -116,6 +110,8 @@
 			//获取缓存中登录账号的信息
 			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
 			var name=adminuserInfo.name;
+			const everypage_2 = 10; //每页的数量
+			var allpage_2= 1;
 			$(document).ready(function () {
 				$('#InfoName').text(name);
 				var downing = false;
@@ -124,9 +120,9 @@
 					if(downing){swal("有一项下载任务进行中！", "切勿重复点击！", "warning");return}
 					downing = true;
 					$.ajax({
-						url: 'dormitory/Excle2',
+						url: 'activemember/Excle',
 						dataType: 'text',
-						data:{building:building,number:number},
+						data:{id:id},
 						success(res){
 							console.log(res);
 							$("#downe").attr("href",res);
@@ -136,26 +132,132 @@
 						}
 					})
 				})
+				$("#sousuo").click(function(){
+					a=$("#Search").val();
+					if(isNumber(a))
+					{
+						$.ajax({
+							type:"post",
+							url:"/activemember/findbystudent",
+							data:{'student':a,activity:id},
+							dataType:"json",
+						}).done(function (res) {
+							console.log(res)
+							if(res!=null)
+							{
+								var msg = "";
+								msg += "<tr>";
+								msg += "<td>" + res.student + "</td>";
+								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + res.student + "\"" + ">" + res.name + "</a></h2></td>";
+								msg += "<td>" + res.clazz + "</td>";
+								msg += "<td>" + res.activeName + "</td>";
+								msg += "<td>" + res.phone + "</td>";
+								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + res.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + res.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+								msg += "</tr>";
+								$("#departments").html(msg);
+								$('#example').bootstrapPaginator({
+									currentPage: 1,//当前的请求页面。
+									totalPages: 1,//一共多少页。
+									size: "normal",//应该是页眉的大小。
+									bootstrapMajorVersion: 4,//bootstrap的版本要求。
+									alignment: "right",
+									numberOfPages: 1,//一页列出多少数据。
+									itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+										switch (type) {
+											case "first":
+												return "首页";
+											case "prev":
+												return "上一页";
+											case "next":
+												return "下一页";
+											case "last":
+												return "末页";
+											case "page":
+												return page;
+										}
+									},
+								})
+							}
+
+						})
+					}
+					else {
+						console.log(a+"666");
+						$.ajax({
+							type: "post",
+							url: "activemember/findByNameCount",
+							data:{name:a,activity: id},
+							dataType: "json",
+							async: false,
+						}).done(function (res) {
+							console.log(res)
+							allpage_2 = Math.ceil(res / everypage_2);
+						})
+						$.ajax({
+							type: "post",
+							url: "activemember/findbyname",
+							dataType: "json",
+							data: {name:a,activity: id,'page': 1, 'num': everypage_2},
+						}).done(function (res) {
+							console.log(res)
+							var msg = "";
+							$.each(res, function (i, n) {
+								msg += "<tr>";
+								msg += "<td>" + n.student + "</td>";
+								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+								msg += "<td>" + n.clazz + "</td>";
+								msg += "<td>" + n.activeName + "</td>";
+								msg += "<td>" + n.phone + "</td>";
+								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+								msg += "</tr>";
+							});
+							$("#departments").html(msg);
+							$('#example').bootstrapPaginator({
+								currentPage: 1,//当前的请求页面。
+								totalPages: allpage_2,//一共多少页。
+								size: "normal",//应该是页眉的大小。
+								bootstrapMajorVersion: 4,//bootstrap的版本要求。
+								alignment: "right",
+								numberOfPages: 8,//一页列出多少数据。
+								itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+									switch (type) {
+										case "first":
+											return "首页";
+										case "prev":
+											return "上一页";
+										case "next":
+											return "下一页";
+										case "last":
+											return "末页";
+										case "page":
+											return page;
+									}
+								},
+								onPageClicked: function (event, originalEvent, type, page) {
+									newpage_2(page)
+								}
+							});
+						})
+					}
+				});
 			});
 			function newpage(res) {
 				var page = res
 				$.ajax({
 					type: "post",
-					url: "dormitory/findDormitoryMember",
+					url: "activemember/findbyactive",
 					dataType: "json",
-					data: {building:building,number:number,'Page': page, 'num': everypage},
+					data: {id:id,'Page': 1, 'num': everypage},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
 						msg += "<tr>";
-						msg += "<td>" + n.id + "</td>";
-						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
-						msg += "<td>" + n.present_class + "</td>";
-						msg += "<td>" + n.present_post + "</td>";
-						msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+						msg += "<td>" + n.student + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + n.clazz + "</td>";
+						msg += "<td>" + n.activeName + "</td>";
 						msg += "<td>" + n.phone + "</td>";
 						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
-
 						msg += "</tr>";
 					});
 					$("#departments").html(msg);
@@ -165,7 +267,7 @@
 				var id = id;
 				swal({
 							title: "确定删除吗？",
-							text: "你将无法恢复该部门信息！",
+							text: "你将无法恢复该信息！",
 							type: "warning",
 							showCancelButton: true,
 							confirmButtonColor: "#DD6B55",
@@ -178,23 +280,54 @@
 							if (isConfirm) {
 								$.ajax({
 									type: "post",
-									url: "member/deletedata",
+									url: "activemember/deletedata",
 									dataType: "json",
 									data: {'id': id},
 								}).done(function (res) {
 									if (res.code == 500) {
 										swal("删除失败", "服务器繁忙中...", "warning");
 									} else if (res.code == 200) {
-										swal("删除成功！", "即将返回部门成员列表", "success");
-										setTimeout("window.location.href='member.html?name='+Name", "1200");
+										swal("删除成功！", "即将返回活动成员列表", "success");
+										setTimeout("window.location.href='member-activity.html?id='+id", "1200");
 									}
 								})
 							} else {
-								swal("取消！", "你的部门信息是安全的XD:)",
+								swal("取消！", "你的活动信息是安全的XD:)",
 										"error");
 							}
 						});
 
+			}
+			function isNumber(val) {
+				var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+				var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+				if(regPos.test(val) || regNeg.test(val)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			function newpage_2(res) {
+				var page = res
+				$.ajax({
+					type: "post",
+					url: "activemember/findbyname",
+					dataType: "json",
+					data: {name:a,activity: id,page: page, num: everypage_2},
+				}).done(function (res) {
+					var msg = "";
+					$.each(res, function (i, n) {
+						msg += "<tr>";
+						msg += "<td>" + n.student + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + n.clazz + "</td>";
+						msg += "<td>" + n.activeName + "</td>";
+						msg += "<td>" + n.phone + "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "</tr>";
+					});
+					$("#departments").html(msg);
+				})
 			}
 		</script>
     </head>
@@ -447,17 +580,17 @@
 						<!-- 	<li>
 								<a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>
 							</li> -->
-							<li class="submenu active">
+							<li class="submenu">
 								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="hostel.html" class="active">宿舍列表</a></li>
+									<li><a href="hostel.html">宿舍列表</a></li>
 									<li><a href="add-hostel.html">宿舍添加</a></li>
 								</ul>
 							</li>
-							<li class="submenu">
+							<li class="submenu active">
 								<a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="activity.html">活动列表</a></li>
+									<li><a href="activity.html" class="active">活动列表</a></li>
 									<li><a href="add-activity.html">活动添加</a></li>
 								</ul>
 							</li>
@@ -524,10 +657,10 @@
 					<div class="page-header">
 						<div class="row align-items-center">
 							<div class="col">
-								<h3 class="page-title">部门成员</h3>
+								<h3 class="page-title">活动成员</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="departments.html">部门列表</a></li>
-									<li class="breadcrumb-item active">部门成员</li>
+									<li class="breadcrumb-item"><a href="departments.html">活动列表</a></li>
+									<li class="breadcrumb-item active">活动成员</li>
 								</ul>
 							</div>
 							<div class="col-auto text-right float-right ml-auto">
@@ -554,8 +687,7 @@
 													<th>学号</th>
 													<th>姓名</th>
 													<th>现班级</th>
-													<th>现职务</th>
-													<th>宿舍</th>
+													<th>参加活动名称</th>
 													<th>联系方式</th>
 													<th class="text-right">编辑</th>
 												</tr>

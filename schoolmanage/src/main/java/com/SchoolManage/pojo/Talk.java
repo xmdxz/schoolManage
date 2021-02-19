@@ -1,7 +1,14 @@
 package com.SchoolManage.pojo;
 
+import lombok.*;
+
 import java.sql.Date;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Talk {
 
     /**

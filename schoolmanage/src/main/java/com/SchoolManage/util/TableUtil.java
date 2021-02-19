@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +79,7 @@ public class TableUtil<T> {
                 String field = cell.getStringCellValue();
                 if (!("".equals(field))) {
                     field = field.trim();
-                    field = field.replaceAll(" ","");
+                    field = field.replaceAll(" ", "");
                     arrayList.add(field);
                 }
             }
@@ -85,9 +87,9 @@ public class TableUtil<T> {
         return arrayList;
     }
 
-    public List<T> GetTableRowContent() throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
+    public List<T> GetTableRowContent(List<T> database) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
         List<T> Ts = new ArrayList<>();
-        for (int i = 1; i < GetRows(); i++){
+        for (int i = 1; i < GetRows(); i++) {
             Row row = sheet.getRow(i);
             T t = (T) clazz.newInstance();
             List<String> list = GetTableHead();
@@ -104,7 +106,40 @@ public class TableUtil<T> {
                 Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
                 method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
             }
-            Ts.add(t);
+            if (!Ts.contains(t)) {
+                Ts.add(t);
+            }
+        }
+        for (T pojo : database) {
+            if (Ts.contains(pojo)) {
+                Ts.remove(pojo);
+            }
+        }
+        return Ts;
+    }
+
+    public List<T> GetTableRowContent() throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
+        List<T> Ts = new ArrayList<>();
+        for (int i = 1; i < GetRows(); i++) {
+            Row row = sheet.getRow(i);
+            T t = (T) clazz.newInstance();
+            List<String> list = GetTableHead();
+            for (int index = 0, num = 0; index < list.size(); index++, num++) {
+                String field = this.eneity.get(list.get(index));
+                if (field == null) {
+                    throw new FieldNotExistException("实体类中没有与表格中表头:" + list.get(index) + "对应的属性");
+                }
+                Cell cell = row.getCell(num);
+                while (cell == null) {
+                    cell = row.getCell(++num);
+                }
+                cell.setCellType(CellType.STRING);
+                Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
+                method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+            }
+            if (!Ts.contains(t)) {
+                Ts.add(t);
+            }
         }
         return Ts;
     }
@@ -123,6 +158,12 @@ public class TableUtil<T> {
             value1 = Double.parseDouble(value);
         } else if ("boolean".equalsIgnoreCase(type)) {
             value1 = Boolean.parseBoolean(value);
+        } else if ("date".equalsIgnoreCase(type)) {
+            value1 = Date.valueOf(value);
+        } else if ("datetime".equalsIgnoreCase(type)) {
+            value1 = Timestamp.valueOf(value);
+        } else if ("timestamp".equalsIgnoreCase(type)) {
+            value1 = Timestamp.valueOf(value);
         }
         return value1;
     }

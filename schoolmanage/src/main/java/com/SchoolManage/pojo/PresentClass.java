@@ -2,6 +2,8 @@ package com.SchoolManage.pojo;
 
 import lombok.*;
 
+import java.util.Objects;
+
 @Setter
 @Getter
 @ToString
@@ -45,4 +47,16 @@ public class PresentClass {
      */
     private String publicize;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PresentClass)) return false;
+        PresentClass that = (PresentClass) o;
+        return Objects.equals(getClassName(), that.getClassName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getClassName());
+    }
 }

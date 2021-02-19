@@ -73,4 +73,19 @@ public class ActiveMemberServiceImpl implements ActiveMemberService {
     public int deleteData(Integer id) {
         return activeMemberDao.deleteData(id);
     }
+
+    @Override
+    public int findByNameCount(String name,Integer activity) {
+        return activeMemberDao.findByNameCount(name,activity);
+    }
+
+    @Override
+    public List<Activemember> findByName(String name,Integer activity, int startPage, int num) {
+        return activeMemberDao.findByName(name,activity,startPage-1,num);
+    }
+
+    @Override
+    public Activemember findByStudent(String student,Integer activity) {
+        return activeMemberDao.findByStudent(student,activity);
+    }
 }

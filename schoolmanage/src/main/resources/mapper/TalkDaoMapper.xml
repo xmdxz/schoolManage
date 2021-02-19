@@ -11,6 +11,7 @@
                 #{talk.teacher},
                 #{talk.content},
                 #{talk.time,jdbcType=DATE})
+
     </insert>
     <insert id="insertAllTalk">
         insert into talk(student,teacher,content,time)
@@ -23,16 +24,25 @@
         delete
         from talk
         where id = #{id}
+          and teacher = #{teacher}
     </delete>
 
     <select id="findAll" resultType="com.SchoolManage.pojo.Talk">
         select *
-        from talk limit #{startPage},#{num};
+        from talk
+        where teacher = #{teacher} limit #{startPage}
+            , #{num};
+    </select>
+    <select id="findById" resultType="com.SchoolManage.pojo.Talk">
+        select *
+        from talk
+        where id = #{id}
     </select>
     <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Talk">
         select *
         from talk
         where student = #{student}
+          and teacher = #{teacher}
     </select>
     <select id="findByTeacher" resultType="com.SchoolManage.pojo.Talk">
         select *
@@ -49,22 +59,25 @@
     <select id="findAllCount" resultType="java.lang.Integer">
         select count(*)
         from talk
+        where teacher = #{teacher}
     </select>
     <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Talk">
         select *
         from talk
-        where student = #{student} limit #{startPage}
+        where student = #{student}and teacher =#{teacher} limit #{startPage}
             , #{num}
     </select>
     <select id="findByStudentCount" resultType="java.lang.Integer">
         select count(*)
         from talk
         where student = #{student}
+          and teacher = #{teacher}
     </select>
     <select id="findByTimeCount" resultType="java.lang.Integer">
         select count(*)
         from talk
         where time = #{time}
+          and teacher =#{teacher}
     </select>
     <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Talk">
         select *

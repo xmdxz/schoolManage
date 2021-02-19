@@ -87,7 +87,7 @@ public enum Eneity {
         {
             put("活动名称", "active");
             put("开始时间", "time");
-            put("负责部门(人)","responsible");
+            put("负责部门(人)", "responsible");
             put("备注", "remarks");
         }
     }),
@@ -96,10 +96,13 @@ public enum Eneity {
         private static final long serialVersionUID = -1054486841028023585L;
 
         {
-        put("学号", "student");
-        put("姓名", "name");
-        put("班级", "clazz");
-    }});
+            put("学号", "student");
+            put("姓名", "name");
+            put("班级", "clazz");
+            put("参与活动名称", "activeName");
+            put("联系方式", "phone");
+        }
+    });
 
 
     private Map<String, String> pojo;

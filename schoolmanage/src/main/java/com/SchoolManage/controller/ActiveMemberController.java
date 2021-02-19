@@ -1,12 +1,20 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Activemember;
+import com.SchoolManage.pojo.Activity;
+import com.SchoolManage.pojo.Member;
+import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.ActiveMemberService;
+import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,5 +103,31 @@ public class ActiveMemberController {
             map.put("code", 500);
             return map;
         }
+    }
+    @RequestMapping(value = "Excle",produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent(HttpServletRequest request,Integer id) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i=activeMemberService.findByActiveCount(id);
+        CreateExlceUtil<Activemember> createExlceUtil = new CreateExlceUtil<>(request,Activemember.class,"活动成员表");
+        List<Activemember> list =activeMemberService.findByActive(id,1,i);
+        return createExlceUtil.createExcle(list);
+    }
+    @RequestMapping("findbystudent")
+    @ResponseBody
+    public Activemember findByStudent(String student,Integer activity) {
+        return activeMemberService.findByStudent(student,activity);
+    }
+    @RequestMapping("findbyname")
+    @ResponseBody
+    public List<Activemember> findByName(String name,Integer activity, int page, int num) {
+       return activeMemberService.findByName(name,activity,page,num);
+    }
+
+    @RequestMapping("findByNameCount")
+    @ResponseBody
+    public String findByNameCount(String name,Integer activity) {
+
+        int i = activeMemberService.findByNameCount(name,activity);
+        return Integer.toString(i);
     }
 }

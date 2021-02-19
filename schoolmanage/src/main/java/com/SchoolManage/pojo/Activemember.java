@@ -43,4 +43,5 @@ public class Activemember {
      * 活动名称
      */
     private String activeName;
+
 }

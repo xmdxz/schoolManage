@@ -19,7 +19,7 @@
         update dormitory
         set building = #{dormitory.building},
             number   = #{dormitory.number},
-            manage  = #{dormitory.manage}
+            manage   = #{dormitory.manage}
         where building = #{dormitory.building}
           and number = #{dormitory.number}
     </update>
@@ -47,7 +47,8 @@
         select *,
                (select count(*)
                 from student
-                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+                where student.bedroom_lou = dormitory.building
+                  and bedroom_hao = dormitory.number) as num
         from dormitory limit #{startPage},#{num}
     </select>
     <select id="findAllNum" resultType="java.lang.Integer">
@@ -58,7 +59,8 @@
         select *,
                (select count(*)
                 from student
-                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+                where student.bedroom_lou = dormitory.building
+                  and bedroom_hao = dormitory.number) as num
         from dormitory
         where manage = #{name} limit #{startPage}
             , #{num}
@@ -72,7 +74,8 @@
         select *,
                (select count(*)
                 from student
-                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+                where student.bedroom_lou = dormitory.building
+                  and bedroom_hao = dormitory.number) as num
         from dormitory
         where manage = (select name from student where id = #{id})
     </select>
@@ -80,7 +83,8 @@
         select *,
                (select count(*)
                 from student
-                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+                where student.bedroom_lou = dormitory.building
+                  and bedroom_hao = dormitory.number) as num
         from dormitory
         where building = #{building} limit #{startPage}
             , #{num}
@@ -94,7 +98,8 @@
         select *,
                (select count(*)
                 from student
-                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+                where student.bedroom_lou = dormitory.building
+                  and bedroom_hao = dormitory.number) as num
         from dormitory
         where number = #{number} limit #{startPage}
             , #{num}
@@ -103,7 +108,8 @@
         select count(*),
                (select count(*)
                 from student
-                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+                where student.bedroom_lou = dormitory.building
+                  and bedroom_hao = dormitory.number) as num
         from dormitory
         where number = #{number}
     </select>
@@ -111,9 +117,18 @@
         select *,
                (select count(*)
                 from student
-                where student.bedroom_lou = dormitory.building and bedroom_hao = dormitory.number) as num
+                where student.bedroom_lou = dormitory.building
+                  and bedroom_hao = dormitory.number) as num
         from dormitory
         where building = #{building}
           and number = #{number}
+    </select>
+    <select id="findAllNoPage" resultType="com.SchoolManage.pojo.Dormitory">
+        select *,
+               (select count(*)
+                from student
+                where student.bedroom_lou = dormitory.building
+                  and bedroom_hao = dormitory.number) as num
+        from dormitory
     </select>
 </mapper>
