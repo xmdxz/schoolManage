@@ -5,14 +5,12 @@
 
 <mapper namespace="com.SchoolManage.dao.TalkDao">
     <insert id="insertTalk">
-        inser
-        into talk(student,teacher,content,time)
-            values (
-        #{talk.student},
-        #{talk.teacher},
-        #{talk.content},
-        #{talk.time,jdbcType=DATE}
-        )
+        insert
+        into talk(student, teacher, content, time)
+        values (#{talk.student},
+                #{talk.teacher},
+                #{talk.content},
+                #{talk.time,jdbcType=DATE})
     </insert>
     <insert id="insertAllTalk">
         insert into talk(student,teacher,content,time)

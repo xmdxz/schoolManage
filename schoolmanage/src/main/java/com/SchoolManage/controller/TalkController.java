@@ -26,7 +26,7 @@ public class TalkController {
 
     @RequestMapping("findall")
     @ResponseBody
-    public List<Talk> findAll(Integer Page, Integer num) {
+    public List<Talk> findAll(int Page, int num) {
         return talkService.findAll(Page, num);
     }
 
