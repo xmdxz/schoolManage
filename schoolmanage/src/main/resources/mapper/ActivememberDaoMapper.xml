@@ -120,5 +120,20 @@
         where id =
               #{id}
     </select>
-
+    <select id="findByStudent" resultType="com.SchoolManage.pojo.Activemember">
+        select *
+        from activemember
+        where student= #{student} and activity=#{activity}
+    </select>
+    <select id="findByNameCount" resultType="java.lang.Integer">
+        select count(*)
+        from activemember
+        where name like "%" #{name} "%" and activity=#{activity}
+    </select>
+    <select id="findByName" resultType="com.SchoolManage.pojo.Activemember">
+        select *
+        from activemember
+        where name like "%" #{name} "%" and activity=#{activity} limit #{startPage}
+            , #{num}
+    </select>
 </mapper>

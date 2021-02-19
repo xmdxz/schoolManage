@@ -1,6 +1,7 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Activemember;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -105,4 +106,7 @@ public interface ActiveMemberService {
      * @return
      */
     int deleteData(Integer id);
+    int findByNameCount(String name,Integer activity);
+    List<Activemember> findByName(String name,Integer activity, int startPage, int num);
+    Activemember findByStudent(String student,Integer activity);
 }
