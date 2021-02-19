@@ -43,6 +43,7 @@ public interface ActivityDao {
      */
     List<Activity> findByStudentNoPage(@Param(value = "student") String student);
 
+
     /**
      * 根据学生查询数量
      *
@@ -158,14 +159,20 @@ public interface ActivityDao {
      */
     int deleteAc(@Param(value = "id") Integer id);
 
+    /**
+     * 更新记录
+     *
+     * @param activity
+     * @return
+     */
+    int updateData(@Param(value = "activity") Activity activity);
 
     /**
-     * @Description: 根据id查询活动
-     * @Param: [id]
-     * @return: com.SchoolManage.pojo.Activity
-     * @Author: RainGoal
-     * @Date: 2021/2/18
+     * 根据id
+     *
+     * @param id
+     * @return
      */
-    Activity findById(@Param("id") int id);
+    Activity findById(@Param(value = "id") Integer id);
 
 }

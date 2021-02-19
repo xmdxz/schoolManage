@@ -121,6 +121,11 @@ public class ActivityServiceImpl implements ActivityService {
         return activityDao.findById(id);
     }
 
+    @Override
+    public int updateData(Activity activity) {
+        return activityDao.updateData(activity);
+    }
+
     public int BatchAddition(String path) {
         int num = 0;
         try {

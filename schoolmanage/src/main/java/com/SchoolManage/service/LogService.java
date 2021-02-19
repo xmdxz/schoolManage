@@ -12,6 +12,7 @@ public interface LogService {
     int insertNew(String type,String message,String teacher,String student,String table);
     /**
      * 查找全部
+     * @param page
      */
-    List<Log> findAll();
+    List<Log> findAll(Integer page);
 }
