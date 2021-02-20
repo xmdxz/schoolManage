@@ -88,6 +88,7 @@ public enum Eneity {
             put("活动名称", "active");
             put("开始时间", "time");
             put("负责部门(人)", "responsible");
+            put("参加人数", "number");
             put("备注", "remarks");
         }
     }),
