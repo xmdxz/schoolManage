@@ -4,8 +4,8 @@
 
 $(function () {
     $('#calendar').calendar({
-        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octomber', 'November', 'December'],
-        days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+        days: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
     });
 
 });
@@ -17,7 +17,10 @@ $(function () {
             color: '',
             months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octomber', 'November', 'December'],
             days: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
-            onSelect: function (event) {}
+            onSelect: function (res) {
+                res.date = moment(res.date).format('Y-MM-DD');
+                console.log(res.date)
+            }
         }, $.fn.calendar.defaults, opts);
         
         return this.each(function () {
