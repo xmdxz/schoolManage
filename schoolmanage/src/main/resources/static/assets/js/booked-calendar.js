@@ -17,8 +17,9 @@ $(function () {
             color: '',
             months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octomber', 'November', 'December'],
             days: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
-            onSelect: function (event) {
-                console.log(event)
+            onSelect: function (res) {
+                res.date = moment(res.date).format('Y-MM-DD');
+                console.log(res.date)
             }
         }, $.fn.calendar.defaults, opts);
         
