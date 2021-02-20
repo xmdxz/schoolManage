@@ -1,6 +1,11 @@
 package com.SchoolManage.util;
 
 
+import com.SchoolManage.Enum.Eneity;
+import com.SchoolManage.exception.NameNullException;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,11 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.SchoolManage.Enum.Eneity;
-import com.SchoolManage.exception.NameNullException;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 public class CreateExlceUtil<T> {
 
     private Sheet sheet;
@@ -27,13 +27,13 @@ public class CreateExlceUtil<T> {
 
     private String dowloadPath;
 
-    public CreateExlceUtil(HttpServletRequest request,Class cl,String name) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NameNullException {
-        if (name == null || name == ""){
+    public CreateExlceUtil(HttpServletRequest request, Class cl, String name) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NameNullException {
+        if (name == null || name == "") {
             throw new NameNullException("文件名不能为空！请检查name属性");
         }
-        this.path = request.getServletContext().getRealPath("/") + "Excle\\" ;
+        this.path = request.getServletContext().getRealPath("/") + "Excle\\";
         File file = new File(path);
-        if (!file.exists()){
+        if (!file.exists()) {
             file.mkdirs();
         }
         this.path = this.path + name + ".xlsx";
@@ -41,9 +41,9 @@ public class CreateExlceUtil<T> {
         Class clazz = Eneity.class;
         Field[] fields = clazz.getFields();
         Method method = clazz.getMethod("getPojo");
-        for (Field field: fields) {
-            if (field.getName().equalsIgnoreCase(cl.getSimpleName().toUpperCase())){
-                this.eneity = (Map<String, String>) method.invoke((Eneity)field.get(field),null);
+        for (Field field : fields) {
+            if (field.getName().equalsIgnoreCase(cl.getSimpleName().toUpperCase())) {
+                this.eneity = (Map<String, String>) method.invoke((Eneity) field.get(field), null);
                 break;
             }
         }
@@ -57,29 +57,32 @@ public class CreateExlceUtil<T> {
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
         Set<String> set = eneity.keySet();
         int num = 0;
-        for (String str: set) {
+        for (String str : set) {
             Cell cell = row0.createCell(num);
             cell.setCellStyle(cellStyle);
             cell.setCellValue(str);
             num++;
         }
-        for (int i = 1; i <= list.size(); i++){
+        for (int i = 1; i <= list.size(); i++) {
             Row row = sheet.createRow(i);
-            T t = list.get(i-1);
+            T t = list.get(i - 1);
             num = 0;
-            for (String field: set) {
+            for (String field : set) {
                 Cell cell = row.createCell(num);
-                String getName = "get" + eneity.get(field).substring(0,1).toUpperCase() + eneity.get(field).substring(1);
+                String getName = "get" + eneity.get(field).substring(0, 1).toUpperCase() + eneity.get(field).substring(1);
                 Method method = t.getClass().getMethod(getName);
-                Object o = method.invoke(t,null);
-                if (o!=null){
+                Object o = method.invoke(t, null);
+                if (o != null) {
                     cell.setCellStyle(cellStyle);
                     cell.setCellValue(o.toString());
                 }
                 num++;
             }
         }
-        sheet.getWorkbook().write(new FileOutputStream(path));
+        FileOutputStream fileOutputStream = new FileOutputStream(path);
+        sheet.getWorkbook().write(fileOutputStream);
+        fileOutputStream.flush();
+        fileOutputStream.close();
         return this.dowloadPath;
     }
 

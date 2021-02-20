@@ -99,8 +99,9 @@ public enum Eneity {
             put("学号", "student");
             put("姓名", "name");
             put("班级", "clazz");
-            put("参与活动名称", "activeName");
+            put("活动编号", "activity");
             put("联系方式", "phone");
+            put("活动名称", "activeName");
         }
     });
 
