@@ -3,7 +3,6 @@ package com.SchoolManage.service;
 import com.SchoolManage.dao.ActiveMemberDao;
 import com.SchoolManage.exception.FieldNotExistException;
 import com.SchoolManage.pojo.Activemember;
-import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,18 +79,18 @@ public class ActiveMemberServiceImpl implements ActiveMemberService {
     }
 
     @Override
-    public int findByNameCount(String name,Integer activity) {
-        return activeMemberDao.findByNameCount(name,activity);
+    public int findByNameCount(String name, Integer activity) {
+        return activeMemberDao.findByNameCount(name, activity);
     }
 
     @Override
-    public List<Activemember> findByName(String name,Integer activity, int startPage, int num) {
-        return activeMemberDao.findByName(name,activity,startPage-1,num);
+    public List<Activemember> findByName(String name, Integer activity, int startPage, int num) {
+        return activeMemberDao.findByName(name, activity, startPage - 1, num);
     }
 
     @Override
-    public Activemember findByStudent(String student,Integer activity) {
-        return activeMemberDao.findByStudent(student,activity);
+    public Activemember findByStudent(String student, Integer activity) {
+        return activeMemberDao.findByStudent(student, activity);
     }
 
     @Override
@@ -101,21 +100,23 @@ public class ActiveMemberServiceImpl implements ActiveMemberService {
 
     @Override
     public int BatchAddition(String path) {
-        int num=0;
+        int num = 0;
         try {
             //path写实际path
             TableUtil<Activemember> tableUtil = new TableUtil<Activemember>(path, Activemember.class);
+            System.out.println(tableUtil);
             List<Activemember> list = tableUtil.GetTableRowContent();
+            System.out.println(list);
             //调用插入接口
             //批量上传，list集合
-            num=activeMemberDao.insertDatas(list);
+            num = activeMemberDao.insertDatas(list);
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
-            return  -2;
+            return -2;
         } catch (FieldNotExistException e) {
             //此处应处理表格问题，返回前端
             e.printStackTrace();
-            return  -3;
+            return -3;
         }
         return num;
     }

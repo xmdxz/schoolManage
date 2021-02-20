@@ -30,44 +30,45 @@
 
     <!-- Slimscroll JS -->
     <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
-		<!-- Custom JS -->
-		<script th:src="@{/assets/js/script.js}"></script>
-		<!-- alert beautiful-->
-		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
-		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
-		<script type="text/javascript">
-			//获取缓存中登录账号的信息
-			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
-			var name=adminuserInfo.name;
-			$(document).ready(function () {
-				$('#InfoName').text(name);
-                $("#bt1").click(function () {
-                    $('#excelFile').trigger("click");
-                    $('#excelFile').change(function (event) {
-                        var files = event.target.files;
-                        var formData=new FormData();
-                        var temp=files[0];
-                        if(temp)
-                        {
-                            formData.append('file',temp);
-                            $.ajax({
-                                url:'student/upfile',
-                                type:'post',
-                                data: formData,
-                                processData: false, // 告诉jQuery不要去处理发送的数据
-                                contentType: false, // 告诉jQuery不要去设置Content-Type请求头
-                                success: function(res){
-                                    console.log(res)
-                                    swal(res);
-                                }
+    <!-- Custom JS -->
+    <script th:src="@{/assets/js/script.js}"></script>
+    <!-- alert beautiful-->
+    <link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
+    <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
+    <script type="text/javascript">
+        //获取缓存中登录账号的信息
+        var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
+        var name = adminuserInfo.name;
+        $(document).ready(function () {
+            $('#InfoName').text(name);
+            $("#bt1").click(function () {
+                $('#excelFile').trigger("click");
+                $('#excelFile').change(function (event) {
+                    var files = event.target.files;
+                    var formData = new FormData();
+                    var temp = files[0];
+                    if (temp) {
+                        formData.append('file', temp);
+                        $.ajax({
+                            url: 'student/upfile',
+                            type: 'post',
+                            data: formData,
+                            processData: false, // 告诉jQuery不要去处理发送的数据
+                            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+                            success: function (res) {
+                                console.log(res)
+                                swal(res);
+                                var obj = document.getElementById("excelFile")
+                                obj.outerHTML = obj.outerHTML
+                            }
 
-                            })
-                        }
+                        })
+                    }
 
-                    });
+                });
 
-                })
-			});
+            })
+        });
     </script>
 </head>
 <body>
@@ -241,9 +242,9 @@
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="students.html">学生列表</a></li>
-<!--                            <li><a href="student-details.html">学生信息</a></li>-->
+                            <!--                            <li><a href="student-details.html">学生信息</a></li>-->
                             <li><a href="add-student.html" class="active">学生添加</a></li>
-<!--                            <li><a href="edit-student.html">学生编辑</a></li>-->
+                            <!--                            <li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
                     <li class="submenu">
@@ -262,7 +263,7 @@
                         <ul>
                             <li><a href="departments.html">部门列表</a></li>
                             <li><a href="add-department.html">部门添加</a></li>
-<!--                            <li><a href="edit-department.html">部门编辑</a></li>-->
+                            <!--                            <li><a href="edit-department.html">部门编辑</a></li>-->
                         </ul>
                     </li>
                     <!--							<li class="submenu">-->
@@ -340,11 +341,15 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="activity.html">活动列表</a></li>
                             <li><a href="add-activity.html">活动添加</a></li>
                         </ul>
+                    </li>
+                    <li class="active">
+                        <a href="psychology.html"><i class="fas fa-comment"></i> <span>谈话</span></a>
                     </li>
                     <!--							<li>-->
                     <!--								<a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>-->
@@ -417,7 +422,9 @@
                     </div>
                     <div class="col-auto text-right float-right ml-auto">
                         <input type="file" name="excelFile" id="excelFile" style="display:none" accept=".xls,.xlsx">
-                        <button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 批量添加</button>
+                        <button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i
+                                class="fas fa-download"></i> 批量添加
+                        </button>
                     </div>
                 </div>
             </div>

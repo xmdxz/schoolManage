@@ -36,5 +36,14 @@ public class Qingjia {
      */
     private Timestamp end_time;
 
+    /**
+     * 姓名
+     */
+    private String name;
+
+    /**
+     * 班级
+     */
+    private String clazz;
 
 }

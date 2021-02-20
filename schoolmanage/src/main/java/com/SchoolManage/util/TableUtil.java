@@ -47,6 +47,7 @@ public class TableUtil<T> {
         } else if (".xlsx".equals(extString)) {
             sheet = new XSSFWorkbook(inputStream).getSheetAt(0);
         }
+        inputStream.close();
     }
 
     public TableUtil(File file, Class clazz) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -67,6 +68,7 @@ public class TableUtil<T> {
         } else if (".xlsx".equals(extString)) {
             sheet = new XSSFWorkbook(inputStream).getSheetAt(0);
         }
+        inputStream.close();
     }
 
     public List<String> GetTableHead() {

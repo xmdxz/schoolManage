@@ -49,7 +49,7 @@ public class ActiveMemberController {
     public List<Activemember> findByActive(Integer id, Integer Page, Integer num) {
         return activeMemberService.findByActive(id, Page, num);
     }
-    
+
     @RequestMapping("findbyactivecount")
     @ResponseBody
     public int findByActiveCount(Integer id) {
@@ -167,9 +167,10 @@ public class ActiveMemberController {
             try {
                 System.out.println(path);
                 i = activeMemberService.BatchAddition(path);
-                dest.delete();
+                System.out.println(new File(path).delete());
                 return "上传成功了";
             } catch (Exception e) {
+                e.printStackTrace();
                 dest.delete();
                 return "上传的表格不匹配,请进行修改后重先上传";
             }

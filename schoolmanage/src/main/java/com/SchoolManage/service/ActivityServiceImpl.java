@@ -126,6 +126,7 @@ public class ActivityServiceImpl implements ActivityService {
         return activityDao.updateData(activity);
     }
 
+    @Override
     public int BatchAddition(String path) {
         int num = 0;
         try {
