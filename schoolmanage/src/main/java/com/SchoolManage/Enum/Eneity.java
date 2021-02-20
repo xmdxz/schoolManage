@@ -104,7 +104,20 @@ public enum Eneity {
             put("联系方式", "phone");
             put("活动名称", "activeName");
         }
-    });
+    }),
+
+    QINGJIA(new LinkedHashMap<String, String>() {
+        private static final long serialVersionUID = -7443850665086791238L;
+
+        {
+        put("学号", "student");
+        put("姓名", "name");
+        put("班级", "clazz");
+        put("开始时间", "start_time");
+        put("批准教师", "teacher");
+        put("请假原因", "cause");
+        put("结束时间", "end_time");
+    }});
 
 
     private Map<String, String> pojo;
