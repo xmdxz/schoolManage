@@ -1,10 +1,9 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
-import com.SchoolManage.pojo.*;
+import com.SchoolManage.pojo.Activemember;
 import com.SchoolManage.service.ActiveMemberService;
 import com.SchoolManage.util.CreateExlceUtil;
-import com.SchoolManage.util.UnicodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +49,7 @@ public class ActiveMemberController {
     public List<Activemember> findByActive(Integer id, Integer Page, Integer num) {
         return activeMemberService.findByActive(id, Page, num);
     }
-
+    
     @RequestMapping("findbyactivecount")
     @ResponseBody
     public int findByActiveCount(Integer id) {
@@ -85,9 +84,9 @@ public class ActiveMemberController {
     public String insertData(Activemember activemember) {
         System.out.println(activemember);
         int i = activeMemberService.insertData(activemember);
-        if (i!=0){
-            return "redirect:/loginp_4.html?id="+activemember.getActivity();
-        }else return "redirect:/activity.html";
+        if (i != 0) {
+            return "redirect:/loginp_4.html?id=" + activemember.getActivity();
+        } else return "redirect:/activity.html";
     }
 
     @RequestMapping("deletedata")
@@ -105,68 +104,72 @@ public class ActiveMemberController {
             return map;
         }
     }
-    @RequestMapping(value = "Excle",produces = "text/plain;charset=utf-8")
+
+    @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request,Integer id) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i=activeMemberService.findByActiveCount(id);
-        CreateExlceUtil<Activemember> createExlceUtil = new CreateExlceUtil<>(request,Activemember.class,"活动成员表");
-        List<Activemember> list =activeMemberService.findByActive(id,1,i);
+    public String ExcleStudent(HttpServletRequest request, Integer id) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i = activeMemberService.findByActiveCount(id);
+        CreateExlceUtil<Activemember> createExlceUtil = new CreateExlceUtil<>(request, Activemember.class, "活动成员表");
+        List<Activemember> list = activeMemberService.findByActive(id, 1, i);
         return createExlceUtil.createExcle(list);
     }
+
     @RequestMapping("findbystudent")
     @ResponseBody
-    public Activemember findByStudent(String student,Integer activity) {
-        return activeMemberService.findByStudent(student,activity);
+    public Activemember findByStudent(String student, Integer activity) {
+        return activeMemberService.findByStudent(student, activity);
     }
+
     @RequestMapping("findbyname")
     @ResponseBody
-    public List<Activemember> findByName(String name,Integer activity, int page, int num) {
-       return activeMemberService.findByName(name,activity,page,num);
+    public List<Activemember> findByName(String name, Integer activity, int page, int num) {
+        return activeMemberService.findByName(name, activity, page, num);
     }
 
     @RequestMapping("findByNameCount")
     @ResponseBody
-    public String findByNameCount(String name,Integer activity) {
+    public String findByNameCount(String name, Integer activity) {
 
-        int i = activeMemberService.findByNameCount(name,activity);
+        int i = activeMemberService.findByNameCount(name, activity);
         return Integer.toString(i);
     }
+
     @RequestMapping("updatedata")
-    public String updateData(Activemember activemember){
+    public String updateData(Activemember activemember) {
         int i = activeMemberService.updateDara(activemember);
 
-        if (i!=0){
-            return "redirect:/loginp_4.html?id="+activemember.getActivity();
-        }else return "redirect:/activity.html";
+        if (i != 0) {
+            return "redirect:/loginp_4.html?id=" + activemember.getActivity();
+        } else return "redirect:/activity.html";
     }
+
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request,@RequestParam("file") MultipartFile file){
-        if (file==null){
+    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        if (file == null) {
             return "请选择文件";
         }
         try {
             String filename = file.getOriginalFilename();
-            String extFileName = filename.substring(filename.lastIndexOf("." ) +1,filename.length());
+            String extFileName = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
 //            System.out.println("文件名:\t"+filename);
 //            System.out.println("后缀名:\t"+extFileName);
             //上传到本地,模拟上传到文件服务器
-            String filePath = request.getServletContext().getRealPath("/") + "File\\" ;
+            String filePath = request.getServletContext().getRealPath("/") + "File\\";
             String path = filePath + filename;
             //文件存储路径
             File dest = new File(path);
-            if (!dest.getParentFile().exists()){
+            if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdir();
             }
             file.transferTo(dest);
-            int i=66;
+            int i = 66;
             try {
                 System.out.println(path);
-                i=activeMemberService.BatchAddition(path);
+                i = activeMemberService.BatchAddition(path);
                 dest.delete();
                 return "上传成功了";
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 dest.delete();
                 return "上传的表格不匹配,请进行修改后重先上传";
             }
