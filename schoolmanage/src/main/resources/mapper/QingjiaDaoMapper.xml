@@ -5,16 +5,16 @@
 
 <mapper namespace="com.SchoolManage.dao.QingJiaDao">
     <insert id="insertQingjia">
-        insert into qingjia(student, teacher, start_time, end_time, cause)
+        insert into qingjia(student, teacher, start_time, end_time, cause, name, clazz)
         values (#{qingjia.student}, #{qingjia.teacher}, #{qingjia.start_time,jdbcType=TIMESTAMP},
-                #{qingjia.end_time,jdbcType=TIMESTAMP}, #{qingjia.cause})
+                #{qingjia.end_time,jdbcType=TIMESTAMP}, #{qingjia.cause}, #{qingjia.name}, #{qingjia.clazz})
     </insert>
     <insert id="insertQingjias">
-        insert into qingjia(student,teacher,start_time,end_time,cause)
+        insert into qingjia(student,teacher,start_time,end_time,cause,name,clazz)
         values
         <foreach collection="list" separator="," item="item">
             (#{item.student}, #{item.teacher}, #{item.start_time,jdbcType=TIMESTAMP},
-            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause})
+            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause},#{item.name},#{item.clazz})
         </foreach>
     </insert>
     <delete id="deleteQingjia">
@@ -94,5 +94,27 @@
         from qingjia
         where date_format(start_time, '%Y') = date_format(#{time}, '%Y')
            or date_format(end_time, '%Y') = date_format(#{time}, '%Y')
+    </select>
+    <select id="findByName" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+        where name like "%" #{name} "%" limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByNameCount" resultType="java.lang.Integer">
+        select count(*)
+        from qingjia
+        where name like "%" #{name} "%"
+    </select>
+    <select id="findByClazz" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+        where clazz like "%" #{clazz} "%" limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByClazzCount" resultType="java.lang.Integer">
+        select *
+        from qingjia
+        where clazz like "%" #{clazz} "%"
     </select>
 </mapper>

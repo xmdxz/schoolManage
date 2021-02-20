@@ -13,6 +13,42 @@ import java.util.List;
 public interface QingJiaDao {
 
     /**
+     * 根据姓名查找
+     *
+     * @param name
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Qingjia> findByName(@Param(value = "name") String name, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 姓名查找数量
+     *
+     * @param name
+     * @return
+     */
+    int findByNameCount(@Param(value = "name") String name);
+
+    /**
+     * 根据班级查找
+     *
+     * @param clazz
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Qingjia> findByClazz(@Param(value = "clazz") String clazz, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据班级查找数量
+     *
+     * @param clazz
+     * @return
+     */
+    int findByClazzCount(@Param(value = "clazz") String clazz);
+
+    /**
      * 查询全部
      *
      * @param startPage
