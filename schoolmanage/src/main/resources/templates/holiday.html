@@ -13,7 +13,6 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}">
-
 		<!-- Fontawesome CSS -->
 		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
 		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
@@ -35,6 +34,7 @@
 
 		<!-- Custom JS -->
 		<script th:src="@{/assets/js/script.js}"></script>
+		<script th:src="@{/assets/js/moment.min.js}"></script>
 		<!-- alert beautiful-->
 		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
 		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
@@ -72,12 +72,12 @@
 				})
 				$("#sousuo").click(function(){
 					a=$("#Search").val();
-					if(!(isNumber(a)))
+					if((isNumber(a)))
 					{
 						$.ajax({
 							type: "post",
-							url: "dormitory/findByBuildingNum",
-							data:{building:a},
+							url: "QingJia/findbystudentcount",
+							data:{student:a},
 							dataType: "json",
 							async: false,
 						}).done(function (res) {
@@ -86,18 +86,23 @@
 						})
 						$.ajax({
 							type: "post",
-							url: "dormitory/findByBuilding",
+							url: "QingJia/findbystudent",
 							dataType: "json",
-							data: {building:a,'Page': 1, 'num': everypage_1},
+							data: {student:a,'Page': 1, 'num': everypage_1},
 						}).done(function (res) {
 							var msg = "";
 							$.each(res, function (i, n) {
+								n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+								n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
 								msg += "<tr>";
-								msg += "<td>" + n.building+"</td>";
-								msg += "<td>" + n.number +"宿舍"+ "</td>";
-								msg += "<td>" + n.manage+ "</td>";
-								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.num +"人"+"</a></h2></td>";
-								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+								msg += "<td>" + n.student+"</td>";
+								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+								msg += "<td>" + n.clazz+ "</td>";
+								msg += "<td>" + n.start_time+ "</td>";
+								msg += "<td>" + n.end_time+ "</td>";
+								msg += "<td>" + n.cause+ "</td>";
+								msg += "<td>" + n.num+ "</td>";
+								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 								msg += "</tr>";
 							});
 							$("#dormitory").html(msg);
@@ -131,8 +136,8 @@
 					else {
 						$.ajax({
 							type: "post",
-							url: "dormitory/findByNumberNum",
-							data:{number:a},
+							url: "QingJia/findbynamecount",
+							data:{name:a},
 							dataType: "json",
 							async: false,
 						}).done(function (res) {
@@ -141,19 +146,23 @@
 						})
 						$.ajax({
 							type: "post",
-							url: "dormitory/findByNumber",
+							url: "QingJia/findbyname",
 							dataType: "json",
-							data: {number:a,'Page': 1, 'num': everypage_2},
+							data: {name:a,'Page': 1, 'num': everypage_2},
 						}).done(function (res) {
 							var msg = "";
 							$.each(res, function (i, n) {
+								n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+								n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
 								msg += "<tr>";
-								msg += "<td>" + n.building+"</td>";
-								msg += "<td>" + n.number +"宿舍"+ "</td>";
-								msg += "<td>" + n.manage+ "</td>";
-								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.num +"人"+"</a></h2></td>";
-
-								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+								msg += "<td>" + n.student+"</td>";
+								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+								msg += "<td>" + n.clazz+ "</td>";
+								msg += "<td>" + n.start_time+ "</td>";
+								msg += "<td>" + n.end_time+ "</td>";
+								msg += "<td>" + n.cause+ "</td>";
+								msg += "<td>" + n.num+ "</td>";
+								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 								msg += "</tr>";
 							});
 							$("#dormitory").html(msg);
@@ -190,7 +199,7 @@
 			var allpage = 1;
 			$.ajax({
 				type: "post",
-				url: "dormitory/findAllNum",
+				url: "QingJia/findallcount",
 				dataType: "json",
 				async: false,
 			}).done(function (res) {
@@ -199,19 +208,24 @@
 			});
 			$.ajax({
 				type: "post",
-				url: "dormitory/findAll",
+				url: "QingJia/findall",
 				dataType: "json",
 				data: {'Page': 1, 'num': everypage},
 			}).done(function (res) {
 				console.log(res)
 				var msg = "";
 				$.each(res, function (i, n) {
+					n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+					n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
 					msg += "<tr>";
-					msg += "<td>" + n.building+"</td>";
-					msg += "<td>" + n.number +"宿舍"+ "</td>";
-					msg += "<td>" + n.manage+ "</td>";
-					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.num +"人"+"</a></h2></td>";
-					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+					msg += "<td>" + n.student+"</td>";
+					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+					msg += "<td>" + n.clazz+ "</td>";
+					msg += "<td>" + n.start_time+ "</td>";
+					msg += "<td>" + n.end_time+ "</td>";
+					msg += "<td>" + n.cause+ "</td>";
+					msg += "<td>" + n.num+ "</td>";
+					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 					msg += "</tr>";
 				});
 				$("#dormitory").html(msg);
@@ -247,18 +261,23 @@
 				var page = res
 				$.ajax({
 					type: "post",
-					url: "dormitory/findAll",
+					url: "QingJia/findall",
 					dataType: "json",
 					data: {'Page': page, 'num': everypage},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
+						n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+						n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
 						msg += "<tr>";
-						msg += "<td>" + n.building+"</td>";
-						msg += "<td>" + n.number +"宿舍"+ "</td>";
-						msg += "<td>" + n.manage+ "</td>";
-						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.num +"人"+"</a></h2></td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "<td>" + n.student+"</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + n.clazz+ "</td>";
+						msg += "<td>" +n.start_time+ "</td>";
+						msg += "<td>" +n.end_time+ "</td>";
+						msg += "<td>" + n.cause+ "</td>";
+						msg += "<td>" + n.num+ "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 						msg += "</tr>";
 					});
 					$("#dormitory").html(msg);
@@ -277,18 +296,23 @@
 				var page = res
 				$.ajax({
 					type: "post",
-					url: "dormitory/findByNumber",
+					url: "QingJia/findbyname",
 					dataType: "json",
-					data: {number:a,Page: page, num: everypage_2},
+					data: {name:a,Page: page, num: everypage_2},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
+						n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+						n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
 						msg += "<tr>";
-						msg += "<td>" + n.building+"</td>";
-						msg += "<td>" + n.number +"宿舍"+ "</td>";
-						msg += "<td>" + n.manage+ "</td>";
-						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.num +"人"+"</a></h2></td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "<td>" + n.student+"</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + n.clazz+ "</td>";
+						msg += "<td>" + n.start_time+ "</td>";
+						msg += "<td>" + n.end_time+ "</td>";
+						msg += "<td>" + n.cause+ "</td>";
+						msg += "<td>" + n.num+ "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 						msg += "</tr>";
 					});
 					$("#dormitory").html(msg);
@@ -298,30 +322,33 @@
 				var page = res;
 				$.ajax({
 					type: "post",
-					url: "dormitory/findByBuilding",
+					url: "QingJia/findbystudent",
 					dataType: "json",
-					data: {building:a,Page: page, num: everypage_1},
+					data: {student:a,Page: page, num: everypage_1},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
+						n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+						n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
 						msg += "<tr>";
-						msg += "<td>" + n.building+"</td>";
-						msg += "<td>" + n.number +"宿舍"+ "</td>";
-						msg += "<td>" + n.manage+ "</td>";
-						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.num +"人"+"</a></h2></td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "<td>" + n.student+"</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + n.clazz+ "</td>";
+						msg += "<td>" + n.start_time+ "</td>";
+						msg += "<td>" + n.end_time+ "</td>";
+						msg += "<td>" + n.cause+ "</td>";
+						msg += "<td>" + n.num+ "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 						msg += "</tr>";
 					});
 					$("#dormitory").html(msg);
 				})
 			}
-			function deldec(res) {
-				var arr=res.split(',');
-				var building=arr[0];
-				var number=arr[1];
+			function deldec(id) {
+				var id = id;
 				swal({
 							title: "确定删除吗？",
-							text: "你将无法恢复该学生信息！",
+							text: "你将无法恢复该信息！",
 							type: "warning",
 							showCancelButton: true,
 							confirmButtonColor: "#DD6B55",
@@ -334,19 +361,19 @@
 							if (isConfirm) {
 								$.ajax({
 									type: "post",
-									url: "dormitory/deleteData",
+									url: "/QingJia/delete",
 									dataType: "json",
-									data: {'building': building,'number':number},
+									data: {'id': id},
 								}).done(function (res) {
 									if (res.code == 500) {
 										swal("删除失败", "服务器繁忙中...", "warning");
 									} else if (res.code == 200) {
-										swal("删除成功！", "即将返回宿舍列表", "success");
-										setTimeout("window.location.href='hostel.html'", "1200");
+										swal("删除成功！", "即将返回请假列表", "success");
+										setTimeout("window.location.href='holiday.html'", "1200");
 									}
 								})
 							} else {
-								swal("取消！", "你的学生信息是安全的XD:)",
+								swal("取消！", "你的信息是安全的XD:)",
 										"error");
 							}
 						});
@@ -356,13 +383,13 @@
 
     </head>
     <body>
-		
+
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
-		
+
 			<!-- Header -->
             <div class="header">
-			
+
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="index.html" class="logo">
@@ -373,11 +400,11 @@
 					</a>
                 </div>
 				<!-- /Logo -->
-				
+
 				<a href="javascript:void(0);" id="toggle_btn">
 					<i class="fas fa-align-left"></i>
 				</a>
-				
+
 				<!-- Search Bar -->
 				<div class="top-nav-search">
 					<form>
@@ -386,13 +413,13 @@
 					</form>
 				</div>
 				<!-- /Search Bar -->
-				
+
 				<!-- Mobile Menu Toggle -->
 				<a class="mobile_btn" id="mobile_btn">
 					<i class="fas fa-bars"></i>
 				</a>
 				<!-- /Mobile Menu Toggle -->
-				
+
 				<!-- Header Right Menu -->
 				<ul class="nav user-menu">
 
@@ -468,7 +495,7 @@
 						</div>
 					</li>
 					<!-- /Notifications -->
-					
+
 					<!-- User Menu -->
 					<li class="nav-item dropdown has-arrow">
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -490,22 +517,22 @@
 						</div>
 					</li>
 					<!-- /User Menu -->
-					
+
 				</ul>
 				<!-- /Header Right Menu -->
-				
+
             </div>
 			<!-- /Header -->
-			
+
 			<!-- Sidebar -->
             <div class="sidebar" id="sidebar">
                 <div class="sidebar-inner slimscroll">
 					<div id="sidebar-menu" class="sidebar-menu">
 						<ul>
-							<li class="menu-title"> 
+							<li class="menu-title">
 								<span>主菜单</span>
 							</li>
-							<li> 
+							<li>
 								<a href="index.html"><i class="fas fa-th-large"></i> <span>仪表板</span></a>
 							</li>
 							<li class="submenu">
@@ -543,7 +570,7 @@
 								</ul>
 							</li> -->
 
-							<li class="menu-title"> 
+							<li class="menu-title">
 								<span>管理</span>
 							</li>
 
@@ -561,23 +588,23 @@
 							<li class="active">
 								<a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>假期</span></a>
 							</li>
-							<li> 
+							<li>
 								<a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>
 							</li>
-							<li> 
+							<li>
 								<a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>
 							</li>
-							<li> 
+							<li>
 								<a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
 							</li>
-							<li> 
+							<li>
 								<a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>
 							</li>
-							<!-- <li> 
+							<!-- <li>
 								<a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
 							</li> -->
 
-							<!-- <li class="menu-title"> 
+							<!-- <li class="menu-title">
 								<span>Pages</span>
 							</li> -->
 
@@ -590,22 +617,22 @@
 									<li><a href="error-404.html">Error Page</a></li>
 								</ul>
 							</li> -->
-							<!-- <li> 
+							<!-- <li>
 								<a href="blank-page.html"><i class="fas fa-file"></i> <span>Blank Page</span></a>
 							</li> -->
 
-							<li class="menu-title"> 
+							<li class="menu-title">
 								<span>其他</span>
 							</li>
 
-							<!-- <li> 
+							<!-- <li>
 								<a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>
 							</li> -->
 							<li class="submenu">
 								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span class="menu-arrow"></span></a>
 								<ul>
 									<li><a href="hostel.html">宿舍列表</a></li>
-									<li><a href="add-hostel.html">宿舍添加</a></li>						
+									<li><a href="add-hostel.html">宿舍添加</a></li>
 								</ul>
 							</li>
 							<li class="submenu">
@@ -618,13 +645,13 @@
 							<li>
 								<a href="psychology.html"><i class="fas fa-comment"></i> <span>谈话</span></a>
 							</li>
-							<!-- <li> 
+							<!-- <li>
 								<a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>
 							</li> -->
-							<!-- <li class="menu-title"> 
+							<!-- <li class="menu-title">
 								<span>UI Interface</span>
 							</li> -->
-							<!-- <li> 
+							<!-- <li>
 								<a href="components.html"><i class="fas fa-vector-square"></i> <span>Components</span></a>
 							</li> -->
 							<!-- <li class="submenu">
@@ -672,11 +699,11 @@
                 </div>
             </div>
 			<!-- /Sidebar -->
-			
+
 			<!-- Page Wrapper -->
             <div class="page-wrapper">
                 <div class="content container-fluid">
-				
+
 					<!-- Page Header -->
 					<div class="page-header">
 						<div class="row align-items-center">
@@ -695,10 +722,21 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
-				
+					<form class="layui-form layui-form-pane" action="">
+
+
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">日期选择</label>
+								<div class="layui-input-block">
+									<input type="text" name="date" id="date1" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+						</div>
+					</form>
 					<div class="row">
 						<div class="col-sm-12">
-						
+
 							<div class="card card-table">
 								<div class="card-body">
 									<div class="table-responsive">
@@ -717,9 +755,9 @@
 											</thead>
 											<tbody id="dormitory">
 
-												
-												
-						
+
+
+
 											</tbody>
 										</table>
 									</div>
@@ -729,9 +767,9 @@
 										</div>
 									</div>
 								</div>
-							</div>							
-						</div>					
-					</div>					
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!-- Footer -->
@@ -739,10 +777,10 @@
 					<p>Copyright © 2021-2025 <a href="https://beian.miit.gov.cn/#/Integrated/index">晋ICP备2020012125号</a></p>
 				</footer>
 				<!-- /Footer -->
-				
+
 			</div>
 			<!-- /Page Wrapper -->
-			
+
         </div>
 		<!-- /Main Wrapper -->
 
@@ -756,7 +794,6 @@
 
 
 		<!-- Custom JS -->
-		<script th:src="@{/assets/js/script.js}"></script>
-
+	<script th:src="@{/assets/js/script.js}"></script>
     </body>
 </html>

@@ -45,5 +45,8 @@ public class Qingjia {
      * 班级
      */
     private String clazz;
-
+    /**
+     * 班级
+     */
+    private String num;
 }

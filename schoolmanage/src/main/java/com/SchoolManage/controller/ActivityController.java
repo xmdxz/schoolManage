@@ -199,11 +199,22 @@ public class ActivityController {
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request) throws
+    public String ExcleStudent(HttpServletRequest request,String responsible) throws
             NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i = activityService.findAllCount();
-        CreateExlceUtil<Activity> createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
-        List<Activity> list = activityService.findAll(1, i);
+        CreateExlceUtil<Activity>createExlceUtil;
+        List<Activity> list;
+        if(responsible!=null)
+        {
+            int i=activityService.findByResCount(responsible);
+            createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
+            list = activityService.findByRes(responsible,1, i);
+        }
+        else {
+            int i = activityService.findAllCount();
+            createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
+            list = activityService.findAll(1, i);
+        }
+
         return createExlceUtil.createExcle(list);
 
     }

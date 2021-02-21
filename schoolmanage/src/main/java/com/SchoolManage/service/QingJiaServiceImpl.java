@@ -94,4 +94,14 @@ public class QingJiaServiceImpl implements QingJiaService {
     public int deleteQingjia(Integer id) {
         return qingJiaDao.deleteQingjia(id);
     }
+
+    @Override
+    public List<Qingjia> findByName(String name, Integer startPage, Integer num) {
+        return qingJiaDao.findByName(name,startPage-1,num);
+    }
+
+    @Override
+    public int findByNameCount(String name) {
+        return qingJiaDao.findByNameCount(name);
+    }
 }

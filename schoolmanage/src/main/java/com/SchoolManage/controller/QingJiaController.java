@@ -42,7 +42,7 @@ public class QingJiaController {
         return qingJiaService.findByStudentNoPage(student);
     }
 
-    @RequestMapping("findbystudentpage")
+    @RequestMapping("findbystudent")
     @ResponseBody
     public List<Qingjia> findByStudentPage(String student, Integer Page, Integer num) {
         return qingJiaService.findByStudentPage(student, Page, num);
@@ -94,6 +94,17 @@ public class QingJiaController {
     @ResponseBody
     public List<Qingjia> findByTeacher(String teacher, Integer Page, Integer num) {
         return qingJiaService.findByTeacher(teacher, Page, num);
+    }
+    @RequestMapping("findbynamecount")
+    @ResponseBody
+    public int findByNameCount(String name) {
+        return qingJiaService.findByNameCount(name);
+    }
+
+    @RequestMapping("findbyname")
+    @ResponseBody
+    public List<Qingjia> findByName(String name, Integer Page, Integer num) {
+        return qingJiaService.findByName(name, Page, num);
     }
 
     @RequestMapping("insertqingjia")

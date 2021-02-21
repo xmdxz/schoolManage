@@ -48,6 +48,135 @@
 			const everypage_1 = 20; //每页的数量
 			var allpage_1 = 1;
 			var a=null;
+			const everypage =10; //每页的数量
+			var allpage = 1;
+			var url = document.location.toString();//获取url地址
+			var responsible=null;
+			const everypage_3 = 20; //每页的数量
+			var allpage_3 = 1;
+			if(url.indexOf("?")!=-1)
+			{
+				var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+				var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+				responsible= arr[0].split("=")[1];//获取数组中第一个参数//
+				responsible=decodeURI(responsible);
+				$.ajax({
+					type: "post",
+					url: "activity/findbyrescount",
+					data:{responsible:responsible},
+					dataType: "json",
+					async: false,
+				}).done(function (res) {
+					console.log(res)
+					allpage_3 = Math.ceil(res / everypage_3);
+				})
+				$.ajax({
+					type: "post",
+					url: "activity/findbyres",
+					dataType: "json",
+					data: {responsible:responsible,'Page': 1, 'num': everypage_3},
+				}).done(function (res) {
+					console.log(res)
+					var msg = "";
+					$.each(res, function (i, n) {
+						msg += "<tr>";
+						msg += "<td>" + n.id+"</td>";
+						msg += "<td>" + n.active + "</td>";
+						msg += "<td>" + n.time+ "</td>";
+						msg += "<td>" + n.responsible + "</td>";
+						msg += "<td>" + n.remarks + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-activity.html?id=" + n.id +"\"" + ">" + n.number+"人"+"</a></h2></td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "</tr>";
+					});
+					$("#dormitory").html(msg);
+					$('#example').bootstrapPaginator({
+						currentPage: 1,//当前的请求页面。
+						totalPages: allpage_3,//一共多少页。
+						size: "normal",//应该是页眉的大小。
+						bootstrapMajorVersion: 4,//bootstrap的版本要求。
+						alignment: "right",
+						numberOfPages: 8,//一页列出多少数据。
+						itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+							switch (type) {
+								case "first":
+									return "首页";
+								case "prev":
+									return "上一页";
+								case "next":
+									return "下一页";
+								case "last":
+									return "末页";
+								case "page":
+									return page;
+							}
+						},
+						onPageClicked: function (event, originalEvent, type, page) {
+							newpage_3(page)
+						}
+					});
+				})
+			}
+			else {
+				$.ajax({
+					type: "post",
+					url: "activity/findallcount",
+					dataType: "json",
+					async: false,
+				}).done(function (res) {
+					console.log(res)
+					allpage = Math.ceil(res / everypage);
+				});
+				$.ajax({
+					type: "post",
+					url: "activity/findall",
+					dataType: "json",
+					data: {'page': 1, 'num': everypage},
+				}).done(function (res) {
+					console.log(res)
+					var msg = "";
+					$.each(res, function (i, n) {
+						msg += "<tr>";
+						msg += "<td>" + n.id + "</td>";
+						msg += "<td>" + n.active + "</td>";
+						msg += "<td>" + n.time + "</td>";
+						msg += "<td>" + n.responsible + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"member-activity.html?id=" + n.id + "\"" + ">" + n.number + "人" + "</a></h2></td>";
+						msg += "<td>" + n.remarks + "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+
+						msg += "</tr>";
+					});
+					$("#dormitory").html(msg);
+					$('#example').bootstrapPaginator({
+						currentPage: 1,//当前的请求页面。
+						totalPages: allpage,//一共多少页。
+						size: "normal",//应该是页眉的大小。
+						bootstrapMajorVersion: 4,//bootstrap的版本要求。
+						alignment: "right",
+						numberOfPages: 8,//一页列出多少数据。
+						itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+							switch (type) {
+								case "first":
+									return "首页";
+								case "prev":
+									return "上一页";
+								case "next":
+									return "下一页";
+								case "last":
+									return "末页";
+								case "page":
+									return page;
+							}
+						},
+						onPageClicked: function (event, originalEvent, type, page) {
+							newpage(page)
+						}
+					});
+				}).fail(function (err) {
+					alert("系统繁忙哈...")
+				});
+			}
 			$(document).ready(function () {
 				$('#InfoName').text(name);
 				var downing = false;
@@ -58,7 +187,7 @@
 					$.ajax({
 						url: 'activity/Excle',
 						dataType: 'text',
-						data:{},
+						data:{responsible:responsible},
 						success(res){
 							console.log(res);
 							$("#downe").attr("href",res);
@@ -70,123 +199,63 @@
 				})
 				$("#sousuo").click(function(){
 					a=$("#Search").val();
-						$.ajax({
-							type: "post",
-							url: "activity/findbyactivecount",
-							data:{active:a},
-							dataType: "json",
-							async: false,
-						}).done(function (res) {
-							console.log(res)
-							allpage_1 = Math.ceil(res / everypage_1);
-						})
-						$.ajax({
-							type: "post",
-							url: "activity/findbyactive",
-							dataType: "json",
-							data: {active:a,'Page': 1, 'num': everypage_1},
-						}).done(function (res) {
-							var msg = "";
-							$.each(res, function (i, n) {
-								msg += "<tr>";
-								msg += "<td>" + n.id+"</td>";
-								msg += "<td>" + n.active + "</td>";
-								msg += "<td>" + n.time+ "</td>";
-								msg += "<td>" + n.responsible + "</td>";
-								msg += "<td>" + n.remarks + "</td>";
-								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-activity.html?id=" + n.id +"\"" + ">" + n.number+"人"+"</a></h2></td>";
-								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
-								msg += "</tr>";
-							});
-							$("#dormitory").html(msg);
-							$('#example').bootstrapPaginator({
-								currentPage: 1,//当前的请求页面。
-								totalPages: allpage_1,//一共多少页。
-								size: "normal",//应该是页眉的大小。
-								bootstrapMajorVersion: 4,//bootstrap的版本要求。
-								alignment: "right",
-								numberOfPages: 8,//一页列出多少数据。
-								itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
-									switch (type) {
-										case "first":
-											return "首页";
-										case "prev":
-											return "上一页";
-										case "next":
-											return "下一页";
-										case "last":
-											return "末页";
-										case "page":
-											return page;
-									}
-								},
-								onPageClicked: function (event, originalEvent, type, page) {
-									newpage_1(page)
+					$.ajax({
+						type: "post",
+						url: "activity/findbyactivecount",
+						data:{active:a},
+						dataType: "json",
+						async: false,
+					}).done(function (res) {
+						console.log(res)
+						allpage_1 = Math.ceil(res / everypage_1);
+					})
+					$.ajax({
+						type: "post",
+						url: "activity/findbyactive",
+						dataType: "json",
+						data: {active:a,'Page': 1, 'num': everypage_1},
+					}).done(function (res) {
+						var msg = "";
+						$.each(res, function (i, n) {
+							msg += "<tr>";
+							msg += "<td>" + n.id+"</td>";
+							msg += "<td>" + n.active + "</td>";
+							msg += "<td>" + n.time+ "</td>";
+							msg += "<td>" + n.responsible + "</td>";
+							msg += "<td>" + n.remarks + "</td>";
+							msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-activity.html?id=" + n.id +"\"" + ">" + n.number+"人"+"</a></h2></td>";
+							msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+							msg += "</tr>";
+						});
+						$("#dormitory").html(msg);
+						$('#example').bootstrapPaginator({
+							currentPage: 1,//当前的请求页面。
+							totalPages: allpage_1,//一共多少页。
+							size: "normal",//应该是页眉的大小。
+							bootstrapMajorVersion: 4,//bootstrap的版本要求。
+							alignment: "right",
+							numberOfPages: 8,//一页列出多少数据。
+							itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+								switch (type) {
+									case "first":
+										return "首页";
+									case "prev":
+										return "上一页";
+									case "next":
+										return "下一页";
+									case "last":
+										return "末页";
+									case "page":
+										return page;
 								}
-							});
-						})
+							},
+							onPageClicked: function (event, originalEvent, type, page) {
+								newpage_1(page)
+							}
+						});
+					})
 
 				});
-			});
-			const everypage =10; //每页的数量
-			var allpage = 1;
-			$.ajax({
-				type: "post",
-				url: "activity/findallcount",
-				dataType: "json",
-				async: false,
-			}).done(function (res) {
-				console.log(res)
-				allpage = Math.ceil(res / everypage);
-			});
-			$.ajax({
-				type: "post",
-				url: "activity/findall",
-				dataType: "json",
-				data: {'page': 1, 'num': everypage},
-			}).done(function (res) {
-				console.log(res)
-				var msg = "";
-				$.each(res, function (i, n) {
-					msg += "<tr>";
-					msg += "<td>" + n.id+"</td>";
-					msg += "<td>" + n.active + "</td>";
-					msg += "<td>" + n.time+ "</td>";
-					msg += "<td>" + n.responsible + "</td>";
-					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-activity.html?id=" + n.id +"\"" + ">" + n.number+"人"+"</a></h2></td>";
-					msg += "<td>" + n.remarks + "</td>";
-					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
-
-					msg += "</tr>";
-				});
-				$("#dormitory").html(msg);
-				$('#example').bootstrapPaginator({
-					currentPage: 1,//当前的请求页面。
-					totalPages: allpage,//一共多少页。
-					size: "normal",//应该是页眉的大小。
-					bootstrapMajorVersion: 4,//bootstrap的版本要求。
-					alignment: "right",
-					numberOfPages: 8,//一页列出多少数据。
-					itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
-						switch (type) {
-							case "first":
-								return "首页";
-							case "prev":
-								return "上一页";
-							case "next":
-								return "下一页";
-							case "last":
-								return "末页";
-							case "page":
-								return page;
-						}
-					},
-					onPageClicked: function (event, originalEvent, type, page) {
-						newpage(page)
-					}
-				});
-			}).fail(function (err) {
-				alert("系统繁忙哈...")
 			});
 			function newpage(res) {
 				var page = res
@@ -228,6 +297,30 @@
 						msg += "<td>" + n.responsible + "</td>";
 						msg += "<td>" + n.remarks + "</td>";
 						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-activity.html?id=" + n.id +"\"" + ">" + n.number+"人"+"</a></h2></td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+
+						msg += "</tr>";
+					});
+					$("#dormitory").html(msg);
+				})
+			}
+			function newpage_3(res) {
+				var page = res
+				$.ajax({
+					type: "post",
+					url: "activity/findbyres",
+					dataType: "json",
+					data: {responsible:responsible,Page: page, num: everypage_3},
+				}).done(function (res) {
+					var msg = "";
+					$.each(res, function (i, n) {
+						msg += "<tr>";
+						msg += "<td>" + n.id+"</td>";
+						msg += "<td>" + n.active + "</td>";
+						msg += "<td>" + n.time+ "</td>";
+						msg += "<td>" + n.responsible + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-activity.html?id=" + n.id +"\"" + ">" + n.number+"人"+"</a></h2></td>";
+						msg += "<td>" + n.remarks + "</td>";
 						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-activity.html?id=" + n.id+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 
 						msg += "</tr>";

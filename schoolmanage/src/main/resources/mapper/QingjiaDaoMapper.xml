@@ -25,7 +25,11 @@
 
 
     <select id="findAll" resultType="com.SchoolManage.pojo.Qingjia">
-        select *
+           select *,
+               (select count(*)
+                from qingjia
+                where student = student
+                  and name = name) as num
         from qingjia limit #{startPage},#{num}
     </select>
     <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Qingjia">

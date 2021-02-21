@@ -1,6 +1,7 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Qingjia;
+import org.apache.ibatis.annotations.Param;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -142,5 +143,21 @@ public interface QingJiaService {
      * @return
      */
     int deleteQingjia(Integer id);
+    /**
+     * 根据姓名查找
+     *
+     * @param name
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Qingjia> findByName(String name,Integer startPage,Integer num);
 
+    /**
+     * 姓名查找数量
+     *
+     * @param name
+     * @return
+     */
+    int findByNameCount(String name);
 }
