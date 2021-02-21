@@ -279,8 +279,8 @@
 							<li class="submenu active">
 								<a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="holiday.html" class="active">宿舍列表</a></li>
-									<li><a href="add-holiday.html">宿舍添加</a></li>
+									<li><a href="holiday.html" class="active">假期列表</a></li>
+									<li><a href="add-holiday.html">假期添加</a></li>
 								</ul>
 							</li>
 							<li> 
@@ -326,7 +326,7 @@
 							<li class="submenu">
 								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="hostel.html" class="active">宿舍列表</a></li>
+									<li><a href="hostel.html">宿舍列表</a></li>
 									<li><a href="add-hostel.html" >宿舍添加</a></li>
 								</ul>
 							</li>
@@ -403,10 +403,10 @@
 					<div class="page-header">
 						<div class="row align-items-center">
 							<div class="col">
-								<h3 class="page-title">编辑活动</h3>
+								<h3 class="page-title">编辑假期</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="departments.html">活动</a></li>
-									<li class="breadcrumb-item active">编辑活动</li>
+									<li class="breadcrumb-item"><a href="departments.html">假期</a></li>
+									<li class="breadcrumb-item active">编辑假期</li>
 								</ul>
 							</div>
 						</div>
@@ -418,10 +418,10 @@
 						
 							<div class="card">
 								<div class="card-body">
-									<form action="activity/update" method="post">
+									<form action="QingJia/update" method="post">
 										<div class="row">
 											<div class="col-12">
-												<h5 class="form-title"><span>活动详细信息</span></h5>
+												<h5 class="form-title"><span>假期详细信息</span></h5>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
@@ -431,26 +431,38 @@
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>活动名称</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" name="active" id="active">
+													<label>学号</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" name="student" id="student">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>开始时间</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="time" name="time">
+													<label>姓名</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" name="name" id="name">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>负责部门(人)</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="responsible" name="responsible">
+													<label>现班级</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="clazz" name="clazz">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">
 												<div class="form-group">
-													<label>备注</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" id="remarks" name="remarks">
+													<label>请假开始日期</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="start_time" name="start_time">
+												</div>
+											</div>
+											<div class="col-12 col-sm-6">
+												<div class="form-group">
+													<label>请假结束日期</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="end_time" name="end_time">
+												</div>
+											</div>
+											<div class="col-12 col-sm-6">
+												<div class="form-group">
+													<label>请假原因</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="cause" name="cause">
 												</div>
 											</div>
 											<div class="col-12">

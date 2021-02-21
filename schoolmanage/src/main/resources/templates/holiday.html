@@ -58,7 +58,7 @@
 					if(downing){swal("有一项下载任务进行中！", "切勿重复点击！", "warning");return}
 					downing = true;
 					$.ajax({
-						url: 'dormitory/Excle',
+						url: 'QingJia/Excle',
 						dataType: 'text',
 						data:{},
 						success(res){
@@ -588,8 +588,8 @@
 							<li class="submenu active">
 								<a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="holiday.html" class="active">宿舍列表</a></li>
-									<li><a href="add-holiday.html">宿舍添加</a></li>
+									<li><a href="holiday.html" class="active">假期列表</a></li>
+									<li><a href="add-holiday.html">假期添加</a></li>
 								</ul>
 							</li>
 							<li>

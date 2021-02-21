@@ -160,4 +160,8 @@ public interface QingJiaService {
      * @return
      */
     int findByNameCount(String name);
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
 }
