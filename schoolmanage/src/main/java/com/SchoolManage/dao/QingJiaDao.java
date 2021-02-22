@@ -178,4 +178,12 @@ public interface QingJiaDao {
      */
     int deleteQingjia(@Param(value = "id") Integer id);
 
+    /**
+     * @Author RainGoal
+     * @Description
+     * @Param [qingjia]
+     * @Return int
+     * @Date 2021/2/22
+     */
+    int updateQingJia(Qingjia qingjia);
 }

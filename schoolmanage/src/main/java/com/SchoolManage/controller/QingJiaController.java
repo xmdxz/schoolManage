@@ -1,7 +1,6 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
-import com.SchoolManage.pojo.Dormitory;
 import com.SchoolManage.pojo.Qingjia;
 import com.SchoolManage.service.QingJiaService;
 import com.SchoolManage.util.CreateExlceUtil;
@@ -105,6 +104,7 @@ public class QingJiaController {
     public List<Qingjia> findByTeacher(String teacher, Integer Page, Integer num) {
         return qingJiaService.findByTeacher(teacher, Page, num);
     }
+
     @RequestMapping("findbynamecount")
     @ResponseBody
     public int findByNameCount(String name) {
@@ -140,34 +140,34 @@ public class QingJiaController {
             return map;
         }
     }
+
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file){
-        if (file==null){
+    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        if (file == null) {
             return "请选择文件";
         }
         try {
             String filename = file.getOriginalFilename();
-            String extFileName = filename.substring(filename.lastIndexOf("." ) +1,filename.length());
+            String extFileName = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
 //            System.out.println("文件名:\t"+filename);
 //            System.out.println("后缀名:\t"+extFileName);
             //上传到本地,模拟上传到文件服务器
-            String filePath = request.getServletContext().getRealPath("/") + "File\\" ;
+            String filePath = request.getServletContext().getRealPath("/") + "File\\";
             String path = filePath + filename;
             //文件存储路径
             File dest = new File(path);
-            if (!dest.getParentFile().exists()){
+            if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdir();
             }
             file.transferTo(dest);
-            int i=66;
+            int i = 66;
             try {
                 System.out.println(path);
-                i=qingJiaService.BatchAddition(path);
+                i = qingJiaService.BatchAddition(path);
                 dest.delete();
                 return "上传成功了";
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 dest.delete();
                 return "上传的表格不匹配,请进行修改后重先上传";
             }
@@ -178,12 +178,21 @@ public class QingJiaController {
         }
         return "上传失败了";
     }
-    @RequestMapping(value = "Excle",produces = "text/plain;charset=utf-8")
+
+    @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i=qingJiaService.findAllCount();
-        CreateExlceUtil<Qingjia> createExlceUtil = new CreateExlceUtil<>(request,Qingjia.class,"假期表");
-        List<Qingjia> list =qingJiaService.findAll(1,i);
+        int i = qingJiaService.findAllCount();
+        CreateExlceUtil<Qingjia> createExlceUtil = new CreateExlceUtil<>(request, Qingjia.class, "假期表");
+        List<Qingjia> list = qingJiaService.findAll(1, i);
         return createExlceUtil.createExcle(list);
+    }
+
+    @RequestMapping("update")
+    public String updateQingJia(Qingjia qingjia) {
+        int i = qingJiaService.updateQingJia(qingjia);
+        if (i != 0) {
+            return "redirect:改一下页面";
+        } else return "redirect:改一下页面";
     }
 }
