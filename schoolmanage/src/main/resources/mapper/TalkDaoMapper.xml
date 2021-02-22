@@ -26,7 +26,13 @@
         where id = #{id}
           and teacher = #{teacher}
     </delete>
-
+    <update id="updata">
+        update  talk
+        set student = #{talk.student},
+        time = #{talk.time},
+        content = #{talk.content}
+        where id = #{talk.id} and teacher =#{talk.teacher}
+    </update>
     <select id="findAll" resultType="com.SchoolManage.pojo.Talk">
         select *
         from talk

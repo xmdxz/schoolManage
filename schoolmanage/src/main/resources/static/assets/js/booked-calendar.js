@@ -8,17 +8,52 @@ $(function () {
     });
 
 });
-
+function delect(res) {
+    swal({
+            title: "确定删除吗？",
+            text: "你将无法恢复该会话信息！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定删除！",
+            cancelButtonText: "取消删除！",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: "post",
+                    url: "/talk/deletetalk",
+                    dataType: "json",
+                    data: {'id': res},
+                }).done(function (res) {
+                    if (res.code == 500) {
+                        swal("删除失败", "服务器繁忙中...", "warning");
+                    } else if (res.code == 200) {
+                        swal("删除成功！", "即将返回谈话列表", "success");
+                        setTimeout("window.location.href='psychology.html'", "1200");
+                    }
+                })
+            } else {
+                swal("取消！", "你的谈话信息是安全的XD:)",
+                    "error");
+            }
+        });
+}
+function edit(res) {
+    window.location.href='/edit-talk.html?id='+res;
+}
 (function ($) {
-    
+
     $.fn.calendar = function (opts) {
+        var first=true
         var options = $.extend({
             color: '',
             months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octomber', 'November', 'December'],
             days: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
             onSelect: function (res) {
                 res.date = moment(res.date).format('Y-MM-DD');
-                console.log(res.date)
                 $.ajax({
                     type:"post",
                     data:{'Page':1,'date':res.date},
@@ -29,11 +64,44 @@ $(function () {
                         msg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white\">";
                         msg+="<div class=\"toggle-title\"><a href=\"#\">"+n.id+".   "+n.time+ "与"+n.student+"的谈话"+"</a></div>";
                         msg+="<div class=\"toggle-content\" style='display: none' >";
-                        msg+="<p>"+n.content+"</p>";
+                        msg+="<p>"+n.content+"<a style='float: right;padding-right: 5%'  onclick='edit("+n.id+")' >"+"修改"+"</a><a style='float: right;margin-right: 5%' onclick='delect("+n.id+")'>"+"删除"+"</a></p>";
                         msg+="</div>";
                         msg+="</div>";
                     });
-                    $("#talks").html(msg);
+                    var url = document.location.toString();//获取url地址
+                    var id=null;
+                    if(url.indexOf("?")!=-1&&first)
+                    {
+                        var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+                        var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+                        id= arr[0].split("=")[1];//获取数组中第一个参数//
+                        $.ajax({
+                            type:"post",
+                            data:{'id':id},
+                            url: "talk/findbyid",
+                        }).done(function (re) {
+                            console.log(re)
+                            var mg = "";
+                                mg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white\">";
+                                mg+="<div class=\"toggle-title\"><a href=\"#\">"+re.id+".   "+re.time+ "与"+re.student+"的谈话"+"</a></div>";
+                                mg+="<div class=\"toggle-content\" style='display: none' >";
+                                msg+="<p>"+n.content+"<a style='float: right;padding-right: 5%'  onclick='edit("+n.id+")' >"+"修改"+"</a><a style='float: right;margin-right: 5%' onclick='delect("+n.id+")'>"+"删除"+"</a></p>";
+                                mg+="</div>";
+                                mg+="</div>";
+                                if (re==null||re==""){
+                                    $("#talks").html("暂无");
+                                }else {
+                                    $("#talks").html(mg);
+                                }
+                                first=false
+                        })
+                    }else {
+                        if (re==null||re==""){
+                            $("#talks").html("暂无");
+                        }else {
+                            $("#talks").html(msg);
+                        }
+                    }
                 })
             }
         }, $.fn.calendar.defaults, opts);

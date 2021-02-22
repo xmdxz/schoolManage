@@ -128,4 +128,10 @@ public interface TalkDao {
      * @return
      */
     Talk findById(@Param(value = "id")Integer id);
+    /**
+     * 更新
+     * @param talk
+     * @return
+     */
+    int updata(@Param(value = "talk")Talk talk);
 }
