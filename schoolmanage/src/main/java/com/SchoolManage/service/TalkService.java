@@ -130,4 +130,10 @@ public interface TalkService {
      * @return
      */
     Talk findById(Integer id);
+    /**
+     * 更新
+     * @param talk
+     * @return
+     */
+    int updata(Talk talk);
 }

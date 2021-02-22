@@ -88,4 +88,9 @@ public class TalkServiceImpl implements TalkService {
     public Talk findById(Integer id) {
         return talkDao.findById(id);
     }
+
+    @Override
+    public int updata(Talk talk) {
+        return talkDao.updata(talk);
+    }
 }

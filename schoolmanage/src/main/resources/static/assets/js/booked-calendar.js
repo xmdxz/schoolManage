@@ -41,6 +41,9 @@ function delect(res) {
             }
         });
 }
+function edit(res) {
+    window.location.href='/edit-talk.html?id='+res;
+}
 (function ($) {
 
     $.fn.calendar = function (opts) {
@@ -61,7 +64,7 @@ function delect(res) {
                         msg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white\">";
                         msg+="<div class=\"toggle-title\"><a href=\"#\">"+n.id+".   "+n.time+ "与"+n.student+"的谈话"+"</a></div>";
                         msg+="<div class=\"toggle-content\" style='display: none' >";
-                        msg+="<p>"+n.content+"<a style='float: right' onclick='delect("+n.id+")'>"+"删除"+"</a></p>";
+                        msg+="<p>"+n.content+"<a style='float: right;padding-right: 5%'  onclick='edit("+n.id+")' >"+"修改"+"</a><a style='float: right;margin-right: 5%' onclick='delect("+n.id+")'>"+"删除"+"</a></p>";
                         msg+="</div>";
                         msg+="</div>";
                     });
@@ -82,7 +85,7 @@ function delect(res) {
                                 mg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white\">";
                                 mg+="<div class=\"toggle-title\"><a href=\"#\">"+re.id+".   "+re.time+ "与"+re.student+"的谈话"+"</a></div>";
                                 mg+="<div class=\"toggle-content\" style='display: none' >";
-                                mg+="<p>"+re.content+"</p>";
+                                msg+="<p>"+n.content+"<a style='float: right;padding-right: 5%'  onclick='edit("+n.id+")' >"+"修改"+"</a><a style='float: right;margin-right: 5%' onclick='delect("+n.id+")'>"+"删除"+"</a></p>";
                                 mg+="</div>";
                                 mg+="</div>";
                                 if (re==null||re==""){
