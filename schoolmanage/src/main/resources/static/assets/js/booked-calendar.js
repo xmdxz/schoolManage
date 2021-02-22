@@ -8,9 +8,41 @@ $(function () {
     });
 
 });
-
+function delect(res) {
+    swal({
+            title: "确定删除吗？",
+            text: "你将无法恢复该会话信息！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定删除！",
+            cancelButtonText: "取消删除！",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: "post",
+                    url: "/talk/deletetalk",
+                    dataType: "json",
+                    data: {'id': res},
+                }).done(function (res) {
+                    if (res.code == 500) {
+                        swal("删除失败", "服务器繁忙中...", "warning");
+                    } else if (res.code == 200) {
+                        swal("删除成功！", "即将返回谈话列表", "success");
+                        setTimeout("window.location.href='psychology.html'", "1200");
+                    }
+                })
+            } else {
+                swal("取消！", "你的谈话信息是安全的XD:)",
+                    "error");
+            }
+        });
+}
 (function ($) {
-    
+
     $.fn.calendar = function (opts) {
         var first=true
         var options = $.extend({
@@ -29,7 +61,7 @@ $(function () {
                         msg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white\">";
                         msg+="<div class=\"toggle-title\"><a href=\"#\">"+n.id+".   "+n.time+ "与"+n.student+"的谈话"+"</a></div>";
                         msg+="<div class=\"toggle-content\" style='display: none' >";
-                        msg+="<p>"+n.content+"</p>";
+                        msg+="<p>"+n.content+"<a style='float: right' onclick='delect("+n.id+")'>"+"删除"+"</a></p>";
                         msg+="</div>";
                         msg+="</div>";
                     });
