@@ -204,7 +204,7 @@ $(document).ready(function() {
 
     var allPanels = $('.accordion > .toggle').children('.toggle-content').hide();
 
-    $('.toggle-title').on('click',function(e) {
+    $(document).on('click',".toggle-title",function(e) {
 
         e.preventDefault();
         var $this = $(this);
