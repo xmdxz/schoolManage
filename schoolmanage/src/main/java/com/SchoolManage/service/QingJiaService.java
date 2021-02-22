@@ -1,7 +1,6 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Qingjia;
-import org.apache.ibatis.annotations.Param;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -143,6 +142,7 @@ public interface QingJiaService {
      * @return
      */
     int deleteQingjia(Integer id);
+
     /**
      * 根据姓名查找
      *
@@ -151,7 +151,7 @@ public interface QingJiaService {
      * @param num
      * @return
      */
-    List<Qingjia> findByName(String name,Integer startPage,Integer num);
+    List<Qingjia> findByName(String name, Integer startPage, Integer num);
 
     /**
      * 姓名查找数量
@@ -160,8 +160,18 @@ public interface QingJiaService {
      * @return
      */
     int findByNameCount(String name);
+
     /**
      * 批量添加学生
      */
     int BatchAddition(String path);
+
+    /**
+     * @Author RainGoal
+     * @Description 更新请假
+     * @Param [qingjia]
+     * @Return int
+     * @Date 2021/2/22
+     */
+    int updateQingJia(Qingjia qingjia);
 }

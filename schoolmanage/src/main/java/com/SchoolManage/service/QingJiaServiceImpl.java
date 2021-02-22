@@ -2,7 +2,6 @@ package com.SchoolManage.service;
 
 import com.SchoolManage.dao.QingJiaDao;
 import com.SchoolManage.exception.FieldNotExistException;
-import com.SchoolManage.pojo.Dormitory;
 import com.SchoolManage.pojo.Qingjia;
 import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +101,7 @@ public class QingJiaServiceImpl implements QingJiaService {
 
     @Override
     public List<Qingjia> findByName(String name, Integer startPage, Integer num) {
-        return qingJiaDao.findByName(name,startPage-1,num);
+        return qingJiaDao.findByName(name, startPage - 1, num);
     }
 
     @Override
@@ -130,5 +129,10 @@ public class QingJiaServiceImpl implements QingJiaService {
             return -3;
         }
         return num;
+    }
+
+    @Override
+    public int updateQingJia(Qingjia qingjia) {
+        return qingJiaDao.updateQingJia(qingjia);
     }
 }
