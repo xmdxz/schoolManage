@@ -1,7 +1,6 @@
 /*
 * jQuery-Calendar Plugin v1.1.0
 */
-
 $(function () {
     $('#calendar').calendar({
         months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
@@ -20,6 +19,22 @@ $(function () {
             onSelect: function (res) {
                 res.date = moment(res.date).format('Y-MM-DD');
                 console.log(res.date)
+                $.ajax({
+                    type:"post",
+                    data:{'Page':1,'date':res.date},
+                    url: "talk/findbytime",
+                }).done(function (re) {
+                    var msg = "";
+                    $.each(re, function (i, n) {
+                        msg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white\">";
+                        msg+="<div class=\"toggle-title\"><a href=\"#\">"+n.id+".   "+n.time+ "与"+n.student+"的谈话"+"</a></div>";
+                        msg+="<div class=\"toggle-content\" style='display: none' >";
+                        msg+="<p>"+n.content+"</p>";
+                        msg+="</div>";
+                        msg+="</div>";
+                    });
+                    $("#talks").html(msg);
+                })
             }
         }, $.fn.calendar.defaults, opts);
         

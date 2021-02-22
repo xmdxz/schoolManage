@@ -1,7 +1,6 @@
 package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.Activemember;
-import com.SchoolManage.pojo.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -120,13 +119,15 @@ public interface ActiveMemberDao {
      * @return
      */
     int updateDara(@Param(value = "activemember") Activemember activemember);
+
     /**
      * 通过学号查找
      *
      * @param student
      * @return
      */
-    Activemember findByStudent(@Param(value = "student") String student,@Param(value = "activity") Integer activity);
+    Activemember findByStudent(@Param(value = "student") String student, @Param(value = "activity") Integer activity);
+
     /**
      * 通过姓名查找
      *
@@ -135,12 +136,13 @@ public interface ActiveMemberDao {
      * @param num
      * @return 不排除同名学生，所以返回list
      */
-    List<Activemember> findByName(@Param(value = "name") String name,@Param(value = "activity") Integer activity, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Activemember> findByName(@Param(value = "name") String name, @Param(value = "activity") Integer activity, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+
     /**
      * 通过姓名查找数量
      *
      * @param name
      * @return
      */
-    int findByNameCount(@Param(value = "name") String name,@Param(value = "activity") Integer activity);
+    int findByNameCount(@Param(value = "name") String name, @Param(value = "activity") Integer activity);
 }

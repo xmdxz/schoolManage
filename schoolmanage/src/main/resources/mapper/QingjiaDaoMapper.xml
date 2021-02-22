@@ -28,8 +28,8 @@
         select *,
                (select count(*)
                 from qingjia qingjia2
-                where qingjia2.student =qingjia1.student
-                 ) as num
+                where qingjia2.student = qingjia1.student
+               ) as num
         from qingjia qingjia1;
     </select>
     <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Qingjia">
@@ -121,4 +121,15 @@
         from qingjia
         where clazz like "%" #{clazz} "%"
     </select>
+    <update id="updateQingJia" parameterType="com.SchoolManage.pojo.Qingjia">
+        update qingjia
+        set student    = #{student},
+            start_time = #{start_time},
+            teacher    = #{teacher},
+            cause      = #{cause},
+            end_time   = #{end_time},
+            `name`     = #{name},
+            clazz      = #{clazz}
+        where id = #{id};
+    </update>
 </mapper>

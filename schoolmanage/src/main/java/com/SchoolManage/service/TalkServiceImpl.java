@@ -66,7 +66,7 @@ public class TalkServiceImpl implements TalkService {
 
     @Override
     public List<Talk> findByTime(Date date, Integer Page, Integer num) {
-        return talkDao.findByTime(date, (Page - 1) * num, num);
+        return talkDao.findByTime(date, (Page - 1) * 50, 50);
     }
 
     @Override
