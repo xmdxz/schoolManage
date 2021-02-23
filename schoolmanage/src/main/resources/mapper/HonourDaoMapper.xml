@@ -110,4 +110,15 @@
         from honour
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
     </select>
+    <select id="findByName" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where name like "%" #{name} "%" limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByNameCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+        where name like "%" #{name} "%"
+    </select>
 </mapper>

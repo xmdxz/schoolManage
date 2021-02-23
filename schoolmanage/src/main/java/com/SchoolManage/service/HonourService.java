@@ -1,6 +1,7 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Honour;
+import com.SchoolManage.pojo.Qingjia;
 
 import java.sql.Date;
 import java.util.List;
@@ -15,6 +16,23 @@ import java.util.Map;
 
 public interface HonourService {
 
+    /**
+     * 根据姓名查找
+     *
+     * @param name
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Honour> findByName(String name, Integer startPage, Integer num);
+
+    /**
+     * 姓名查找数量
+     *
+     * @param name
+     * @return
+     */
+    int findByNameCount(String name);
     /**
      * 查找全部
      *

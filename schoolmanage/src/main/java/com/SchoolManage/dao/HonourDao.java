@@ -1,6 +1,7 @@
 package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.Honour;
+import com.SchoolManage.pojo.Qingjia;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,23 @@ import java.util.Map;
 @Repository
 public interface HonourDao {
 
+    /**
+     * 根据姓名查找
+     *
+     * @param name
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Honour> findByName(@Param(value = "name") String name, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 姓名查找数量
+     *
+     * @param name
+     * @return
+     */
+    int findByNameCount(@Param(value = "name") String name);
     /**
      * 查找全部
      *

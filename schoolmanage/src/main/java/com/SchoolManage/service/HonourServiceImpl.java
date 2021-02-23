@@ -21,6 +21,16 @@ public class HonourServiceImpl implements HonourService {
     private HonourDao honourDao;
 
     @Override
+    public List<Honour> findByName(String name, Integer startPage, Integer num) {
+        return honourDao.findByName(name,startPage-1,num);
+    }
+
+    @Override
+    public int findByNameCount(String name) {
+        return honourDao.findByNameCount(name);
+    }
+
+    @Override
     public List<Honour> findAll(Integer Page, Integer num) {
         return honourDao.findAll((Page - 1) * num, num);
     }

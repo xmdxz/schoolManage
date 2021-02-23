@@ -1,12 +1,18 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Honour;
+import com.SchoolManage.pojo.Qingjia;
 import com.SchoolManage.service.HonourService;
+import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -36,12 +42,22 @@ public class HonourController {
         return honourService.findAllCount();
     }
 
-    @RequestMapping("findbystudentpage")
+    @RequestMapping("findbystudent")
     @ResponseBody
     public List<Honour> findByStudentPage(String student, Integer Page, Integer num) {
         return honourService.findByStudentPage(student, Page, num);
     }
+    @RequestMapping("findbynamecount")
+    @ResponseBody
+    public int findByNameCount(String name) {
+        return honourService.findByNameCount(name);
+    }
 
+    @RequestMapping("findbyname")
+    @ResponseBody
+    public List<Honour> findByName(String name, Integer Page, Integer num) {
+        return honourService.findByName(name, Page, num);
+    }
     @RequestMapping("findbystudentnopage")
     @ResponseBody
     public List<Honour> findByStudentNoPage(String student) {
@@ -142,5 +158,13 @@ public class HonourController {
             map.put("code", 500);
             return map;
         }
+    }
+    @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i = honourService.findAllCount();
+        CreateExlceUtil<Honour> createExlceUtil = new CreateExlceUtil<>(request, Honour.class, "荣誉表");
+        List<Honour> list = honourService.findAll(1, i);
+        return createExlceUtil.createExcle(list);
     }
 }

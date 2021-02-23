@@ -32,6 +32,14 @@ public class Honour {
      * 获得时间
      */
     private Date time;
+    /**
+     * 姓名
+     */
+    private String name;
 
+    /**
+     * 班级
+     */
+    private String clazz;
 
 }
