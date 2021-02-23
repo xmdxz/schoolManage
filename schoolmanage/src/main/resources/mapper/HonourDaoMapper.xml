@@ -19,12 +19,12 @@
     </insert>
     <update id="updateHonour">
         update honour
-        set student                       = #{honour.student},
-            type                          = #{honour.type},
-            prize                         = #{honour.prize},
-            date_format(time, '%Y-%m-%d') = date_format(#{honour.time,jdbcType=DATE}, '%Y-%m-%d'),
-            name                          = #{honour.name},
-            clazz                         = #{honour.clazz}
+        set student = #{honour.student},
+            type    = #{honour.type},
+            prize   = #{honour.prize},
+            time    = date_format(#{honour.time,jdbcType=DATE}, '%Y-%m-%d'),
+            name    = #{honour.name},
+            clazz   = #{honour.clazz}
         where id = #{honour.id};
     </update>
     <delete id="deleteHon">

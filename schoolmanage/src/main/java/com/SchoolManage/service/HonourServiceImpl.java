@@ -3,7 +3,6 @@ package com.SchoolManage.service;
 import com.SchoolManage.dao.HonourDao;
 import com.SchoolManage.exception.FieldNotExistException;
 import com.SchoolManage.pojo.Honour;
-import com.SchoolManage.pojo.Qingjia;
 import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class HonourServiceImpl implements HonourService {
 
     @Override
     public List<Honour> findByName(String name, Integer startPage, Integer num) {
-        return honourDao.findByName(name,startPage-1,num);
+        return honourDao.findByName(name, startPage - 1, num);
     }
 
     @Override
