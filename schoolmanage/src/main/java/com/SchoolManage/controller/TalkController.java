@@ -50,8 +50,8 @@ public class TalkController {
         talk.setTeacher(a.getName());
         int i = talkService.insertTalk(talk);
         if (i != 0) {
-            return "redirect:改变地址";
-        } else return "redirect:改变地址";
+            return "redirect:/psychology.html";
+        } else return "redirect:/add-talk.html?error=true";
     }
 
     @RequestMapping("findbystudentnopage")
@@ -148,5 +148,15 @@ public class TalkController {
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         if (talk.getTeacher().equals(a.getName())) return talk;
         else return null;
+    }
+
+    @RequestMapping("update")
+    public String update(Talk talk,HttpServletRequest request){
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        talk.setTeacher(a.getName());
+        int i = talkService.updata(talk);
+        if (i != 0) {
+            return "redirect:/login_5.html";
+        } else return "redirect:/edit-talk.html?error=true";
     }
 }

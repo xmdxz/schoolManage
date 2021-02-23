@@ -130,7 +130,7 @@
                                             }).done(function (res) {
                                                 swal("添加成功！", "", "success")
                                                 //延时跳转   非常重要 不然有bug
-                                                setTimeout("window.location.href='/event.html'", "700");
+                                                setTimeout("window.location.href='/psychology.html?id='+isConfirm", "700");
                                             })
                                         })
                                     }else {
@@ -157,7 +157,7 @@
                         },
                         function (isConfirm) {
                             if (isConfirm) {//进行跳转
-                                setTimeout("window.location.href='/event.html'", "100");
+                                window.location.href='/psychology.html?id='+calEvent.maid;
                                 }
                     })
                 }

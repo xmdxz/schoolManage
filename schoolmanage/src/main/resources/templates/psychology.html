@@ -10,13 +10,15 @@
 
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap">
 
+
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}">
 
 		<!-- Fontawesome CSS -->
 		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
 		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
-
+		<!-- themify -->
+		<link rel="stylesheet" type="text/css" th:href="@{/assets/css/themify-icons.css}"/>
 		<!-- Fontawesome CSS -->
 		<link rel="stylesheet" th:href="@{/assets/css/font-awesome.css}">
 
@@ -39,13 +41,7 @@
 		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
 
         <script type="text/javascript">
-			//获取缓存中登录账号的信息
-			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
-			var name=adminuserInfo.name;
-			$(document).ready(function () {
-				$('#InfoName').text(name)
-				console.log(name)
-			});
+
 		</script>
 	</head>
     <body>
@@ -196,7 +192,7 @@
 					<div id="sidebar-menu" class="sidebar-menu">
 						<ul>
 							<li class="menu-title"> 
-								<span>Main Menu</span>
+								<span>主菜单</span>
 							</li>
 							<li> 
 								<a href="index.html"><i class="fas fa-th-large"></i> <span>仪表板</span></a>
@@ -210,15 +206,15 @@
 								<!-- 	<li><a href="edit-student.html">学生编辑</a></li> -->
 								</ul>
 							</li>
-							<li class="submenu">
-								<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="teachers.html">教师列表</a></li>
-									<li><a href="teacher-details.html">教师信息</a></li>
-									<li><a href="add-teacher.html">教师添加</a></li>
-									<li><a href="edit-teacher.html">教师编辑</a></li>
-								</ul>
-							</li>
+<!--							<li class="submenu">-->
+<!--								<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span class="menu-arrow"></span></a>-->
+<!--								<ul>-->
+<!--									<li><a href="teachers.html">教师列表</a></li>-->
+<!--									<li><a href="teacher-details.html">教师信息</a></li>-->
+<!--									<li><a href="add-teacher.html">教师添加</a></li>-->
+<!--									<li><a href="edit-teacher.html">教师编辑</a></li>-->
+<!--								</ul>-->
+<!--							</li>-->
 							<li class="submenu">
 								<a href="#"><i class="fas fa-building"></i> <span>部门</span> <span class="menu-arrow"></span></a>
 								<ul>
@@ -258,18 +254,25 @@
 									<li><a href="add-holiday.html">假期添加</a></li>
 								</ul>
 							</li>
-							<li> 
-								<a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>
+							<li class="submenu">
+								<a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="honour.html">荣誉列表</a></li>
+									<li><a href="add-honour.html">荣誉添加</a></li>
+								</ul>
 							</li>
-							<li> 
-								<a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>
-							</li>
+<!--							<li> -->
+<!--								<a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
+<!--							</li>-->
+<!--							<li> -->
+<!--								<a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
+<!--							</li>-->
 							<li>
 								<a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
 							</li>
-							<li> 
-								<a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>
-							</li>
+<!--							<li> -->
+<!--								<a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
+<!--							</li>-->
 							<!-- <li> 
 								<a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
 							</li> -->
@@ -394,10 +397,10 @@
 							<!--section-title-->
 							<div class="section-title style1">
 								<div class="title-header">
-									<h5>frequently asked question</h5>
-									<h2 class="title">Do you have any <strong>Questions?</strong></h2>
+									<h5><strong><a href="add-talk.html">添加</a></strong>新的内容</h5>
+									<h2 class="title">您的谈话/会议 <strong>内容</strong></h2>
 								</div>
-								<div class="title-desc"><p>Below you’ll find answers to some of the frequently asked questions. We Constantly adding most frequently asked question to this page.</p>
+								<div class="title-desc"><p>点击下方对应日期便可查看当天的谈话记录条目，点击正上方月份年分即可回到本日，点击左方添加可以添加新的谈话记录。</p>
 								</div>
 							</div><!--section-title end-->
 						</div>
