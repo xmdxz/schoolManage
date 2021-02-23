@@ -114,6 +114,7 @@ public class AdminUserController {
     @RequestMapping("updatepassword")
     @ResponseBody
     public String updatePassword(String username, String password) {
+        System.out.println(username+password);
         int i = adminUserService.updatePassword(username, password);
         if (i != 0) {
             return "1";
