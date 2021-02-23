@@ -27,7 +27,7 @@
 		<!-- Bootstrap Core JS -->
 		<script th:src="@{/assets/js/popper.min.js}"></script>
 		<script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
-
+		<script th:src="@{/assets/js/moment.min.js}"></script>
 		<!-- Slimscroll JS -->
 		<script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
@@ -73,7 +73,39 @@
 			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
 			var name=adminuserInfo.name;
 			$(document).ready(function () {
-				$('#InfoName').text(name)
+				$('#InfoName').text(name);
+				$.ajax({
+					type:"post",
+					url:"QingJia/findbystudentnopage",
+					dataType:"json",
+					data: {student:Id}
+				}).done(function (res) {
+					console.log(res)
+					var msg = "";
+					msg+="<h5>"+"请假"+"</h5>";
+					$.each(res, function (i, n) {
+						n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+						n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
+						msg+="<p>"+n.start_time+"到"+n.end_time+n.name+"因"+n.cause+"请假"+"</p>";
+					});
+					$("#qingjia").html(msg);
+				})
+				$.ajax({
+					type:"post",
+					url:"honour/findbystudentnopage",
+					dataType:"json",
+					data: {student:Id}
+				}).done(function (res) {
+					console.log(res)
+					var msg = "";
+					msg+="<h5>"+"荣誉"+"</h5>";
+					$.each(res, function (i, n) {
+						msg+="<p>"+n.name+n.time+"获得"+n.prize+"</p>";
+					});
+					$("#honour").html(msg);
+				})
+				
+
 			});
 		</script>
     </head>
@@ -641,19 +673,13 @@
 								<div class="col-md-12">
 									<div class="skill-info">
 										<div class="row mt-3">
-											<div class="col-md-12">
-												<h5>请假</h5>
-												<p class="mt-3">02月18日 19:18:39 杨树博请假</p>
-												<p>02月18日 19:18:39 杨树博请假</p>
-												<p>02月18日 19:18:39 杨树博请假。</p>
+											<div class="col-md-12" id="qingjia">
+
 											</div>
 										</div>
 										<div class="row mt-3">
-											<div class="col-md-12">
-												<h5>荣誉</h5>
-												<p class="mt-3">跑步比赛的第一名。</p>
-												<p>洛雷姆 · 伊普苏姆只是虚拟文本。</p>
-												<p>获得普通明星学生在高等中等教育。</p>
+											<div class="col-md-12" id="honour">
+
 											</div>
                                         </div>
 									</div>

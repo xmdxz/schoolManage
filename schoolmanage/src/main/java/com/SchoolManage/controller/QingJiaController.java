@@ -72,6 +72,7 @@ public class QingJiaController {
     @RequestMapping("findbytimeyearandmonthanddaycount")
     @ResponseBody
     public int findByTimeYearAndMonthAndDayCount(Timestamp timestamp) {
+        System.out.println(timestamp);
         return qingJiaService.findByTimeYearAndMonthAndDayCount(timestamp);
     }
 

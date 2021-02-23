@@ -108,6 +108,25 @@
             numbers = res;
             document.getElementById("numbers").innerText = numbers;
         });
+        var numbers_1;
+        $.ajax({
+            type: "post",
+            url: "honour/findallcount",
+            dataType: "json",
+        }).done(function (res) {
+            numbers_1 = res;
+            document.getElementById("numbers_1").innerText =numbers_1;
+        });
+        var numbers_2;
+        $.ajax({
+            type: "post",
+            url: "QingJia/findbytimeyearandmonthanddaycount",
+            data:{timestamp:new Date().getTime()},
+            dataType: "json",
+        }).done(function (res) {
+            numbers_2 = res;
+            document.getElementById("numbers_2").innerText =numbers_2;
+        });
         var number;
         $.ajax({
             type: "post",
@@ -121,7 +140,8 @@
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         $(document).ready(function () {
-            $('#InfoName').text(name)
+            $('#InfoName').text(name);
+            console.log(new Date().getTime())
         });
     </script>
 </head>
@@ -518,7 +538,7 @@
                                     <i class="fas fa-crown"></i>
                                 </div>
                                 <div class="db-info">
-                                    <h3>500</h3>
+                                    <h3 id="numbers_1"></h3>
                                     <h6>奖</h6>
                                 </div>
                             </div>
@@ -550,7 +570,7 @@
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </div>
                                 <div class="db-info">
-                                    <h3>5</h3>
+                                    <h3 id="numbers_2">5</h3>
                                     <h6>请假</h6>
                                 </div>
                             </div>
