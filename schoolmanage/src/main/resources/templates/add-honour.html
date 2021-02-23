@@ -288,18 +288,18 @@
                             <li><a href="add-salary.html">添加工资</a></li>
                         </ul>
                     </li> -->
-                    <li class="submenu active">
+                    <li class="submenu">
                         <a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="holiday.html">假期列表</a></li>
-                            <li><a href="add-holiday.html" class="active">假期添加</a></li>
+                            <li><a href="add-holiday.html">假期添加</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
+                    <li class="submenu active">
                         <a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="honour.html">荣誉列表</a></li>
-                            <li><a href="add-honour.html">荣誉添加</a></li>
+                            <li><a href="add-honour.html" class="active">荣誉添加</a></li>
                         </ul>
                     </li>
 <!--                    <li>-->
@@ -444,10 +444,10 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <form action="QingJia/insertqingjia" method="post">
+                            <form action="honour/inserthon" method="post">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5 class="form-title"><span>请假详细信息</span></h5>
+                                        <h5 class="form-title"><span>荣誉详细信息</span></h5>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
@@ -469,26 +469,20 @@
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>批准教师</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="teacher" name="teacher">
+                                            <label>所获荣誉</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" name="prize" id="prize">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>请假开始日期</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="start_time" name="start_time">
+                                            <label>所获荣誉</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" id="type" name="type">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>请假结束日期</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="end_time" name="end_time">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>请假原因</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="cause" name="cause">
+                                            <label>获得时间</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" id="time" name="time">
                                         </div>
                                     </div>
                                     <div class="col-12">

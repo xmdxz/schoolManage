@@ -120,9 +120,9 @@ public class QingJiaController {
     @RequestMapping("insertqingjia")
     public String insertQingjia(Qingjia qingjia) {
         int i = qingJiaService.insertQingjia(qingjia);
-        if (i != 0) {
-            return "redirect:返回的页面";
-        } else return "redirect:返回的页面";
+        if (i!=0){
+            return  "loginp_6";
+        }else return "redirect:/edit-holiday.html";
     }
 
     @RequestMapping("delete")
@@ -191,9 +191,9 @@ public class QingJiaController {
     @RequestMapping("update")
     public String updateQingJia(Qingjia qingjia) {
         int i = qingJiaService.updateQingJia(qingjia);
-        if (i != 0) {
-            return "redirect:改一下页面";
-        } else return "redirect:改一下页面";
+        if (i!=0){
+            return  "loginp_6";
+        }else return "redirect:/edit-holiday.html";
     }
 
     @RequestMapping("findbyid")

@@ -50,8 +50,8 @@ public class TalkController {
         talk.setTeacher(a.getName());
         int i = talkService.insertTalk(talk);
         if (i != 0) {
-            return "redirect:/psychology.html";
-        } else return "redirect:/add-talk.html?error=true";
+            return "redirect:/loginp_5.html";
+        } else return "redirect:/edit-talk.html?error=true";
     }
 
     @RequestMapping("findbystudentnopage")
@@ -156,7 +156,7 @@ public class TalkController {
         talk.setTeacher(a.getName());
         int i = talkService.updata(talk);
         if (i != 0) {
-            return "redirect:/login_5.html";
+            return "redirect:/loginp_5.html";
         } else return "redirect:/edit-talk.html?error=true";
     }
 }

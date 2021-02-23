@@ -110,6 +110,7 @@
         from honour
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
     </select>
+<<<<<<< HEAD
     <update id="updateHonour" parameterType="com.SchoolManage.pojo.Honour">
         update honour
         set student                       = #{student},
@@ -122,5 +123,17 @@
         select *
         from honour
         where id = #{id};
+=======
+    <select id="findByName" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where name like "%" #{name} "%" limit #{startPage}
+            , #{num}
+    </select>
+    <select id="findByNameCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+        where name like "%" #{name} "%"
+>>>>>>> d6c011e4f53f2eb503401fb00cf96ef28c5ee40f
     </select>
 </mapper>
