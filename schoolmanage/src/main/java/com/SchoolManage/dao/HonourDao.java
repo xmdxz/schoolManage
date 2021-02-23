@@ -165,4 +165,21 @@ public interface HonourDao {
      */
     int deleteHon(@Param(value = "id") Integer id);
 
+    /**
+     * @Author RainGoal
+     * @Description 更新荣誉
+     * @Param [honour]
+     * @Return int
+     * @Date 2021/2/23
+     */
+    int updateHonour(Honour honour);
+
+    /**
+     * @Author RainGoal
+     * @Description 根据ID查询
+     * @Param [id]
+     * @Return com.SchoolManage.pojo.Honour
+     * @Date 2021/2/23
+     */
+    Honour findById(int id);
 }

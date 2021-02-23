@@ -110,4 +110,17 @@
         from honour
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
     </select>
+    <update id="updateHonour" parameterType="com.SchoolManage.pojo.Honour">
+        update honour
+        set student                       = #{student},
+            `type`                        = #{type},
+            prize                         = #{prize},
+            date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+        where id = #{id};
+    </update>
+    <select id="findById" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where id = #{id};
+    </select>
 </mapper>

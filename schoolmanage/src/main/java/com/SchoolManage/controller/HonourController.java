@@ -143,4 +143,18 @@ public class HonourController {
             return map;
         }
     }
+
+    @RequestMapping("findbyid")
+    @ResponseBody
+    public Honour findById(int id) {
+        return honourService.findById(id);
+    }
+
+    @RequestMapping("update")
+    public String updateHonour(Honour honour) {
+        int i = honourService.updateHonour(honour);
+        if (i != 0) {
+            return "redirect:跳转页面";
+        } else return "redirect:跳转页面";
+    }
 }
