@@ -2,7 +2,6 @@ package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.AdminUser;
-import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.pojo.Dormitory;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.DormitoryService;
@@ -112,23 +111,23 @@ public class DormitoryController {
     }
 
     @RequestMapping("insertData")
-    public String insertData(Dormitory dormitory,HttpServletRequest request) {
+    public String insertData(Dormitory dormitory, HttpServletRequest request) {
         int i = dormitoryService.insertData(dormitory);
-        if (i!=0){
-            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("插入","的 宿舍信息",a.getName(),"编号为"+dormitory.getBuilding()+"#"+dormitory.getNumber(),"宿舍表");
-            return  "loginp_2";
-        }else return "redirect:/hostel.html";
+        if (i != 0) {
+            AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("插入", "的 宿舍信息", a.getName(), "编号为" + dormitory.getBuilding() + "#" + dormitory.getNumber(), "宿舍表");
+            return "loginp_2";
+        } else return "redirect:/hostel.html";
     }
 
     @RequestMapping("deleteData")
     @ResponseBody
-    public Map<String, Object> deleteData(String building, String number,HttpServletRequest request) {
+    public Map<String, Object> deleteData(String building, String number, HttpServletRequest request) {
         int i = dormitoryService.deleteData(building, number);
         Map<String, Object> map = new HashMap<>();
         if (i != 0) {
-            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("插入","的 宿舍信息",a.getName(),"编号为"+building+"#"+number,"宿舍表");
+            AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("插入", "的 宿舍信息", a.getName(), "编号为" + building + "#" + number, "宿舍表");
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -140,58 +139,61 @@ public class DormitoryController {
     }
 
     @RequestMapping("updateData")
-    public String updateData(Dormitory dormitory,HttpServletRequest request) {
+    @ResponseBody
+    public String updateData(Dormitory dormitory, HttpServletRequest request) {
         int i = dormitoryService.updateData(dormitory);
-        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-        logService.insertNew("更新","的 宿舍信息",a.getName(),"编号为"+dormitory.getBuilding()+"#"+dormitory.getNumber(),"宿舍表");
-        if (i!=0){
-            return  "loginp_2";
-        }else return "redirect:/hostel.html";
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        logService.insertNew("更新", "的 宿舍信息", a.getName(), "编号为" + dormitory.getBuilding() + "#" + dormitory.getNumber(), "宿舍表");
+        if (i != 0) {
+            return "1";
+        } else return "0";
     }
-    @RequestMapping(value = "Excle",produces = "text/plain;charset=utf-8")
+
+    @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i=dormitoryService.findAllNum();
-        CreateExlceUtil<Dormitory> createExlceUtil = new CreateExlceUtil<>(request,Dormitory.class,"宿舍表");
-        List<Dormitory> list =dormitoryService.findAll(1,i);
+        int i = dormitoryService.findAllNum();
+        CreateExlceUtil<Dormitory> createExlceUtil = new CreateExlceUtil<>(request, Dormitory.class, "宿舍表");
+        List<Dormitory> list = dormitoryService.findAll(1, i);
         return createExlceUtil.createExcle(list);
     }
-    @RequestMapping(value = "Excle2",produces = "text/plain;charset=utf-8")
+
+    @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String Excle2Student(HttpServletRequest request,Dormitory dormitory) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i=dormitoryService.findDormitoryMemberNum(dormitory);
-        CreateExlceUtil<Student> createExlceUtil = new CreateExlceUtil<>(request,Student.class,"宿舍成员表");
-        List<Student> list =dormitoryService.findDormitoryMember(dormitory,1,i);
+    public String Excle2Student(HttpServletRequest request, Dormitory dormitory) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i = dormitoryService.findDormitoryMemberNum(dormitory);
+        CreateExlceUtil<Student> createExlceUtil = new CreateExlceUtil<>(request, Student.class, "宿舍成员表");
+        List<Student> list = dormitoryService.findDormitoryMember(dormitory, 1, i);
         return createExlceUtil.createExcle(list);
     }
+
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request,@RequestParam("file") MultipartFile file){
-        if (file==null){
+    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+        if (file == null) {
             return "请选择文件";
         }
         try {
             String filename = file.getOriginalFilename();
-            String extFileName = filename.substring(filename.lastIndexOf("." ) +1,filename.length());
+            String extFileName = filename.substring(filename.lastIndexOf(".") + 1, filename.length());
 //            System.out.println("文件名:\t"+filename);
 //            System.out.println("后缀名:\t"+extFileName);
             //上传到本地,模拟上传到文件服务器
-            String filePath = request.getServletContext().getRealPath("/") + "File\\" ;
+            String filePath = request.getServletContext().getRealPath("/") + "File\\";
             String path = filePath + filename;
             //文件存储路径
             File dest = new File(path);
-            if (!dest.getParentFile().exists()){
+            if (!dest.getParentFile().exists()) {
                 dest.getParentFile().mkdir();
             }
             file.transferTo(dest);
-            int i=66;
+            int i = 66;
             try {
                 System.out.println(path);
-                i=dormitoryService.BatchAddition(path);
+                i = dormitoryService.BatchAddition(path);
                 dest.delete();
                 return "上传成功了";
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
                 dest.delete();
                 return "上传的表格不匹配,请进行修改后重先上传";
             }

@@ -40,14 +40,14 @@ public class StudentController {
     private FeaturesService featuresService;
 
     @RequestMapping("add")
-    public String addStudent(Student student,HttpServletRequest request) {
+    public String addStudent(Student student, HttpServletRequest request) {
 //        Map<String, Object> map = new HashMap<>();
-        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         int i = studentService.insertStudent(student);
         if (i != 0) {
 //            map.put("msg", "添加成功");
 //            map.put("code", 200);
-            logService.insertNew("添加","的学生信息 ",a.getName(),"学号为"+student.getId(),"学生表");
+            logService.insertNew("添加", "的学生信息 ", a.getName(), "学号为" + student.getId(), "学生表");
             return "loginp";
         } else {
 //            map.put("msg", "添加失败");
@@ -62,6 +62,7 @@ public class StudentController {
         List<Student> all = studentService.findAll();
         return all;
     }
+
     @RequestMapping("findallnum")
     @ResponseBody
     public int findAllNum() {
@@ -127,30 +128,31 @@ public class StudentController {
     }
 
     @RequestMapping("update")
-    public String updateStudent(Student student,HttpServletRequest request) {
-        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+    @ResponseBody
+    public String updateStudent(Student student, HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
 //        Map<String, Object> map = new HashMap<>();
         int i = studentService.updateStudent(student);
         if (i != 0) {
-             logService.insertNew("更新","的学生信息",a.getName(),"学号为"+student.getId(),"学生表");
+            logService.insertNew("更新", "的学生信息", a.getName(), "学号为" + student.getId(), "学生表");
 //            map.put("msg", "修改成功");
 //            map.put("code", 200);
-            return "loginp";
+            return "1";
         } else {
 //            map.put("msg", "修改失败");
 //            map.put("code", 500);
-            return "students";
+            return "0";
         }
     }
 
     @RequestMapping("delete")
     @ResponseBody
-    public Map<String, Object> deleteStudent(String id,HttpServletRequest request) {
+    public Map<String, Object> deleteStudent(String id, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
         int i = studentService.deleteStudent(id);
-        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         if (i != 0) {
-            logService.insertNew("删除","的学生信息",a.getName(),"学号为"+id,"学生表");
+            logService.insertNew("删除", "的学生信息", a.getName(), "学号为" + id, "学生表");
             map.put("msg", "删除成功");
             map.put("code", 200);
             return map;
@@ -279,20 +281,17 @@ public class StudentController {
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent(HttpServletRequest request, String major, String direction, String present_class
-            , String original_class, String present_post, String original_post,String nativeplace) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        CreateExlceUtil<Student>  createExlceUtil;
+            , String original_class, String present_post, String original_post, String nativeplace) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        CreateExlceUtil<Student> createExlceUtil;
         List<Student> list;
-        if(nativeplace!=null)
-        {
+        if (nativeplace != null) {
             ArrayList<String> arealist = new ArrayList<>();
             arealist.add(nativeplace);
-            Map<String, Integer> a=studentService.findByArea(arealist);
-            int i=a.get(nativeplace);
-             createExlceUtil = new CreateExlceUtil<>(request, Student.class, "学生表");
-             list = studentService.findByAreaStudent(nativeplace, 1, i);
-        }
-        else
-        {
+            Map<String, Integer> a = studentService.findByArea(arealist);
+            int i = a.get(nativeplace);
+            createExlceUtil = new CreateExlceUtil<>(request, Student.class, "学生表");
+            list = studentService.findByAreaStudent(nativeplace, 1, i);
+        } else {
             Map<String, String> map = new HashMap<>();
             if (major != null) {
                 map.put("major", major);
@@ -402,19 +401,20 @@ public class StudentController {
     @RequestMapping("findbyareastudent")
     @ResponseBody
     public List<Student> findByAreaStudent(String area, int page, int num) {
-        System.out.println("打印"+area);
+        System.out.println("打印" + area);
         System.out.println(page);
         System.out.println(num);
         List<Student> byAreaStudent = studentService.findByAreaStudent(area, page, num);
         return byAreaStudent;
     }
+
     @RequestMapping("findbyareastudentNum")
     @ResponseBody
     public Integer findByAreaStudent(String area) {
         ArrayList<String> arealist = new ArrayList<>();
         arealist.add(area);
-        Map<String, Integer> a=studentService.findByArea(arealist);
-        int i=a.get(area);
+        Map<String, Integer> a = studentService.findByArea(arealist);
+        int i = a.get(area);
         return i;
     }
 }

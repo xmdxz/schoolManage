@@ -104,6 +104,7 @@ public class TalkController {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
+
     @RequestMapping("findbytime")
     @ResponseBody
     public List<Talk> findByTime(Date date, Integer Page, Integer num) {
@@ -151,12 +152,13 @@ public class TalkController {
     }
 
     @RequestMapping("update")
-    public String update(Talk talk,HttpServletRequest request){
+    @ResponseBody
+    public String update(Talk talk, HttpServletRequest request) {
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         talk.setTeacher(a.getName());
         int i = talkService.updata(talk);
         if (i != 0) {
-            return "redirect:/loginp_5.html";
-        } else return "redirect:/edit-talk.html?error=true";
+            return "1";
+        } else return "0";
     }
 }

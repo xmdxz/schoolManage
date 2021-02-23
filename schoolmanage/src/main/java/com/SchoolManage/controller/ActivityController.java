@@ -128,23 +128,23 @@ public class ActivityController {
     }
 
     @RequestMapping("insertac")
-    public String insertAc(Activity activity,HttpServletRequest request) {
+    public String insertAc(Activity activity, HttpServletRequest request) {
         int i = activityService.insertAc(activity);
         if (i != 0) {
-            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新","的 "+activity.getActive(),a.getName(),"编号为"+activity.getId(),"活动表");
+            AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表");
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
 
     @RequestMapping("deleteac")
     @ResponseBody
-    public Map<String, Object> deleteAc(int id,HttpServletRequest request) {
+    public Map<String, Object> deleteAc(int id, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
         int i = activityService.deleteAc(id);
         if (i != 0) {
-            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("删除","的活动信息 ",a.getName(),"编号为"+id,"活动表");
+            AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("删除", "的活动信息 ", a.getName(), "编号为" + id, "活动表");
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -163,14 +163,16 @@ public class ActivityController {
     }
 
     @RequestMapping("update")
-    public String update(Activity activity,HttpServletRequest request) {
+    @ResponseBody
+    public String update(Activity activity, HttpServletRequest request) {
         int i = activityService.updateData(activity);
         if (i != 0) {
-            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新","的 "+activity.getActive(),a.getName(),"编号为"+activity.getId(),"活动表");
-            return "loginp_3";
-        } else return "redirect:/activity.html";
+            AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表");
+            return "1";
+        } else return "0";
     }
+
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
@@ -211,17 +213,15 @@ public class ActivityController {
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request,String responsible) throws
+    public String ExcleStudent(HttpServletRequest request, String responsible) throws
             NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        CreateExlceUtil<Activity>createExlceUtil;
+        CreateExlceUtil<Activity> createExlceUtil;
         List<Activity> list;
-        if(responsible!=null)
-        {
-            int i=activityService.findByResCount(responsible);
+        if (responsible != null) {
+            int i = activityService.findByResCount(responsible);
             createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
-            list = activityService.findByRes(responsible,1, i);
-        }
-        else {
+            list = activityService.findByRes(responsible, 1, i);
+        } else {
             int i = activityService.findAllCount();
             createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
             list = activityService.findAll(1, i);
