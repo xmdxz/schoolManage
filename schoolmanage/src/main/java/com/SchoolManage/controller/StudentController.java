@@ -128,20 +128,19 @@ public class StudentController {
     }
 
     @RequestMapping("update")
-    @ResponseBody
-    public String updateStudent(Student student, HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+    public String updateStudent(Student student,HttpServletRequest request) {
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
 //        Map<String, Object> map = new HashMap<>();
         int i = studentService.updateStudent(student);
         if (i != 0) {
-            logService.insertNew("更新", "的学生信息", a.getName(), "学号为" + student.getId(), "学生表");
+            logService.insertNew("更新","的学生信息",a.getName(),"学号为"+student.getId(),"学生表");
 //            map.put("msg", "修改成功");
 //            map.put("code", 200);
-            return "1";
+            return "loginp";
         } else {
 //            map.put("msg", "修改失败");
 //            map.put("code", 500);
-            return "0";
+            return "students";
         }
     }
 

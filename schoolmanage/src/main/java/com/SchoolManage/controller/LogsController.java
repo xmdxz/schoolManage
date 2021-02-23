@@ -53,11 +53,11 @@ public class LogsController {
 
     @RequestMapping("updata")
     @ResponseBody
-    public String updataLogs(Integer id, String title, Timestamp start, Timestamp end, String className, Integer maid, HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        String user = a.getName();
+    public String updataLogs(Integer id,String title, Timestamp start,Timestamp end,String className,Integer maid,HttpServletRequest request){
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+        String user =a.getName();
 
-        Logs logs = new Logs();
+        Logs logs=new Logs();
         logs.setClassName(className);
         logs.setEnd(end);
         logs.setStart(start);
@@ -65,10 +65,10 @@ public class LogsController {
         logs.setId(id);
         logs.setMaid(maid);
         logs.setUser(user);
-        int i = logsService.updataLogs(logs);
-        if (i == 1)
-            return "1";
-        else return "0";
+        int i =logsService.updataLogs(logs);
+        if (i ==1)
+            return "success";
+        else return "fail";
     }
 
     @RequestMapping("findById")

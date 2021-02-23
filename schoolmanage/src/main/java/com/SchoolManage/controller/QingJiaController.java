@@ -190,12 +190,11 @@ public class QingJiaController {
     }
 
     @RequestMapping("update")
-    @ResponseBody
     public String updateQingJia(Qingjia qingjia) {
         int i = qingJiaService.updateQingJia(qingjia);
-        if (i != 0) {
-            return "1";
-        } else return "0";
+        if (i!=0){
+            return  "loginp_6";
+        }else return "redirect:/edit-holiday.html";
     }
 
     @RequestMapping("findbyid")

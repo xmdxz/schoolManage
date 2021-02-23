@@ -134,13 +134,12 @@ public class ActiveMemberController {
     }
 
     @RequestMapping("updatedata")
-    @ResponseBody
     public String updateData(Activemember activemember) {
         int i = activeMemberService.updateDara(activemember);
 
         if (i != 0) {
-            return "1";
-        } else return "0";
+            return "redirect:/loginp_4.html?id=" + activemember.getActivity();
+        } else return "redirect:/activity.html";
     }
 
     @PostMapping("upfile")

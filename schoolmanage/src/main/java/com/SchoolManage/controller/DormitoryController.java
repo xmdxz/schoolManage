@@ -139,14 +139,13 @@ public class DormitoryController {
     }
 
     @RequestMapping("updateData")
-    @ResponseBody
-    public String updateData(Dormitory dormitory, HttpServletRequest request) {
+    public String updateData(Dormitory dormitory,HttpServletRequest request) {
         int i = dormitoryService.updateData(dormitory);
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        logService.insertNew("更新", "的 宿舍信息", a.getName(), "编号为" + dormitory.getBuilding() + "#" + dormitory.getNumber(), "宿舍表");
-        if (i != 0) {
-            return "1";
-        } else return "0";
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+        logService.insertNew("更新","的 宿舍信息",a.getName(),"编号为"+dormitory.getBuilding()+"#"+dormitory.getNumber(),"宿舍表");
+        if (i!=0){
+            return  "loginp_2";
+        }else return "redirect:/hostel.html";
     }
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")

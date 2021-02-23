@@ -152,13 +152,12 @@ public class TalkController {
     }
 
     @RequestMapping("update")
-    @ResponseBody
-    public String update(Talk talk, HttpServletRequest request) {
+    public String update(Talk talk,HttpServletRequest request){
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         talk.setTeacher(a.getName());
         int i = talkService.updata(talk);
         if (i != 0) {
-            return "1";
-        } else return "0";
+            return "redirect:/loginp_5.html";
+        } else return "redirect:/edit-talk.html?error=true";
     }
 }

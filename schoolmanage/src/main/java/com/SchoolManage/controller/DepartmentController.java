@@ -111,15 +111,14 @@ public class DepartmentController {
     }
 
     @RequestMapping("updatedata")
-    @ResponseBody
-    public String updateData(DepartMent departMent, HttpServletRequest request) {
+    public String updateData(DepartMent departMent,HttpServletRequest request){
         System.out.println(departMent);
         int i = departmentService.updateData(departMent);
-        if (i != 0) {
-            AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表");
-            return "1";
-        } else return "0";
+        if (i!=0){
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新","的 "+departMent.getName(),a.getName(),"编号为"+departMent.getId(),"部门表");
+            return "loginp_1";
+        }else return "redirect:/departments.html";
     }
 
     @RequestMapping("deletedata")

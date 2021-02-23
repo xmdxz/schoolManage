@@ -69,7 +69,11 @@
 			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
 			var name=adminuserInfo.name;
 			$(document).ready(function () {
-				$('#InfoName').text(name)
+				$('#InfoName').text(name);
+				/** 验证文件是否导入成功  */
+				$("#form_1").ajaxForm(function(data){
+					console.log(data)
+				});
 			});
 		</script>
     </head>
@@ -425,15 +429,15 @@
 						
 							<div class="card">
 								<div class="card-body">
-									<form action="activity/update" method="post">
+									<form action="activity/update" method="post" id="form_1">
 										<div class="row">
 											<div class="col-12">
 												<h5 class="form-title"><span>活动详细信息</span></h5>
 											</div>
-											<div class="col-12 col-sm-6">
+											<div class="col-12 col-sm-6" style="display: none">
 												<div class="form-group">
 													<label>编号</label>
-													<input type="text" class="form-control" value="" placeholder="请输入" name="id" id="id" disabled>
+													<input type="text" class="form-control" value="" placeholder="请输入" name="id" id="id">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">

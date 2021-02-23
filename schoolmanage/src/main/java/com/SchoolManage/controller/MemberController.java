@@ -130,17 +130,16 @@ public class MemberController {
     }
 
     @RequestMapping("updatedata")
-    @ResponseBody
-    public String updateData(Member member, HttpServletRequest request) {
+    public String updateData(Member member,HttpServletRequest request){
         int i = memberService.updateData(member);
         UnicodeUtil util = new UnicodeUtil();
-        String str = util.gbEncoding(member.getDepartment());//中文换为unicode编码
-        str = str.replace('\\', '_'); //url中不允许出现、 所以转换
-        if (i != 0) {
-            AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的成员信息", a.getName(), "编号为" + member.getId(), member.getDepartment() + "部门表");
-            return "1";
-        } else return "0";
+        String str =util.gbEncoding(member.getDepartment());//中文换为unicode编码
+        str =str.replace('\\','_'); //url中不允许出现、 所以转换
+        if (i!=0){
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新","的成员信息",a.getName(),"编号为"+member.getId(),member.getDepartment()+"部门表");
+            return "redirect:/loginp_1.html?name="+str;
+        }else return "redirect:/departments.html";
     }
 
     @RequestMapping("deletedata")

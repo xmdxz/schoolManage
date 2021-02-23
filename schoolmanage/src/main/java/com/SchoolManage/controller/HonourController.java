@@ -173,12 +173,11 @@ public class HonourController {
     }
 
     @RequestMapping("update")
-    @ResponseBody
     public String updateHonour(Honour honour) {
         int i = honourService.updateHonour(honour);
         if (i != 0) {
-            return "1";
-        } else return "0";
+            return "loginp_7";
+        } else return "redirect:add-honour.html";
     }
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
