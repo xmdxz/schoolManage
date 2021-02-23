@@ -3,10 +3,31 @@ Author       : Dreamguys
 Template Name: Preskool - Bootstrap Admin Template
 Version      : 1.0
 */
+function checks() {
+	var reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+	var regExp = new RegExp(reg);
+	if (!regExp.test(document.getElementById("time").value)){
+		swal("日期格式不正确，正确格式为:2000-10-10","","warning");
+		return false;
+	}else {
+		return  true;
+	}
+}
+
+function checkm() {
+	var reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/;
+	var regExp = new RegExp(reg);
+	if (!regExp.test(document.getElementById("start_time").value||!regExp.test(document.getElementById("end_time").value))){
+		swal("日期格式不正确，正确格式为: 2014-01-01 12:00:00","","warning");
+		return false;
+	}else {
+		return  true;
+	}
+}
 
 (function($) {
     "use strict";
-	
+
 	// Variables declarations
 	
 	var $wrapper = $('.main-wrapper');
