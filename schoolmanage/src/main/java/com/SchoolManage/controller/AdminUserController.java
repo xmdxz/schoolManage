@@ -111,5 +111,13 @@ public class AdminUserController {
         return "redirect:login.html";
     }
 
-
+    @RequestMapping("updatepassword")
+    @ResponseBody
+    public String updatePassword(String username, String password) {
+        System.out.println(username+password);
+        int i = adminUserService.updatePassword(username, password);
+        if (i != 0) {
+            return "1";
+        } else return "0";
+    }
 }

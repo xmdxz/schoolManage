@@ -3,28 +3,42 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.SchoolManage.dao.AdminUserDao">
     <select id="findAll" resultType="com.SchoolManage.pojo.AdminUser">
-        select * from adminuser ;
+        select *
+        from adminuser;
     </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.AdminUser">
-        select * from adminuser where name like cancat('%',#{name},'%');
+        select *
+        from adminuser
+        where name like cancat('%', #{name}, '%');
     </select>
     <insert id="addAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
-        insert into adminuser(username,password,phone,department,`position`,`name`) values(#{adminUser.username},#{adminUser.password},
-        #{adminUser.phone},#{adminUser.department},#{adminUser.position},#{adminUser.name})
+        insert into adminuser(username, password, phone, department, `position`, `name`)
+        values (#{adminUser.username}, #{adminUser.password},
+                #{adminUser.phone}, #{adminUser.department}, #{adminUser.position}, #{adminUser.name})
     </insert>
     <update id="updateAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
-        update adminuser set username = #{adminUser.username},
-        password = #{adminUser.password},
-        phone = #{adminUser.phone},
-        department = #{adminUser.department},
-        `position` = #{adminUser.position},
-        `name` = #{adminUser.name}
+        update adminuser
+        set username   = #{adminUser.username},
+            password   = #{adminUser.password},
+            phone      = #{adminUser.phone},
+            department = #{adminUser.department},
+            `position` = #{adminUser.position},
+            `name`     = #{adminUser.name}
         where id = #{adminUser.id}
     </update>
     <select id="getAdminUser" resultType="com.SchoolManage.pojo.AdminUser">
-        select * from adminuser where username = #{username}
+        select *
+        from adminuser
+        where username = #{username}
     </select>
     <delete id="deleteAdminUser" parameterType="int">
-        delete from adminuser where id = #{id}
+        delete
+        from adminuser
+        where id = #{id}
     </delete>
+    <update id="updatePassword" parameterType="String">
+        update adminuser
+        set password = #{password}
+        where username = #{username}
+    </update>
 </mapper>

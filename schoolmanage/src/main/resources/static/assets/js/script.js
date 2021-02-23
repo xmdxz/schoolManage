@@ -24,6 +24,41 @@ function checkm() {
 		return  true;
 	}
 }
+function checkmima() {
+	var old_mima=$('#old_mima').val();
+	var new_mima=$('#new_mima').val();
+	var new_mima_1=$('#new_mima_1').val();
+	console.log(old_mima);
+	console.log(password)
+	if(!(new_mima!="")||!(new_mima_1!="")||!(old_mima!=""))
+	{
+		swal("密码不能为空，请输入正确的密码","","warning");
+	}
+	else if(old_mima!=password)
+	{
+		swal("修改失败,原密码错误，请输入正确的密码","","warning");
+	}
+	else if(new_mima!=new_mima_1)
+	{
+		swal("修改失败,两次密码不一致，请检查","","warning");
+	}
+	else if(new_mima_1.length<6)
+	{
+		swal("密码长度不得小于六位,请重新输入", "", "warning")
+	}
+	else {
+		$.ajax({
+			type: "post",
+			url: "/admin/updatepassword",
+			dataType: "json",
+			data: {username:username,password:new_mima_1},
+		}).done(function (res) {
+			console.log(res)
+			swal("修改成功！", "请重新登录", "success");
+			setTimeout("window.location.href='/login.html'", "1200");
+		})
+	}
+}
 
 (function($) {
     "use strict";
