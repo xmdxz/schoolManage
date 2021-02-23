@@ -46,6 +46,10 @@ public interface HonourService {
      * @return
      */
     int findAllCount();
+    /**
+     * 批量添加学生
+     */
+    int BatchAddition(String path);
 
     /**
      * 根据学生查找
@@ -53,6 +57,7 @@ public interface HonourService {
      * @param student
      * @return
      */
+
     List<Honour> findByStudentPage(String student, Integer Page, Integer num);
 
     /**
