@@ -110,14 +110,27 @@ public enum Eneity {
         private static final long serialVersionUID = -7443850665086791238L;
 
         {
+            put("学号", "student");
+            put("姓名", "name");
+            put("班级", "clazz");
+            put("开始时间", "start_time");
+            put("批准教师", "teacher");
+            put("请假原因", "cause");
+            put("结束时间", "end_time");
+            put("共请假次数", "num");
+        }
+    }),
+
+    HONOUR(new LinkedHashMap<String, String>() {
+        private static final long serialVersionUID = -349772258901615099L;
+
+        {
         put("学号", "student");
         put("姓名", "name");
         put("班级", "clazz");
-        put("开始时间", "start_time");
-        put("批准教师", "teacher");
-        put("请假原因", "cause");
-        put("结束时间", "end_time");
-        put("共请假次数", "num");
+        put("荣誉类型", "type");
+        put("荣誉", "prize");
+        put("获得时间", "time");
     }});
 
 

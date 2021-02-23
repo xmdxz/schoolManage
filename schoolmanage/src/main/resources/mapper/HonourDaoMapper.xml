@@ -5,9 +5,9 @@
 
 <mapper namespace="com.SchoolManage.dao.HonourDao">
     <insert id="insertHon">
-        insert into honour(student, type, prize, time,name,clazz)
+        insert into honour(student, type, prize, time, name, clazz)
         values (#{honour.student}, #{honour.type}, #{honour.prize}, #{honour.time,jdbcType=DATE},
-        #{honour.name},#{honour.clazz})
+                #{honour.name}, #{honour.clazz})
     </insert>
     <insert id="insertHons">
         insert into honour(student,type,prize,time,name,clazz)
@@ -17,6 +17,16 @@
             #{item.name},#{item.clazz})
         </foreach>
     </insert>
+    <update id="updateHonour">
+        update honour
+        set student                       = #{honour.student},
+            type                          = #{honour.type},
+            prize                         = #{honour.prize},
+            date_format(time, '%Y-%m-%d') = date_format(#{honour.time,jdbcType=DATE}, '%Y-%m-%d'),
+            name                          = #{honour.name},
+            clazz                         = #{honour.clazz}
+        where id = #{honour.id};
+    </update>
     <delete id="deleteHon">
         delete
         from honour
@@ -112,20 +122,11 @@
         from honour
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
     </select>
-<<<<<<< HEAD
-    <update id="updateHonour" parameterType="com.SchoolManage.pojo.Honour">
-        update honour
-        set student                       = #{student},
-            `type`                        = #{type},
-            prize                         = #{prize},
-            date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
-        where id = #{id};
-    </update>
     <select id="findById" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
         where id = #{id};
-=======
+    </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
@@ -136,6 +137,5 @@
         select count(*)
         from honour
         where name like "%" #{name} "%"
->>>>>>> d6c011e4f53f2eb503401fb00cf96ef28c5ee40f
     </select>
 </mapper>

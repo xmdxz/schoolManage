@@ -1,7 +1,6 @@
 package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.Honour;
-import com.SchoolManage.pojo.Qingjia;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -31,6 +30,7 @@ public interface HonourDao {
      * @return
      */
     int findByNameCount(@Param(value = "name") String name);
+
     /**
      * 查找全部
      *
@@ -190,7 +190,7 @@ public interface HonourDao {
      * @Return int
      * @Date 2021/2/23
      */
-    int updateHonour(Honour honour);
+    int updateHonour(@Param(value = "honour") Honour honour);
 
     /**
      * @Author RainGoal
