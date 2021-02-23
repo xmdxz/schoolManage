@@ -27,7 +27,7 @@ public interface ActiveMemberDao {
      * @return
      */
     List<Activemember> findAll(@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
-
+    
     /**
      * 获取总数
      *

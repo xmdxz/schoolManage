@@ -43,7 +43,7 @@ public class ActiveMemberController {
     public int findAllCount() {
         return activeMemberService.findAllCount();
     }
-
+    
     @RequestMapping("findbyactive")
     @ResponseBody
     public List<Activemember> findByActive(Integer id, Integer Page, Integer num) {

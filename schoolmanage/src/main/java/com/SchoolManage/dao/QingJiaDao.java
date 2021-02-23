@@ -186,4 +186,13 @@ public interface QingJiaDao {
      * @Date 2021/2/22
      */
     int updateQingJia(Qingjia qingjia);
+
+    /**
+     * @Author RainGoal
+     * @Description 根据id查询
+     * @Param [id]
+     * @Return com.SchoolManage.pojo.Qingjia
+     * @Date 2021/2/23
+     */
+    Qingjia findById(int id);
 }

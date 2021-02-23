@@ -195,4 +195,10 @@ public class QingJiaController {
             return "redirect:改一下页面";
         } else return "redirect:改一下页面";
     }
+
+    @RequestMapping("findbyid")
+    @ResponseBody
+    public Qingjia findById(int id) {
+        return qingJiaService.findById(id);
+    }
 }

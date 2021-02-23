@@ -135,4 +135,9 @@ public class QingJiaServiceImpl implements QingJiaService {
     public int updateQingJia(Qingjia qingjia) {
         return qingJiaDao.updateQingJia(qingjia);
     }
+
+    @Override
+    public Qingjia findById(int id) {
+        return qingJiaDao.findById(id);
+    }
 }

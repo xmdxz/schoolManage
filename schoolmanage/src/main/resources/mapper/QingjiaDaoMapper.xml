@@ -132,4 +132,9 @@
             clazz      = #{clazz}
         where id = #{id};
     </update>
+    <select id="findById" resultType="com.SchoolManage.pojo.Qingjia">
+        select *
+        from qingjia
+        where id = #{id};
+    </select>
 </mapper>
