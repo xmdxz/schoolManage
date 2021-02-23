@@ -5,14 +5,16 @@
 
 <mapper namespace="com.SchoolManage.dao.HonourDao">
     <insert id="insertHon">
-        insert into honour(student, type, prize, time)
-        values (#{honour.student}, #{honour.type}, #{honour.prize}, #{honour.time,jdbcType=DATE})
+        insert into honour(student, type, prize, time,name,clazz)
+        values (#{honour.student}, #{honour.type}, #{honour.prize}, #{honour.time,jdbcType=DATE},
+        #{honour.name},#{honour.clazz})
     </insert>
     <insert id="insertHons">
-        insert into honour(student,type,prize,time)
+        insert into honour(student,type,prize,time,name,clazz)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.student},#{item.type},#{item.prize},#{item.time,jdbcType=DATE})
+            (#{item.student},#{item.type},#{item.prize},#{item.time,jdbcType=DATE},
+            #{item.name},#{item.clazz})
         </foreach>
     </insert>
     <delete id="deleteHon">
