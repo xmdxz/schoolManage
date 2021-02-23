@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface AdminUserService {
     /**
-     * @Description:  添加管理员用户
+     * @Description: 添加管理员用户
      * @Param: [adminUser]
      * @return: int
      * @Author: RainGoal
@@ -65,4 +65,13 @@ public interface AdminUserService {
      * @Date: 2021/1/26
      */
     List<AdminUser> findByName(String name);
+
+    /**
+     * @Author RainGoal
+     * @Description 更改密码
+     * @Param [username, password]
+     * @Return int
+     * @Date 2021/2/23
+     */
+    int updatePassword(String username, String password);
 }

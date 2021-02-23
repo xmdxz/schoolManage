@@ -47,4 +47,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     public List<AdminUser> findByName(String name) {
         return adminUserDao.findByName(name);
     }
+
+    @Override
+    public int updatePassword(String username, String password) {
+        return adminUserDao.updatePassword(username, password);
+    }
 }
