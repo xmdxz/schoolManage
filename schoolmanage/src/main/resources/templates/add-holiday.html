@@ -42,7 +42,12 @@
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         $(document).ready(function () {
-            $('#InfoName').text(name)
+            $('#InfoName').text(name);
+            var date=new Date();
+            var date_1=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay()+" 08:00:00";
+            var date_2=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay()+" 20:00:00";
+            $('#start_time').val(date_1);
+            $('#end_time').val(date_2);
             $("#bt1").click(function () {
                 $('#excelFile').trigger("click");
                 $('#excelFile').change(function (event) {
@@ -476,13 +481,13 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>请假开始日期</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="start_time" name="start_time">
+                                            <input type="text" class="form-control" value="" placeholder="请输入(例如:2021-02-21 08:00)" id="start_time" name="start_time">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>请假结束日期</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="end_time" name="end_time">
+                                            <input type="text" class="form-control" value="" placeholder="请输入(例如:2021-02-21 08:00)" id="end_time" name="end_time">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">

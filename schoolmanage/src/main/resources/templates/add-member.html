@@ -38,10 +38,21 @@
     <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
     <script type="text/javascript">
         //获取缓存中登录账号的信息
+        var url = document.location.toString();//获取url地址
+        var Name=null;
+        if(url.indexOf("?")!=-1)
+        {
+            var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+            var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+            Name= arr[0].split("=")[1];//获取数组中第一个参数//
+            Name=decodeURI(Name);//转码将解码方式换为decodeURI，将中文参数获取
+            console.log(Name)
+        }
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         $(document).ready(function () {
-            $('#InfoName').text(name)
+            $('#InfoName').text(name);
+            $('#department').val(Name);
             $("#bt1").click(function () {
                 $('#excelFile').trigger("click");
                 $('#excelFile').change(function (event) {

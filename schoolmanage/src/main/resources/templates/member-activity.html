@@ -43,11 +43,14 @@
 		<script type="text/javascript">
 			var url = document.location.toString();//获取url地址
 			var id=null;
+			var activeName=null;
 			if(url.indexOf("?")!=-1)
 			{
 				var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
 				var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
 				id= arr[0].split("=")[1];//获取数组中第一个参数//
+				activeName=arr[1].split("=")[1];
+				activeName=decodeURI(activeName)
 			}
 			const everypage = 10; //每页的数量
 			var allpage = 1;
@@ -114,6 +117,7 @@
 			var allpage_2= 1;
 			$(document).ready(function () {
 				$('#InfoName').text(name);
+				$("[name='weiyi']").attr("href","add-member-activity.html?id="+id+"&activeName="+activeName);
 				var downing = false;
 				$("#bt1").click(function (){
 					swal("已经开始下载！", "切勿重复点击！", "success");
@@ -681,7 +685,7 @@
 								<a download id="downe" href="" style="display: none"> </a>
 								<button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</button>
 								<!--                        <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</a>-->
-								<a href="add-member-activity.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+								<a href="" class="btn btn-primary" name="weiyi"><i class="fas fa-plus"></i></a>
 							</div>
 						</div>
 					</div>
