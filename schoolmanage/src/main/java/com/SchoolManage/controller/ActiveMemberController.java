@@ -2,6 +2,7 @@ package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Activemember;
+import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.service.ActiveMemberService;
 import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +82,7 @@ public class ActiveMemberController {
     }
 
     @RequestMapping("insertdata")
-    public String insertData(Activemember activemember) {
-        System.out.println(activemember);
+    public String insertData(Activemember activemember,HttpServletRequest request) {
         int i = activeMemberService.insertData(activemember);
         if (i != 0) {
             return "redirect:/loginp_4.html?id=" + activemember.getActivity();

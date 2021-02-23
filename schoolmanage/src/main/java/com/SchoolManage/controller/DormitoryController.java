@@ -1,10 +1,12 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
+import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.pojo.Dormitory;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.DormitoryService;
+import com.SchoolManage.service.LogService;
 import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,8 @@ import java.util.Map;
 public class DormitoryController {
     @Autowired
     private DormitoryService dormitoryService;
+    @Autowired
+    private LogService logService;
 
     @RequestMapping("findDormitoryMember")
     @ResponseBody
@@ -108,19 +112,23 @@ public class DormitoryController {
     }
 
     @RequestMapping("insertData")
-    public String insertData(Dormitory dormitory) {
+    public String insertData(Dormitory dormitory,HttpServletRequest request) {
         int i = dormitoryService.insertData(dormitory);
         if (i!=0){
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("插入","的 宿舍信息",a.getName(),"编号为"+dormitory.getBuilding()+"#"+dormitory.getNumber(),"宿舍表");
             return  "loginp_2";
         }else return "redirect:/hostel.html";
     }
 
     @RequestMapping("deleteData")
     @ResponseBody
-    public Map<String, Object> deleteData(String building, String number) {
+    public Map<String, Object> deleteData(String building, String number,HttpServletRequest request) {
         int i = dormitoryService.deleteData(building, number);
         Map<String, Object> map = new HashMap<>();
         if (i != 0) {
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("插入","的 宿舍信息",a.getName(),"编号为"+building+"#"+number,"宿舍表");
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -132,8 +140,10 @@ public class DormitoryController {
     }
 
     @RequestMapping("updateData")
-    public String updateData(Dormitory dormitory) {
+    public String updateData(Dormitory dormitory,HttpServletRequest request) {
         int i = dormitoryService.updateData(dormitory);
+        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+        logService.insertNew("更新","的 宿舍信息",a.getName(),"编号为"+dormitory.getBuilding()+"#"+dormitory.getNumber(),"宿舍表");
         if (i!=0){
             return  "loginp_2";
         }else return "redirect:/hostel.html";

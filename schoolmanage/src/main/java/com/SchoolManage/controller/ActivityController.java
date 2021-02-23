@@ -2,7 +2,9 @@ package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Activity;
+import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.service.ActivityService;
+import com.SchoolManage.service.LogService;
 import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("activity")
 public class ActivityController {
+    @Autowired
+    private LogService logService;
+
     @Autowired
     private ActivityService activityService;
 
@@ -123,19 +128,23 @@ public class ActivityController {
     }
 
     @RequestMapping("insertac")
-    public String insertAc(Activity activity) {
+    public String insertAc(Activity activity,HttpServletRequest request) {
         int i = activityService.insertAc(activity);
         if (i != 0) {
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新","的 "+activity.getActive(),a.getName(),"编号为"+activity.getId(),"活动表");
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
 
     @RequestMapping("deleteac")
     @ResponseBody
-    public Map<String, Object> deleteAc(int id) {
+    public Map<String, Object> deleteAc(int id,HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
         int i = activityService.deleteAc(id);
         if (i != 0) {
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("删除","的活动信息 ",a.getName(),"编号为"+id,"活动表");
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -152,10 +161,13 @@ public class ActivityController {
     public Activity findById(int id) {
         return activityService.findById(id);
     }
+
     @RequestMapping("update")
-    public String update(Activity activity) {
+    public String update(Activity activity,HttpServletRequest request) {
         int i = activityService.updateData(activity);
         if (i != 0) {
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新","的 "+activity.getActive(),a.getName(),"编号为"+activity.getId(),"活动表");
             return "loginp_3";
         } else return "redirect:/activity.html";
     }

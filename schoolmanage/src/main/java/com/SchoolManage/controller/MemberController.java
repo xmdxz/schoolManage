@@ -1,8 +1,10 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
+import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.pojo.Member;
+import com.SchoolManage.service.LogService;
 import com.SchoolManage.service.MemberService;
 import com.SchoolManage.util.CreateExlceUtil;
 import com.SchoolManage.util.UnicodeUtil;
@@ -33,6 +35,8 @@ import java.util.Map;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private LogService logService;
 
     @RequestMapping("findall")
     @ResponseBody
@@ -111,33 +115,39 @@ public class MemberController {
         return Integer.toString(i);
     }
     @RequestMapping("insertdata")
-    public String insertData(Member member){
+    public String insertData(Member member,HttpServletRequest request){
         int i = memberService.insertData(member);
-        UnicodeUtil util = new UnicodeUtil();
+         UnicodeUtil util = new UnicodeUtil();
         String str =util.gbEncoding(member.getDepartment());//中文换为unicode编码
         str =str.replace('\\','_'); //url中不允许出现、 所以转换
         if (i!=0){
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("插入","的成员信息",a.getName(),"编号为"+member.getId(),member.getDepartment()+"部门表");
             return "redirect:/loginp_1.html?name="+str;
         }else return "redirect:/departments.html";
     }
 
     @RequestMapping("updatedata")
-    public String updateData(Member member){
+    public String updateData(Member member,HttpServletRequest request){
         int i = memberService.updateData(member);
         UnicodeUtil util = new UnicodeUtil();
         String str =util.gbEncoding(member.getDepartment());//中文换为unicode编码
         str =str.replace('\\','_'); //url中不允许出现、 所以转换
         if (i!=0){
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新","的成员信息",a.getName(),"编号为"+member.getId(),member.getDepartment()+"部门表");
             return "redirect:/loginp_1.html?name="+str;
         }else return "redirect:/departments.html";
     }
 
     @RequestMapping("deletedata")
     @ResponseBody
-    public Map<String,Object> deleteData(String id){
+    public Map<String,Object> deleteData(String id,HttpServletRequest request){
         int i = memberService.deleteData(id);
         Map<String, Object> map = new HashMap<>();
         if (i!=0){
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("删除","的成员信息",a.getName(),"编号为"+id,"部门成员表");
             map.put("msg", "success");
             map.put("code", 200);
             return map;

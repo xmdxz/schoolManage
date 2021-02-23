@@ -1,9 +1,11 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
+import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.DepartmentService;
+import com.SchoolManage.service.LogService;
 import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,8 @@ import java.util.Map;
 @RequestMapping("department")
 public class DepartmentController {
 
+    @Autowired
+    private LogService logService;
     @Autowired
     private DepartmentService departmentService;
 
@@ -97,29 +101,35 @@ public class DepartmentController {
     }
 
     @RequestMapping("insertdata")
-    public String insertData(DepartMent departMent){
+    public String insertData(DepartMent departMent,HttpServletRequest request){
         System.out.println(departMent);
         int i = departmentService.insertData(departMent);
         if (i!=0){
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("插入","的 "+departMent.getName(),a.getName(),"编号为"+departMent.getId(),"部门表");
             return  "loginp_1";
         }else return "redirect:/departments.html";
     }
 
     @RequestMapping("updatedata")
-    public String updateData(DepartMent departMent){
+    public String updateData(DepartMent departMent,HttpServletRequest request){
         System.out.println(departMent);
-        int i = departmentService.updateData(departMent);
+         int i = departmentService.updateData(departMent);
         if (i!=0){
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新","的 "+departMent.getName(),a.getName(),"编号为"+departMent.getId(),"部门表");
             return "loginp_1";
          }else return "redirect:/departments.html";
     }
 
     @RequestMapping("deletedata")
     @ResponseBody
-    public Map<String,Object> deleteData(int id){
+    public Map<String,Object> deleteData(int id,HttpServletRequest request){
         int i = departmentService.deleteData(id);
         Map<String, Object> map = new HashMap<>();
         if (i!=0){
+            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("删除","的 部门信息",a.getName(),"编号为"+id,"部门表");
             map.put("msg", "success");
             map.put("code", 200);
             return map;
