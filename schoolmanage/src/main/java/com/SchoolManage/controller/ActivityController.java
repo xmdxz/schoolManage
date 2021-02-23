@@ -37,7 +37,7 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
-
+    
     @RequestMapping("findall")
     @ResponseBody
     public List<Activity> findAll(int page, int num) {
@@ -163,11 +163,11 @@ public class ActivityController {
     }
 
     @RequestMapping("update")
-    public String update(Activity activity,HttpServletRequest request) {
+    public String update(Activity activity, HttpServletRequest request) {
         int i = activityService.updateData(activity);
         if (i != 0) {
-            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新","的 "+activity.getActive(),a.getName(),"编号为"+activity.getId(),"活动表");
+            AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表");
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
