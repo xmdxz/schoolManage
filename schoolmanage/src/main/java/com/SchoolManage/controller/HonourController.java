@@ -139,9 +139,9 @@ public class HonourController {
     @RequestMapping("inserthon")
     public String insertHon(Honour honour) {
         int i = honourService.insertHon(honour);
-        if (i != 0) {
-            return "redirect:改一下跳转的地址";
-        } else return "redirect:改一下跳转的地址";
+        if (i!=0){
+            return  "loginp_7";
+        }else return "redirect:/add-honour.html";
     }
 
     @RequestMapping("deletehon")
