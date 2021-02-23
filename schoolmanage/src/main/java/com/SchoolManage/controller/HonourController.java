@@ -2,7 +2,6 @@ package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Honour;
-import com.SchoolManage.pojo.Qingjia;
 import com.SchoolManage.service.HonourService;
 import com.SchoolManage.util.CreateExlceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +46,7 @@ public class HonourController {
     public List<Honour> findByStudentPage(String student, Integer Page, Integer num) {
         return honourService.findByStudentPage(student, Page, num);
     }
+
     @RequestMapping("findbynamecount")
     @ResponseBody
     public int findByNameCount(String name) {
@@ -58,6 +58,7 @@ public class HonourController {
     public List<Honour> findByName(String name, Integer Page, Integer num) {
         return honourService.findByName(name, Page, num);
     }
+
     @RequestMapping("findbystudentnopage")
     @ResponseBody
     public List<Honour> findByStudentNoPage(String student) {
@@ -139,9 +140,9 @@ public class HonourController {
     @RequestMapping("inserthon")
     public String insertHon(Honour honour) {
         int i = honourService.insertHon(honour);
-        if (i!=0){
-            return  "loginp_7";
-        }else return "redirect:/add-honour.html";
+        if (i != 0) {
+            return "loginp_7";
+        } else return "redirect:/add-honour.html";
     }
 
     @RequestMapping("deletehon")
@@ -159,6 +160,22 @@ public class HonourController {
             return map;
         }
     }
+
+
+    @RequestMapping("findbyid")
+    @ResponseBody
+    public Honour findById(int id) {
+        return honourService.findById(id);
+    }
+
+    @RequestMapping("update")
+    public String updateHonour(Honour honour) {
+        int i = honourService.updateHonour(honour);
+        if (i != 0) {
+            return "redirect:跳转页面";
+        } else return "redirect:跳转页面";
+    }
+
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
@@ -166,5 +183,6 @@ public class HonourController {
         CreateExlceUtil<Honour> createExlceUtil = new CreateExlceUtil<>(request, Honour.class, "荣誉表");
         List<Honour> list = honourService.findAll(1, i);
         return createExlceUtil.createExcle(list);
+
     }
 }
