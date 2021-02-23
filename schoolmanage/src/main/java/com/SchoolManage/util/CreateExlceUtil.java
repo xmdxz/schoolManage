@@ -31,13 +31,15 @@ public class CreateExlceUtil<T> {
         if (name == null || name == "") {
             throw new NameNullException("文件名不能为空！请检查name属性");
         }
-        this.path = request.getServletContext().getRealPath("/") + "Excle\\";
+        this.path = request.getServletContext().getRealPath("/") + "Excle\";
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();
         }
         this.path = this.path + name + ".xlsx";
+        System.out.println(path);
         this.dowloadPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/Excle/" + name + ".xlsx";
+        System.out.println(this.dowloadPath);
         Class clazz = Eneity.class;
         Field[] fields = clazz.getFields();
         Method method = clazz.getMethod("getPojo");

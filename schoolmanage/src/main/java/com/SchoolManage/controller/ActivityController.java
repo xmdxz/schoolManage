@@ -197,6 +197,8 @@ public class ActivityController {
                 System.out.println(path);
                 i = activityService.BatchAddition(path);
                 dest.delete();
+                AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+                logService.insertNew("上窜","活动信息",a.getName(),"多条","活动表");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();
