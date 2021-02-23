@@ -43,7 +43,7 @@ public class ActiveMemberController {
     public int findAllCount() {
         return activeMemberService.findAllCount();
     }
-    
+
     @RequestMapping("findbyactive")
     @ResponseBody
     public List<Activemember> findByActive(Integer id, Integer Page, Integer num) {
@@ -81,8 +81,7 @@ public class ActiveMemberController {
     }
 
     @RequestMapping("insertdata")
-    public String insertData(Activemember activemember) {
-        System.out.println(activemember);
+    public String insertData(Activemember activemember, HttpServletRequest request) {
         int i = activeMemberService.insertData(activemember);
         if (i != 0) {
             return "redirect:/loginp_4.html?id=" + activemember.getActivity();
@@ -135,12 +134,13 @@ public class ActiveMemberController {
     }
 
     @RequestMapping("updatedata")
+    @ResponseBody
     public String updateData(Activemember activemember) {
         int i = activeMemberService.updateDara(activemember);
 
         if (i != 0) {
-            return "redirect:/loginp_4.html?id=" + activemember.getActivity();
-        } else return "redirect:/activity.html";
+            return "1";
+        } else return "0";
     }
 
     @PostMapping("upfile")
