@@ -129,6 +129,17 @@ public class HonourServiceImpl implements HonourService {
     public int deleteHon(Integer id) {
         return honourDao.deleteHon(id);
     }
+
+    @Override
+    public int updateHonour(Honour honour) {
+        return honourDao.updateHonour(honour);
+    }
+
+    @Override
+    public Honour findById(int id) {
+        return honourDao.findById(id);
+    }
+
     @Override
     public int BatchAddition(String path) {
         int num = 0;

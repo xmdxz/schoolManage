@@ -48,7 +48,7 @@
 				id= arr[0].split("=")[1];//获取数组中第一个参数//
 				$.ajax({
 					type:"post",
-					url:"activity/findbyid",
+					url:"honour/findbyid",
 					dataType:"json",
 					data: {id:id}
 				}).done(function (res) {

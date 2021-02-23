@@ -172,8 +172,8 @@ public class HonourController {
     public String updateHonour(Honour honour) {
         int i = honourService.updateHonour(honour);
         if (i != 0) {
-            return "redirect:跳转页面";
-        } else return "redirect:跳转页面";
+            return "loginp_7";
+        } else return "redirect:/add-honour.html";
     }
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
