@@ -18,6 +18,7 @@ public enum Eneity {
             put("姓名", "name");
             put("性别", "sex");
             put("民族", "nation");
+            put("宗教信仰", "religion");
             put("入学年份", "comy");
             put("学院", "clno");
             put("专业", "major");
@@ -28,13 +29,13 @@ public enum Eneity {
             put("原职务", "original_post");
             put("手机号", "phone");
             put("宿舍楼", "bedroom_lou");
+            put("宿舍号", "bedroom_hao");
             put("生日", "birth");
             put("籍贯", "nativeplace");
             put("住址", "address");
             put("父亲手机号", "father_phone");
             put("母亲手机号", "mother_phone");
             put("一寸照片", "photo");
-            put("宗教信仰", "bedroom_hao");
             put("身份证", "idcard");
             put("银行卡号", "bank");
             put("父亲姓名", "father_name");
@@ -125,13 +126,14 @@ public enum Eneity {
         private static final long serialVersionUID = -349772258901615099L;
 
         {
-        put("学号", "student");
-        put("姓名", "name");
-        put("班级", "clazz");
-        put("荣誉类型", "type");
-        put("荣誉", "prize");
-        put("获得时间", "time");
-    }});
+            put("学号", "student");
+            put("姓名", "name");
+            put("班级", "clazz");
+            put("荣誉类型", "type");
+            put("荣誉", "prize");
+            put("获得时间", "time");
+        }
+    });
 
 
     private Map<String, String> pojo;
