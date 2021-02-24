@@ -62,7 +62,7 @@ function edit(res) {
                     var msg = "";
                     $.each(re, function (i, n) {
                         msg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white\">";
-                        msg+="<div class=\"toggle-title\"><a href=\"#\">"+n.id+".   "+n.time+ "与"+n.student+"的谈话"+"</a></div>";
+                        msg+="<div class=\"toggle-title\"><a href=\"#\">"+(i+1)+".   "+n.time+ "与"+n.student+"的谈话"+"</a></div>";
                         msg+="<div class=\"toggle-content\" style='display: none' >";
                         msg+="<p>"+n.content+"<a style='float: right;padding-right: 5%'  onclick='edit("+n.id+")' >"+"修改"+"</a><a style='float: right;margin-right: 5%' onclick='delect("+n.id+")'>"+"删除"+"</a></p>";
                         msg+="</div>";
