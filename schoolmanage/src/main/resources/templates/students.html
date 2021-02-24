@@ -326,8 +326,10 @@
                             $('#present_class').append('<option value="0">请选择</option>');
                             $('#original_class').find('option').remove();
                             $('#original_class').append('<option value="0">请选择</option>');
-                            for (let i = 1; i <= 19; i++) {
+                            for (let i = 1; i <= 22; i++) {
                                 var banji = "软件190" + i;
+                                if(i>=10)
+                                    var banji = "软件19" + i;
                                 $('#original_class').append('<option value=' + banji + '>' + banji + '</option>');
 
                             }
@@ -408,7 +410,7 @@
                         $('#present_class').find('option').remove();
                         $('#present_class').append('<option value="0">请选择</option>');
                         for (let i = 10; i <= 10; i++) {
-                            var banji = "软件190" + i;
+                            var banji = "软件19" + i;
                             $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
 
                         }
@@ -417,7 +419,7 @@
                         $('#present_class').find('option').remove();
                         $('#present_class').append('<option value="0">请选择</option>');
                         for (let i = 11; i <= 12; i++) {
-                            var banji = "软件190" + i;
+                            var banji = "软件19" + i;
                             $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
 
                         }
@@ -426,7 +428,7 @@
                         $('#present_class').find('option').remove();
                         $('#present_class').append('<option value="0">请选择</option>');
                         for (let i = 13; i <= 22; i++) {
-                            var banji = "软件190" + i;
+                            var banji = "软件19" + i;
                             $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
 
                         }
