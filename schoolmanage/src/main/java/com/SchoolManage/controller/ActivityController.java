@@ -37,7 +37,7 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
-
+    
     @RequestMapping("findall")
     @ResponseBody
     public List<Activity> findAll(int page, int num) {
@@ -163,11 +163,11 @@ public class ActivityController {
     }
 
     @RequestMapping("update")
-    public String update(Activity activity,HttpServletRequest request) {
+    public String update(Activity activity, HttpServletRequest request) {
         int i = activityService.updateData(activity);
         if (i != 0) {
-            AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新","的 "+activity.getActive(),a.getName(),"编号为"+activity.getId(),"活动表");
+            AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表");
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
@@ -197,6 +197,8 @@ public class ActivityController {
                 System.out.println(path);
                 i = activityService.BatchAddition(path);
                 dest.delete();
+                AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+                logService.insertNew("上窜","活动信息",a.getName(),"多条","活动表");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();
