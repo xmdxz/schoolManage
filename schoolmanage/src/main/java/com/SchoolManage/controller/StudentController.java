@@ -128,12 +128,12 @@ public class StudentController {
     }
 
     @RequestMapping("update")
-    public String updateStudent(Student student,HttpServletRequest request) {
-        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
+    public String updateStudent(Student student, HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
 //        Map<String, Object> map = new HashMap<>();
         int i = studentService.updateStudent(student);
         if (i != 0) {
-            logService.insertNew("更新","的学生信息",a.getName(),"学号为"+student.getId(),"学生表");
+            logService.insertNew("更新", "的学生信息", a.getName(), "学号为" + student.getId(), "学生表");
 //            map.put("msg", "修改成功");
 //            map.put("code", 200);
             return "loginp";
@@ -209,22 +209,22 @@ public class StudentController {
             , String original_class, String present_post, String original_post) {
 
         Map<String, String> map = new HashMap<>();
-        if (major != null) {
+        if (major != null && "".equals(major)) {
             map.put("major", major);
         }
-        if (direction != null) {
+        if (direction != null && "".equals(direction)) {
             map.put("direction", direction);
         }
-        if (present_class != null) {
+        if (present_class != null && "".equals(present_class)) {
             map.put("present_class", present_class);
         }
-        if (original_class != null) {
+        if (original_class != null && "".equals(original_class)) {
             map.put("original_class", original_class);
         }
-        if (present_post != null) {
+        if (present_post != null && "".equals(present_post)) {
             map.put("present_post", present_post);
         }
-        if (original_post != null) {
+        if (original_post != null && "".equals(original_post)) {
             map.put("original_post", original_post);
         }
         int i = studentService.findByMultipleConditionsCount(map);
@@ -283,7 +283,7 @@ public class StudentController {
             , String original_class, String present_post, String original_post, String nativeplace) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         CreateExlceUtil<Student> createExlceUtil;
         List<Student> list;
-        if (nativeplace != null) {
+        if (nativeplace != null && !"".equals(nativeplace)) {
             ArrayList<String> arealist = new ArrayList<>();
             arealist.add(nativeplace);
             Map<String, Integer> a = studentService.findByArea(arealist);
@@ -292,29 +292,28 @@ public class StudentController {
             list = studentService.findByAreaStudent(nativeplace, 1, i);
         } else {
             Map<String, String> map = new HashMap<>();
-            if (major != null) {
+            if (major != null && "".equals(major)) {
                 map.put("major", major);
             }
-            if (direction != null) {
+            if (direction != null && "".equals(direction)) {
                 map.put("direction", direction);
             }
-            if (present_class != null) {
+            if (present_class != null && "".equals(present_class)) {
                 map.put("present_class", present_class);
             }
-            if (original_class != null) {
+            if (original_class != null && "".equals(original_class)) {
                 map.put("original_class", original_class);
             }
-            if (present_post != null) {
+            if (present_post != null && "".equals(present_post)) {
                 map.put("present_post", present_post);
             }
-            if (original_post != null) {
+            if (original_post != null && "".equals(original_post)) {
                 map.put("original_post", original_post);
             }
             int i = studentService.findByMultipleConditionsCount(map);
             createExlceUtil = new CreateExlceUtil<>(request, Student.class, "学生表");
             list = studentService.findByMultipleConditions(map, 1, i);
         }
-
         return createExlceUtil.createExcle(list);
     }
 
@@ -343,8 +342,8 @@ public class StudentController {
                 System.out.println(path);
                 i = studentService.BatchAddition(path);
                 dest.delete();
-                AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上窜","学生信息",a.getName(),"多条","学生表");
+                AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+                logService.insertNew("上窜", "学生信息", a.getName(), "多条", "学生表");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();
