@@ -37,9 +37,7 @@ public class CreateExlceUtil<T> {
             file.mkdirs();
         }
         this.path = this.path + name + ".xlsx";
-        System.out.println(path);
         this.dowloadPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/Excle/" + name + ".xlsx";
-        System.out.println(this.dowloadPath);
         Class clazz = Eneity.class;
         Field[] fields = clazz.getFields();
         Method method = clazz.getMethod("getPojo");

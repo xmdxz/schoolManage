@@ -18,10 +18,11 @@ import java.util.Set;
 
 public class ExcleTemplate {
 
-    public static String getTemplate(HttpServletRequest request, Class cl, String name) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException, NameNullException {
+    public static <T> String getTemplate(HttpServletRequest request, T t, String name) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException, NameNullException {
         if (name == null || name == "") {
             throw new NameNullException("文件名不能为空！请检查name属性");
         }
+        Class cl = t.getClass();
         String path = request.getServletContext().getRealPath("/") + "Template/";
         Map<String, String> map = new LinkedHashMap<>();
         File file = new File(path);
@@ -43,16 +44,26 @@ public class ExcleTemplate {
             Workbook workbook = new XSSFWorkbook();
             Sheet sheet = workbook.createSheet(name);
             Row row = sheet.createRow(0);
-            CellStyle cellStyle = workbook.createCellStyle();
-            cellStyle.setAlignment(HorizontalAlignment.CENTER);
+            Row row1 = sheet.createRow(1);
             int num = 0;
             for (String fieldName : set) {
+                CellStyle cellStyle = workbook.createCellStyle();
+                cellStyle.setAlignment(HorizontalAlignment.CENTER);
+                cellStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
                 Cell cell = row.createCell(num);
+                Cell cell1 = row1.createCell(num);
                 cell.setCellStyle(cellStyle);
                 cell.setCellValue(fieldName);
+                Method method1 = cl.getMethod("get" + map.get(fieldName).substring(0, 1).toUpperCase() + map.get(fieldName).substring(1));
+                String value = method1.invoke(t, null).toString();
+                cell1.setCellStyle(cellStyle);
+                cell1.setCellValue(value);
                 num++;
             }
-            workbook.write(new FileOutputStream(path));
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            workbook.write(fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
             return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/Template/" + name + ".xlsx";
         }
         return null;
