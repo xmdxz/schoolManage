@@ -47,20 +47,26 @@ public class ExcleTemplate {
             Row row1 = sheet.createRow(1);
             int num = 0;
             for (String fieldName : set) {
+                sheet.setColumnWidth(num, (int) (sheet.getColumnWidth(num) * 1.5));
                 CellStyle cellStyle = workbook.createCellStyle();
                 cellStyle.setAlignment(HorizontalAlignment.CENTER);
-                cellStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
+                cellStyle.setBorderTop(BorderStyle.THIN);
                 Cell cell = row.createCell(num);
                 Cell cell1 = row1.createCell(num);
                 cell.setCellStyle(cellStyle);
                 cell.setCellValue(fieldName);
+                CellStyle cellStyle1 = workbook.createCellStyle();
+                cellStyle1.setAlignment(HorizontalAlignment.CENTER);
+                cellStyle1.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+                cellStyle1.setFillForegroundColor(IndexedColors.RED.getIndex());
+                cellStyle1.setBorderTop(BorderStyle.THIN);
                 Method method1 = cl.getMethod("get" + map.get(fieldName).substring(0, 1).toUpperCase() + map.get(fieldName).substring(1));
                 String value = method1.invoke(t, null).toString();
-                cell1.setCellStyle(cellStyle);
+                cell1.setCellStyle(cellStyle1);
                 cell1.setCellValue(value);
                 num++;
             }
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            FileOutputStream fileOutputStream = new FileOutputStream(path);
             workbook.write(fileOutputStream);
             fileOutputStream.flush();
             fileOutputStream.close();

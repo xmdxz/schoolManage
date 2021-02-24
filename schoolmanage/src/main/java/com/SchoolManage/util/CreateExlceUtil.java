@@ -58,6 +58,7 @@ public class CreateExlceUtil<T> {
         Set<String> set = eneity.keySet();
         int num = 0;
         for (String str : set) {
+            this.sheet.setColumnWidth(num, (int) (this.sheet.getColumnWidth(num) * 1.5));
             Cell cell = row0.createCell(num);
             cell.setCellStyle(cellStyle);
             cell.setCellValue(str);
