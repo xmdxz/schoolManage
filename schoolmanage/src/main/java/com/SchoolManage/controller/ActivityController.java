@@ -3,9 +3,11 @@ package com.SchoolManage.controller;
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Activity;
 import com.SchoolManage.pojo.AdminUser;
+import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.ActivityService;
 import com.SchoolManage.service.LogService;
 import com.SchoolManage.util.CreateExlceUtil;
+import com.SchoolManage.util.ExcleTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -218,7 +221,7 @@ public class ActivityController {
             NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         CreateExlceUtil<Activity> createExlceUtil;
         List<Activity> list;
-        if (responsible != null) {
+        if (responsible != null&&!"".equals(responsible)) {
             int i = activityService.findByResCount(responsible);
             createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
             list = activityService.findByRes(responsible, 1, i);
@@ -229,6 +232,13 @@ public class ActivityController {
         }
 
         return createExlceUtil.createExcle(list);
+
+    }
+    @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+       Activity activity=new Activity(1,"xxx","xxx","xxx",new Date(2020-02-03),0);
+        return ExcleTemplate.getTemplate(request,activity,"活动表模板");
 
     }
 }

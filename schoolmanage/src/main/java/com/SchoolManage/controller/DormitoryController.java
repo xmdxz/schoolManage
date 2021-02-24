@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,10 +151,24 @@ public class DormitoryController {
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i = dormitoryService.findAllNum();
-        CreateExlceUtil<Dormitory> createExlceUtil = new CreateExlceUtil<>(request, Dormitory.class, "宿舍表");
-        List<Dormitory> list = dormitoryService.findAll(1, i);
+    public String ExcleStudent(HttpServletRequest request,String building,String number) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        CreateExlceUtil<Dormitory> createExlceUtil;
+        List<Dormitory> list =new ArrayList<Dormitory>();
+        if(building!=null&&!"".equals(building))
+        {
+            createExlceUtil = new CreateExlceUtil<>(request, Dormitory.class, "宿舍表");
+            if(dormitoryService.findByBuildingAndNumber(building, number)!=null)
+            list.add(dormitoryService.findByBuildingAndNumber(building, number));
+            else
+                list.clear();
+        }
+        else {
+            int i = dormitoryService.findAllNum();
+            createExlceUtil = new CreateExlceUtil<>(request, Dormitory.class, "宿舍表");
+            list = dormitoryService.findAll(1, i);
+            System.out.println(list);
+        }
+
         return createExlceUtil.createExcle(list);
     }
 

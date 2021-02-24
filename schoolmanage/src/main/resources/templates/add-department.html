@@ -67,6 +67,26 @@
                 });
 
             })
+            var downing = false;
+            $("#bt2").click(function () {
+                swal("已经开始下载！", "切勿重复点击！", "success");
+                if (downing) {
+                    swal("有一项下载任务进行中！", "切勿重复点击！", "warning");
+                    return
+                }
+                downing = true;
+                $.ajax({
+                    url: 'department/Excle2',
+                    dataType: 'text',
+                    success(res) {
+                        console.log(res);
+                        $("#downe").attr("href", res);
+                        console.log($("#a")[0]);
+                        $("#downe")[0].click()
+                        downing = false;
+                    }
+                })
+            })
         });
     </script>
 </head>
@@ -364,6 +384,10 @@
                         </ul>
                     </div>
                     <div class="col-auto text-right float-right ml-auto">
+                        <a download id="downe" href="" style="display: none"> </a>
+                        <button type="button" id="bt2" class="btn btn-outline-primary mr-2"><i
+                                class="fas fa-download"></i> 下载模板
+                        </button>
                         <input type="file" name="excelFile" id="excelFile" style="display:none" accept=".xls,.xlsx">
                         <button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i
                                 class="fas fa-upload"></i> 批量添加

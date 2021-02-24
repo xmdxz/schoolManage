@@ -33,9 +33,9 @@
     <!-- Slimscroll JS -->
     <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
-<!--    &lt;!&ndash; Chart JS &ndash;&gt;-->
-<!--    <script th:src="@{/assets/plugins/apexchart/apexcharts.min.js}"></script>-->
-<!--    <script th:src="@{/assets/plugins/apexchart/chart-data.js}"></script>-->
+    <!--    &lt;!&ndash; Chart JS &ndash;&gt;-->
+    <!--    <script th:src="@{/assets/plugins/apexchart/apexcharts.min.js}"></script>-->
+    <!--    <script th:src="@{/assets/plugins/apexchart/chart-data.js}"></script>-->
 
     <!-- Custom JS -->
     <script th:src="@{/assets/js/script.js}"></script>
@@ -48,21 +48,20 @@
 
     <script type="text/javascript">
         var url = document.location.toString();//获取url地址
-        var area=null;
+        var area = null;
         const everypage_3 = 20; //每页的数量
         var allpage_3 = 1;
         const everypage = 20; //每页的数量
         var allpage = 1;
-        if(url.indexOf("?")!=-1)
-        {
-            var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+        if (url.indexOf("?") != -1) {
+            var urlParmStr = url.slice(url.indexOf('?') + 1);//获取问号后所有的字符串
             var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
-            area= arr[0].split("=")[1];//获取数组中第一个参数//
-            area=decodeURI(area);
+            area = arr[0].split("=")[1];//获取数组中第一个参数//
+            area = decodeURI(area);
             $.ajax({
                 type: "post",
                 url: "student/findbyareastudentNum",
-                data:{area:area},
+                data: {area: area},
                 dataType: "json",
                 async: false,
             }).done(function (res) {
@@ -73,7 +72,7 @@
                 type: "post",
                 url: "student/findbyareastudent",
                 dataType: "json",
-                data: {area:area,'page': 1, 'num': everypage_3},
+                data: {area: area, 'page': 1, 'num': everypage_3},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -85,7 +84,7 @@
                     msg += "<td>" + n.present_post + "</td>";
                     msg += "<td>" + n.original_post + "</td>";
                     msg += "<td>" + n.clno + "</td>";
-                    msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"hostel.html?building=" + n.bedroom_lou + "&number=" + n.bedroom_hao + "\"" + ">" + n.bedroom_lou + n.bedroom_hao + "</a></h2></td>";
                     msg += "<td>" + n.phone + "</td>";
                     msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
                     msg += "</tr>";
@@ -117,8 +116,7 @@
                     }
                 });
             })
-        }
-        else {
+        } else {
 
 
             $.ajax({
@@ -148,7 +146,7 @@
                     msg += "<td>" + n.present_post + "</td>";
                     msg += "<td>" + n.original_post + "</td>";
                     msg += "<td>" + n.clno + "</td>";
-                    msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"hostel.html?building=" + n.bedroom_lou +"&number="+n.bedroom_hao+"\"" + ">" +  n.bedroom_lou + n.bedroom_hao +"</a></h2></td>";
                     msg += "<td>" + n.phone + "</td>";
                     msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
                     msg += "</tr>";
@@ -183,6 +181,7 @@
                 alert("系统繁忙哈...")
             });
         }
+
         function newpage(res) {
             var page = res
             $.ajax({
@@ -201,7 +200,7 @@
                     msg += "<td>" + n.present_post + "</td>";
                     msg += "<td>" + n.original_post + "</td>";
                     msg += "<td>" + n.clno + "</td>";
-                    msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"hostel.html?building=" + n.bedroom_lou +"&number="+n.bedroom_hao+"\"" + ">" +  n.bedroom_lou + n.bedroom_hao +"</a></h2></td>";
                     msg += "<td>" + n.phone + "</td>";
                     msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
                     msg += "</tr>";
@@ -245,15 +244,16 @@
                 });
 
         }
+
         //获取缓存中登录账号的信息
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         var info_1;
         const everypage_1 = 20; //每页的数量
         var allpage_1 = 1;
-        var a=null;
+        var a = null;
         const everypage_2 = 20; //每页的数量
-        var allpage_2= 1;
+        var allpage_2 = 1;
         var map = new Map();
         $(document).ready(function () {
             $('#InfoName').text(name);
@@ -263,47 +263,43 @@
 
                 form.on('select(major)', function (data) {
                     console.log(data);
-                    var key=data.elem.id;
+                    var key = data.elem.id;
                     info_1 = data.value;
-                    if(data.value!='0')
-                    map.set(key,info_1);
-                    if(data.elem.id=="present_post"&&info_1=="0")
-                    {
-                        if(map.has("present_post"))
-                        map.delete("present_post");
+                    if (data.value != '0')
+                        map.set(key, info_1);
+                    if (data.elem.id == "present_post" && info_1 == "0") {
+                        if (map.has("present_post"))
+                            map.delete("present_post");
                     }
 
-                    if(data.elem.id=="original_post"&&info_1=="0")
-                    {   if(map.has("original_post"))
-                        map.delete("original_post");
+                    if (data.elem.id == "original_post" && info_1 == "0") {
+                        if (map.has("original_post"))
+                            map.delete("original_post");
                     }
-                    if(data.elem.id=="direction"&&info_1=="0")
-                    {
-                        if(map.has("direction"))
+                    if (data.elem.id == "direction" && info_1 == "0") {
+                        if (map.has("direction"))
                             map.delete("direction");
                     }
 
-                    if(data.elem.id=="original_class"&&info_1=="0")
-                    {   if(map.has("original_class"))
-                        map.delete("original_class");
+                    if (data.elem.id == "original_class" && info_1 == "0") {
+                        if (map.has("original_class"))
+                            map.delete("original_class");
                     }
-                    if(data.elem.id=="present_class"&&info_1=="0")
-                    {   if(map.has("present_class"))
-                        map.delete("present_class");
+                    if (data.elem.id == "present_class" && info_1 == "0") {
+                        if (map.has("present_class"))
+                            map.delete("present_class");
                     }
-                    if(data.elem.id=="major"&&info_1!="0")
-                    {   map.clear();
-                        map.set(key,info_1)
+                    if (data.elem.id == "major" && info_1 != "0") {
+                        map.clear();
+                        map.set(key, info_1)
                     }
-                    if(data.elem.id=="direction"&&info_1!="0")
-                    {
+                    if (data.elem.id == "direction" && info_1 != "0") {
                         $('#present_class').find('option').remove();
                         $('#present_class').append('<option value="0">请选择</option>');
                     }
 
                     if (data.elem.id == "major") {
-                        if(info_1=="0")
-                        {
+                        if (info_1 == "0") {
                             map.clear();
                             $('#direction').find('option').remove();
                             $('#direction').append('<option value="0">请选择</option>');
@@ -328,13 +324,13 @@
                             $('#original_class').append('<option value="0">请选择</option>');
                             for (let i = 1; i <= 22; i++) {
                                 var banji = "软件190" + i;
-                                if(i>=10)
+                                if (i >= 10)
                                     var banji = "软件19" + i;
                                 $('#original_class').append('<option value=' + banji + '>' + banji + '</option>');
 
                             }
                             layui.form.render("select");
-                        }  else if (info_1 == "数媒") {
+                        } else if (info_1 == "数媒") {
                             $('#direction').find('option').remove();
                             $('#direction').append('<option value="0">请选择</option>');
                             $('#direction').append('<option value="方向一">方向一</option>');
@@ -350,9 +346,7 @@
 
                             }
                             layui.form.render("select");
-                        }
-                        else if(info_1=="智能")
-                        {
+                        } else if (info_1 == "智能") {
                             $('#direction').find('option').remove();
                             $('#direction').append('<option value="0">暂无方向</option>');
                             layui.form.render("select");
@@ -373,8 +367,7 @@
 
                             }
                             layui.form.render("select");
-                        }
-                        else if (info_1 == "大数据方向") {
+                        } else if (info_1 == "大数据方向") {
                             $('#direction').find('option').remove();
                             $('#direction').append('<option value="0">暂无方向</option>');
                             layui.form.render("select");
@@ -395,8 +388,7 @@
                             }
                             layui.form.render("select");
                         }
-                    }
-                    else if (info_1 == "JavaEE") {
+                    } else if (info_1 == "JavaEE") {
                         $('#present_class').find('option').remove();
                         $('#present_class').append('<option value="0">请选择</option>');
                         for (let i = 1; i <= 9; i++) {
@@ -455,25 +447,35 @@
                     }
                     console.log(map);
                     $.ajax({
-                        type:"post",
-                        url:"/student/findByMultipleConditionsCount",
-                        dataType:"json",
+                        type: "post",
+                        url: "/student/findByMultipleConditionsCount",
+                        dataType: "json",
                         async: false,
-                        data:{major:map.get("major"),direction:map.get("direction"),present_class:
-                                map.get("present_class"),original_class:map.get("original_class"),
-                            present_post:map.get("present_post"),original_post:map.get("original_post")}
+                        data: {
+                            major: map.get("major"), direction: map.get("direction"), present_class:
+                                map.get("present_class"), original_class: map.get("original_class"),
+                            present_post: map.get("present_post"), original_post: map.get("original_post")
+                        }
                     }).done(function (res) {
-                        allpage_1=Math.ceil(res / everypage_1);
+                        allpage_1 = Math.ceil(res / everypage_1);
                         console.log(allpage_1)
                     })
                     $.ajax({
-                        type:"post",
-                        url:"/student/findByMultipleConditions",
-                        dataType:"json",
-                        data:{major:map.get("major"),direction:map.get("direction"),present_class:
-                        map.get("present_class"),original_class:map.get("original_class"),
-                            present_post:map.get("present_post"),original_post:map.get("original_post"),page: 1, num: everypage_1},
-                    }).done(function(res){
+                        type: "post",
+                        url: "/student/findByMultipleConditions",
+                        dataType: "json",
+                        data: {
+                            major: map.get("major"),
+                            direction: map.get("direction"),
+                            present_class:
+                                map.get("present_class"),
+                            original_class: map.get("original_class"),
+                            present_post: map.get("present_post"),
+                            original_post: map.get("original_post"),
+                            page: 1,
+                            num: everypage_1
+                        },
+                    }).done(function (res) {
                         //console.log(res.length);
                         //allpage_1=Math.ceil(res.length / everypage_1);
                         var msg = "";
@@ -486,7 +488,7 @@
                             msg += "<td>" + n.present_post + "</td>";
                             msg += "<td>" + n.original_post + "</td>";
                             msg += "<td>" + n.clno + "</td>";
-                            msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"hostel.html?building=" + n.bedroom_lou +"&number="+n.bedroom_hao+"\"" + ">" +  n.bedroom_lou + n.bedroom_hao +"</a></h2></td>";
                             msg += "<td>" + n.phone + "</td>";
                             msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
                             msg += "</tr>";
@@ -522,32 +524,30 @@
 
                 });
             });
-            $("#sousuo").click(function(){
-                 a=$("#Search").val();
-                if(isNumber(a))
-                {
+            $("#sousuo").click(function () {
+                a = $("#Search").val();
+                if (isNumber(a)) {
                     console.log(a);
                     $.ajax({
-                        type:"post",
-                        url:"/student/findbyid",
-                        data:{'id':a},
-                        dataType:"json",
+                        type: "post",
+                        url: "/student/findbyid",
+                        data: {'id': a},
+                        dataType: "json",
                     }).done(function (res) {
-                        if(res!=null)
-                        {
+                        if (res != null) {
                             var msg = "";
-                                msg += "<tr>";
-                                msg += "<td>" + res.id + "</td>";
-                                msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + ">" + res.name + "</a></h2></td>";
-                                msg += "<td>" + res.present_class + "</td>";
-                                msg += "<td>" + res.original_class + "</td>";
-                                msg += "<td>" + res.present_post + "</td>";
-                                msg += "<td>" + res.original_post + "</td>";
-                                msg += "<td>" + res.clno + "</td>";
-                                msg += "<td>" + res.bedroom_lou + res.bedroom_hao + "</td>";
-                                msg += "<td>" + res.phone + "</td>";
-                                msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + res.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + res.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
-                                msg += "</tr>";
+                            msg += "<tr>";
+                            msg += "<td>" + res.id + "</td>";
+                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + ">" + res.name + "</a></h2></td>";
+                            msg += "<td>" + res.present_class + "</td>";
+                            msg += "<td>" + res.original_class + "</td>";
+                            msg += "<td>" + res.present_post + "</td>";
+                            msg += "<td>" + res.original_post + "</td>";
+                            msg += "<td>" + res.clno + "</td>";
+                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"hostel.html?building=" + res.bedroom_lou + "&number=" + res.bedroom_hao + "\"" + ">" + res.bedroom_lou + res.bedroom_hao + "</a></h2></td>";
+                            msg += "<td>" + res.phone + "</td>";
+                            msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + res.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + res.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+                            msg += "</tr>";
                             $("#student").html(msg);
                             $('#example').bootstrapPaginator({
                                 currentPage: 1,//当前的请求页面。
@@ -574,13 +574,12 @@
                         }
 
                     })
-                }
-                else {
-                    console.log(a+"666");
+                } else {
+                    console.log(a + "666");
                     $.ajax({
                         type: "post",
                         url: "student/findByNameCount",
-                        data:{name:a},
+                        data: {name: a},
                         dataType: "json",
                         async: false,
                     }).done(function (res) {
@@ -591,7 +590,7 @@
                         type: "post",
                         url: "student/findbyname",
                         dataType: "json",
-                        data: {name:a,'page': 1, 'num': everypage_2},
+                        data: {name: a, 'page': 1, 'num': everypage_2},
                     }).done(function (res) {
                         var msg = "";
                         $.each(res, function (i, n) {
@@ -603,7 +602,7 @@
                             msg += "<td>" + n.present_post + "</td>";
                             msg += "<td>" + n.original_post + "</td>";
                             msg += "<td>" + n.clno + "</td>";
-                            msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"hostel.html?building=" + n.bedroom_lou + "&number=" + n.bedroom_hao + "\"" + ">" + n.bedroom_lou + n.bedroom_hao + "</a></h2></td>";
                             msg += "<td>" + n.phone + "</td>";
                             msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
                             msg += "</tr>";
@@ -638,19 +637,29 @@
                 }
             });
             var downing = false;
-            $("#bt1").click(function (){
+            $("#bt1").click(function () {
                 swal("已经开始下载！", "切勿重复点击！", "success");
-                if(downing){swal("有一项下载任务进行中！", "切勿重复点击！", "warning");return}
+                if (downing) {
+                    swal("有一项下载任务进行中！", "切勿重复点击！", "warning");
+                    return
+                }
                 downing = true;
                 $.ajax({
                     url: 'student/Excle',
                     dataType: 'text',
-                    data:{major:map.get("major"),direction:map.get("direction"),present_class:
-                            map.get("present_class"),original_class:map.get("original_class"),
-                        present_post:map.get("present_post"),original_post:map.get("original_post"),nativeplace:area},
-                    success(res){
+                    data: {
+                        major: map.get("major"),
+                        direction: map.get("direction"),
+                        present_class:
+                            map.get("present_class"),
+                        original_class: map.get("original_class"),
+                        present_post: map.get("present_post"),
+                        original_post: map.get("original_post"),
+                        nativeplace: area
+                    },
+                    success(res) {
                         console.log(res);
-                        $("#downe").attr("href",res);
+                        $("#downe").attr("href", res);
                         console.log($("#a")[0]);
                         $("#downe")[0].click()
                         downing = false;
@@ -659,15 +668,24 @@
             })
 
         });
+
         function newpage_1(res) {
             var page = res
             $.ajax({
                 type: "post",
                 url: "student/findByMultipleConditions",
                 dataType: "json",
-                data: {major:map.get("major"),direction:map.get("direction"),present_class:
-                        map.get("present_class"),original_class:map.get("original_class"),
-                    present_post:map.get("present_post"),original_post:map.get("original_post"),page: page, num: everypage_1},
+                data: {
+                    major: map.get("major"),
+                    direction: map.get("direction"),
+                    present_class:
+                        map.get("present_class"),
+                    original_class: map.get("original_class"),
+                    present_post: map.get("present_post"),
+                    original_post: map.get("original_post"),
+                    page: page,
+                    num: everypage_1
+                },
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -679,7 +697,7 @@
                     msg += "<td>" + n.present_post + "</td>";
                     msg += "<td>" + n.original_post + "</td>";
                     msg += "<td>" + n.clno + "</td>";
-                    msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"hostel.html?building=" + n.bedroom_lou + "&number=" + n.bedroom_hao + "\"" + ">" + n.bedroom_lou + n.bedroom_hao + "</a></h2></td>";
                     msg += "<td>" + n.phone + "</td>";
                     msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
                     msg += "</tr>";
@@ -687,22 +705,24 @@
                 $("#student").html(msg);
             })
         }
+
         function isNumber(val) {
             var regPos = /^\d+(\.\d+)?$/; //非负浮点数
             var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
-            if(regPos.test(val) || regNeg.test(val)) {
+            if (regPos.test(val) || regNeg.test(val)) {
                 return true;
             } else {
                 return false;
             }
         }
+
         function newpage_2(res) {
             var page = res
             $.ajax({
                 type: "post",
                 url: "student/findbyname",
                 dataType: "json",
-                data: {name:a,page: page, num: everypage_2},
+                data: {name: a, page: page, num: everypage_2},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -714,7 +734,7 @@
                     msg += "<td>" + n.present_post + "</td>";
                     msg += "<td>" + n.original_post + "</td>";
                     msg += "<td>" + n.clno + "</td>";
-                    msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"hostel.html?building=" + n.bedroom_lou + "&number=" + n.bedroom_hao + "\"" + ">" + n.bedroom_lou + n.bedroom_hao + "</a></h2></td>";
                     msg += "<td>" + n.phone + "</td>";
                     msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
                     msg += "</tr>";
@@ -722,13 +742,14 @@
                 $("#student").html(msg);
             })
         }
+
         function newpage_3(res) {
             var page = res
             $.ajax({
                 type: "post",
                 url: "student/findbyareastudent",
                 dataType: "json",
-                data: {area:area,page: page, num: everypage_3},
+                data: {area: area, page: page, num: everypage_3},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -740,7 +761,7 @@
                     msg += "<td>" + n.present_post + "</td>";
                     msg += "<td>" + n.original_post + "</td>";
                     msg += "<td>" + n.clno + "</td>";
-                    msg += "<td>" + n.bedroom_lou + n.bedroom_hao + "</td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"hostel.html?building=" + n.bedroom_lou + "&number=" + n.bedroom_hao + "\"" + ">" + n.bedroom_lou + n.bedroom_hao + "</a></h2></td>";
                     msg += "<td>" + n.phone + "</td>";
                     msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-student.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
                     msg += "</tr>";
@@ -829,7 +850,7 @@
                         </div>
                     </div>
                     <a class="dropdown-item" href="profile.html">我的个人资料</a>
-<!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
+                    <!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
                     <a class="dropdown-item" href="/admin/logout">注销</a>
                 </div>
             </li>
@@ -862,22 +883,22 @@
                             <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
-<!--                    <li class="submenu">-->
-<!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span-->
-<!--                                class="menu-arrow"></span></a>-->
-<!--                        <ul>-->
-<!--                            <li><a href="teachers.html">教师列表</a></li>-->
-<!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
-<!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
-<!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
+                    <!--                    <li class="submenu">-->
+                    <!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span-->
+                    <!--                                class="menu-arrow"></span></a>-->
+                    <!--                        <ul>-->
+                    <!--                            <li><a href="teachers.html">教师列表</a></li>-->
+                    <!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
+                    <!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
+                    <!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                    </li>-->
                     <li class="submenu">
                         <a href="#"><i class="fas fa-building"></i> <span>部门</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="departments.html">部门列表</a></li>
                             <li><a href="add-department.html">部门添加</a></li>
-<!--                            <li><a href="edit-department.html">部门编辑</a></li>-->
+                            <!--                            <li><a href="edit-department.html">部门编辑</a></li>-->
                         </ul>
                     </li>
                     <!-- <li class="submenu">
@@ -918,18 +939,18 @@
                             <li><a href="add-honour.html">荣誉添加</a></li>
                         </ul>
                     </li>
-<!--                    <li>-->
-<!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
+                    <!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
+                    <!--                    </li>-->
                     <li>
                         <a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
                     </li>
-<!--                    <li>-->
-<!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
+                    <!--                    </li>-->
                     <!-- <li>
                         <a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
                     </li> -->
@@ -966,7 +987,8 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="activity.html">活动列表</a></li>
                             <li><a href="add-activity.html">活动添加</a></li>
@@ -1046,8 +1068,10 @@
                     </div>
                     <div class="col-auto text-right float-right ml-auto">
                         <a download id="downe" href="" style="display: none"> </a>
-                        <button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</button>
-<!--                        <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</a>-->
+                        <button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i
+                                class="fas fa-download"></i> 下载
+                        </button>
+                        <!--                        <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</a>-->
                         <a href="add-student.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                     </div>
                 </div>
@@ -1085,9 +1109,9 @@
                             <div class="layui-input-inline">
                                 <select name="present_class" lay-filter="major" id="present_class">
                                     <option value="0">请选择</option>
-<!--                                    <option value="软件1915">软件1915</option>-->
-<!--                                    <option value="软件1910">软件1910</option>-->
-<!--                                    <option value="软件1903">软件1903</option>-->
+                                    <!--                                    <option value="软件1915">软件1915</option>-->
+                                    <!--                                    <option value="软件1910">软件1910</option>-->
+                                    <!--                                    <option value="软件1903">软件1903</option>-->
                                 </select>
                             </div>
                         </div>
@@ -1096,9 +1120,9 @@
                             <div class="layui-input-inline">
                                 <select name="original_class" lay-filter="major" id="original_class">
                                     <option value="0">请选择</option>
-<!--                                    <option value="软件1915">软件1915</option>-->
-<!--                                    <option value="软件1910">软件1910</option>-->
-<!--                                    <option value="软件1903">软件1903</option>-->
+                                    <!--                                    <option value="软件1915">软件1915</option>-->
+                                    <!--                                    <option value="软件1910">软件1910</option>-->
+                                    <!--                                    <option value="软件1903">软件1903</option>-->
                                 </select>
                             </div>
                         </div>
@@ -1212,7 +1236,6 @@
 
 <!-- Slimscroll JS -->
 <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
-
 
 
 <!-- Custom JS -->

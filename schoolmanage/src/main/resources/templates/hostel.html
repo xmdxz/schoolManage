@@ -45,10 +45,15 @@
 			//获取缓存中登录账号的信息
 			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
 			var name=adminuserInfo.name;
+			var url = document.location.toString();//获取url地址
+			var building = null;
+			var number_1=null;
 			const everypage_2 = 20; //每页的数量
 			var allpage_2= 1;
 			const everypage_1 = 20; //每页的数量
 			var allpage_1 = 1;
+			const everypage =10; //每页的数量
+			var allpage = 1;
 			var a=null;
 			$(document).ready(function () {
 				$('#InfoName').text(name);
@@ -60,7 +65,7 @@
 					$.ajax({
 						url: 'dormitory/Excle',
 						dataType: 'text',
-						data:{},
+						data:{building:building},
 						success(res){
 							console.log(res);
 							$("#downe").attr("href",res);
@@ -186,63 +191,88 @@
 					}
 				});
 			});
-			const everypage =10; //每页的数量
-			var allpage = 1;
-			$.ajax({
-				type: "post",
-				url: "dormitory/findAllNum",
-				dataType: "json",
-				async: false,
-			}).done(function (res) {
-				console.log(res)
-				allpage = Math.ceil(res / everypage);
-			});
-			$.ajax({
-				type: "post",
-				url: "dormitory/findAll",
-				dataType: "json",
-				data: {'Page': 1, 'num': everypage},
-			}).done(function (res) {
-				console.log(res)
-				var msg = "";
-				$.each(res, function (i, n) {
+			if (url.indexOf("?") != -1) {
+				var urlParmStr = url.slice(url.indexOf('?') + 1);//获取问号后所有的字符串
+				var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+				building = arr[0].split("=")[1];//获取数组中第一个参数//
+				building = decodeURI(building);
+				number_1 = arr[1].split("=")[1];//获取数组中第一个参数//
+				number_1= decodeURI(number_1);
+				$.ajax({
+					type: "post",
+					url: "dormitory/findByBuildingAndNumber",
+					data:{building:building,number:number_1},
+					dataType: "json",
+					async: false,
+				}).done(function (res) {
+					console.log(res)
 					msg += "<tr>";
-					msg += "<td>" + n.building+"</td>";
-					msg += "<td>" + n.number +"宿舍"+ "</td>";
-					msg += "<td>" + n.manage+ "</td>";
-					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.num +"人"+"</a></h2></td>";
-					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+					msg += "<td>" + res.building+"</td>";
+					msg += "<td>" + res.number +"宿舍"+ "</td>";
+					msg += "<td>" + res.manage+ "</td>";
+					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + res.building +"&number="+res.number+"\"" + ">" + res.num +"人"+"</a></h2></td>";
+					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + res.building +"&number="+res.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+res.building+","+res.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 					msg += "</tr>";
 				});
-				$("#dormitory").html(msg);
-				$('#example').bootstrapPaginator({
-					currentPage: 1,//当前的请求页面。
-					totalPages: allpage,//一共多少页。
-					size: "normal",//应该是页眉的大小。
-					bootstrapMajorVersion: 4,//bootstrap的版本要求。
-					alignment: "right",
-					numberOfPages: 8,//一页列出多少数据。
-					itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
-						switch (type) {
-							case "first":
-								return "首页";
-							case "prev":
-								return "上一页";
-							case "next":
-								return "下一页";
-							case "last":
-								return "末页";
-							case "page":
-								return page;
-						}
-					},
-					onPageClicked: function (event, originalEvent, type, page) {
-						newpage(page)
-					}
+			}
+			else {
+				$.ajax({
+					type: "post",
+					url: "dormitory/findAllNum",
+					dataType: "json",
+					async: false,
+				}).done(function (res) {
+					console.log(res)
+					allpage = Math.ceil(res / everypage);
 				});
-			}).fail(function (err) {
-				alert("系统繁忙哈...")
-			});
+				$.ajax({
+					type: "post",
+					url: "dormitory/findAll",
+					dataType: "json",
+					data: {'Page': 1, 'num': everypage},
+				}).done(function (res) {
+					console.log(res)
+					var msg = "";
+					$.each(res, function (i, n) {
+						msg += "<tr>";
+						msg += "<td>" + n.building+"</td>";
+						msg += "<td>" + n.number +"宿舍"+ "</td>";
+						msg += "<td>" + n.manage+ "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + n.building +"&number="+n.number+"\"" + ">" + n.num +"人"+"</a></h2></td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + n.building +"&number="+n.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+n.building+","+n.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "</tr>";
+					});
+					$("#dormitory").html(msg);
+					$('#example').bootstrapPaginator({
+						currentPage: 1,//当前的请求页面。
+						totalPages: allpage,//一共多少页。
+						size: "normal",//应该是页眉的大小。
+						bootstrapMajorVersion: 4,//bootstrap的版本要求。
+						alignment: "right",
+						numberOfPages: 8,//一页列出多少数据。
+						itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+							switch (type) {
+								case "first":
+									return "首页";
+								case "prev":
+									return "上一页";
+								case "next":
+									return "下一页";
+								case "last":
+									return "末页";
+								case "page":
+									return page;
+							}
+						},
+						onPageClicked: function (event, originalEvent, type, page) {
+							newpage(page)
+						}
+					});
+				}).fail(function (err) {
+					alert("系统繁忙哈...")
+				});
+			}
+
 			function newpage(res) {
 				var page = res
 				$.ajax({

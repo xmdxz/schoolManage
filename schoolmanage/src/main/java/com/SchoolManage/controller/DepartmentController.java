@@ -1,11 +1,13 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
+import com.SchoolManage.pojo.Activity;
 import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.DepartMent;
 import com.SchoolManage.service.DepartmentService;
 import com.SchoolManage.service.LogService;
 import com.SchoolManage.util.CreateExlceUtil;
+import com.SchoolManage.util.ExcleTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,7 +150,13 @@ public class DepartmentController {
         List<DepartMent> list = departmentService.findAll(1, i);
         return createExlceUtil.createExcle(list);
     }
+    @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        DepartMent departMent=new DepartMent(1,"xxx","xxx","xxx","xxx",0);
+        return ExcleTemplate.getTemplate(request,departMent,"部门表模板");
 
+    }
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
