@@ -35,6 +35,8 @@
                 id= arr[0].split("=")[1];//获取数组中第一个参数//
                 activeName=arr[1].split("=")[1];
                 activeName=decodeURI(activeName)
+                activeName=activeName.replace(/_/g,'\\');
+                activeName=eval("'"+activeName+"'");
             }
             $(document).ready(function(){
                 swal("操作成功！", "即将返回活动列表", "success");

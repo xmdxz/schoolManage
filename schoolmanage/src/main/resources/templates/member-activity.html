@@ -290,7 +290,7 @@
 										swal("删除失败", "服务器繁忙中...", "warning");
 									} else if (res.code == 200) {
 										swal("删除成功！", "即将返回活动成员列表", "success");
-										setTimeout("window.location.href='member-activity.html?id='+id", "1200");
+										setTimeout("window.location.href='member-activity.html?id='+id+'&activeName='+activeName", "1200");
 									}
 								})
 							} else {
