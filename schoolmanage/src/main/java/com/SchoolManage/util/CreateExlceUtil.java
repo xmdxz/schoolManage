@@ -31,7 +31,7 @@ public class CreateExlceUtil<T> {
         if (name == null || name == "") {
             throw new NameNullException("文件名不能为空！请检查name属性");
         }
-        this.path = request.getServletContext().getRealPath("/") + "Excle\";
+        this.path = request.getServletContext().getRealPath("/") + "Excle/";
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();
