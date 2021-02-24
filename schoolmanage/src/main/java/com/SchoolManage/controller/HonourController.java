@@ -1,9 +1,11 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
+import com.SchoolManage.pojo.Activity;
 import com.SchoolManage.pojo.Honour;
 import com.SchoolManage.service.HonourService;
 import com.SchoolManage.util.CreateExlceUtil;
+import com.SchoolManage.util.ExcleTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -189,7 +191,13 @@ public class HonourController {
         return createExlceUtil.createExcle(list);
 
     }
+    @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        Honour honour=new Honour(1,"xxx","xxx","xxx",new Date(2020-02-03),"xxx","xxx");
+        return ExcleTemplate.getTemplate(request,honour,"荣誉表模板");
 
+    }
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {

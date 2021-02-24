@@ -3,10 +3,12 @@ package com.SchoolManage.controller;
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.Dormitory;
+import com.SchoolManage.pojo.Honour;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.DormitoryService;
 import com.SchoolManage.service.LogService;
 import com.SchoolManage.util.CreateExlceUtil;
+import com.SchoolManage.util.ExcleTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -180,7 +183,12 @@ public class DormitoryController {
         List<Student> list = dormitoryService.findDormitoryMember(dormitory, 1, i);
         return createExlceUtil.createExcle(list);
     }
-
+    @RequestMapping(value = "Excle3", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        Dormitory dormitory=new Dormitory("例如:11号楼","例如:302","xxx",1);
+        return ExcleTemplate.getTemplate(request,dormitory,"宿舍表模板");
+    }
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {

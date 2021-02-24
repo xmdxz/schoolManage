@@ -79,6 +79,26 @@
                 });
 
             })
+            var downing = false;
+            $("#bt2").click(function () {
+                swal("已经开始下载！", "切勿重复点击！", "success");
+                if (downing) {
+                    swal("有一项下载任务进行中！", "切勿重复点击！", "warning");
+                    return
+                }
+                downing = true;
+                $.ajax({
+                    url: 'department/Excle3',
+                    dataType: 'text',
+                    success(res) {
+                        console.log(res);
+                        $("#downe").attr("href", res);
+                        console.log($("#a")[0]);
+                        $("#downe")[0].click()
+                        downing = false;
+                    }
+                })
+            })
         });
     </script>
 </head>

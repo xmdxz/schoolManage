@@ -1,6 +1,7 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
+import com.SchoolManage.pojo.Activemember;
 import com.SchoolManage.pojo.Activity;
 import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.Student;
@@ -239,6 +240,13 @@ public class ActivityController {
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
        Activity activity=new Activity(1,"xxx","xxx","xxx",new Date(2020-02-03),0);
         return ExcleTemplate.getTemplate(request,activity,"活动表模板");
+
+    }
+    @RequestMapping(value = "Excle3", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent3(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        Activemember activemember=new Activemember(1,1,"xxx","xxx","xxx","xxx","xxx");
+        return ExcleTemplate.getTemplate(request,activemember,"活动成员表模板");
 
     }
 }

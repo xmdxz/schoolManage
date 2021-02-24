@@ -4,6 +4,7 @@ import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Activity;
 import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.DepartMent;
+import com.SchoolManage.pojo.Member;
 import com.SchoolManage.service.DepartmentService;
 import com.SchoolManage.service.LogService;
 import com.SchoolManage.util.CreateExlceUtil;
@@ -155,7 +156,12 @@ public class DepartmentController {
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         DepartMent departMent=new DepartMent(1,"xxx","xxx","xxx","xxx",0);
         return ExcleTemplate.getTemplate(request,departMent,"部门表模板");
-
+    }
+    @RequestMapping(value = "Excle3", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent3(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        Member member=new Member("xxx","xxx","xxx","xxx","xxx","xxx","xxx");
+        return ExcleTemplate.getTemplate(request,member,"部门成员表模板");
     }
     @PostMapping("upfile")
     @ResponseBody
