@@ -4,6 +4,7 @@ import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Activemember;
 import com.SchoolManage.service.ActiveMemberService;
 import com.SchoolManage.util.CreateExlceUtil;
+import com.SchoolManage.util.UnicodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,8 +84,11 @@ public class ActiveMemberController {
     @RequestMapping("insertdata")
     public String insertData(Activemember activemember, HttpServletRequest request) {
         int i = activeMemberService.insertData(activemember);
+        UnicodeUtil util = new UnicodeUtil();
+        String str = util.gbEncoding(activemember.getActiveName());//中文换为unicode编码
+        str = str.replace('\\', '_'); //url中不允许出现、 所以转换
         if (i != 0) {
-            return "redirect:/loginp_4.html?id=" + activemember.getActivity();
+            return "redirect:/loginp_4.html?id=" + activemember.getActivity()+"&activeName="+str;
         } else return "redirect:/activity.html";
     }
 
@@ -136,9 +140,12 @@ public class ActiveMemberController {
     @RequestMapping("updatedata")
     public String updateData(Activemember activemember) {
         int i = activeMemberService.updateDara(activemember);
-
+        UnicodeUtil util = new UnicodeUtil();
+        String str = util.gbEncoding(activemember.getActiveName());//中文换为unicode编码
+        str = str.replace('\\', '_'); //url中不允许出现、 所以转换
         if (i != 0) {
-            return "redirect:/loginp_4.html?id=" + activemember.getActivity();
+            return "redirect:/loginp_4.html?id=" + activemember.getActivity()+"&activeName="+str;
+
         } else return "redirect:/activity.html";
     }
     

@@ -27,15 +27,18 @@
         <script type="text/javascript">
             var url = document.location.toString();//获取url地址
             var id=null;
+            var activeName=null;
             if(url.indexOf("?")!=-1)
             {
                 var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
                 var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
                 id= arr[0].split("=")[1];//获取数组中第一个参数//
+                activeName=arr[1].split("=")[1];
+                activeName=decodeURI(activeName)
             }
             $(document).ready(function(){
                 swal("操作成功！", "即将返回活动列表", "success");
-                if (id!=""&&id!=null){setTimeout("window.location.href='/member-activity.html?id='+id", "1200");}
+                if (id!=""&&id!=null){setTimeout("window.location.href='/member-activity.html?id='+id+'&activeName='+activeName", "1200");}
                 else {setTimeout("window.location.href='/activity.html'", "1200");}
             });
 
