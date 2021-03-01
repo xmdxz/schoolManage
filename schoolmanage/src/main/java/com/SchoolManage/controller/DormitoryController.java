@@ -215,7 +215,7 @@ public class DormitoryController {
                 i = dormitoryService.BatchAddition(path);
                 dest.delete();
                 AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上窜","宿舍信息",a.getName(),"多条","宿舍表");
+                logService.insertNew("上传","宿舍信息",a.getName(),"多条","宿舍表");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();
