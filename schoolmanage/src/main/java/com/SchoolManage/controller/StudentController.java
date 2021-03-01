@@ -352,7 +352,7 @@ public class StudentController {
                 i = studentService.BatchAddition(path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上窜", "学生信息", a.getName(), "多条", "学生表");
+                logService.insertNew("上传", "学生信息", a.getName(), "多条", "学生表");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();
