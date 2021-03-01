@@ -88,7 +88,7 @@ public class ActiveMemberController {
         String str = util.gbEncoding(activemember.getActiveName());//中文换为unicode编码
         str = str.replace('\\', '_'); //url中不允许出现、 所以转换
         if (i != 0) {
-            return "redirect:/loginp_4.html?id=" + activemember.getActivity()+"&activeName="+str;
+            return "redirect:/loginp_4.html?id=" + activemember.getActivity() + "&activeName=" + str;
         } else return "redirect:/activity.html";
     }
 
@@ -144,11 +144,11 @@ public class ActiveMemberController {
         String str = util.gbEncoding(activemember.getActiveName());//中文换为unicode编码
         str = str.replace('\\', '_'); //url中不允许出现、 所以转换
         if (i != 0) {
-            return "redirect:/loginp_4.html?id=" + activemember.getActivity()+"&activeName="+str;
+            return "redirect:/loginp_4.html?id=" + activemember.getActivity() + "&activeName=" + str;
 
         } else return "redirect:/activity.html";
     }
-    
+
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {

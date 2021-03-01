@@ -4,7 +4,6 @@ import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.Activemember;
 import com.SchoolManage.pojo.Activity;
 import com.SchoolManage.pojo.AdminUser;
-import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.ActivityService;
 import com.SchoolManage.service.LogService;
 import com.SchoolManage.util.CreateExlceUtil;
@@ -22,7 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +39,7 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
-    
+
     @RequestMapping("findall")
     @ResponseBody
     public List<Activity> findAll(int page, int num) {
@@ -201,8 +199,8 @@ public class ActivityController {
                 System.out.println(path);
                 i = activityService.BatchAddition(path);
                 dest.delete();
-                AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上窜","活动信息",a.getName(),"多条","活动表");
+                AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+                logService.insertNew("上窜", "活动信息", a.getName(), "多条", "活动表");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();
@@ -222,7 +220,7 @@ public class ActivityController {
             NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         CreateExlceUtil<Activity> createExlceUtil;
         List<Activity> list;
-        if (responsible != null&&!"".equals(responsible)) {
+        if (responsible != null && !"".equals(responsible)) {
             int i = activityService.findByResCount(responsible);
             createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
             list = activityService.findByRes(responsible, 1, i);
@@ -235,18 +233,20 @@ public class ActivityController {
         return createExlceUtil.createExcle(list);
 
     }
+
     @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-       Activity activity=new Activity(1,"xxx","xxx","xxx",new Date(2020-02-03),0);
-        return ExcleTemplate.getTemplate(request,activity,"活动表模板");
+        Activity activity = new Activity(1, "xxx", "xxx", "xxx", new Date(2020 - 02 - 03), 0);
+        return ExcleTemplate.getTemplate(request, activity, "活动表模板");
 
     }
+
     @RequestMapping(value = "Excle3", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent3(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        Activemember activemember=new Activemember(1,1,"xxx","xxx","xxx","xxx","xxx");
-        return ExcleTemplate.getTemplate(request,activemember,"活动成员表模板");
+        Activemember activemember = new Activemember(1, 1, "xxx", "xxx", "xxx", "xxx", "xxx");
+        return ExcleTemplate.getTemplate(request, activemember, "活动成员表模板");
 
     }
 }
