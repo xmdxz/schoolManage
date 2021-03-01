@@ -30,64 +30,46 @@
 
     <!-- Slimscroll JS -->
     <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+
     <!-- Custom JS -->
     <script th:src="@{/assets/js/script.js}"></script>
     <!-- alert beautiful-->
     <link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
     <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
     <script type="text/javascript">
+		var url = document.location.toString();//获取url地址
+		var studentObj=null;
+		if(url.indexOf("?")!=-1)
+		{
+			var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+			var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+			var Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
+			$.ajax({
+				type:"post",
+				url:"student/findbyid",
+				dataType:"json",
+				data: {id:Id}
+			}).done(function (res) {
+				console.log(res)
+				obj=res;
+				var props = "";
+				for(var p in obj){
+					if(typeof(obj[p])=="function"){
+						obj[p]();
+					}else{
+						if(document.getElementById(p)!=null)
+                            document.getElementById(p).value= obj[p];
+
+					}
+				}
+			})
+		}
         //获取缓存中登录账号的信息
-        var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
-        var name = adminuserInfo.name;
+        var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
+        var name=adminuserInfo.name;
         $(document).ready(function () {
-            $('#InfoName').text(name);
-            $("#bt1").click(function () {
-                $('#excelFile').trigger("click");
-                $('#excelFile').change(function (event) {
-                    var files = event.target.files;
-                    var formData = new FormData();
-                    var temp = files[0];
-                    if (temp) {
-                        formData.append('file', temp);
-                        $.ajax({
-                            url: 'student/upfile',
-                            type: 'post',
-                            data: formData,
-                            processData: false, // 告诉jQuery不要去处理发送的数据
-                            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
-                            success: function (res) {
-                                console.log(res)
-                                swal(res);
-                                var obj = document.getElementById("excelFile")
-                                obj.outerHTML = obj.outerHTML
-                            }
-
-                        })
-                    }
-
-                });
-
-            });
-            var downing = false;
-            $("#bt2").click(function () {
-                swal("已经开始下载！", "切勿重复点击！", "success");
-                if (downing) {
-                    swal("有一项下载任务进行中！", "切勿重复点击！", "warning");
-                    return
-                }
-                downing = true;
-                $.ajax({
-                    url: 'student/Excle2',
-                    dataType: 'text',
-                    success(res) {
-                        console.log(res);
-                        $("#downe").attr("href", res);
-                        console.log($("#a")[0]);
-                        $("#downe")[0].click()
-                        downing = false;
-                    }
-                })
-            })
+            $('#InfoName').text(name)
         });
     </script>
 </head>
@@ -141,68 +123,7 @@
                     </div>
                     <div class="noti-content">
                         <ul class="notification-list">
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media">
-												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image"
-                                                         th:src="@{/assets/img/profiles/avatar-02.jpg}">
-												</span>
-                                        <div class="media-body">
-                                            <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
-                                                approved <span class="noti-title">your estimate</span></p>
-                                            <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media">
-												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image"
-                                                         th:src="@{/assets/img/profiles/avatar-11.jpg}">
-												</span>
-                                        <div class="media-body">
-                                            <p class="noti-details"><span
-                                                    class="noti-title">International Software Inc</span> has sent you a
-                                                invoice in the amount of <span class="noti-title">$218</span></p>
-                                            <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media">
-												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image"
-                                                         th:src="@{/assets/img/profiles/avatar-17.jpg}">
-												</span>
-                                        <div class="media-body">
-                                            <p class="noti-details"><span class="noti-title">John Hendry</span> sent a
-                                                cancellation request <span class="noti-title">Apple iPhone XR</span></p>
-                                            <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notification-message">
-                                <a href="#">
-                                    <div class="media">
-												<span class="avatar avatar-sm">
-													<img class="avatar-img rounded-circle" alt="User Image"
-                                                         th:src="@{/assets/img/profiles/avatar-13.jpg}">
-												</span>
-                                        <div class="media-body">
-                                            <p class="noti-details"><span class="noti-title">Mercury Software Inc</span>
-                                                added a new product <span class="noti-title">Apple MacBook Pro</span>
-                                            </p>
-                                            <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
                     <div class="topnav-dropdown-footer">
@@ -215,9 +136,8 @@
             <!-- User Menu -->
             <li class="nav-item dropdown has-arrow">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-							<span class="user-img"><img class="rounded-circle"
-                                                        th:src="@{/assets/img/profiles/avatar-01.jpg}" width="31"
-                                                        alt="Ryan Taylor"></span>
+                    <span class="user-img"><img class="rounded-circle" th:src="@{/assets/img/profiles/avatar-01.jpg}"
+                                                width="31" alt="Ryan Taylor"></span>
                 </a>
                 <div class="dropdown-menu">
                     <div class="user-header">
@@ -262,7 +182,7 @@
                                 <a href="#"> <span>19级</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="students.html">19级学生列表</a></li>
-                                    <li><a href="add-student.html" class="active">19级学生添加</a></li>
+                                    <li><a href="add-student.html">19级学生添加</a></li>
                                 </ul>
                             </li>
 <!--                            <li class="submenu">-->
@@ -282,8 +202,8 @@
                             <li class="submenu">
                                 <a href="javascript:void(0);"> <span>20级</span> <span class="menu-arrow"></span></a>
                                 <ul>
-                                    <li><a href="students-20.html">20级学生列表</a></li>
-                                    <li><a href="add-student-20.html">20级学生添加</a></li>
+                                    <li><a href="students.html" class="active">20级学生列表</a></li>
+                                    <li><a href="add-student.html">20级学生添加</a></li>
                                 </ul>
                             </li>
                             <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
@@ -292,23 +212,23 @@
                             <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
-                    <!--                    <li class="submenu">-->
-                    <!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> 教师</span> <span-->
-                    <!--                                class="menu-arrow"></span></a>-->
-                    <!--                        <ul>-->
-                    <!--                            <li><a href="teachers.html">教师列表</a></li>-->
-                    <!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
-                    <!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
-                    <!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
-                    <!--                        </ul>-->
-                    <!--                    </li>-->
+<!--                    <li class="submenu">-->
+<!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> 教师</span> <span-->
+<!--                                class="menu-arrow"></span></a>-->
+<!--                        <ul>-->
+<!--                            <li><a href="teachers.html">教授列表</a></li>-->
+<!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
+<!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
+<!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
                     <li class="submenu">
                         <a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="departments.html">部门列表</a></li>
                             <li><a href="add-department.html">部门添加</a></li>
-                            <!--                            <li><a href="edit-department.html">部门编辑</a></li>-->
+<!--                            <li><a href="edit-department.html">部门编辑</a></li>-->
                         </ul>
                     </li>
                     <!--							<li class="submenu">-->
@@ -349,18 +269,18 @@
                             <li><a href="add-honour.html">荣誉添加</a></li>
                         </ul>
                     </li>
-                    <!--                    <li>-->
-                    <!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
-                    <!--                    </li>-->
-                    <!--                    <li>-->
-                    <!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
-                    <!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
+<!--                    </li>-->
                     <li>
                         <a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
                     </li>
-                    <!--                    <li>-->
-                    <!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
-                    <!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
+<!--                    </li>-->
                     <!--							<li>-->
                     <!--								<a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>-->
                     <!--							</li>-->
@@ -397,8 +317,7 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span
-                                class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="activity.html">活动列表</a></li>
                             <li><a href="add-activity.html">活动添加</a></li>
@@ -470,21 +389,11 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">添加19级学生</h3>
+                        <h3 class="page-title">编辑20级学生</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="students.html">学生</a></li>
-                            <li class="breadcrumb-item active">添加19级学生</li>
+                            <li class="breadcrumb-item active">编辑20级学生</li>
                         </ul>
-                    </div>
-                    <div class="col-auto text-right float-right ml-auto">
-                        <a download id="downe" href="" style="display: none"> </a>
-                        <button type="button" id="bt2" class="btn btn-outline-primary mr-2"><i
-                                class="fas fa-download"></i> 下载模板
-                        </button>
-                        <input type="file" name="excelFile" id="excelFile" style="display:none" accept=".xls,.xlsx">
-                        <button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i
-                                class="fas fa-upload"></i> 批量添加
-                        </button>
                     </div>
                 </div>
             </div>
@@ -492,9 +401,10 @@
 
             <div class="row">
                 <div class="col-sm-12">
+
                     <div class="card">
                         <div class="card-body">
-                            <form action="student/add" method="post">
+                            <form action="student/update" method="post">
                                 <div class="row">
                                     <div class="col-12">
                                         <h5 class="form-title"><span>学生信息</span></h5>
@@ -502,8 +412,7 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>姓名</label>
-                                            <input type="text" id="name" class="form-control" name="name" value=""
-                                                   placeholder="请输入">
+                                            <input type="text" id="name" class="form-control" name="name" value="Nathan Humphries">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
@@ -518,144 +427,125 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>学号</label>
-                                            <input type="text" id="id" class="form-control" value="" placeholder="请输入"
-                                                   name="id">
+                                            <input type="text" id="id" class="form-control" value="PRE1234" name="id">
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>学院</label>
-                                            <input type="text" id="clno" class="form-control" value="" placeholder="请输入"
-                                                   name="clno">
-                                        </div>
-                                    </div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>学院</label>
+											<input type="text" id="clno" class="form-control" value="10" name="clno">
+										</div>
+									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>原班级</label>
-                                            <input type="text" id="original_class" class="form-control" value=""
-                                                   placeholder="例：软件1901" name="original_class">
+                                            <input type="text" id="original_class" class="form-control" value="Stephen Marley" name="original_class">
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>现班级</label>
-                                            <input type="text" id="present_class" class="form-control" value=""
-                                                   placeholder="例：软件1901" name="present_class">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>原职务</label>
-                                            <input type="text" id="original_post" class="form-control" value=""
-                                                   placeholder="例：班长，团支书，学委" name="original_post">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>现职务</label>
-                                            <input type="text" id="present_post" class="form-control" value=""
-                                                   placeholder="例：班长，团支书，学委" name="present_post">
-                                        </div>
-                                    </div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>现班级</label>
+											<input type="text" id="present_class" class="form-control" value="Stephen Marley" name="present_class">
+										</div>
+									</div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>原职务</label>
+											<input type="text" id="original_post" class="form-control" value="Stephen Marley" name="original_post">
+										</div>
+									</div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>现职务</label>
+											<input type="text" id="present_post" class="form-control" value="Stephen Marley" name="present_post">
+										</div>
+									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>专业</label>
-                                            <input type="text" id="major" class="form-control" value=""
-                                                   placeholder="例：软件工程，大数据方向，数媒，智能" name="major">
+                                            <input type="text" id="major" class="form-control" value="Stephen Marley" name="major">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>方向</label>
-                                            <input type="text" id="direction" class="form-control" value=""
-                                                   placeholder="例：JavaEE，移动互联，人工智能，大数据" name="direction">
+                                            <input type="text" id="direction" class="form-control" value="Stephen Marley" name="direction">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>出生日期</label>
                                             <div>
-                                                <input type="text" id="birth" class="form-control" value=""
-                                                       placeholder="请输入(例如:2021-02-23)" name="birth">
+                                                <input type="text" id="birth" class="form-control" value="26 Apr 1994" name="birth">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>民族</label>
-                                            <input type="text" id="nation" class="form-control" value=""
-                                                   placeholder="请输入" name="nation">
-                                        </div>
-                                    </div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>民族</label>
+											<input type="text" id="nation" class="form-control" value="Stephen Marley" name="nation">
+										</div>
+									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>宗教信仰</label>
-                                            <input type="text" id="religion" class="form-control" value=""
-                                                   placeholder="请输入" name="religion">
+                                            <input type="text" id="religion" class="form-control" value="Religion" name="religion">
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>籍贯</label>
-                                            <input type="text" id="nativeplace" class="form-control" value=""
-                                                   placeholder="请输入" name="nativeplace">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>家庭住址</label>
-                                            <input type="text" id="address" class="form-control" value=""
-                                                   placeholder="请输入" name="address">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>宿舍楼</label>
-                                            <input type="text" id="bedroom_lou" class="form-control" value=""
-                                                   placeholder="请输入(例如:11号楼)" name="bedroom_lou">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>宿舍号</label>
-                                            <input type="text" id="bedroom_hao" class="form-control" value=""
-                                                   placeholder="请输入(例如:302)" name="bedroom_hao">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>身份证号</label>
-                                            <input type="text" id="idcard" class="form-control" value=""
-                                                   placeholder="请输入" name="idcard">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>银行卡号</label>
-                                            <input type="text" id="bank" class="form-control" value="" placeholder="请输入"
-                                                   name="bank">
-                                        </div>
-                                    </div>
+									<div class="col-12 col-sm-6">
+									<div class="form-group">
+										<label>籍贯</label>
+										<input type="text" id="nativeplace" class="form-control" value="籍贯" name="nativeplace">
+									</div>
+								</div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>家庭住址</label>
+											<input type="text" id="address" class="form-control" value="籍贯" name="address">
+										</div>
+									</div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>宿舍楼</label>
+											<input type="text" id="bedroom_lou" class="form-control" value="籍贯" name="bedroom_lou">
+										</div>
+									</div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>宿舍号</label>
+											<input type="text" id="bedroom_hao" class="form-control" value="籍贯" name="bedroom_hao">
+										</div>
+									</div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>身份证号</label>
+											<input type="text" id="idcard" class="form-control" value="籍贯" name="idcard">
+										</div>
+									</div>
+									<div class="col-12 col-sm-6">
+										<div class="form-group">
+											<label>银行卡号</label>
+											<input type="text" id="bank" class="form-control" value="籍贯" name="bank">
+										</div>
+									</div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>入学年份</label>
                                             <div>
-                                                <input type="text" id="comy" class="form-control" value=""
-                                                       placeholder="请输入(例如:2020)" name="comy">
+                                                <input type="text"  id="comy" class="form-control" value="4 Jan 2002" name="comy">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>联系方式</label>
-                                            <input type="text" id="phone" class="form-control" value=""
-                                                   placeholder="请输入" name="phone">
+                                            <input type="text" id="phone" class="form-control" value="077 3499 9959" name="phone">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>一寸照片</label>
-                                            <input type="file" id="photo" class="form-control" name="photo">
+                                            <input type="file"  class="form-control">
                                         </div>
                                     </div>
 
@@ -665,47 +555,41 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>父亲姓名</label>
-                                            <input type="text" id="father_name" class="form-control" value=""
-                                                   placeholder="请输入" name="father_name">
+                                            <input type="text" id="father_name" class="form-control" value="Stephen Marley" name="father_name">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>父亲的职业</label>
-                                            <input type="text" id="father_profession" class="form-control" value=""
-                                                   placeholder="请输入" name="father_profession">
+                                            <input type="text" id="father_profession" class="form-control" value="Technician" name="father_profession">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>父亲的手机号</label>
-                                            <input type="text" id="father_phone" class="form-control" value=""
-                                                   placeholder="请输入" name="father_phone">
+                                            <input type="text" id="father_phone" class="form-control" value="402 221 7523" name="father_phone">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>母亲姓名</label>
-                                            <input type="text" id="mother_name" class="form-control" value=""
-                                                   placeholder="请输入" name="mother_name">
+                                            <input type="text" id="mother_name" class="form-control" value="Cleary Wong" name="mother_name">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>母亲的职业</label>
-                                            <input type="text" id="mother_profession" class="form-control" value=""
-                                                   placeholder="请输入" name="mother_profession">
+                                            <input type="text" id="mother_profession"  class="form-control" value="Home Maker" name="mother_profession">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>母亲的手机号</label>
-                                            <input type="text" id="mother_phone" class="form-control" value=""
-                                                   placeholder="请输入" name="mother_phone">
+                                            <input type="text" id="mother_phone"  class="form-control" value="026 7318 4366" name="mother_phone">
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary" type="submit">提交</button>
+                                        <button  class="btn btn-primary" type="submit">提交</button>
                                     </div>
                                 </div>
                             </form>
