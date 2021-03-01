@@ -20,7 +20,7 @@ public interface QingJiaDao {
      * @param num
      * @return
      */
-    List<Qingjia> findByName(@Param(value = "name") String name, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Qingjia> findByName(@Param(value = "comy") String comy, @Param(value = "name") String name, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 姓名查找数量
@@ -28,7 +28,7 @@ public interface QingJiaDao {
      * @param name
      * @return
      */
-    int findByNameCount(@Param(value = "name") String name);
+    int findByNameCount(@Param(value = "comy") String comy, @Param(value = "name") String name);
 
     /**
      * 根据班级查找
@@ -38,7 +38,7 @@ public interface QingJiaDao {
      * @param num
      * @return
      */
-    List<Qingjia> findByClazz(@Param(value = "clazz") String clazz, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Qingjia> findByClazz(@Param(value = "comy") String comy, @Param(value = "clazz") String clazz, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据班级查找数量
@@ -46,7 +46,7 @@ public interface QingJiaDao {
      * @param clazz
      * @return
      */
-    int findByClazzCount(@Param(value = "clazz") String clazz);
+    int findByClazzCount(@Param(value = "comy") String comy, @Param(value = "clazz") String clazz);
 
     /**
      * 查询全部
@@ -55,14 +55,14 @@ public interface QingJiaDao {
      * @param num
      * @return
      */
-    List<Qingjia> findAll(@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Qingjia> findAll(@Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 查询全部数量
      *
      * @return
      */
-    int findAllCount();
+    int findAllCount(@Param(value = "comy") String comy);
 
     /**
      * 根据学生查询，不分页，用于个人详情
@@ -70,7 +70,7 @@ public interface QingJiaDao {
      * @param student
      * @return
      */
-    List<Qingjia> findByStudentNoPage(@Param(value = "student") String student);
+    List<Qingjia> findByStudentNoPage(@Param(value = "comy") String comy, @Param(value = "student") String student);
 
     /**
      * 根据学生查询 分页
@@ -80,7 +80,7 @@ public interface QingJiaDao {
      * @param num
      * @return
      */
-    List<Qingjia> findByStudentPage(@Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Qingjia> findByStudentPage(@Param(value = "comy") String comy, @Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据学生查询总数
@@ -88,7 +88,7 @@ public interface QingJiaDao {
      * @param student
      * @return
      */
-    int findByStudentCount(@Param(value = "student") String student);
+    int findByStudentCount(@Param(value = "comy") String comy, @Param(value = "student") String student);
 
     /**
      * 根据年月日查询当天请假学生
@@ -98,7 +98,7 @@ public interface QingJiaDao {
      * @param num
      * @return
      */
-    List<Qingjia> findByTimeYearAndMonthAndDay(@Param(value = "time") Timestamp timestamp, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Qingjia> findByTimeYearAndMonthAndDay(@Param(value = "comy") String comy, @Param(value = "time") Timestamp timestamp, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据年月日查询当天请假学生总数
@@ -106,7 +106,7 @@ public interface QingJiaDao {
      * @param timestamp
      * @return
      */
-    int findByTimeYearAndMonthAndDayCount(@Param(value = "time") Timestamp timestamp);
+    int findByTimeYearAndMonthAndDayCount(@Param(value = "comy") String comy, @Param(value = "time") Timestamp timestamp);
 
     /**
      * 根据年月查询当月请假学生
@@ -116,7 +116,7 @@ public interface QingJiaDao {
      * @param num
      * @return
      */
-    List<Qingjia> findByTimeYearAndMonth(@Param(value = "time") Timestamp timestamp, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Qingjia> findByTimeYearAndMonth(@Param(value = "comy") String comy, @Param(value = "time") Timestamp timestamp, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据年月查询当月
@@ -124,7 +124,7 @@ public interface QingJiaDao {
      * @param timestamp
      * @return
      */
-    int findByTimeYearAndMonthCount(@Param(value = "time") Timestamp timestamp);
+    int findByTimeYearAndMonthCount(@Param(value = "comy") String comy, @Param(value = "time") Timestamp timestamp);
 
     /**
      * 根据年查询当年
@@ -134,7 +134,7 @@ public interface QingJiaDao {
      * @param num
      * @return
      */
-    List<Qingjia> findByTimeYear(@Param(value = "time") Timestamp timestamp, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Qingjia> findByTimeYear(@Param(value = "comy") String comy, @Param(value = "time") Timestamp timestamp, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据年查询当年总数
@@ -142,7 +142,28 @@ public interface QingJiaDao {
      * @param timestamp
      * @return
      */
-    int findByTimeYearCount(@Param(value = "time") Timestamp timestamp);
+    int findByTimeYearCount(@Param(value = "comy") String comy, @Param(value = "time") Timestamp timestamp);
+
+
+    /**
+     * 时间模糊查询
+     *
+     * @param timestamp
+     * @param comy
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Qingjia> findByDate(@Param(value = "date") Timestamp timestamp, @Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 时间模糊查询
+     *
+     * @param timestamp
+     * @param comy
+     * @return
+     */
+    int findByDateCount(@Param(value = "date") Timestamp timestamp, @Param(value = "comy") String comy);
 
     /**
      * 根据教师查询
@@ -152,7 +173,7 @@ public interface QingJiaDao {
      * @param num
      * @return
      */
-    List<Qingjia> findByTeacher(@Param(value = "teacher") String teacher, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Qingjia> findByTeacher(@Param(value = "comy") String comy, @Param(value = "teacher") String teacher, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 插入

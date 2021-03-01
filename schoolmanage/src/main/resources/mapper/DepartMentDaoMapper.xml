@@ -5,64 +5,103 @@
 
 <mapper namespace="com.SchoolManage.dao.DepartMentDao">
     <insert id="insertData">
-        insert into department(name,college,minister,phone)
-            values (#{departMent.name},#{departMent.college},#{departMent.minister},#{departMent.phone})
+        insert into department(name, college, minister, phone, comy)
+        values (#{departMent.name}, #{departMent.college}, #{departMent.minister}, #{departMent.phone},
+                #{departMent.comy})
     </insert>
     <insert id="insertDatas">
-        insert into department(name,college,minister,phone)
+        insert into department(name,college,minister,phone,comy)
         values
-            <foreach collection="list" separator="," item="item">
-                (#{item.name},#{item.college},#{item.minister},#{item.phone})
-            </foreach>
+        <foreach collection="list" separator="," item="item">
+            (#{item.name},#{item.college},#{item.minister},#{item.phone},#{item.comy})
+        </foreach>
     </insert>
     <update id="updateData">
         update department
-        set
-            name = #{departMent.name},
-            college = #{departMent.college},
+        set name     = #{departMent.name},
+            college  = #{departMent.college},
             minister = #{departMent.minister},
-            phone = #{departMent.phone}
+            phone    = #{departMent.phone},
+            comy     = #{departMent.comy}
         where id = #{departMent.id}
     </update>
     <delete id="deleteData">
-        delete from department where id = #{id}
+        delete
+        from department
+        where id = #{id}
     </delete>
 
 
     <select id="findAll" resultType="com.SchoolManage.pojo.DepartMent">
         select *,(select count(*) from member where member.department = department.name) as num from
-            department limit #{startPage},#{num};
+        department
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage},#{num};
     </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.DepartMent">
-        select *,(select count(*) from member where member.department = department.name) as num from
-            department where department.name like "%" #{name} "%" limit #{startPage},#{num};
+        select *, (select count(*) from member where member.department = department.name) as num
+        from department
+        where department.name like "%" #{name} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num};
     </select>
     <select id="findByMinister" resultType="com.SchoolManage.pojo.DepartMent">
-        select *,(select count(*) from member where member.department = department.name) as num from
-            department where department.minister like "%" #{minister} "%" limit #{startPage},#{num};
+        select *, (select count(*) from member where member.department = department.name) as num
+        from department
+        where department.minister like "%" #{minister} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num};
     </select>
     <select id="findByCollege" resultType="com.SchoolManage.pojo.DepartMent">
-        select *,(select count(*) from member where member.department = department.name) as num from
-            department where department.college like "%" #{college} "%" limit #{startPage},#{num};
+        select *, (select count(*) from member where member.department = department.name) as num
+        from department
+        where department.college like "%" #{college} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num};
     </select>
     <select id="findAllNum" resultType="java.lang.Integer">
-        select count(*) from
-            department
+        select count(*)
+        from department
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByNameNum" resultType="java.lang.Integer">
-        select count(*) from
-            department where department.name like "%" #{name} "%"
+        select count(*)
+        from department
+        where department.name like "%" #{name} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByMinisterNum" resultType="java.lang.Integer">
-        select count(*) from
-            department where department.minister like "%" #{minister} "%"
+        select count(*)
+        from department
+        where department.minister like "%" #{minister} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByCollegeNum" resultType="java.lang.Integer">
-        select count(*) from
-            department where department.college like "%" #{college} "%"
+        select count(*)
+        from department
+        where department.college like "%" #{college} "%"
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.DepartMent">
-        select *,(select count(*) from member where member.department = department.name) as num from department where id = #{id}
+        select *, (select count(*) from member where member.department = department.name) as num
+        from department
+        where id = #{id}
     </select>
 
 

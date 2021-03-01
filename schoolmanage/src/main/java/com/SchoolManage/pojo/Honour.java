@@ -42,4 +42,8 @@ public class Honour {
      */
     private String clazz;
 
+    /**
+     * 年级
+     */
+    private String comy;
 }

@@ -39,4 +39,8 @@ public class DepartMent {
      */
     private Integer num;
 
+    /**
+     * 年级
+     */
+    private String comy;
 }

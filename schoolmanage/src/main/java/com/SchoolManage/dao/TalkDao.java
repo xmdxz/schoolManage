@@ -17,14 +17,8 @@ public interface TalkDao {
      *
      * @return
      */
-    List<Talk> findAll(@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num,@Param(value = "teacher") String teacher);
+    List<Talk> findAll(@Param(value = "comy") String comy);
 
-    /**
-     * 查询总数
-     *
-     * @return
-     */
-    int findAllCount(@Param(value = "teacher") String teacher);
 
     /**
      * 插入谈话数据
@@ -38,30 +32,26 @@ public interface TalkDao {
      * 根据学号查找,不分页，用于个人详细信息的展示
      *
      * @param student
-     * @param teacher
      * @return
      */
-    List<Talk> findByStudentNoPage(@Param(value = "student") String student,@Param(value = "teacher") String teacher);
+    List<Talk> findByStudent(@Param(value = "student") String student);
 
     /**
-     * 根据学号查找，分页，用于整个页面展示
+     * 模糊查询时间
      *
-     * @param student
-     * @param startPage
-     * @param num
-     * @param teacher
+     * @param date
      * @return
      */
-    List<Talk> findByStudentPage(@Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num,@Param(value = "teacher") String teacher);
+    List<Talk> findByDate(@Param(value = "date") Date date);
+
 
     /**
-     * 根据学号查询总数
+     * 查询学生一共的谈话次数
      *
      * @param student
-     * @param
      * @return
      */
-    int findByStudentCount(@Param(value = "student") String student,@Param(value = "teacher") String teacher);
+    int findByStudentCount(@Param(value = "student") String student);
 
     /**
      * 根据教师查找
@@ -69,16 +59,15 @@ public interface TalkDao {
      * @param teacher
      * @return
      */
-    List<Talk> findByTeacher(@Param(value = "teacher") String teacher, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Talk> findByTeacher(@Param(value = "comy") String comy, @Param(value = "teacher") String teacher);
 
     /**
      * 删除谈话
      *
      * @param id
-     * @param teacher
      * @return
      */
-    int deleteTalk(@Param(value = "id") Integer id,@Param(value = "teacher") String teacher);
+    int deleteTalk(@Param(value = "id") Integer id);
 
     /**
      * 批量插入
@@ -94,44 +83,60 @@ public interface TalkDao {
      * @param date
      * @return
      */
-    List<Talk> findByTime(@Param(value = "time") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
-
-    /**
-     * 根据具体时间查找数量，某一天
-     *
-     * @param date
-     * @param teacher
-     * @return
-     */
-    int findByTimeCount(@Param(value = "time") Date date,@Param(value = "teacher") String teacher);
+    List<Talk> findByTime(@Param(value = "comy") String comy, @Param(value = "time") Date date);
 
     /**
      * 根据年月查找，也就是某一月
      *
      * @param date
-     * @param startPage
-     * @param num
      * @return
      */
-    List<Talk> findByTimeYearAndMonth(@Param(value = "time") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Talk> findByTimeYearAndMonth(@Param(value = "comy") String comy, @Param(value = "time") Date date);
+
 
     /**
-     * 根据年月查找数量，也就是某一月
+     * 根据年
      *
+     * @param comy
      * @param date
      * @return
      */
-    int findByTimeYearAndMonthCount(@Param(value = "time") Date date);
+    List<Talk> findByTimeYear(@Param(value = "comy") String comy, @Param(value = "time") Date date);
+
+
     /**
      * 根据id查找
+     *
      * @param id
      * @return
      */
-    Talk findById(@Param(value = "id")Integer id);
+    Talk findById(@Param(value = "id") Integer id);
+
+    /**
+     * 根据类型查询
+     *
+     * @param types
+     * @return
+     */
+    List<Talk> findByTypes(@Param(value = "types") String types);
+
+
+    /**
+     * 三者查询
+     *
+     * @param time
+     * @param types
+     * @param level
+     * @param comy
+     * @return
+     */
+    List<Talk> findByDateAndTypesAndLevel(@Param(value = "time") Date time, @Param(value = "types") String types, @Param(value = "level") String level, @Param(value = "comy") String comy);
+
     /**
      * 更新
+     *
      * @param talk
      * @return
      */
-    int updata(@Param(value = "talk")Talk talk);
+    int updata(@Param(value = "talk") Talk talk);
 }

@@ -23,7 +23,7 @@ public interface StudentDao {
      * @param conditions
      * @return
      */
-    List<Student> findByMultipleConditions(@Param(value = "map") Map<String, String> conditions, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Student> findByMultipleConditions(@Param(value = "comy") String comy, @Param(value = "map") Map<String, String> conditions, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 多条件查询结果数量
@@ -31,14 +31,14 @@ public interface StudentDao {
      * @param nconditions
      * @return
      */
-    int findByMultipleConditionsCount(@Param(value = "maps") Map<String, String> nconditions);
+    int findByMultipleConditionsCount(@Param(value = "comy") String comy, @Param(value = "maps") Map<String, String> nconditions);
 
     /**
      * 查询方向分类
      *
      * @return
      */
-    List<String> findDirection();
+    List<String> findDirection(@Param(value = "comy") String comy);
 
     /**
      * 根据现班级查询班干部
@@ -46,7 +46,7 @@ public interface StudentDao {
      * @param clazz
      * @return
      */
-    List<Student> findPresentCadre(@Param(value = "clazz") String clazz, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Student> findPresentCadre(@Param(value = "comy") String comy, @Param(value = "clazz") String clazz, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 根据现班级职务查询数量
@@ -54,14 +54,14 @@ public interface StudentDao {
      * @param clazz
      * @return
      */
-    int findPresentCadreCount(@Param(value = "clazz") String clazz);
+    int findPresentCadreCount(@Param(value = "comy") String comy, @Param(value = "clazz") String clazz);
 
     /**
      * 根据原班级查询班干部
      *
      * @return
      */
-    List<Student> findOriginalCadre(@Param(value = "clazz") String clazz, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Student> findOriginalCadre(@Param(value = "comy") String comy, @Param(value = "clazz") String clazz, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 根据原班级查询干部数量
@@ -69,7 +69,7 @@ public interface StudentDao {
      * @param clazz
      * @return
      */
-    int findOriginalCadreCount(@Param(value = "clazz") String clazz);
+    int findOriginalCadreCount(@Param(value = "comy") String comy, @Param(value = "clazz") String clazz);
 
     /**
      * 根据方向查找
@@ -77,7 +77,7 @@ public interface StudentDao {
      * @param direction
      * @return
      */
-    List<Student> findByDirection(@Param(value = "direction") String direction, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Student> findByDirection(@Param(value = "comy") String comy, @Param(value = "direction") String direction, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 根据方向查找数量
@@ -85,7 +85,7 @@ public interface StudentDao {
      * @param direction
      * @return
      */
-    int findByDirectionCount(@Param(value = "direction") String direction);
+    int findByDirectionCount(@Param(value = "comy") String comy, @Param(value = "direction") String direction);
 
     /**
      * 分页查询，需service计算startPage
@@ -94,7 +94,7 @@ public interface StudentDao {
      * @param num       需要拿多少条数据
      * @return
      */
-    List<Student> findPage(@Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Student> findPage(@Param(value = "comy") String comy, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 删除学生
@@ -111,7 +111,7 @@ public interface StudentDao {
      * @param conditionValue
      * @return
      */
-    int selectStudentNum(@Param(value = "conditionName") String conditionName, @Param(value = "conditionValue") String conditionValue);
+    int selectStudentNum(@Param(value = "comy") String comy, @Param(value = "conditionName") String conditionName, @Param(value = "conditionValue") String conditionValue);
 
     /**
      * 批量插入学生
@@ -145,7 +145,7 @@ public interface StudentDao {
      * @param num
      * @return 不排除同名学生，所以返回list
      */
-    List<Student> findByName(@Param(value = "name") String name, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Student> findByName(@Param(value = "comy") String comy, @Param(value = "name") String name, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 通过姓名查找数量
@@ -153,7 +153,7 @@ public interface StudentDao {
      * @param name
      * @return
      */
-    int findByNameCount(@Param(value = "name") String name);
+    int findByNameCount(@Param(value = "comy") String comy, @Param(value = "name") String name);
 
 
     /**
@@ -164,7 +164,7 @@ public interface StudentDao {
      * @param num
      * @return
      */
-    List<Student> findByClass_or(@Param(value = "original_class") String original_class, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Student> findByClass_or(@Param(value = "comy") String comy, @Param(value = "original_class") String original_class, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 根据原班级查询数量
@@ -172,7 +172,7 @@ public interface StudentDao {
      * @param original_class
      * @return
      */
-    int findByClass_orCount(@Param(value = "original_class") String original_class);
+    int findByClass_orCount(@Param(value = "comy") String comy, @Param(value = "original_class") String original_class);
 
     /**
      * 以现班级为单位查询
@@ -180,7 +180,7 @@ public interface StudentDao {
      * @param present_class
      * @return
      */
-    List<Student> findByClass_pe(@Param(value = "present_class") String present_class, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Student> findByClass_pe(@Param(value = "comy") String comy, @Param(value = "present_class") String present_class, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 根据现班级查询数量
@@ -188,7 +188,7 @@ public interface StudentDao {
      * @param present_class
      * @return
      */
-    int findByClass_peCount(@Param(value = "present_class") String present_class);
+    int findByClass_peCount(@Param(value = "comy") String comy, @Param(value = "present_class") String present_class);
 
     /**
      * 以专业为单位查询，应该很少用
@@ -196,7 +196,7 @@ public interface StudentDao {
      * @param major
      * @return
      */
-    List<Student> findByMajor(@Param(value = "major") String major, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Student> findByMajor(@Param(value = "comy") String comy, @Param(value = "major") String major, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 根据专业查询数量
@@ -204,7 +204,7 @@ public interface StudentDao {
      * @param major
      * @return
      */
-    int findByMajorCount(@Param(value = "major") String major);
+    int findByMajorCount(@Param(value = "comy") String comy, @Param(value = "major") String major);
 
     /**
      * 更新信息
@@ -221,7 +221,7 @@ public interface StudentDao {
      * @Author: RainGoal
      * @Date: 2021/1/30
      */
-    List<Student> findAll();
+    List<Student> findAll(@Param(value = "comy") String comy);
 
     /**
      * @Description: 查询指定地区的数目
@@ -230,7 +230,7 @@ public interface StudentDao {
      * @Author: RainGoal
      * @Date: 2021/2/17
      */
-    int findByArea(@Param(value = "area") String area);
+    int findByArea(@Param(value = "comy") String comy, @Param(value = "area") String area);
 
     /**
      * @Description: 根据地区模糊查询学生
@@ -239,12 +239,12 @@ public interface StudentDao {
      * @Author: RainGoal
      * @Date: 2021/2/17
      */
-    List<Student> findByAreaStudent(@Param("area") String area, @Param("startPage") int startPage, @Param("num") int num);
+    List<Student> findByAreaStudent(@Param(value = "comy") String comy, @Param("area") String area, @Param("startPage") int startPage, @Param("num") int num);
 
     /**
      * 查找总数
      *
      * @return
      */
-    int findAllNum();
+    int findAllNum(@Param(value = "comy") String comy);
 }

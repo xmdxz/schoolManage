@@ -47,6 +47,11 @@ public class PresentClass {
      */
     private String publicize;
 
+    /**
+     * 年级
+     */
+    private String comy;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

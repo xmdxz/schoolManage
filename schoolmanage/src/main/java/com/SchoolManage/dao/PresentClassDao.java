@@ -12,6 +12,7 @@ import java.util.List;
 public interface PresentClassDao {
     /**
      * 根据班级查询
+     *
      * @param clazz
      * @return
      */
@@ -19,7 +20,8 @@ public interface PresentClassDao {
 
     /**
      * 查询全部
+     *
      * @return
      */
-    List<PresentClass> findAll();
+    List<PresentClass> findAll(@Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 }

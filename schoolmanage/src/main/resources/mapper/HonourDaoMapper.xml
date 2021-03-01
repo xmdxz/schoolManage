@@ -5,16 +5,16 @@
 
 <mapper namespace="com.SchoolManage.dao.HonourDao">
     <insert id="insertHon">
-        insert into honour(student, type, prize, time, name, clazz)
+        insert into honour(student, type, prize, time, name, clazz, comy)
         values (#{honour.student}, #{honour.type}, #{honour.prize}, #{honour.time,jdbcType=DATE},
-                #{honour.name}, #{honour.clazz})
+                #{honour.name}, #{honour.clazz}, #{honour.comy})
     </insert>
     <insert id="insertHons">
-        insert into honour(student,type,prize,time,name,clazz)
+        insert into honour(student,type,prize,time,name,clazz,comy)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.student},#{item.type},#{item.prize},#{item.time,jdbcType=DATE},
-            #{item.name},#{item.clazz})
+            #{item.name},#{item.clazz},#{item.comy})
         </foreach>
     </insert>
     <update id="updateHonour">
@@ -24,7 +24,8 @@
             prize   = #{honour.prize},
             time    = date_format(#{honour.time,jdbcType=DATE}, '%Y-%m-%d'),
             name    = #{honour.name},
-            clazz   = #{honour.clazz}
+            clazz   = #{honour.clazz},
+            set     = #{honour.comy}
         where id = #{honour.id};
     </update>
     <delete id="deleteHon">
@@ -35,31 +36,51 @@
 
     <select id="findAll" resultType="com.SchoolManage.pojo.Honour">
         select *
-        from honour limit #{startPage},#{num}
+        from honour
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage},#{num}
     </select>
     <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where student = #{student} limit #{startPage}
-            , #{num}
+        where student = #{student}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByType" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where type like "%" #{type} "%" limit #{startPage}
-            , #{num}
+        where type like "%" #{type} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByPrize" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where prize like "%" #{prize} "%" limit #{startPage}
-            , #{num}
+        where prize like "%" #{prize} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByTime" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d') limit #{startPage}
-            , #{num}
+        where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByConditions" resultType="com.SchoolManage.pojo.Honour">
         select * from honour
@@ -69,58 +90,98 @@
                     ${key} = #{item}
                 </foreach>
             </where>
+            <if test="comy != null and comy != '' ">
+                and comy like "%" #{comy} "%"
+            </if>
+        </if>
+        <if test="map == null">
+            <if test="comy != null and comy != '' ">
+                where comy like "%" #{comy} "%"
+            </if>
         </if>
     </select>
     <select id="findAllCount" resultType="java.lang.Integer">
         select count(*)
         from honour
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
         where student = #{student}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByStudentCount" resultType="java.lang.Integer">
         select count(*)
         from honour
         where student = #{student}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByTypeCount" resultType="java.lang.Integer">
         select count(*)
         from honour
         where type like "%" #{type} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByPrizeCount" resultType="java.lang.Integer">
         select count(*)
         from honour
         where prize like "%" #{prize} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByTimeCount" resultType="java.lang.Integer">
         select count(*)
         from honour
         where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m') limit #{startPage}
-            , #{num}
+        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByTimeYearAndMonthCount" resultType="java.lang.Integer">
         select count(*)
         from honour
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByTimeYear" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where date_format(time, '%Y') = date_format(#{time}, '%Y') limit #{startPage}
-            , #{num}
+        where date_format(time, '%Y') = date_format(#{time}, '%Y')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByTimeYearCount" resultType="java.lang.Integer">
         select count(*)
         from honour
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Honour">
         select *
@@ -130,12 +191,36 @@
     <select id="findByName" resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
-        where name like "%" #{name} "%" limit #{startPage}
-            , #{num}
+        where name like "%" #{name} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByNameCount" resultType="java.lang.Integer">
         select count(*)
         from honour
         where name like "%" #{name} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+    </select>
+    <select id="findByDate" resultType="com.SchoolManage.pojo.Honour">
+        select *
+        from honour
+        where time like "%" #{date} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage},#{num}
+    </select>
+    <select id="findByDateCount" resultType="java.lang.Integer">
+        select count(*)
+        from honour
+        where time like "%" #{date} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
 </mapper>
