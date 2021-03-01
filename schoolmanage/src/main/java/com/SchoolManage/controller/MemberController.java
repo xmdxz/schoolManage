@@ -195,7 +195,7 @@ public class MemberController {
                 i = memberService.BatchAddition(path);
                 dest.delete();
                 AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上窜","部门成员信息",a.getName(),"多条","部门成员表");
+                logService.insertNew("上传","部门成员信息",a.getName(),"多条","部门成员表");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();
