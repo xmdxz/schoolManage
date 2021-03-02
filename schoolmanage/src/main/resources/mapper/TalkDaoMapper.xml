@@ -6,94 +6,112 @@
 <mapper namespace="com.SchoolManage.dao.TalkDao">
     <insert id="insertTalk">
         insert
-        into talk(student, teacher, content, time)
+        into talk(student, teacher, content, time, comy, types, level)
         values (#{talk.student},
                 #{talk.teacher},
                 #{talk.content},
-                #{talk.time,jdbcType=DATE})
+                #{talk.time,jdbcType=DATE}, #{talk.comy}, #{talk.types}, #{talk.level})
 
     </insert>
     <insert id="insertAllTalk">
-        insert into talk(student,teacher,content,time)
+        insert into talk(student,teacher,content,time,comy,types,level)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.student},#{item.teacher},#{item.content},#{item.time,jdbcType=DATE})
+            (#{item.student},#{item.teacher},#{item.content},#{item.time,jdbcType=DATE},#{item.comy},#{item.types},#{item.level})
         </foreach>
     </insert>
     <delete id="deleteTalk">
         delete
         from talk
         where id = #{id}
-          and teacher = #{teacher}
     </delete>
-    <update id="updata">
-        update  talk
-        set student = #{talk.student},
-        time = #{talk.time},
-        content = #{talk.content}
-        where id = #{talk.id} and teacher =#{talk.teacher}
-    </update>
     <select id="findAll" resultType="com.SchoolManage.pojo.Talk">
+        select * from talk
+        <if test="comy != null and comy !='' ">
+            where comy like "%" #{comy} "%"
+        </if>
+    </select>
+    <select id="findByStudent" resultType="com.SchoolManage.pojo.Talk">
+        select * from talk
+        where student = #{student}
+        <if test="comy != null and comy !='' ">
+            and comy like "%" #{comy} "%"
+        </if>
+    </select>
+    <select id="findByStudentCount" resultType="java.lang.Integer">
+        select count(*) from talk
+        where student = #{student}
+        <if test="comy != null and comy !='' ">
+            and comy like "%" #{comy} "%"
+        </if>
+    </select>
+    <select id="findByTeacher" resultType="com.SchoolManage.pojo.Talk">
+        select * from talk
+        where teacher like "%" #{teacher} "%"
+        <if test="comy != null and comy !='' ">
+            and comy like "%" #{comy} "%"
+        </if>
+    </select>
+    <select id="findByTime" resultType="com.SchoolManage.pojo.Talk">
         select *
         from talk
-        where teacher = #{teacher} limit #{startPage}
-            , #{num};
+        where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+    </select>
+    <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Talk">
+        select *
+        from talk
+        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+    </select>
+    <select id="findByTimeYear" resultType="com.SchoolManage.pojo.Talk">
+        select *
+        from talk
+        where date_format(time, '%Y') = date_format(#{time}, '%Y')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Talk">
         select *
         from talk
         where id = #{id}
     </select>
-    <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Talk">
+    <select id="findByTypes" resultType="com.SchoolManage.pojo.Talk">
+        select * from talk
+        where types like "%" #{types} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+    </select>
+    <select id="findByDateAndTypesAndLevel" resultType="com.SchoolManage.pojo.Talk">
         select *
         from talk
-        where student = #{student}
-          and teacher = #{teacher}
+        where time like "%" #{time} "%" and types like "%" #{types} "%" and level like "%" #{level} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
-    <select id="findByTeacher" resultType="com.SchoolManage.pojo.Talk">
-        select *
-        from talk
-        where teacher like "%" #{teacher} "%" limit #{startPage}
-            , #{num}
+    <select id="findByDate" resultType="com.SchoolManage.pojo.Talk">
+        select * from talk
+        where time like "%" #{date} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
-    <select id="findByTime" resultType="com.SchoolManage.pojo.Talk">
-        select *
-        from talk
-        where time = #{time} limit #{startPage}
-            , #{num}
-    </select>
-    <select id="findAllCount" resultType="java.lang.Integer">
-        select count(*)
-        from talk
-        where teacher = #{teacher}
-    </select>
-    <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Talk">
-        select *
-        from talk
-        where student = #{student}and teacher =#{teacher} limit #{startPage}
-            , #{num}
-    </select>
-    <select id="findByStudentCount" resultType="java.lang.Integer">
-        select count(*)
-        from talk
-        where student = #{student}
-          and teacher = #{teacher}
-    </select>
-    <select id="findByTimeCount" resultType="java.lang.Integer">
-        select count(*)
-        from talk
-        where time = #{time}
-          and teacher =#{teacher}
-    </select>
-    <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Talk">
-        select *
-        from talk
-        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m') limit #{startPage}
-            , #{num}
-    </select>
-    <select id="findByTimeYearAndMonthCount" resultType="java.lang.Integer">
-        select count(*)
-        from talk
-        where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
-    </select>
+    <update id="updata">
+        update talk
+        set student = #{talk.student},
+            time    = #{talk.time},
+            content = #{talk.content},
+            comy    = #{talk.comy},
+            types   = #{talk.types},
+            level   = #{talk.level}
+        where id = #{talk.id}
+    </update>
+
 </mapper>

@@ -35,4 +35,19 @@ public class Talk {
      * 谈话时间
      */
     private Date time;
+
+    /**
+     * 年级
+     */
+    private String comy;
+
+    /**
+     * 类型
+     */
+    private String types;
+
+    /**
+     * 级别
+     */
+    private String level;
 }

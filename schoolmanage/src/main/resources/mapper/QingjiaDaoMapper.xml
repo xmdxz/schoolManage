@@ -5,16 +5,17 @@
 
 <mapper namespace="com.SchoolManage.dao.QingJiaDao">
     <insert id="insertQingjia">
-        insert into qingjia(student, teacher, start_time, end_time, cause, name, clazz)
+        insert into qingjia(student, teacher, start_time, end_time, cause, name, clazz, comy)
         values (#{qingjia.student}, #{qingjia.teacher}, #{qingjia.start_time,jdbcType=TIMESTAMP},
-                #{qingjia.end_time,jdbcType=TIMESTAMP}, #{qingjia.cause}, #{qingjia.name}, #{qingjia.clazz})
+                #{qingjia.end_time,jdbcType=TIMESTAMP}, #{qingjia.cause}, #{qingjia.name}, #{qingjia.clazz},
+                #{qingjia.comy})
     </insert>
     <insert id="insertQingjias">
-        insert into qingjia(student,teacher,start_time,end_time,cause,name,clazz)
+        insert into qingjia(student,teacher,start_time,end_time,cause,name,clazz,comy)
         values
         <foreach collection="list" separator="," item="item">
             (#{item.student}, #{item.teacher}, #{item.start_time,jdbcType=TIMESTAMP},
-            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause},#{item.name},#{item.clazz})
+            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause},#{item.name},#{item.clazz},#{item.comy})
         </foreach>
     </insert>
     <delete id="deleteQingjia">
@@ -26,100 +27,178 @@
 
     <select id="findAll" resultType="com.SchoolManage.pojo.Qingjia">
         select *,
-               (select count(*)
-                from qingjia qingjia2
-                where qingjia2.student = qingjia1.student
-               ) as num
-        from qingjia qingjia1;
+        (select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        <if test="comy != null and comy != '' ">
+            where qingjia1.comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage},#{num}
     </select>
     <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Qingjia">
-        select *
-        from qingjia
-        where student = #{student}
+        select *,(select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        where qingjia1.student = #{student}
+        <if test="comy != null and comy != '' ">
+            and qingjia1.comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByTeacher" resultType="com.SchoolManage.pojo.Qingjia">
-        select *
-        from qingjia
-        where teacher = #{teacher}
+        select *,
+        (select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        where qingjia1.teacher = #{teacher}
+        <if test="comy != null and comy != '' ">
+            and qingjia1.comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage},#{num}
     </select>
     <select id="findAllCount" resultType="java.lang.Integer">
         select count(*)
         from qingjia
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Qingjia">
-        select *
-        from qingjia
-        where student = #{student} limit #{startPage}
-            , #{num}
+        select *,(select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        where qingjia1.student = #{student}
+        <if test="comy != null and comy != '' ">
+            and qingjia1.comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByStudentCount" resultType="java.lang.Integer">
         select count(*)
         from qingjia
         where student = #{student}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByTimeYearAndMonthAndDay" resultType="com.SchoolManage.pojo.Qingjia">
-        select *
-        from qingjia
-        where date_format(start_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
-           or date_format(end_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
-            limit #{startPage}
-            , #{num}
+        select *,(select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        where (date_format(qingjia1.start_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+        or date_format(qingjia1.end_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d'))
+        <if test="comy != null and comy != '' ">
+            and qingjia1.comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByTimeYearAndMonthAndDayCount" resultType="java.lang.Integer">
         select count(*)
         from qingjia
-        where date_format(start_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
-           or date_format(end_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+        where (date_format(start_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+        or date_format(end_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d'))
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Qingjia">
-        select *
-        from qingjia
-        where date_format(start_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
-           or date_format(end_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
-            limit #{startPage}
-            , #{num}
+        select *,(select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        where (date_format(qingjia1.start_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+        or date_format(qingjia1.end_time, '%Y-%m') = date_format(#{time}, '%Y-%m'))
+        <if test="comy != null and comy != '' ">
+            and qingjia1.comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByTimeYearAndMonthCount" resultType="java.lang.Integer">
         select count(*)
         from qingjia
-        where date_format(start_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
-           or date_format(end_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+        where (date_format(start_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+        or date_format(end_time, '%Y-%m') = date_format(#{time}, '%Y-%m'))
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByTimeYear" resultType="com.SchoolManage.pojo.Qingjia">
-        select *
-        from qingjia
-        where date_format(start_time, '%Y') = date_format(#{time}, '%Y')
-           or date_format(end_time, '%Y') = date_format(#{time}, '%Y')
-            limit #{startPage}
-            , #{num}
+        select *,(select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        where (date_format(qingjia1.start_time, '%Y') = date_format(#{time}, '%Y')
+        or date_format(qingjia1.end_time, '%Y') = date_format(#{time}, '%Y'))
+        <if test="comy != null and comy != '' ">
+            and qingjia1.comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByTimeYearCount" resultType="java.lang.Integer">
         select count(*)
         from qingjia
-        where date_format(start_time, '%Y') = date_format(#{time}, '%Y')
-           or date_format(end_time, '%Y') = date_format(#{time}, '%Y')
+        where (date_format(start_time, '%Y') = date_format(#{time}, '%Y')
+        or date_format(end_time, '%Y') = date_format(#{time}, '%Y'))
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.Qingjia">
-        select *
-        from qingjia
-        where name like "%" #{name} "%" limit #{startPage}
-            , #{num}
+        select *,(select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        where qingjia1.name like "%" #{name} "%"
+        <if test="comy != null and comy != '' ">
+            and qingjia1.comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByNameCount" resultType="java.lang.Integer">
         select count(*)
         from qingjia
         where name like "%" #{name} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByClazz" resultType="com.SchoolManage.pojo.Qingjia">
-        select *
-        from qingjia
-        where clazz like "%" #{clazz} "%" limit #{startPage}
-            , #{num}
+        select *,(select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        where clazz like "%" #{clazz} "%"
+        <if test="comy != null and comy != '' ">
+            and qingjia1.comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByClazzCount" resultType="java.lang.Integer">
         select *
         from qingjia
         where clazz like "%" #{clazz} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <update id="updateQingJia" parameterType="com.SchoolManage.pojo.Qingjia">
         update qingjia
@@ -129,12 +208,35 @@
             cause      = #{cause},
             end_time   = #{end_time},
             `name`     = #{name},
-            clazz      = #{clazz}
+            clazz      = #{clazz},
+            comy       = #{comy}
         where id = #{id};
     </update>
     <select id="findById" resultType="com.SchoolManage.pojo.Qingjia">
         select *
         from qingjia
         where id = #{id};
+    </select>
+    <select id="findByDate" resultType="com.SchoolManage.pojo.Qingjia">
+        select *,(select count(*)
+        from qingjia qingjia2
+        where qingjia2.student = qingjia1.student
+        ) as num
+        from qingjia qingjia1
+        where (qingjia1.start_time like "%" #{date} "%"
+        or qingjia1.end_time like "%" #{date} "%")
+        <if test="comy != null and comy != '' ">
+            and qingjia1.comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage},#{num}
+    </select>
+    <select id="findByDateCount" resultType="java.lang.Integer">
+        select count(*)
+        from qingjia
+        where (start_time like "%" #{date} "%"
+        or end_time like "%" #{date} "%")
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
 </mapper>

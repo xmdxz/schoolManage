@@ -19,6 +19,8 @@ public class Dormitory {
 
     private Integer num;
 
+    private String comy;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

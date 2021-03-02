@@ -37,16 +37,16 @@ public interface DormitoryDao {
      * @param num
      * @return
      */
-    List<Dormitory> findAll(@Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Dormitory> findAll(@Param(value = "comy") String comy, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 查询全部宿舍数量
      *
      * @return
      */
-    int findAllNum();
+    int findAllNum(@Param(value = "comy") String comy);
 
-    List<Dormitory> findAllNoPage();
+    List<Dormitory> findAllNoPage(@Param(value = "comy") String comy);
 
     /**
      * 根据宿舍长姓名查询
@@ -56,7 +56,7 @@ public interface DormitoryDao {
      * @param num
      * @return
      */
-    List<Dormitory> findByName(@Param(value = "name") String name, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Dormitory> findByName(@Param(value = "comy") String comy, @Param(value = "name") String name, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 根据姓名查询宿舍的数量，重名？  以防万一
@@ -64,7 +64,7 @@ public interface DormitoryDao {
      * @param name
      * @return
      */
-    int findByNameNum(@Param(value = "name") String name);
+    int findByNameNum(@Param(value = "comy") String comy, @Param(value = "name") String name);
 
     /**
      * 根据学号查询，学号唯一
@@ -82,7 +82,7 @@ public interface DormitoryDao {
      * @param num
      * @return
      */
-    List<Dormitory> findByBuilding(@Param(value = "building") String building, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Dormitory> findByBuilding(@Param(value = "comy") String comy, @Param(value = "building") String building, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 根据宿舍楼查询数量
@@ -90,7 +90,7 @@ public interface DormitoryDao {
      * @param building
      * @return
      */
-    int findByBuildingNum(@Param(value = "building") String building);
+    int findByBuildingNum(@Param(value = "comy") String comy, @Param(value = "building") String building);
 
     /**
      * 根据宿舍号查询全部宿舍，但我感觉应该不会用，以防万一
@@ -100,7 +100,7 @@ public interface DormitoryDao {
      * @param num
      * @return
      */
-    List<Dormitory> findByNumber(@Param(value = "number") String number, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
+    List<Dormitory> findByNumber(@Param(value = "comy") String comy, @Param(value = "number") String number, @Param(value = "startPage") int startPage, @Param(value = "num") int num);
 
     /**
      * 根据宿舍号查询全部宿舍数量，但我感觉应该不会用，以防万一
@@ -108,7 +108,7 @@ public interface DormitoryDao {
      * @param number
      * @return
      */
-    int findByNumberNum(String number);
+    int findByNumberNum(@Param(value = "comy") String comy, @Param(value = "number") String number);
 
     /**
      * 根据具体宿舍楼宿舍号查询

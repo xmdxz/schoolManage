@@ -1,7 +1,6 @@
 package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.OriginalClass;
-import com.SchoolManage.pojo.PresentClass;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -13,6 +12,7 @@ import java.util.List;
 public interface OriginalClassDao {
     /**
      * 根据班级查询
+     *
      * @param clazz
      * @return
      */
@@ -20,7 +20,8 @@ public interface OriginalClassDao {
 
     /**
      * 查询全部
+     *
      * @return
      */
-    List<OriginalClass> findAll();
+    List<OriginalClass> findAll(@Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 }
