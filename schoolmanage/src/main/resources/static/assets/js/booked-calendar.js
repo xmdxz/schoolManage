@@ -57,7 +57,7 @@ function edit(res) {
                 res.date = moment(res.date).format('Y-MM-DD');
                 $.ajax({
                     type:"post",
-                    data:{'comy':19,'date':res.date},
+                    data:{'date':res.date},
                     url: "talk/findbytime",
                 }).done(function (re) {
                     var msg = "";
@@ -86,20 +86,23 @@ function edit(res) {
                             url: "talk/findbyid",
                         }).done(function (re) {
                             var mg = "";
-                            msg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white project_item "+re.types+"\" style='width: 100%'>";
-                            msg+="<div class=\"toggle-title\"><a href=\"#\">"+1+".   "+re.teacher+"--"+re.time+ "与"+re.student+"的谈话"+"</a></div>";
-                            msg+="<div class=\"toggle-content\" style='display: none' >";
-                            msg+="<p>"+re.content+"</p>";
-                            msg+="<div style=\"float: right\">";
-                            msg+="<a title=\"修改\"   tabindex=\"0\" onclick='edit("+re.id+")'><i class=\"ti ti-pencil\"></i></a>";
-                            msg+="<a  class=\"ttm_link\" tabindex=\"0\" onclick='delect("+re.id+")'><i class=\"ti ti-trash\"></i></a>";
-                            msg+="</div>";
-                            msg+="</div>";
-                            msg+="</div>";
+                            mg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white project_item "+re.types+"\" style='width: 100%'>";
+                            mg+="<div class=\"toggle-title\"><a href=\"#\">"+1+".   "+re.teacher+"--"+re.time+ "与"+re.student+"的谈话"+"</a></div>";
+                            mg+="<div class=\"toggle-content\" style='display: none' >";
+                            mg+="<p>"+re.content+"</p>";
+                            mg+="<div style=\"float: right\">";
+                            mg+="<a title=\"修改\"   tabindex=\"0\" onclick='edit("+re.id+")'><i class=\"ti ti-pencil\"></i></a>";
+                            mg+="<a  class=\"ttm_link\" tabindex=\"0\" onclick='delect("+re.id+")'><i class=\"ti ti-trash\"></i></a>";
+                            mg+="</div>";
+                            mg+="</div>";
+                            mg+="</div>";
                                 if (re==null||re==""){
                                     $("#talks").html("暂无");
                                 }else {
-                                    $("#talks").html(mg);
+                                    $("#talks").html("");
+                                    var i=$("#talks").isotope('insert',$(mg));
+                                    if (first&&i.children().length==0){$("#talks").html(mg);}
+                                    else first=false;
                                 }
                                 first=false
                         })
