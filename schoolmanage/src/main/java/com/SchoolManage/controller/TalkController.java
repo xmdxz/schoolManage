@@ -48,6 +48,7 @@ public class TalkController {
     public String insertTalk(Talk talk, HttpServletRequest request) {
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         talk.setTeacher(a.getName());
+        talk.setComy(a.getResponsible());
         int i = talkService.insertTalk(talk);
         if (i != 0) {
             return "redirect:/loginp_5.html";
@@ -107,8 +108,9 @@ public class TalkController {
 
     @RequestMapping("findbytime")
     @ResponseBody
-    public List<Talk> findByTime(String comy, Date date) {
-        return talkService.findByTime(comy, date);
+    public List<Talk> findByTime(Date date,HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        return talkService.findByTime(a.getResponsible(), date);
     }
 
 //    @RequestMapping("findbytimecount")
@@ -147,7 +149,7 @@ public class TalkController {
         Talk talk = talkService.findById(id);
         if (talk == null) return null;
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        if (talk.getTeacher().equals(a.getName())) return talk;
+        if (a.getResponsible().contains(talk.getComy())) return talk;
         else return null;
     }
 
@@ -155,6 +157,7 @@ public class TalkController {
     public String update(Talk talk, HttpServletRequest request) {
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         talk.setTeacher(a.getName());
+        talk.setComy(a.getResponsible());
         int i = talkService.updata(talk);
         if (i != 0) {
             return "redirect:/loginp_5.html";
