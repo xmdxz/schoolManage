@@ -31,6 +31,7 @@
     <!-- Slimscroll JS -->
     <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
+
     <!-- Custom JS -->
     <script th:src="@{/assets/js/script.js}"></script>
     <!-- alert beautiful-->
@@ -38,20 +39,15 @@
     <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
     <script type="text/javascript">
         //获取缓存中登录账号的信息
-        var url = document.location.toString();//获取url地址
-        var Name = null;
-        if (url.indexOf("?") != -1) {
-            var urlParmStr = url.slice(url.indexOf('?') + 1);//获取问号后所有的字符串
-            var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
-            Name = arr[0].split("=")[1];//获取数组中第一个参数//
-            Name = decodeURI(Name);//转码将解码方式换为decodeURI，将中文参数获取
-            console.log(Name)
-        }
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         $(document).ready(function () {
             $('#InfoName').text(name);
-            $('#department').val(Name);
+            var date = new Date();
+            var date_1 = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + " 08:00:00";
+            var date_2 = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + " 20:00:00";
+            $('#start_time').val(date_1);
+            $('#end_time').val(date_2);
             $("#bt1").click(function () {
                 $('#excelFile').trigger("click");
                 $('#excelFile').change(function (event) {
@@ -61,9 +57,9 @@
                     if (temp) {
                         formData.append('file', temp);
                         $.ajax({
-                            url: 'member/upfile',
+                            url: 'QingJia/upfile',
                             type: 'post',
-                            data: formData,
+                            data: {formData,comy:'2020'},
                             processData: false, // 告诉jQuery不要去处理发送的数据
                             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
                             success: function (res) {
@@ -78,26 +74,6 @@
 
                 });
 
-            })
-            var downing = false;
-            $("#bt2").click(function () {
-                swal("已经开始下载！", "切勿重复点击！", "success");
-                if (downing) {
-                    swal("有一项下载任务进行中！", "切勿重复点击！", "warning");
-                    return
-                }
-                downing = true;
-                $.ajax({
-                    url: 'department/Excle3',
-                    dataType: 'text',
-                    success(res) {
-                        console.log(res);
-                        $("#downe").attr("href", res);
-                        console.log($("#a")[0]);
-                        $("#downe")[0].click()
-                        downing = false;
-                    }
-                })
             })
         });
     </script>
@@ -260,7 +236,7 @@
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="departments.html">部门列表</a></li>
-                            <li><a href="add-department.html" class="active">部门添加</a></li>
+                            <li><a href="add-department.html">部门添加</a></li>
                             <!--									<li><a href="edit-department.html">部门编辑</a></li>-->
                         </ul>
                     </li>
@@ -288,7 +264,7 @@
                             <li><a href="add-salary.html">添加工资</a></li>
                         </ul>
                     </li> -->
-                    <li class="submenu">
+                    <li class="submenu active">
                         <a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
@@ -314,10 +290,10 @@
                             <!--										</ul>-->
                             <!--									</li>-->
                             <li class="submenu">
-                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
-                                <ul>
+                                <a href="#" class="active"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul id="weiyi1">
                                     <li><a href="holiday-20.html">20级假期列表</a></li>
-                                    <li><a href="add-holiday-20.html">20级假期添加</a></li>
+                                    <li><a href="add-holiday-20.html" class="active">20级假期添加</a></li>
                                 </ul>
                             </li>
                             <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
@@ -516,17 +492,13 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">添加部门成员</h3>
+                        <h3 class="page-title">添加假期</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="departments.html">部门</a></li>
-                            <li class="breadcrumb-item active">添加部门成员</li>
+                            <li class="breadcrumb-item"><a href="departments.html">假期</a></li>
+                            <li class="breadcrumb-item active">添加假期</li>
                         </ul>
                     </div>
                     <div class="col-auto text-right float-right ml-auto">
-                        <a download id="downe" href="" style="display: none"> </a>
-                        <button type="button" id="bt2" class="btn btn-outline-primary mr-2"><i
-                                class="fas fa-download"></i> 下载模板
-                        </button>
                         <input type="file" name="excelFile" id="excelFile" style="display:none" accept=".xls,.xlsx">
                         <button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i
                                 class="fas fa-upload"></i> 批量添加
@@ -541,58 +513,66 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <form action="member/insertdata" method="post">
+                            <form action="QingJia/insertqingjia" method="post" onsubmit="return checkm()">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5 class="form-title"><span>成员信息</span></h5>
+                                        <h5 class="form-title"><span>请假详细信息</span></h5>
+                                    </div>
+                                    <div class="col-12 col-sm-6" style="display:none;">
+                                        <div class="form-group">
+                                            <label>年级</label>
+                                            <input type="text" class="form-control" value="2020" placeholder="请输入"
+                                                   name="comy" id="comy">
+                                        </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>学号</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" name="id"
-                                                   id="id">
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   name="student" id="student">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>姓名</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="name"
-                                                   name="name">
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   name="name" id="name">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>班级</label>
+                                            <label>现班级</label>
                                             <input type="text" class="form-control" value="" placeholder="例：软件1901"
                                                    id="clazz" name="clazz">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>所属部门</label>
+                                            <label>批准教师</label>
                                             <input type="text" class="form-control" value="" placeholder="请输入"
-                                                   id="department" name="department">
+                                                   id="teacher" name="teacher">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>部门职位</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入"
-                                                   id="position" name="position">
+                                            <label>请假开始日期</label>
+                                            <input type="text" class="form-control" value=""
+                                                   placeholder="请输入(例如:2021-02-21 08:00)" id="start_time"
+                                                   name="start_time">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>联系方式</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入"
-                                                   id="phone" name="phone">
+                                            <label>请假结束日期</label>
+                                            <input type="text" class="form-control" value=""
+                                                   placeholder="请输入(例如:2021-02-21 08:00)" id="end_time" name="end_time">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>QQ</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="qq"
-                                                   name="qq">
+                                            <label>请假原因</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   id="cause" name="cause">
                                         </div>
                                     </div>
                                     <div class="col-12">

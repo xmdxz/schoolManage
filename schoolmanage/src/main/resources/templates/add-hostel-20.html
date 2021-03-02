@@ -31,6 +31,7 @@
     <!-- Slimscroll JS -->
     <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
+
     <!-- Custom JS -->
     <script th:src="@{/assets/js/script.js}"></script>
     <!-- alert beautiful-->
@@ -38,20 +39,10 @@
     <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
     <script type="text/javascript">
         //获取缓存中登录账号的信息
-        var url = document.location.toString();//获取url地址
-        var Name = null;
-        if (url.indexOf("?") != -1) {
-            var urlParmStr = url.slice(url.indexOf('?') + 1);//获取问号后所有的字符串
-            var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
-            Name = arr[0].split("=")[1];//获取数组中第一个参数//
-            Name = decodeURI(Name);//转码将解码方式换为decodeURI，将中文参数获取
-            console.log(Name)
-        }
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         $(document).ready(function () {
-            $('#InfoName').text(name);
-            $('#department').val(Name);
+            $('#InfoName').text(name)
             $("#bt1").click(function () {
                 $('#excelFile').trigger("click");
                 $('#excelFile').change(function (event) {
@@ -61,9 +52,9 @@
                     if (temp) {
                         formData.append('file', temp);
                         $.ajax({
-                            url: 'member/upfile',
+                            url: 'dormitory/upfile',
                             type: 'post',
-                            data: formData,
+                            data: {formData,comy:'2020'},
                             processData: false, // 告诉jQuery不要去处理发送的数据
                             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
                             success: function (res) {
@@ -88,7 +79,7 @@
                 }
                 downing = true;
                 $.ajax({
-                    url: 'department/Excle3',
+                    url: 'dormitory/Excle3',
                     dataType: 'text',
                     success(res) {
                         console.log(res);
@@ -180,7 +171,7 @@
                         </div>
                     </div>
                     <a class="dropdown-item" href="profile.html">我的个人资料</a>
-<!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
+                    <!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
                     <a class="dropdown-item" href="login.html">注销</a>
                 </div>
             </li>
@@ -260,7 +251,7 @@
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="departments.html">部门列表</a></li>
-                            <li><a href="add-department.html" class="active">部门添加</a></li>
+                            <li><a href="add-department.html">部门添加</a></li>
                             <!--									<li><a href="edit-department.html">部门编辑</a></li>-->
                         </ul>
                     </li>
@@ -404,7 +395,7 @@
                     <!-- 	<li>
                         <a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>体育</span></a>
                     </li> -->
-                    <li class="submenu">
+                    <li class="submenu active">
                         <a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
@@ -430,10 +421,10 @@
                             <!--										</ul>-->
                             <!--									</li>-->
                             <li class="submenu">
-                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
-                                <ul>
+                                <a href="#" class="active"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul id="weiyi1">
                                     <li><a href="hostel-20.html">20级宿舍列表</a></li>
-                                    <li><a href="add-hostel-20.html">20级宿舍添加</a></li>
+                                    <li><a href="add-hostel-20.html" class="active">20级宿舍添加</a></li>
                                 </ul>
                             </li>
                             <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
@@ -516,10 +507,10 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">添加部门成员</h3>
+                        <h3 class="page-title">添加宿舍</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="departments.html">部门</a></li>
-                            <li class="breadcrumb-item active">添加部门成员</li>
+                            <li class="breadcrumb-item"><a href="departments.html">宿舍</a></li>
+                            <li class="breadcrumb-item active">添加宿舍</li>
                         </ul>
                     </div>
                     <div class="col-auto text-right float-right ml-auto">
@@ -541,58 +532,37 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <form action="member/insertdata" method="post">
+                            <form action="dormitory/insertData" method="post">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5 class="form-title"><span>成员信息</span></h5>
+                                        <h5 class="form-title"><span>宿舍详细信息</span></h5>
                                     </div>
-                                    <div class="col-12 col-sm-6">
+                                    <div class="col-12 col-sm-6" style="display: none">
                                         <div class="form-group">
-                                            <label>学号</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" name="id"
-                                                   id="id">
+                                            <label>年份</label>
+                                            <input type="text" class="form-control" value="2020" placeholder="请输入(例如:11号楼)"
+                                                   name="comy" id="comy">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>姓名</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="name"
-                                                   name="name">
+                                            <label>楼号</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入(例如:11号楼)"
+                                                   name="building" id="building">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>班级</label>
-                                            <input type="text" class="form-control" value="" placeholder="例：软件1901"
-                                                   id="clazz" name="clazz">
+                                            <label>宿舍号</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入(例如:302)"
+                                                   id="number" name="number">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>所属部门</label>
+                                            <label>宿舍长</label>
                                             <input type="text" class="form-control" value="" placeholder="请输入"
-                                                   id="department" name="department">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>部门职位</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入"
-                                                   id="position" name="position">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>联系方式</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入"
-                                                   id="phone" name="phone">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>QQ</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="qq"
-                                                   name="qq">
+                                                   id="manager" name="manage">
                                         </div>
                                     </div>
                                     <div class="col-12">

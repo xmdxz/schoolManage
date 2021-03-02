@@ -60,7 +60,7 @@
 					$.ajax({
 						url: 'honour/Excle',
 						dataType: 'text',
-						data:{},
+						data:{comy:'2019'},
 						success(res){
 							console.log(res);
 							$("#downe").attr("href",res);
@@ -77,7 +77,7 @@
 						$.ajax({
 							type: "post",
 							url: "honour/findbystudentcount",
-							data:{student:a},
+							data:{comy:'2019',student:a},
 							dataType: "json",
 							async: false,
 						}).done(function (res) {
@@ -88,7 +88,7 @@
 							type: "post",
 							url: "honour/findbystudent",
 							dataType: "json",
-							data: {student:a,'Page': 1, 'num': everypage_1},
+							data: {comy:'2019',student:a,'Page': 1, 'num': everypage_1},
 						}).done(function (res) {
 							var msg = "";
 							$.each(res, function (i, n) {
@@ -134,7 +134,7 @@
 						$.ajax({
 							type: "post",
 							url: "honour/findbynamecount",
-							data:{name:a},
+							data:{comy:'2019',name:a},
 							dataType: "json",
 							async: false,
 						}).done(function (res) {
@@ -145,7 +145,7 @@
 							type: "post",
 							url: "honour/findbyname",
 							dataType: "json",
-							data: {name:a,'Page': 1, 'num': everypage_2},
+							data: {comy:'2019',name:a,'Page': 1, 'num': everypage_2},
 						}).done(function (res) {
 							var msg = "";
 							$.each(res, function (i, n) {
@@ -194,6 +194,7 @@
 			$.ajax({
 				type: "post",
 				url: "honour/findallcount",
+				data:{comy:'2019'},
 				dataType: "json",
 				async: false,
 			}).done(function (res) {
@@ -204,7 +205,7 @@
 				type: "post",
 				url: "honour/findall",
 				dataType: "json",
-				data: {'Page': 1, 'num': everypage},
+				data: {comy:'2019','Page': 1, 'num': everypage},
 			}).done(function (res) {
 				console.log(res)
 				var msg = "";
@@ -254,7 +255,7 @@
 					type: "post",
 					url: "honour/findall",
 					dataType: "json",
-					data: {'Page': page, 'num': everypage},
+					data: {comy:'2019','Page': page, 'num': everypage},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
@@ -286,7 +287,7 @@
 					type: "post",
 					url: "honour/findbyname",
 					dataType: "json",
-					data: {name:a,Page: page, num: everypage_2},
+					data: {comy:'2019',name:a,Page: page, num: everypage_2},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
@@ -309,7 +310,7 @@
 					type: "post",
 					url: "honour/findbystudent",
 					dataType: "json",
-					data: {student:a,Page: page, num: everypage_1},
+					data: {comy:'2019',student:a,Page: page, num: everypage_1},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
@@ -460,8 +461,13 @@
 							<li class="menu-title">
 								<span>主菜单</span>
 							</li>
-							<li>
-								<a href="index.html"><i class="fas fa-th-large"></i> <span>仪表板</span></a>
+							<li class="submenu">
+								<a href="#"><i class="fas fa-th-large"></i> <span> 仪表板</span> <span
+										class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="index.html">19级学生</a></li>
+									<li><a href="index-20.html">20级学生</a></li>
+								</ul>
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="fas fa-user-graduate"></i> <span>学生</span> <span
@@ -543,17 +549,79 @@
 								</ul>
 							</li> -->
 							<li class="submenu">
-								<a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span class="menu-arrow"></span></a>
+								<a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span
+										class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="holiday.html">假期列表</a></li>
-									<li><a href="add-holiday.html">假期添加</a></li>
+									<li class="submenu">
+										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+										<ul>
+											<li><a href="holiday.html">19级假期列表</a></li>
+											<li><a href="add-holiday.html">19级假期添加</a></li>
+										</ul>
+									</li>
+									<!--									<li class="submenu">-->
+									<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+									<!--										<ul>-->
+									<!--											<li><a href="students.html">学生列表</a></li>-->
+									<!--											<li><a href="add-student.html">学生添加</a></li>-->
+									<!--										</ul>-->
+									<!--									</li>-->
+									<!--									<li class="submenu">-->
+									<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+									<!--										<ul>-->
+									<!--											<li><a href="students.html">学生列表</a></li>-->
+									<!--											<li><a href="add-student.html">学生添加</a></li>-->
+									<!--										</ul>-->
+									<!--									</li>-->
+									<li class="submenu">
+										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+										<ul>
+											<li><a href="holiday-20.html">20级假期列表</a></li>
+											<li><a href="add-holiday-20.html">20级假期添加</a></li>
+										</ul>
+									</li>
+									<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+									<!--									<li><a href="student-details.html">学生信息</a></li>-->
+									<!--                            <li><a href="add-student.html">学生添加</a></li>-->
+									<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
 								</ul>
 							</li>
 							<li class="submenu active">
-								<a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span class="menu-arrow"></span></a>
+								<a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span
+										class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="honour.html" class="active">荣誉列表</a></li>
-									<li><a href="add-honour.html">荣誉添加</a></li>
+									<li class="submenu">
+										<a href="#" class="active"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+										<ul id="weiyi1">
+											<li><a href="honour.html" class="active">19级荣誉列表</a></li>
+											<li><a href="add-honour.html">19级荣誉添加</a></li>
+										</ul>
+									</li>
+									<!--									<li class="submenu">-->
+									<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+									<!--										<ul>-->
+									<!--											<li><a href="students.html">学生列表</a></li>-->
+									<!--											<li><a href="add-student.html">学生添加</a></li>-->
+									<!--										</ul>-->
+									<!--									</li>-->
+									<!--									<li class="submenu">-->
+									<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+									<!--										<ul>-->
+									<!--											<li><a href="students.html">学生列表</a></li>-->
+									<!--											<li><a href="add-student.html">学生添加</a></li>-->
+									<!--										</ul>-->
+									<!--									</li>-->
+									<li class="submenu">
+										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+										<ul>
+											<li><a href="honour-20.html">20级荣誉列表</a></li>
+											<li><a href="add-honour-20.html">20级荣誉添加</a></li>
+										</ul>
+									</li>
+									<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+									<!--									<li><a href="student-details.html">学生信息</a></li>-->
+									<!--                            <li><a href="add-student.html">学生添加</a></li>-->
+									<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
 								</ul>
 							</li>
 <!--							<li>-->
@@ -597,10 +665,41 @@
 								<a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>
 							</li> -->
 							<li class="submenu">
-								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span class="menu-arrow"></span></a>
+								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span
+										class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="hostel.html">宿舍列表</a></li>
-									<li><a href="add-hostel.html">宿舍添加</a></li>
+									<li class="submenu">
+										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+										<ul>
+											<li><a href="hostel.html">19级宿舍列表</a></li>
+											<li><a href="add-hostel.html">19级宿舍添加</a></li>
+										</ul>
+									</li>
+									<!--									<li class="submenu">-->
+									<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+									<!--										<ul>-->
+									<!--											<li><a href="students.html">学生列表</a></li>-->
+									<!--											<li><a href="add-student.html">学生添加</a></li>-->
+									<!--										</ul>-->
+									<!--									</li>-->
+									<!--									<li class="submenu">-->
+									<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+									<!--										<ul>-->
+									<!--											<li><a href="students.html">学生列表</a></li>-->
+									<!--											<li><a href="add-student.html">学生添加</a></li>-->
+									<!--										</ul>-->
+									<!--									</li>-->
+									<li class="submenu">
+										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+										<ul>
+											<li><a href="hostel-20.html">20级宿舍列表</a></li>
+											<li><a href="add-hostel-20.html">20级宿舍添加</a></li>
+										</ul>
+									</li>
+									<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+									<!--									<li><a href="student-details.html">学生信息</a></li>-->
+									<!--                            <li><a href="add-student.html">学生添加</a></li>-->
+									<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
 								</ul>
 							</li>
 							<li class="submenu">
