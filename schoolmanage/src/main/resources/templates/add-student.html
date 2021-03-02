@@ -52,7 +52,7 @@
                         $.ajax({
                             url: 'student/upfile',
                             type: 'post',
-                            data: formData,
+                            data: {formData,comy:'2019'},
                             processData: false, // 告诉jQuery不要去处理发送的数据
                             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
                             success: function (res) {

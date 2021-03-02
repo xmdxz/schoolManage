@@ -35,6 +35,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/edit-member.html").setViewName("edit-member");
         registry.addViewController("/add-member.html").setViewName("add-member");
         registry.addViewController("/holiday.html").setViewName("holiday");
+        registry.addViewController("/holiday-20.html").setViewName("holiday-20");
         registry.addViewController("/event.html").setViewName("event");
         registry.addViewController("/hostel.html").setViewName("hostel");
         registry.addViewController("/add-hostel.html").setViewName("add-hostel");
@@ -52,14 +53,19 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/add-member-activity.html").setViewName("add-member-activity");
         registry.addViewController("/psychology.html").setViewName("psychology");
         registry.addViewController("/edit-holiday.html").setViewName("edit-holiday");
+        registry.addViewController("/edit-holiday-20.html").setViewName("edit-holiday-20");
         registry.addViewController("/add-holiday.html").setViewName("add-holiday");
+        registry.addViewController("/add-holiday-20.html").setViewName("add-holiday-20");
         registry.addViewController("/add-talk.html").setViewName("add-talk");
         registry.addViewController("/edit-talk.html").setViewName("edit-talk");
         registry.addViewController("/loginp_5.html").setViewName("loginp_5");
         registry.addViewController("/loginp_6.html").setViewName("loginp_6");
         registry.addViewController("/honour.html").setViewName("honour");
+        registry.addViewController("/honour-20.html").setViewName("honour-20");
         registry.addViewController("/add-honour.html").setViewName("add-honour");
+        registry.addViewController("/add-honour-20.html").setViewName("add-honour-20");
         registry.addViewController("/edit-honour.html").setViewName("edit-honour");
+        registry.addViewController("/edit-honour-20.html").setViewName("edit-honour-20");
     }
 
     @Override

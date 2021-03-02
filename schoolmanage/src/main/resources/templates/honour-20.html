@@ -60,7 +60,7 @@
 					$.ajax({
 						url: 'honour/Excle',
 						dataType: 'text',
-						data:{comy:'2019'},
+						data:{comy:'2020'},
 						success(res){
 							console.log(res);
 							$("#downe").attr("href",res);
@@ -77,7 +77,7 @@
 						$.ajax({
 							type: "post",
 							url: "honour/findbystudentcount",
-							data:{comy:'2019',student:a},
+							data:{comy:'2020',student:a},
 							dataType: "json",
 							async: false,
 						}).done(function (res) {
@@ -88,7 +88,7 @@
 							type: "post",
 							url: "honour/findbystudent",
 							dataType: "json",
-							data: {comy:'2019',student:a,'Page': 1, 'num': everypage_1},
+							data: {comy:'2020',student:a,'Page': 1, 'num': everypage_1},
 						}).done(function (res) {
 							var msg = "";
 							$.each(res, function (i, n) {
@@ -134,7 +134,7 @@
 						$.ajax({
 							type: "post",
 							url: "honour/findbynamecount",
-							data:{comy:'2019',name:a},
+							data:{comy:'2020',name:a},
 							dataType: "json",
 							async: false,
 						}).done(function (res) {
@@ -145,7 +145,7 @@
 							type: "post",
 							url: "honour/findbyname",
 							dataType: "json",
-							data: {comy:'2019',name:a,'Page': 1, 'num': everypage_2},
+							data: {comy:'2020',name:a,'Page': 1, 'num': everypage_2},
 						}).done(function (res) {
 							var msg = "";
 							$.each(res, function (i, n) {
@@ -194,7 +194,7 @@
 			$.ajax({
 				type: "post",
 				url: "honour/findallcount",
-				data:{comy:'2019'},
+				data:{comy:'2020'},
 				dataType: "json",
 				async: false,
 			}).done(function (res) {
@@ -205,7 +205,7 @@
 				type: "post",
 				url: "honour/findall",
 				dataType: "json",
-				data: {comy:'2019','Page': 1, 'num': everypage},
+				data: {comy:'2020','Page': 1, 'num': everypage},
 			}).done(function (res) {
 				console.log(res)
 				var msg = "";
@@ -255,7 +255,7 @@
 					type: "post",
 					url: "honour/findall",
 					dataType: "json",
-					data: {comy:'2019','Page': page, 'num': everypage},
+					data: {comy:'2020','Page': page, 'num': everypage},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
@@ -287,7 +287,7 @@
 					type: "post",
 					url: "honour/findbyname",
 					dataType: "json",
-					data: {comy:'2019',name:a,Page: page, num: everypage_2},
+					data: {comy:'2020',name:a,Page: page, num: everypage_2},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
@@ -310,7 +310,7 @@
 					type: "post",
 					url: "honour/findbystudent",
 					dataType: "json",
-					data: {comy:'2019',student:a,Page: page, num: everypage_1},
+					data: {comy:'2020',student:a,Page: page, num: everypage_1},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
@@ -591,9 +591,9 @@
 										class="menu-arrow"></span></a>
 								<ul>
 									<li class="submenu">
-										<a href="#" class="active"> <span>19级学生</span> <span class="menu-arrow"></span></a>
-										<ul id="weiyi1">
-											<li><a href="honour.html" class="active">19级荣誉列表</a></li>
+										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+										<ul>
+											<li><a href="honour.html">19级荣誉列表</a></li>
 											<li><a href="add-honour.html">19级荣誉添加</a></li>
 										</ul>
 									</li>
@@ -612,9 +612,9 @@
 									<!--										</ul>-->
 									<!--									</li>-->
 									<li class="submenu">
-										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="honour-20.html">20级荣誉列表</a></li>
+										<a href="#" class="active"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+										<ul id="weiyi1">
+											<li><a href="honour-20.html" class="active">20级荣誉列表</a></li>
 											<li><a href="add-honour-20.html">20级荣誉添加</a></li>
 										</ul>
 									</li>

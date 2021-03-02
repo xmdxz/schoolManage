@@ -61,7 +61,7 @@
             $.ajax({
                 type: "post",
                 url: "student/findbyareastudentNum",
-                data: {area: area},
+                data: {comy:'2020',area: area},
                 dataType: "json",
                 async: false,
             }).done(function (res) {
@@ -72,7 +72,7 @@
                 type: "post",
                 url: "student/findbyareastudent",
                 dataType: "json",
-                data: {area: area, 'page': 1, 'num': everypage_3},
+                data: {comy:'2020',area: area, 'page': 1, 'num': everypage_3},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -123,6 +123,7 @@
                 type: "post",
                 url: "student/getcount",
                 dataType: "json",
+                data:{comy:'2020'},
                 async: false,
             }).done(function (res) {
                 //console.log(Math.ceil(res / everypage))
@@ -133,7 +134,7 @@
                 type: "post",
                 url: "student/findbypage",
                 dataType: "json",
-                data: {'page': 1, 'num': everypage},
+                data: {comy:'2020','page': 1, 'num': everypage},
             }).done(function (res) {
                 console.log(res)
                 var msg = "";
@@ -188,7 +189,7 @@
                 type: "post",
                 url: "student/findbypage",
                 dataType: "json",
-                data: {'page': page, 'num': everypage},
+                data: {comy:'2020','page': page, 'num': everypage},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -452,7 +453,7 @@
                         dataType: "json",
                         async: false,
                         data: {
-                            major: map.get("major"), direction: map.get("direction"), present_class:
+                            comy:'2020',major: map.get("major"), direction: map.get("direction"), present_class:
                                 map.get("present_class"), original_class: map.get("original_class"),
                             present_post: map.get("present_post"), original_post: map.get("original_post")
                         }
@@ -465,7 +466,7 @@
                         url: "/student/findByMultipleConditions",
                         dataType: "json",
                         data: {
-                            major: map.get("major"),
+                            comy:'2020', major: map.get("major"),
                             direction: map.get("direction"),
                             present_class:
                                 map.get("present_class"),
@@ -579,7 +580,7 @@
                     $.ajax({
                         type: "post",
                         url: "student/findByNameCount",
-                        data: {name: a},
+                        data: {comy:'2020',name: a},
                         dataType: "json",
                         async: false,
                     }).done(function (res) {
@@ -590,7 +591,7 @@
                         type: "post",
                         url: "student/findbyname",
                         dataType: "json",
-                        data: {name: a, 'page': 1, 'num': everypage_2},
+                        data: {comy:'2020',name: a, 'page': 1, 'num': everypage_2},
                     }).done(function (res) {
                         var msg = "";
                         $.each(res, function (i, n) {
@@ -648,7 +649,7 @@
                     url: 'student/Excle',
                     dataType: 'text',
                     data: {
-                        major: map.get("major"),
+                        comy:'2020',major: map.get("major"),
                         direction: map.get("direction"),
                         present_class:
                             map.get("present_class"),
@@ -676,7 +677,7 @@
                 url: "student/findByMultipleConditions",
                 dataType: "json",
                 data: {
-                    major: map.get("major"),
+                    comy:'2020',major: map.get("major"),
                     direction: map.get("direction"),
                     present_class:
                         map.get("present_class"),
@@ -722,7 +723,7 @@
                 type: "post",
                 url: "student/findbyname",
                 dataType: "json",
-                data: {name: a, page: page, num: everypage_2},
+                data: {comy:'2020',name: a, page: page, num: everypage_2},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -749,7 +750,7 @@
                 type: "post",
                 url: "student/findbyareastudent",
                 dataType: "json",
-                data: {area: area, page: page, num: everypage_3},
+                data: {comy:'2020',area: area, page: page, num: everypage_3},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
