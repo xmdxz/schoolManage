@@ -12,18 +12,22 @@
         where name like cancat('%', #{name}, '%');
     </select>
     <insert id="addAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
-        insert into adminuser(username, password, phone, department, `position`, `name`)
+        insert into adminuser(username, password, phone, department, `position`,
+                              `name`)
         values (#{adminUser.username}, #{adminUser.password},
-                #{adminUser.phone}, #{adminUser.department}, #{adminUser.position}, #{adminUser.name})
+                #{adminUser.phone}, #{adminUser.department},
+                #{adminUser.position}, #{adminUser.name})
     </insert>
-    <update id="updateAdminUser" parameterType="com.SchoolManage.pojo.AdminUser">
+    <update id="updateAdminUser"
+            parameterType="com.SchoolManage.pojo.AdminUser">
         update adminuser
-        set username   = #{adminUser.username},
-            password   = #{adminUser.password},
-            phone      = #{adminUser.phone},
-            department = #{adminUser.department},
-            `position` = #{adminUser.position},
-            `name`     = #{adminUser.name}
+        set username    = #{adminUser.username},
+            password    = #{adminUser.password},
+            phone       = #{adminUser.phone},
+            department  = #{adminUser.department},
+            `position`  = #{adminUser.position},
+            `name`      = #{adminUser.name},
+            responsible = #{responsible}
         where id = #{adminUser.id}
     </update>
     <select id="getAdminUser" resultType="com.SchoolManage.pojo.AdminUser">
