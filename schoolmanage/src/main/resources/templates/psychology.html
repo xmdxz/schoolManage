@@ -387,10 +387,32 @@
 					</div><!--row end-->
 					<!--row-->
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-lg-6 ttm-tabs ttm-tab-style-02">
+							<ul class="tabs portfolio-filter">
+								<li class="tab active"><a href="#" data-filter="*">全部</a></li>
+								<li class="tab"><a href="#" data-filter=".family-psychology">学业预警</a></li>
+								<li class="tab"><a href="#" data-filter=".love-psychology">心理障碍</a></li>
+								<li class="tab"><a href="#" data-filter=".truma-psychology">疾病残疾</a></li>
+								<li class="tab"><a href="#" data-filter=".family">家庭变故</a></li>
+							</ul>
 							<!-- acadion -->
-							<div class="accordion" id="talks">
+							<div class="content-tab col accordion" >
+								<div class="col isotope-project " id="talks">
+									<!--
+									<div class="toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white project_item family love-psychology">
+										<div class="toggle-title"><a href="#">1. Which types logo services you provide ?</a></div>
+										<div class="toggle-content" style="display: none;">
+											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+											<div style="float: right">
+												<a title="修改"   tabindex="0"><i class="ti ti-pencil"></i></a>
+												<a href="detail-style-1.html" class="ttm_link" tabindex="0"><i class="ti ti-trash"></i></a>
+											</div>
+										</div>
+									</div>
+									-->
 
+
+								</div>
 							</div><!-- acadion end-->
 						</div>
 						<div class="col-lg-6">
@@ -438,6 +460,8 @@
 
 		<script th:src="@{/assets/js/booked-calendar.js}"></script>
 		<script th:src="@{/assets/js/main.js}"></script>
+		<script th:src="@{/assets/js/jquery-isotope.js}"></script>
+		<script th:src="@{/assets/js/imagesloaded.min.js}"></script>
 
     </body>
 </html>

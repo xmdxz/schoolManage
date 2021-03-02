@@ -48,6 +48,7 @@ function edit(res) {
 
     $.fn.calendar = function (opts) {
         var first=true
+        var nfirst=true
         var options = $.extend({
             color: '',
             months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octomber', 'November', 'December'],
@@ -56,15 +57,19 @@ function edit(res) {
                 res.date = moment(res.date).format('Y-MM-DD');
                 $.ajax({
                     type:"post",
-                    data:{'Page':1,'date':res.date},
+                    data:{'comy':19,'date':res.date},
                     url: "talk/findbytime",
                 }).done(function (re) {
                     var msg = "";
                     $.each(re, function (i, n) {
-                        msg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white\">";
-                        msg+="<div class=\"toggle-title\"><a href=\"#\">"+(i+1)+".   "+n.time+ "与"+n.student+"的谈话"+"</a></div>";
+                        msg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white project_item "+n.types+"\" style='width: 100%'>";
+                        msg+="<div class=\"toggle-title\"><a href=\"#\">"+(i+1)+".   "+n.teacher+"--"+n.time+ "与"+n.student+"的谈话"+"</a></div>";
                         msg+="<div class=\"toggle-content\" style='display: none' >";
-                        msg+="<p>"+n.content+"<a style='float: right;padding-right: 5%'  onclick='edit("+n.id+")' >"+"修改"+"</a><a style='float: right;margin-right: 5%' onclick='delect("+n.id+")'>"+"删除"+"</a></p>";
+                        msg+="<p>"+n.content+"</p>";
+                        msg+="<div style=\"float: right\">";
+                        msg+="<a title=\"修改\"   tabindex=\"0\" onclick='edit("+n.id+")'><i class=\"ti ti-pencil\"></i></a>";
+                        msg+="<a  class=\"ttm_link\" tabindex=\"0\" onclick='delect("+n.id+")'><i class=\"ti ti-trash\"></i></a>";
+                        msg+="</div>";
                         msg+="</div>";
                         msg+="</div>";
                     });
@@ -80,14 +85,17 @@ function edit(res) {
                             data:{'id':id},
                             url: "talk/findbyid",
                         }).done(function (re) {
-                            console.log(re)
                             var mg = "";
-                                mg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white\">";
-                                mg+="<div class=\"toggle-title\"><a href=\"#\">"+re.id+".   "+re.time+ "与"+re.student+"的谈话"+"</a></div>";
-                                mg+="<div class=\"toggle-content\" style='display: none' >";
-                                msg+="<p>"+n.content+"<a style='float: right;padding-right: 5%'  onclick='edit("+n.id+")' >"+"修改"+"</a><a style='float: right;margin-right: 5%' onclick='delect("+n.id+")'>"+"删除"+"</a></p>";
-                                mg+="</div>";
-                                mg+="</div>";
+                            msg+="<div class=\"toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white project_item "+re.types+"\" style='width: 100%'>";
+                            msg+="<div class=\"toggle-title\"><a href=\"#\">"+1+".   "+re.teacher+"--"+re.time+ "与"+re.student+"的谈话"+"</a></div>";
+                            msg+="<div class=\"toggle-content\" style='display: none' >";
+                            msg+="<p>"+re.content+"</p>";
+                            msg+="<div style=\"float: right\">";
+                            msg+="<a title=\"修改\"   tabindex=\"0\" onclick='edit("+re.id+")'><i class=\"ti ti-pencil\"></i></a>";
+                            msg+="<a  class=\"ttm_link\" tabindex=\"0\" onclick='delect("+re.id+")'><i class=\"ti ti-trash\"></i></a>";
+                            msg+="</div>";
+                            msg+="</div>";
+                            msg+="</div>";
                                 if (re==null||re==""){
                                     $("#talks").html("暂无");
                                 }else {
@@ -99,7 +107,10 @@ function edit(res) {
                         if (re==null||re==""){
                             $("#talks").html("暂无");
                         }else {
-                            $("#talks").html(msg);
+                            $("#talks").html("");
+                            var i=$("#talks").isotope('insert',$(msg));
+                            if (nfirst&&i.children().length==0){$("#talks").html(msg);}
+                            else nfirst=false;
                         }
                     }
                 })
