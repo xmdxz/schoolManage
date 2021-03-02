@@ -85,6 +85,7 @@ function checkmima() {
 				$('ul', $(this).parents('ul:first')).slideUp(350);
 				$('a', $(this).parents('ul:first')).removeClass('subdrop');
 				$(this).next('ul').slideDown(350);
+				$('#weiyi1').slideDown(350);
 				$(this).addClass('subdrop');
 			} else if($(this).hasClass('subdrop')) {
 				$(this).removeClass('subdrop');
