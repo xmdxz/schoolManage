@@ -20,7 +20,7 @@ public interface StudentService {
      * @param direction
      * @return
      */
-    List<Student> findByDirection(String direction, int page, int num);
+    List<Student> findByDirection(String comy, String direction, int page, int num);
 
     /**
      * 分页查询，需service计算startPage
@@ -29,7 +29,7 @@ public interface StudentService {
      * @param num  需要拿多少条数据
      * @return
      */
-    List<Student> findPage(int page, int num);
+    List<Student> findPage(String comy, int page, int num);
 
     /**
      * 添加学生
@@ -53,7 +53,7 @@ public interface StudentService {
      * @param name
      * @return 不排除同名学生，所以返回list
      */
-    List<Student> findByName(String name, int page, int num);
+    List<Student> findByName(String comy, String name, int page, int num);
 
     /**
      * 以原班级为单位查询
@@ -61,7 +61,7 @@ public interface StudentService {
      * @param original_class
      * @return
      */
-    List<Student> findByClass_or(String original_class, int page, int num);
+    List<Student> findByClass_or(String comy, String original_class, int page, int num);
 
     /**
      * 以现班级为单位查询
@@ -69,7 +69,7 @@ public interface StudentService {
      * @param present_class
      * @return
      */
-    List<Student> findByClass_pe(String present_class, int page, int num);
+    List<Student> findByClass_pe(String comy, String present_class, int page, int num);
 
     /**
      * 以专业为单位查询，应该很少用
@@ -77,7 +77,7 @@ public interface StudentService {
      * @param major
      * @return
      */
-    List<Student> findByMajor(String major, int page, int num);
+    List<Student> findByMajor(String comy, String major, int page, int num);
 
     /**
      * 更新信息
@@ -94,7 +94,7 @@ public interface StudentService {
      * @Author: RainGoal
      * @Date: 2021/1/30
      */
-    List<Student> findAll();
+    List<Student> findAll(String comy);
 
     /**
      * @Description: 根据学号删除
@@ -112,29 +112,29 @@ public interface StudentService {
      * @param conditionValue
      * @return
      */
-    int selectStudentNum(String conditionName, String conditionValue);
+    int selectStudentNum(String comy, String conditionName, String conditionValue);
 
     /**
      * 根据多条件筛选
      *
      * @param conditions
      */
-    List<Student> findByMultipleConditions(Map<String, String> conditions, int page, int num);
+    List<Student> findByMultipleConditions(String comy, Map<String, String> conditions, int page, int num);
 
     /**
      * 多条件查询结果数量
      */
-    int findByMultipleConditionsCount(Map<String, String> nconditions);
+    int findByMultipleConditionsCount(String comy, Map<String, String> nconditions);
 
     /**
      * 查询姓名结果数量
      */
-    int findByNameCount(String name);
+    int findByNameCount(String comy, String name);
 
     /**
      * 批量添加学生
      */
-    int BatchAddition(String path);
+    int BatchAddition(String comy, String path);
 
     /**
      * @Description: 查询指定地区的数目
@@ -143,7 +143,7 @@ public interface StudentService {
      * @Author: RainGoal
      * @Date: 2021/2/17
      */
-    Map<String, Integer> findByArea(List<String> arealist);
+    Map<String, Integer> findByArea(String comy, List<String> arealist);
 
     /**
      * @Description: 根据地区模糊查询学生
@@ -152,9 +152,10 @@ public interface StudentService {
      * @Author: RainGoal
      * @Date: 2021/2/17
      */
-    List<Student> findByAreaStudent(String area, int Page, int num);
+    List<Student> findByAreaStudent(String comy, String area, int Page, int num);
+
     /**
      * 查询总数
      */
-    int findAllNum();
+    int findAllNum(String comy);
 }

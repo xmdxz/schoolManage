@@ -3,7 +3,6 @@ package com.SchoolManage.service;
 import com.SchoolManage.dao.DepartMentDao;
 import com.SchoolManage.exception.FieldNotExistException;
 import com.SchoolManage.pojo.DepartMent;
-import com.SchoolManage.pojo.Student;
 import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,20 +23,20 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartMentDao departMentDao;
 
     @Override
-    public List<DepartMent> findAll(int Page, int num) {
-        int startPage = (Page-1)*num;
-        return departMentDao.findAll(startPage, num);
+    public List<DepartMent> findAll(String comy, int Page, int num) {
+        int startPage = (Page - 1) * num;
+        return departMentDao.findAll(comy, startPage, num);
     }
 
     @Override
-    public int findAllNum() {
-        return departMentDao.findAllNum();
+    public int findAllNum(String comy) {
+        return departMentDao.findAllNum(comy);
     }
 
     @Override
-    public List<DepartMent> findByName(String name, int Page, int num) {
-        int startPage = (Page-1)*num;
-        return departMentDao.findByName(name,startPage,num);
+    public List<DepartMent> findByName(String comy, String name, int Page, int num) {
+        int startPage = (Page - 1) * num;
+        return departMentDao.findByName(comy, name, startPage, num);
     }
 
     @Override
@@ -46,30 +45,30 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public int findByNameNum(String name) {
-        return departMentDao.findByNameNum(name);
+    public int findByNameNum(String comy, String name) {
+        return departMentDao.findByNameNum(comy, name);
     }
 
     @Override
-    public List<DepartMent> findByMinister(String Minister, int Page, int num) {
-        int startPage = (Page-1)*num;
-        return departMentDao.findByMinister(Minister,startPage,num);
+    public List<DepartMent> findByMinister(String comy, String Minister, int Page, int num) {
+        int startPage = (Page - 1) * num;
+        return departMentDao.findByMinister(comy, Minister, startPage, num);
     }
 
     @Override
-    public int findByMinisterNum(String minister) {
-        return departMentDao.findByMinisterNum(minister);
+    public int findByMinisterNum(String comy, String minister) {
+        return departMentDao.findByMinisterNum(comy, minister);
     }
 
     @Override
-    public List<DepartMent> findByCollege(String college, int Page, int num) {
-        int startPage = (Page-1)*num;
-        return departMentDao.findByCollege(college,startPage,num);
+    public List<DepartMent> findByCollege(String comy, String college, int Page, int num) {
+        int startPage = (Page - 1) * num;
+        return departMentDao.findByCollege(comy, college, startPage, num);
     }
 
     @Override
-    public int findByCollegeNum(String college) {
-        return departMentDao.findByCollegeNum(college);
+    public int findByCollegeNum(String comy, String college) {
+        return departMentDao.findByCollegeNum(comy, college);
     }
 
     @Override
@@ -94,21 +93,21 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public int BatchAddition(String path) {
-        int num=0;
+        int num = 0;
         try {
             //path写实际path
             TableUtil<DepartMent> tableUtil = new TableUtil<DepartMent>(path, DepartMent.class);
             List<DepartMent> list = tableUtil.GetTableRowContent();
             //调用插入接口
             //批量上传，list集合
-            num=departMentDao.insertDatas(list);
+            num = departMentDao.insertDatas(list);
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
-            return  -2;
+            return -2;
         } catch (FieldNotExistException e) {
             //此处应处理表格问题，返回前端
             e.printStackTrace();
-            return  -3;
+            return -3;
         }
         return num;
     }

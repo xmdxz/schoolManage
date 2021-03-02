@@ -1,7 +1,6 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Talk;
-import org.apache.ibatis.annotations.Param;
 
 import java.sql.Date;
 import java.util.List;
@@ -19,14 +18,14 @@ public interface TalkService {
      *
      * @return
      */
-    List<Talk> findAll(Integer Page,String teacher);
+    List<Talk> findAll(String comy, Integer Page, String teacher);
 
     /**
      * 查询总数
      *
      * @return
      */
-    int findAllCount(String teacher);
+    int findAllCount(String comy, String teacher);
 
     /**
      * 插入谈话数据
@@ -43,7 +42,7 @@ public interface TalkService {
      * @param teacher
      * @return
      */
-    List<Talk> findByStudentNoPage(String student,String teacher);
+    List<Talk> findByStudentNoPage(String comy, String student, String teacher);
 
     /**
      * 根据学号查找，分页，用于整个页面展示
@@ -54,7 +53,7 @@ public interface TalkService {
      * @param teacher
      * @return
      */
-    List<Talk> findByStudentPage(String student, Integer Page,String teacher);
+    List<Talk> findByStudentPage(String comy, String student, Integer Page, String teacher);
 
     /**
      * 根据学号查询总数
@@ -63,7 +62,7 @@ public interface TalkService {
      * @param teacher
      * @return
      */
-    int findByStudentCount(String student,String teacher);
+    int findByStudentCount(String comy, String student, String teacher);
 
     /**
      * 根据教师查找
@@ -71,7 +70,7 @@ public interface TalkService {
      * @param teacher
      * @return
      */
-    List<Talk> findByTeacher(String teacher, Integer Page, Integer num);
+    List<Talk> findByTeacher(String comy, String teacher, Integer Page, Integer num);
 
     /**
      * 删除谈话
@@ -80,7 +79,7 @@ public interface TalkService {
      * @param teacher
      * @return
      */
-    int deleteTalk(Integer id,String teacher);
+    int deleteTalk(Integer id, String teacher);
 
     /**
      * 批量插入
@@ -96,7 +95,7 @@ public interface TalkService {
      * @param date
      * @return
      */
-    List<Talk> findByTime(Date date, Integer Page, Integer num);
+    List<Talk> findByTime(String comy, Date date, Integer Page, Integer num);
 
     /**
      * 根据具体时间查找数量，某一天
@@ -105,7 +104,7 @@ public interface TalkService {
      * @param teacher
      * @return
      */
-    int findByTimeCount(Date date,String teacher);
+    int findByTimeCount(String comy, Date date, String teacher);
 
     /**
      * 根据年月查找，也就是某一月
@@ -115,7 +114,7 @@ public interface TalkService {
      * @param num
      * @return
      */
-    List<Talk> findByTimeYearAndMonth(Date date, Integer Page, Integer num);
+    List<Talk> findByTimeYearAndMonth(String comy, Date date, Integer Page, Integer num);
 
     /**
      * 根据年月查找数量，也就是某一月
@@ -123,15 +122,19 @@ public interface TalkService {
      * @param date
      * @return
      */
-    int findByTimeYearAndMonthCount(Date date);
+    int findByTimeYearAndMonthCount(String comy, Date date);
+
     /**
      * 根据id查找
+     *
      * @param id
      * @return
      */
     Talk findById(Integer id);
+
     /**
      * 更新
+     *
      * @param talk
      * @return
      */

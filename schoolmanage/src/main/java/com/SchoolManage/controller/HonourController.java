@@ -1,7 +1,6 @@
 package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
-import com.SchoolManage.pojo.Activity;
 import com.SchoolManage.pojo.Honour;
 import com.SchoolManage.service.HonourService;
 import com.SchoolManage.util.CreateExlceUtil;
@@ -37,110 +36,110 @@ public class HonourController {
 
     @RequestMapping("findall")
     @ResponseBody
-    public List<Honour> findAll(Integer Page, Integer num) {
-        return honourService.findAll(Page, num);
+    public List<Honour> findAll(String comy, Integer Page, Integer num) {
+        return honourService.findAll(comy, Page, num);
     }
 
     @RequestMapping("findallcount")
     @ResponseBody
-    public int findAllCount() {
-        return honourService.findAllCount();
+    public int findAllCount(String comy) {
+        return honourService.findAllCount(comy);
     }
 
     @RequestMapping("findbystudent")
     @ResponseBody
-    public List<Honour> findByStudentPage(String student, Integer Page, Integer num) {
-        return honourService.findByStudentPage(student, Page, num);
+    public List<Honour> findByStudentPage(String comy, String student, Integer Page, Integer num) {
+        return honourService.findByStudentPage(comy, student, Page, num);
     }
 
     @RequestMapping("findbynamecount")
     @ResponseBody
-    public int findByNameCount(String name) {
-        return honourService.findByNameCount(name);
+    public int findByNameCount(String comy, String name) {
+        return honourService.findByNameCount(comy, name);
     }
 
     @RequestMapping("findbyname")
     @ResponseBody
-    public List<Honour> findByName(String name, Integer Page, Integer num) {
-        return honourService.findByName(name, Page, num);
+    public List<Honour> findByName(String comy, String name, Integer Page, Integer num) {
+        return honourService.findByName(comy, name, Page, num);
     }
 
     @RequestMapping("findbystudentnopage")
     @ResponseBody
-    public List<Honour> findByStudentNoPage(String student) {
-        return honourService.findByStudentNoPage(student);
+    public List<Honour> findByStudentNoPage(String comy, String student) {
+        return honourService.findByStudentNoPage(comy, student);
     }
 
     @RequestMapping("findbystudentcount")
     @ResponseBody
-    public int findByStudentCount(String student) {
-        return honourService.findByStudentCount(student);
+    public int findByStudentCount(String comy, String student) {
+        return honourService.findByStudentCount(comy, student);
     }
 
     @RequestMapping("findbytype")
     @ResponseBody
-    public List<Honour> findByType(String Type, Integer Page, Integer num) {
-        return honourService.findByType(Type, Page, num);
+    public List<Honour> findByType(String comy, String Type, Integer Page, Integer num) {
+        return honourService.findByType(comy, Type, Page, num);
     }
 
     @RequestMapping("findbytypecount")
     @ResponseBody
-    public int findByTypeCount(String type) {
-        return honourService.findByTypeCount(type);
+    public int findByTypeCount(String comy, String type) {
+        return honourService.findByTypeCount(comy, type);
     }
 
     @RequestMapping("findbyprize")
     @ResponseBody
-    public List<Honour> findByPrize(String prize, Integer Page, Integer num) {
-        return honourService.findByPrize(prize, Page, num);
+    public List<Honour> findByPrize(String comy, String prize, Integer Page, Integer num) {
+        return honourService.findByPrize(comy, prize, Page, num);
     }
 
     @RequestMapping("findbyprizecount")
     @ResponseBody
-    public int findByPrizeCount(String prize) {
-        return honourService.findByPrizeCount(prize);
+    public int findByPrizeCount(String comy, String prize) {
+        return honourService.findByPrizeCount(comy, prize);
     }
 
     @RequestMapping("findbytime")
     @ResponseBody
-    public List<Honour> findByTime(Date time, Integer Page, Integer num) {
-        return honourService.findByTime(time, Page, num);
+    public List<Honour> findByTime(String comy, Date time, Integer Page, Integer num) {
+        return honourService.findByTime(comy, time, Page, num);
     }
 
     @RequestMapping("findbytimecount")
     @ResponseBody
-    public int findByTimeCount(Date time) {
-        return honourService.findByTimeCount(time);
+    public int findByTimeCount(String comy, Date time) {
+        return honourService.findByTimeCount(comy, time);
     }
 
     @RequestMapping("findbytimeyearandmonth")
     @ResponseBody
-    public List<Honour> findByTimeYearAndMonth(Date time, Integer Page, Integer num) {
-        return honourService.findByTimeYearAndMonth(time, Page, num);
+    public List<Honour> findByTimeYearAndMonth(String comy, Date time, Integer Page, Integer num) {
+        return honourService.findByTimeYearAndMonth(comy, time, Page, num);
     }
 
     @RequestMapping("findbytimeyearandmonthcount")
     @ResponseBody
-    public int findByTimeYearAndMonthCount(Date time) {
-        return honourService.findByTimeYearAndMonthCount(time);
+    public int findByTimeYearAndMonthCount(String comy, Date time) {
+        return honourService.findByTimeYearAndMonthCount(comy, time);
     }
 
     @RequestMapping("findbytimeyear")
     @ResponseBody
-    public List<Honour> findByTimeYear(Date time, Integer Page, Integer num) {
-        return honourService.findByTimeYear(time, Page, num);
+    public List<Honour> findByTimeYear(String comy, Date time, Integer Page, Integer num) {
+        return honourService.findByTimeYear(comy, time, Page, num);
     }
 
     @RequestMapping("findbytimeyearcount")
     @ResponseBody
-    public int findByTimeYearCount(Date time) {
-        return honourService.findByTimeYearCount(time);
+    public int findByTimeYearCount(String comy, Date time) {
+        return honourService.findByTimeYearCount(comy, time);
     }
 
     @RequestMapping("findbyconditions")
     @ResponseBody
-    public List<Honour> findByConditions(Map<String, String> map, Integer Page, Integer num) {
-        return honourService.findByConditions(map, Page, num);
+    public List<Honour> findByConditions(String comy, Map<String, String> map, Integer Page, Integer num) {
+        return honourService.findByConditions(comy, map, Page, num);
     }
 
     @RequestMapping("inserthon")
@@ -184,20 +183,22 @@ public class HonourController {
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i = honourService.findAllCount();
+    public String ExcleStudent(HttpServletRequest request, String comy) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i = honourService.findAllCount(comy);
         CreateExlceUtil<Honour> createExlceUtil = new CreateExlceUtil<>(request, Honour.class, "荣誉表");
-        List<Honour> list = honourService.findAll(1, i);
+        List<Honour> list = honourService.findAll(comy, 1, i);
         return createExlceUtil.createExcle(list);
 
     }
+
     @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        Honour honour=new Honour(1,"xxx","xxx","xxx",new Date(2020-02-03),"xxx","xxx");
-        return ExcleTemplate.getTemplate(request,honour,"荣誉表模板");
+        Honour honour = new Honour(1, "xxx", "xxx", "xxx", new Date(2020 - 02 - 03), "xxx", "xxx", "年级");
+        return ExcleTemplate.getTemplate(request, honour, "荣誉表模板");
 
     }
+
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
