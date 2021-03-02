@@ -21,4 +21,5 @@ public class AdminUser {
     private String department;
     private String position;
     private String name;
+    private String responsible;
 }

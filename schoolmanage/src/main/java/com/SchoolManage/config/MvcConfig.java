@@ -60,11 +60,16 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/honour.html").setViewName("honour");
         registry.addViewController("/add-honour.html").setViewName("add-honour");
         registry.addViewController("/edit-honour.html").setViewName("edit-honour");
+        registry.addViewController("/noresponsible.html").setViewName("noresponsible");
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/login.html","/admin/login","/admin/captcha","/admin/getadminuser","/assets/**");
+                .excludePathPatterns("/login.html", "/admin/login", "/admin/captcha", "/admin/getadminuser", "/assets/**");
+        //配置需要大一权限的页面在这里配置
+        registry.addInterceptor(new AuthorityHandlerInterceptor()).addPathPatterns("/students.html", "/add-student.html", "edit-student.html");
+        //配置需要大二权限的页面在这里配置
+        registry.addInterceptor(new AuthorityTwoHandlerInterceptor()).addPathPatterns("/students-20.html", "add-student-20.html", "edit-student-20.html");
     }
 }
