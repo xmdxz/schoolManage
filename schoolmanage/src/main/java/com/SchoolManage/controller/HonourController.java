@@ -146,8 +146,16 @@ public class HonourController {
     public String insertHon(Honour honour) {
         int i = honourService.insertHon(honour);
         if (i != 0) {
-            return "loginp_7";
-        } else return "redirect:/add-honour.html";
+            if (honour.getComy().equals("2019"))
+                return "loginp_7";
+            else
+                return "loginp_7-20";
+        } else{
+            if (honour.getComy().equals("2019"))
+                return "redirect:/add-honour.html";
+            else
+                return "redirect:/add-honour-20.html";
+        }
     }
 
     @RequestMapping("deletehon")
@@ -177,8 +185,16 @@ public class HonourController {
     public String updateHonour(Honour honour) {
         int i = honourService.updateHonour(honour);
         if (i != 0) {
-            return "loginp_7";
-        } else return "redirect:add-honour.html";
+            if (honour.getComy().equals("2019"))
+                return "loginp_7";
+            else
+                return "loginp_7-20";
+        } else{
+            if (honour.getComy().equals("2019"))
+                return "redirect:/add-honour.html";
+            else
+                return "redirect:/add-honour-20.html";
+        }
     }
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")

@@ -122,8 +122,17 @@ public class QingJiaController {
     public String insertQingjia(Qingjia qingjia) {
         int i = qingJiaService.insertQingjia(qingjia);
         if (i != 0) {
-            return "loginp_6";
-        } else return "redirect:/edit-holiday.html";
+            if (qingjia.getComy().equals("2019"))
+                return "loginp_6";
+            else
+                return "loginp_6-20";
+        } else{
+            if (qingjia.getComy().equals("2019"))
+                return "redirect:/edit-holiday.html";
+            else
+                return "redirect:/edit-holiday-20.html";
+
+        }
     }
 
     @RequestMapping("delete")
@@ -193,8 +202,17 @@ public class QingJiaController {
     public String updateQingJia(Qingjia qingjia) {
         int i = qingJiaService.updateQingJia(qingjia);
         if (i != 0) {
-            return "loginp_6";
-        } else return "redirect:/edit-holiday.html";
+            if (qingjia.getComy().equals("2019"))
+                return "loginp_6";
+            else
+                return "loginp_6-20";
+        } else{
+            if (qingjia.getComy().equals("2019"))
+                return "redirect:/edit-holiday.html";
+            else
+                return "redirect:/edit-holiday-20.html";
+
+        }
     }
 
     @RequestMapping("findbyid")

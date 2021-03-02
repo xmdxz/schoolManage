@@ -48,12 +48,18 @@ public class StudentController {
         if (i != 0) {
 //            map.put("msg", "添加成功");
 //            map.put("code", 200);
-            logService.insertNew("添加", "的学生信息 ", a.getName(), "学号为" + student.getId(), "学生表");
+            logService.insertNew("添加", "的学生信息 ", a.getName(), "学号为" + student.getId(), "学生表",student.getComy());
+            if (student.getComy().equals("2019"))
             return "loginp";
+            else
+                return "loginp-20";
         } else {
 //            map.put("msg", "添加失败");
 //            map.put("code", 500);
-            return "students";
+            if (student.getComy().equals("2019"))
+                return "studentsp";
+            else
+                return "students-20";
         }
     }
 
@@ -134,25 +140,31 @@ public class StudentController {
 //        Map<String, Object> map = new HashMap<>();
         int i = studentService.updateStudent(student);
         if (i != 0) {
-            logService.insertNew("更新", "的学生信息", a.getName(), "学号为" + student.getId(), "学生表");
+            logService.insertNew("更新", "的学生信息", a.getName(), "学号为" + student.getId(), "学生表",student.getComy());
 //            map.put("msg", "修改成功");
 //            map.put("code", 200);
-            return "loginp";
+            if (student.getComy().equals("2019"))
+                return "loginp";
+            else
+                return "loginp-20";
         } else {
-//            map.put("msg", "修改失败");
+//            map.put("msg", "添加失败");
 //            map.put("code", 500);
-            return "students";
+            if (student.getComy().equals("2019"))
+                return "studentsp";
+            else
+                return "students-20";
         }
     }
 
     @RequestMapping("delete")
     @ResponseBody
-    public Map<String, Object> deleteStudent(String id, HttpServletRequest request) {
+    public Map<String, Object> deleteStudent(String id,String comy, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
         int i = studentService.deleteStudent(id);
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         if (i != 0) {
-            logService.insertNew("删除", "的学生信息", a.getName(), "学号为" + id, "学生表");
+            logService.insertNew("删除", "的学生信息", a.getName(), "学号为" + id, "学生表",comy);
             map.put("msg", "删除成功");
             map.put("code", 200);
             return map;
@@ -353,7 +365,7 @@ public class StudentController {
                 i = studentService.BatchAddition(comy, path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上传", "学生信息", a.getName(), "多条", "学生表");
+                logService.insertNew("上传", "学生信息", a.getName(), "多条", "学生表",comy);
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();

@@ -134,7 +134,7 @@ public class ActivityController {
         int i = activityService.insertAc(activity);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表", "2019");
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
@@ -146,7 +146,7 @@ public class ActivityController {
         int i = activityService.deleteAc(id);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("删除", "的活动信息 ", a.getName(), "编号为" + id, "活动表");
+            logService.insertNew("删除", "的活动信息 ", a.getName(), "编号为" + id, "活动表","2019");
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -169,7 +169,7 @@ public class ActivityController {
         int i = activityService.updateData(activity);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表","2019");
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
@@ -200,7 +200,7 @@ public class ActivityController {
                 i = activityService.BatchAddition(path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上窜", "活动信息", a.getName(), "多条", "活动表");
+                logService.insertNew("上窜", "活动信息", a.getName(), "多条", "活动表","2019");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();

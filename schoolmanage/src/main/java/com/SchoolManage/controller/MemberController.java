@@ -124,7 +124,7 @@ public class MemberController {
         str = str.replace('\\', '_'); //url中不允许出现、 所以转换
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("插入", "的成员信息", a.getName(), "编号为" + member.getId(), member.getDepartment() + "部门表");
+            logService.insertNew("插入", "的成员信息", a.getName(), "编号为" + member.getId(), member.getDepartment() + "部门表", "2019");
             return "redirect:/loginp_1.html?name=" + str;
         } else return "redirect:/departments.html";
     }
@@ -137,7 +137,7 @@ public class MemberController {
         str =str.replace('\\','_'); //url中不允许出现、 所以转换
         if (i!=0){
             AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新","的成员信息",a.getName(),"编号为"+member.getId(),member.getDepartment()+"部门表");
+            logService.insertNew("更新","的成员信息",a.getName(),"编号为"+member.getId(),member.getDepartment()+"部门表","2019");
             return "redirect:/loginp_1.html?name="+str;
         }else return "redirect:/departments.html";
     }
@@ -149,7 +149,7 @@ public class MemberController {
         Map<String, Object> map = new HashMap<>();
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("删除", "的成员信息", a.getName(), "编号为" + id, "部门成员表");
+            logService.insertNew("删除", "的成员信息", a.getName(), "编号为" + id, "部门成员表","2019");
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -195,7 +195,7 @@ public class MemberController {
                 i = memberService.BatchAddition(path);
                 dest.delete();
                 AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上传","部门成员信息",a.getName(),"多条","部门成员表");
+                logService.insertNew("上传","部门成员信息",a.getName(),"多条","部门成员表","2019");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();

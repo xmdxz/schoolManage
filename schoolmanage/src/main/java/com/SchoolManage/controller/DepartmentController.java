@@ -107,7 +107,7 @@ public class DepartmentController {
         int i = departmentService.insertData(departMent);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("插入", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表");
+            logService.insertNew("插入", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表","2019");
             return "loginp_1";
         } else return "redirect:/departments.html";
     }
@@ -118,7 +118,7 @@ public class DepartmentController {
         int i = departmentService.updateData(departMent);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表");
+            logService.insertNew("更新", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表","2019");
             return "loginp_1";
         } else return "redirect:/departments.html";
     }
@@ -130,7 +130,7 @@ public class DepartmentController {
         Map<String, Object> map = new HashMap<>();
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("删除", "的 部门信息", a.getName(), "编号为" + id, "部门表");
+            logService.insertNew("删除", "的 部门信息", a.getName(), "编号为" + id, "部门表","2019");
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -190,7 +190,7 @@ public class DepartmentController {
                 i = departmentService.BatchAddition(path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上传", "部门信息", a.getName(), "多条", "部门表");
+                logService.insertNew("上传", "部门信息", a.getName(), "多条", "部门表","2019");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();

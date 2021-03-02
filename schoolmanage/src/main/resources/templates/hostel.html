@@ -367,7 +367,7 @@
 									type: "post",
 									url: "dormitory/deleteData",
 									dataType: "json",
-									data: {'building': building,'number':number},
+									data: {'building': building,'number':number,comy:'2019'},
 								}).done(function (res) {
 									if (res.code == 500) {
 										swal("删除失败", "服务器繁忙中...", "warning");

@@ -27,6 +27,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/edit-student.html").setViewName("edit-student");
         registry.addViewController("/edit-student-20.html").setViewName("edit-student-20");
         registry.addViewController("/loginp.html").setViewName("loginp");
+        registry.addViewController("/loginp-20.html").setViewName("loginp-20");
         registry.addViewController("/loginp_1.html").setViewName("loginp_1");
         registry.addViewController("/Test.html").setViewName("test");
         registry.addViewController("/departments.html").setViewName("departments");
@@ -43,6 +44,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/add-hostel.html").setViewName("add-hostel");
         registry.addViewController("/add-hostel-20.html").setViewName("add-hostel-20");
         registry.addViewController("/loginp_2.html").setViewName("loginp_2");
+        registry.addViewController("/loginp_2-20.html").setViewName("loginp_2-20");
         registry.addViewController("/loginp_3.html").setViewName("loginp_3");
         registry.addViewController("/edit-hostel.html").setViewName("edit-hostel");
         registry.addViewController("/edit-hostel-20.html").setViewName("edit-hostel-20");
@@ -64,6 +66,9 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/edit-talk.html").setViewName("edit-talk");
         registry.addViewController("/loginp_5.html").setViewName("loginp_5");
         registry.addViewController("/loginp_6.html").setViewName("loginp_6");
+        registry.addViewController("/loginp_6-20.html").setViewName("loginp_6-20");
+        registry.addViewController("/loginp_7.html").setViewName("loginp_7");
+        registry.addViewController("/loginp_7-20.html").setViewName("loginp_7-20");
         registry.addViewController("/honour.html").setViewName("honour");
         registry.addViewController("/honour-20.html").setViewName("honour-20");
         registry.addViewController("/add-honour.html").setViewName("add-honour");

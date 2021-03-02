@@ -229,13 +229,13 @@
                             type: "post",
                             url: "/student/delete",
                             dataType: "json",
-                            data: {'id': id},
+                            data: {'id': id,comy:'2020'},
                         }).done(function (res) {
                             if (res.code == 500) {
                                 swal("删除失败", "服务器繁忙中...", "warning");
                             } else if (res.code == 200) {
                                 swal("删除成功！", "即将返回学生列表", "success");
-                                setTimeout("window.location.href='students.html'", "1200");
+                                setTimeout("window.location.href='students-20.html'", "1200");
                             }
                         })
                     } else {

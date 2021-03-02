@@ -17,7 +17,7 @@ public class LogServiceImpl implements LogService {
     private LogDao logDao;
 
     @Override
-    public int insertNew(String type, String message, String teacher, String student, String table) {
+    public int insertNew(String type, String message, String teacher, String student, String table,String comy) {
         Log log = new Log();
         log.setMessage(message);
         log.setOperation_student(student);
@@ -25,6 +25,7 @@ public class LogServiceImpl implements LogService {
         log.setOperation_teacher(teacher);
         log.setType(type);
         log.setTime(new Timestamp(new Date().getTime()));
+        log.setComy(comy);
         return logDao.insertLog(log);
     }
 
