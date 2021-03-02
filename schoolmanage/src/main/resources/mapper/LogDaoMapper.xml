@@ -5,15 +5,18 @@
 
 <mapper namespace="com.SchoolManage.dao.LogDao">
     <insert id="insertLog">
-        insert into log(time, type, message, operation_teacher, operation_student, operation_table)
+        insert into log(time, type, message, operation_teacher, operation_student, operation_table, comy)
         values (#{log.time}, #{log.type}, #{log.message}, #{log.operation_teacher}, #{log.operation_student},
-                #{log.operation_table})
+                #{log.operation_table}, #{log.comy})
     </insert>
 
 
     <select id="findLog" resultType="com.SchoolManage.pojo.Log">
         select *
         from log
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
         order by time desc
         limit #{page},7
     </select>
@@ -22,6 +25,9 @@
         select *
         from log
         where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
         order by time desc
     </select>
 
@@ -29,6 +35,9 @@
         select *
         from log
         where operation_teacher = #{username}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
         order by time desc
     </select>
 
@@ -36,6 +45,9 @@
         select *
         from log
         where operation_student = #{id}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
         order by time desc
     </select>
 
@@ -43,18 +55,36 @@
         select *
         from log
         where operation_table = #{table}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
         order by time desc
     </select>
     <select id="findLogByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Log">
         select *
         from log
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
         order by time desc
     </select>
     <select id="findLogByTimeYear" resultType="com.SchoolManage.pojo.Log">
         select *
         from log
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        order by time desc
+    </select>
+    <select id="findLogByDate" resultType="com.SchoolManage.pojo.Log">
+        select *
+        from log
+        where time like "%" #{date} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
         order by time desc
     </select>
 

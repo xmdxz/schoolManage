@@ -49,4 +49,9 @@ public class Qingjia {
      * 班级
      */
     private String num;
+
+    /**
+     * 年级
+     */
+    private String comy;
 }

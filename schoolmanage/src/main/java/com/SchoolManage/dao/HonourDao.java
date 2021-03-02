@@ -21,7 +21,7 @@ public interface HonourDao {
      * @param num
      * @return
      */
-    List<Honour> findByName(@Param(value = "name") String name, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Honour> findByName(@Param(value = "comy") String comy, @Param(value = "name") String name, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 姓名查找数量
@@ -29,21 +29,21 @@ public interface HonourDao {
      * @param name
      * @return
      */
-    int findByNameCount(@Param(value = "name") String name);
+    int findByNameCount(@Param(value = "comy") String comy, @Param(value = "name") String name);
 
     /**
      * 查找全部
      *
      * @return
      */
-    List<Honour> findAll(@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Honour> findAll(@Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 查找全部数量
      *
      * @return
      */
-    int findAllCount();
+    int findAllCount(@Param(value = "comy") String comy);
 
     /**
      * 根据学生查找
@@ -51,7 +51,7 @@ public interface HonourDao {
      * @param student
      * @return
      */
-    List<Honour> findByStudentPage(@Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Honour> findByStudentPage(@Param(value = "comy") String comy, @Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据学生查找 用于个人信息
@@ -59,14 +59,14 @@ public interface HonourDao {
      * @param student
      * @return
      */
-    List<Honour> findByStudentNoPage(@Param(value = "student") String student);
+    List<Honour> findByStudentNoPage(@Param(value = "comy") String comy, @Param(value = "student") String student);
 
     /**
      * 根据学生查询数量
      *
      * @return
      */
-    int findByStudentCount(@Param(value = "student") String student);
+    int findByStudentCount(@Param(value = "comy") String comy, @Param(value = "student") String student);
 
     /**
      * 、根据荣誉类型查找
@@ -74,7 +74,7 @@ public interface HonourDao {
      * @param Type
      * @return
      */
-    List<Honour> findByType(@Param(value = "type") String Type, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Honour> findByType(@Param(value = "comy") String comy, @Param(value = "type") String Type, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据荣誉类型查找数量
@@ -82,7 +82,7 @@ public interface HonourDao {
      * @param type
      * @return
      */
-    int findByTypeCount(@Param(value = "type") String type);
+    int findByTypeCount(@Param(value = "comy") String comy, @Param(value = "type") String type);
 
     /**
      * 根据荣誉查找
@@ -90,7 +90,7 @@ public interface HonourDao {
      * @param prize
      * @return
      */
-    List<Honour> findByPrize(@Param(value = "prize") String prize, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Honour> findByPrize(@Param(value = "comy") String comy, @Param(value = "prize") String prize, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据荣誉查找数量
@@ -98,7 +98,20 @@ public interface HonourDao {
      * @param prize
      * @return
      */
-    int findByPrizeCount(@Param(value = "prize") String prize);
+    int findByPrizeCount(@Param(value = "comy") String comy, @Param(value = "prize") String prize);
+
+    /**
+     * 根据日期模糊查询
+     *
+     * @param comy
+     * @param date
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<Honour> findByDate(@Param(value = "comy") String comy, @Param(value = "date") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    int findByDateCount(@Param(value = "comy") String comy, @Param(value = "date") Date date);
 
     /**
      * 根据具体时间查找
@@ -106,7 +119,7 @@ public interface HonourDao {
      * @param time
      * @return
      */
-    List<Honour> findByTime(@Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Honour> findByTime(@Param(value = "comy") String comy, @Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据具体时间查找数量
@@ -114,7 +127,7 @@ public interface HonourDao {
      * @param time
      * @return
      */
-    int findByTimeCount(@Param(value = "time") Date time);
+    int findByTimeCount(@Param(value = "comy") String comy, @Param(value = "time") Date time);
 
     /**
      * 根据年月查询
@@ -124,7 +137,7 @@ public interface HonourDao {
      * @param num
      * @return
      */
-    List<Honour> findByTimeYearAndMonth(@Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Honour> findByTimeYearAndMonth(@Param(value = "comy") String comy, @Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据年月查询数量
@@ -132,7 +145,7 @@ public interface HonourDao {
      * @param time
      * @return
      */
-    int findByTimeYearAndMonthCount(@Param(value = "time") Date time);
+    int findByTimeYearAndMonthCount(@Param(value = "comy") String comy, @Param(value = "time") Date time);
 
     /**
      * 根据年查询
@@ -140,7 +153,7 @@ public interface HonourDao {
      * @param time
      * @return
      */
-    List<Honour> findByTimeYear(@Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Honour> findByTimeYear(@Param(value = "comy") String comy, @Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据年查询数量
@@ -148,7 +161,7 @@ public interface HonourDao {
      * @param time
      * @return
      */
-    int findByTimeYearCount(@Param(value = "time") Date time);
+    int findByTimeYearCount(@Param(value = "comy") String comy, @Param(value = "time") Date time);
 
     /**
      * 、
@@ -157,7 +170,7 @@ public interface HonourDao {
      * @param map
      * @return
      */
-    List<Honour> findByConditions(@Param(value = "map") Map<String, String> map, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Honour> findByConditions(@Param(value = "comy") String comy, @Param(value = "map") Map<String, String> map, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 插入

@@ -27,4 +27,7 @@ public class Log {
 
     //操作表
     private String operation_table;
+
+    //年级
+    private String comy;
 }

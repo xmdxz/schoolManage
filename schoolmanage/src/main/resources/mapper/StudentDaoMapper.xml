@@ -70,30 +70,49 @@
     <select id="findByName" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where name like "%" #{name} "%" limit #{startPage}
-            , #{num}
+        where name like "%" #{name} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByClass_or" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where original_class like "%" #{original_class} "%" limit #{startPage}
-            , #{num}
+        where original_class like "%" #{original_class} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByMajor" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where major like "%" #{major} "%" limit #{startPage}
-            , #{num}
+        where major like "%" #{major} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByClass_pe" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where present_class like "%" #{present_class} "%" limit #{startPage}
-            , #{num}
+        where present_class like "%" #{present_class} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findAll" resultType="com.SchoolManage.pojo.Student">
         select *
-        from student;
+        from student
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="selectStudentNum" resultType="java.lang.Integer">
         select count(*) from student
@@ -101,20 +120,35 @@
             <if test="conditionName != null and conditionName != '' and conditionValue != null and conditionValue != ''">
                 and ${conditionName} = #{conditionValue}
             </if>
+            <if test="comy != null and comy != '' ">
+                and comy like "%" #{comy} "%"
+            </if>
         </where>
     </select>
     <select id="findPage" resultType="com.SchoolManage.pojo.Student">
         select *
-        from student limit #{startPage},#{num}
+        from student
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage},#{num}
     </select>
     <select id="findAllNum" resultType="java.lang.Integer">
-        select count(*) from student;
+        select count(*)
+        from student
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByDirection" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where direction like "%" #{direction} "%" limit #{startPage}
-            , #{num}
+        where direction like "%" #{direction} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <delete id="deleteStudent" parameterType="String">
         delete
@@ -125,27 +159,36 @@
     <select id="findOriginalCadre" resultType="com.SchoolManage.pojo.Student">
         select *
         from student,
-             (select * from original_class where class = #{clazz}) temp
+        (select * from original_class where class = #{clazz}) temp
         where student.id in
-              (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
-               temp.publicize)
-            limit #{startPage}
-            , #{num}
+        (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
+        temp.publicize)
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findDirection" resultType="java.lang.String">
         select direction
         from student
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
         group by direction
     </select>
     <select id="findPresentCadre" resultType="com.SchoolManage.pojo.Student">
         select *
         from student,
-             (select * from original_class where class = #{clazz}) temp
+        (select * from present_class where class = #{clazz}) temp
         where student.id in
-              (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
-               temp.publicize)
-            limit #{startPage}
-            , #{num}
+        (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
+        temp.publicize)
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByMultipleConditions" resultType="com.SchoolManage.pojo.Student">
         select * from student
@@ -154,8 +197,16 @@
                 <foreach collection="map" index="key" item="value" separator="and">
                     ${key} = #{value}
                 </foreach>
+                <if test="comy != null and comy != '' ">
+                    and comy like "%" #{comy} "%"
+                </if>
             </where>
             limit #{startPage},#{num}
+        </if>
+        <if test="map == null">
+            <if test="comy != null and comy != '' ">
+                where comy like "%" #{comy} "%"
+            </if>
         </if>
     </select>
     <select id="findByMultipleConditionsCount" resultType="java.lang.Integer">
@@ -165,59 +216,95 @@
                 <foreach collection="maps" index="key" item="values" separator="and">
                     ${key} = #{values}
                 </foreach>
+                <if test="comy != null and comy != '' ">
+                    and comy like "%" #{comy} "%"
+                </if>
             </where>
+        </if>
+        <if test="maps == null">
+            <if test="comy != null and comy != '' ">
+                where comy like "%" #{comy} "%"
+            </if>
         </if>
     </select>
     <select id="findPresentCadreCount" resultType="java.lang.Integer">
         select count(*)
         from student,
-             (select * from original_class where class = #{clazz}) temp
+        (select * from present_class where class = #{clazz}) temp
         where student.id in
-              (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
-               temp.publicize)
+        (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
+        temp.publicize)
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findOriginalCadreCount" resultType="java.lang.Integer">
         select count(*)
         from student,
-             (select * from original_class where class = #{clazz}) temp
+        (select * from original_class where class = #{clazz}) temp
         where student.id in
-              (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
-               temp.publicize)
+        (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
+        temp.publicize)
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByDirectionCount" resultType="java.lang.Integer">
         select count(*)
         from student
         where direction like "%" #{direction} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByNameCount" resultType="java.lang.Integer">
         select count(*)
         from student
         where name like "%" #{name} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByClass_orCount" resultType="java.lang.Integer">
         select count(*)
         from student
         where original_class like "%" #{original_class} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByClass_peCount" resultType="java.lang.Integer">
         select count(*)
         from student
         where present_class like "%" #{present_class} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByMajorCount" resultType="java.lang.Integer">
         select count(*)
         from student
         where major like "%" #{major} "%"
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByArea" parameterType="String" resultType="int">
         select count(*)
         from student
-        where nativeplace like concat('%', #{area}, '%');
+        where nativeplace like concat('%', #{area}, '%')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByAreaStudent" resultType="com.SchoolManage.pojo.Student">
         select *
         from student
-        where nativeplace like concat('%', #{area}, '%') limit #{startPage}
-            , #{num}
+        where nativeplace like concat('%', #{area}, '%')
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
 </mapper>

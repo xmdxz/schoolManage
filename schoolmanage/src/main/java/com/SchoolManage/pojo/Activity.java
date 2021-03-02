@@ -41,4 +41,9 @@ public class Activity {
      * 参加活动总人数
      */
     private Integer number;
+
+    /**
+     * 年级
+     */
+    private String comy;
 }

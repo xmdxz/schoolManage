@@ -6,20 +6,21 @@
 <mapper namespace="com.SchoolManage.dao.DormitoryDao">
     <insert id="insertData">
         insert into dormitory
-        values (#{dormitory.building}, #{dormitory.number}, #{dormitory.manage})
+        values (#{dormitory.building}, #{dormitory.number}, #{dormitory.manage}, #{dormitory.comy})
     </insert>
     <insert id="insertDatas">
         insert into dormitory
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.building},#{item.number},#{item.manage})
+            (#{item.building},#{item.number},#{item.manage},#{item.comy})
         </foreach>
     </insert>
     <update id="updateData">
         update dormitory
         set building = #{dormitory.building},
             number   = #{dormitory.number},
-            manage   = #{dormitory.manage}
+            manage   = #{dormitory.manage},
+            comy     = #{dormitory.comy}
         where building = #{dormitory.building}
           and number = #{dormitory.number}
     </update>
@@ -45,30 +46,44 @@
     </select>
     <select id="findAll" resultType="com.SchoolManage.pojo.Dormitory">
         select *,
-               (select count(*)
-                from student
-                where student.bedroom_lou = dormitory.building
-                  and bedroom_hao = dormitory.number) as num
-        from dormitory limit #{startPage},#{num}
+        (select count(*)
+        from student
+        where student.bedroom_lou = dormitory.building
+        and bedroom_hao = dormitory.number) as num
+        from dormitory
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage},#{num}
     </select>
     <select id="findAllNum" resultType="java.lang.Integer">
         select count(*)
         from dormitory
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.Dormitory">
         select *,
-               (select count(*)
-                from student
-                where student.bedroom_lou = dormitory.building
-                  and bedroom_hao = dormitory.number) as num
+        (select count(*)
+        from student
+        where student.bedroom_lou = dormitory.building
+        and bedroom_hao = dormitory.number) as num
         from dormitory
-        where manage = #{name} limit #{startPage}
-            , #{num}
+        where manage = #{name}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByNameNum" resultType="java.lang.Integer">
         select count(*)
         from dormitory
         where manage = #{name}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Dormitory">
         select *,
@@ -81,37 +96,51 @@
     </select>
     <select id="findByBuilding" resultType="com.SchoolManage.pojo.Dormitory">
         select *,
-               (select count(*)
-                from student
-                where student.bedroom_lou = dormitory.building
-                  and bedroom_hao = dormitory.number) as num
+        (select count(*)
+        from student
+        where student.bedroom_lou = dormitory.building
+        and bedroom_hao = dormitory.number) as num
         from dormitory
-        where building = #{building} limit #{startPage}
-            , #{num}
+        where building = #{building}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByBuildingNum" resultType="java.lang.Integer">
         select count(*)
         from dormitory
         where building = #{building}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByNumber" resultType="com.SchoolManage.pojo.Dormitory">
         select *,
-               (select count(*)
-                from student
-                where student.bedroom_lou = dormitory.building
-                  and bedroom_hao = dormitory.number) as num
+        (select count(*)
+        from student
+        where student.bedroom_lou = dormitory.building
+        and bedroom_hao = dormitory.number) as num
         from dormitory
-        where number = #{number} limit #{startPage}
-            , #{num}
+        where number = #{number}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage}
+        , #{num}
     </select>
     <select id="findByNumberNum" resultType="java.lang.Integer">
         select count(*),
-               (select count(*)
-                from student
-                where student.bedroom_lou = dormitory.building
-                  and bedroom_hao = dormitory.number) as num
+        (select count(*)
+        from student
+        where student.bedroom_lou = dormitory.building
+        and bedroom_hao = dormitory.number) as num
         from dormitory
         where number = #{number}
+        <if test="comy != null and comy != '' ">
+            and comy like "%" #{comy} "%"
+        </if>
     </select>
     <select id="findByBuildingAndNumber" resultType="com.SchoolManage.pojo.Dormitory">
         select *,
@@ -125,10 +154,13 @@
     </select>
     <select id="findAllNoPage" resultType="com.SchoolManage.pojo.Dormitory">
         select *,
-               (select count(*)
-                from student
-                where student.bedroom_lou = dormitory.building
-                  and bedroom_hao = dormitory.number) as num
+        (select count(*)
+        from student
+        where student.bedroom_lou = dormitory.building
+        and bedroom_hao = dormitory.number) as num
         from dormitory
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
     </select>
 </mapper>

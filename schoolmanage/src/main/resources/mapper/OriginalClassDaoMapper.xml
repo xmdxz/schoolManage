@@ -6,9 +6,15 @@
 <mapper namespace="com.SchoolManage.dao.OriginalClassDao">
 
     <select id="findClazz" resultType="com.SchoolManage.pojo.OriginalClass">
-        select * from original_class where className = #{clazz}
+        select *
+        from original_class
+        where className = #{clazz}
     </select>
     <select id="findAll" resultType="com.SchoolManage.pojo.OriginalClass">
         select * from original_class
+        <if test="comy != null and comy != '' ">
+            where comy like "%" #{comy} "%"
+        </if>
+        limit #{startPage},#{num}
     </select>
 </mapper>
