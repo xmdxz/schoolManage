@@ -17,7 +17,7 @@ public class LogController {
 
     @RequestMapping("all")
     @ResponseBody
-    public List<Log> findAll(Integer page){
-        return logService.findAll(page);
+    public List<Log> findAll(String comy, Integer page) {
+        return logService.findAll(comy, page);
     }
 }

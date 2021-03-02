@@ -38,14 +38,14 @@ public interface DormitoryService {
      * @param num
      * @return
      */
-    List<Dormitory> findAll(int Page, int num);
+    List<Dormitory> findAll(String comy, int Page, int num);
 
     /**
      * 查询全部宿舍数量
      *
      * @return
      */
-    int findAllNum();
+    int findAllNum(String comy);
 
     /**
      * 根据宿舍长姓名查询
@@ -55,7 +55,7 @@ public interface DormitoryService {
      * @param num
      * @return
      */
-    List<Dormitory> findByName(String name, int Page, int num);
+    List<Dormitory> findByName(String comy, String name, int Page, int num);
 
     /**
      * 根据姓名查询宿舍的数量，重名？  以防万一
@@ -63,7 +63,7 @@ public interface DormitoryService {
      * @param name
      * @return
      */
-    int findByNameNum(String name);
+    int findByNameNum(String comy, String name);
 
     /**
      * 根据学号查询，学号唯一
@@ -81,7 +81,7 @@ public interface DormitoryService {
      * @param num
      * @return
      */
-    List<Dormitory> findByBuilding(String building, int Page, int num);
+    List<Dormitory> findByBuilding(String comy, String building, int Page, int num);
 
     /**
      * 根据宿舍楼查询数量
@@ -89,7 +89,7 @@ public interface DormitoryService {
      * @param building
      * @return
      */
-    int findByBuildingNum(String building);
+    int findByBuildingNum(String comy, String building);
 
     /**
      * 根据宿舍号查询全部宿舍，但我感觉应该不会用，以防万一
@@ -99,7 +99,7 @@ public interface DormitoryService {
      * @param num
      * @return
      */
-    List<Dormitory> findByNumber(String number, int Page, int num);
+    List<Dormitory> findByNumber(String comy, String number, int Page, int num);
 
     /**
      * 根据宿舍号查询全部宿舍数量，但我感觉应该不会用，以防万一
@@ -107,7 +107,7 @@ public interface DormitoryService {
      * @param number
      * @return
      */
-    int findByNumberNum(String number);
+    int findByNumberNum(String comy, String number);
 
     /**
      * 根据具体宿舍楼宿舍号查询
@@ -150,8 +150,9 @@ public interface DormitoryService {
      * @return
      */
     int updateData(Dormitory dormitory);
+
     /**
      * 批量添加学生
      */
-    int BatchAddition(String path);
+    int BatchAddition(String comy, String path);
 }

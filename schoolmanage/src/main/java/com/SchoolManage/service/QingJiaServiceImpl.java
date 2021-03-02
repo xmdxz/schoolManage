@@ -25,63 +25,73 @@ public class QingJiaServiceImpl implements QingJiaService {
 
 
     @Override
-    public List<Qingjia> findAll(Integer Page, Integer num) {
-        return qingJiaDao.findAll((Page - 1) * num, num);
+    public List<Qingjia> findAll(String comy, Integer Page, Integer num) {
+        return qingJiaDao.findAll(comy, (Page - 1) * num, num);
     }
 
     @Override
-    public int findAllCount() {
-        return qingJiaDao.findAllCount();
+    public int findAllCount(String comy) {
+        return qingJiaDao.findAllCount(comy);
     }
 
     @Override
-    public List<Qingjia> findByStudentNoPage(String student) {
-        return qingJiaDao.findByStudentNoPage(student);
+    public List<Qingjia> findByStudentNoPage(String comy, String student) {
+        return qingJiaDao.findByStudentNoPage(comy, student);
     }
 
     @Override
-    public List<Qingjia> findByStudentPage(String student, Integer Page, Integer num) {
-        return qingJiaDao.findByStudentPage(student, (Page - 1) * num, num);
+    public List<Qingjia> findByStudentPage(String comy, String student, Integer Page, Integer num) {
+        return qingJiaDao.findByStudentPage(comy, student, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByStudentCount(String student) {
-        return qingJiaDao.findByStudentCount(student);
+    public int findByStudentCount(String comy, String student) {
+        return qingJiaDao.findByStudentCount(comy, student);
     }
 
     @Override
-    public List<Qingjia> findByTimeYearAndMonthAndDay(Timestamp timestamp, Integer Page, Integer num) {
-        return qingJiaDao.findByTimeYearAndMonthAndDay(timestamp, (Page - 1) * num, num);
+    public List<Qingjia> findByTimeYearAndMonthAndDay(String comy, Timestamp timestamp, Integer Page, Integer num) {
+        return qingJiaDao.findByTimeYearAndMonthAndDay(comy, timestamp, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTimeYearAndMonthAndDayCount(Timestamp timestamp) {
-        return qingJiaDao.findByTimeYearAndMonthAndDayCount(timestamp);
+    public int findByTimeYearAndMonthAndDayCount(String comy, Timestamp timestamp) {
+        return qingJiaDao.findByTimeYearAndMonthAndDayCount(comy, timestamp);
     }
 
     @Override
-    public List<Qingjia> findByTimeYearAndMonth(Timestamp timestamp, Integer Page, Integer num) {
-        return qingJiaDao.findByTimeYearAndMonth(timestamp, (Page - 1) * num, num);
+    public List<Qingjia> findByTimeYearAndMonth(String comy, Timestamp timestamp, Integer Page, Integer num) {
+        return qingJiaDao.findByTimeYearAndMonth(comy, timestamp, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTimeYearAndMonthCount(Timestamp timestamp) {
-        return qingJiaDao.findByTimeYearAndMonthCount(timestamp);
+    public int findByTimeYearAndMonthCount(String comy, Timestamp timestamp) {
+        return qingJiaDao.findByTimeYearAndMonthCount(comy, timestamp);
     }
 
     @Override
-    public List<Qingjia> findByTimeYear(Timestamp timestamp, Integer Page, Integer num) {
-        return qingJiaDao.findByTimeYear(timestamp, (Page - 1) * num, num);
+    public List<Qingjia> findByTimeYear(String comy, Timestamp timestamp, Integer Page, Integer num) {
+        return qingJiaDao.findByTimeYear(comy, timestamp, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTimeYearCount(Timestamp timestamp) {
-        return qingJiaDao.findByTimeYearCount(timestamp);
+    public int findByTimeYearCount(String comy, Timestamp timestamp) {
+        return qingJiaDao.findByTimeYearCount(comy, timestamp);
     }
 
     @Override
-    public List<Qingjia> findByTeacher(String teacher, Integer Page, Integer num) {
-        return qingJiaDao.findByTeacher(teacher, (Page - 1) * num, num);
+    public List<Qingjia> findByDate(Timestamp timestamp, String comy, Integer Page, Integer num) {
+        return null;
+    }
+
+    @Override
+    public int findByDateCount(Timestamp timestamp, String comy) {
+        return 0;
+    }
+
+    @Override
+    public List<Qingjia> findByTeacher(String comy, String teacher, Integer Page, Integer num) {
+        return qingJiaDao.findByTeacher(comy, teacher, (Page - 1) * num, num);
     }
 
     @Override
@@ -99,14 +109,25 @@ public class QingJiaServiceImpl implements QingJiaService {
         return qingJiaDao.deleteQingjia(id);
     }
 
+
     @Override
-    public List<Qingjia> findByName(String name, Integer startPage, Integer num) {
-        return qingJiaDao.findByName(name, startPage - 1, num);
+    public List<Qingjia> findByName(String comy, String name, Integer Page, Integer num) {
+        return qingJiaDao.findByName(comy, name, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByNameCount(String name) {
-        return qingJiaDao.findByNameCount(name);
+    public int findByNameCount(String comy, String name) {
+        return qingJiaDao.findByNameCount(comy, name);
+    }
+
+    @Override
+    public List<Qingjia> findByClazz(String comy, String clazz, Integer Page, Integer num) {
+        return qingJiaDao.findByClazz(comy, clazz, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByClazzCount(String comy, String clazz) {
+        return 0;
     }
 
     @Override

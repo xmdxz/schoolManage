@@ -34,23 +34,23 @@ public class DormitoryServiceImpl implements DormitoryService {
     }
 
     @Override
-    public List<Dormitory> findAll(int Page, int num) {
-        return dormitoryDao.findAll((Page - 1) * num, num);
+    public List<Dormitory> findAll(String comy, int Page, int num) {
+        return dormitoryDao.findAll(comy, (Page - 1) * num, num);
     }
 
     @Override
-    public int findAllNum() {
-        return dormitoryDao.findAllNum();
+    public int findAllNum(String comy) {
+        return dormitoryDao.findAllNum(comy);
     }
 
     @Override
-    public List<Dormitory> findByName(String name, int Page, int num) {
-        return dormitoryDao.findByName(name, (Page - 1) * num, num);
+    public List<Dormitory> findByName(String comy, String name, int Page, int num) {
+        return dormitoryDao.findByName(comy, name, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByNameNum(String name) {
-        return dormitoryDao.findByNameNum(name);
+    public int findByNameNum(String comy, String name) {
+        return dormitoryDao.findByNameNum(comy, name);
     }
 
     @Override
@@ -59,23 +59,23 @@ public class DormitoryServiceImpl implements DormitoryService {
     }
 
     @Override
-    public List<Dormitory> findByBuilding(String building, int Page, int num) {
-        return dormitoryDao.findByBuilding(building, (Page - 1) * num, num);
+    public List<Dormitory> findByBuilding(String comy, String building, int Page, int num) {
+        return dormitoryDao.findByBuilding(comy, building, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByBuildingNum(String building) {
-        return dormitoryDao.findByBuildingNum(building);
+    public int findByBuildingNum(String comy, String building) {
+        return dormitoryDao.findByBuildingNum(comy, building);
     }
 
     @Override
-    public List<Dormitory> findByNumber(String number, int Page, int num) {
-        return dormitoryDao.findByNumber(number, (Page - 1) * num, num);
+    public List<Dormitory> findByNumber(String comy, String number, int Page, int num) {
+        return dormitoryDao.findByNumber(comy, number, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByNumberNum(String number) {
-        return dormitoryDao.findByNumberNum(number);
+    public int findByNumberNum(String comy, String number) {
+        return dormitoryDao.findByNumberNum(comy, number);
     }
 
     @Override
@@ -104,12 +104,12 @@ public class DormitoryServiceImpl implements DormitoryService {
     }
 
     @Override
-    public int BatchAddition(String path) {
+    public int BatchAddition(String comy, String path) {
         int num = 0;
         try {
             //path写实际path
             TableUtil<Dormitory> tableUtil = new TableUtil<Dormitory>(path, Dormitory.class);
-            List<Dormitory> database = dormitoryDao.findAllNoPage();
+            List<Dormitory> database = dormitoryDao.findAllNoPage(comy);
             List<Dormitory> list = tableUtil.GetTableRowContent();
             //调用插入接口
             //批量上传，list集合

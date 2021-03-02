@@ -35,87 +35,87 @@ public class QingJiaController {
 
     @RequestMapping("findall")
     @ResponseBody
-    public List<Qingjia> findAll(Integer Page, Integer num) {
-        return qingJiaService.findAll(Page, num);
+    public List<Qingjia> findAll(String comy, Integer Page, Integer num) {
+        return qingJiaService.findAll(comy, Page, num);
     }
 
     @RequestMapping("findallcount")
     @ResponseBody
-    public int findAllCount() {
-        return qingJiaService.findAllCount();
+    public int findAllCount(String comy) {
+        return qingJiaService.findAllCount(comy);
     }
 
     @RequestMapping("findbystudentnopage")
     @ResponseBody
-    public List<Qingjia> findByStudentNoPage(String student) {
-        return qingJiaService.findByStudentNoPage(student);
+    public List<Qingjia> findByStudentNoPage(String comy, String student) {
+        return qingJiaService.findByStudentNoPage(comy, student);
     }
 
     @RequestMapping("findbystudent")
     @ResponseBody
-    public List<Qingjia> findByStudentPage(String student, Integer Page, Integer num) {
-        return qingJiaService.findByStudentPage(student, Page, num);
+    public List<Qingjia> findByStudentPage(String comy, String student, Integer Page, Integer num) {
+        return qingJiaService.findByStudentPage(comy, student, Page, num);
     }
 
     @RequestMapping("findbystudentcount")
     @ResponseBody
-    public int findByStudentCount(String student) {
-        return qingJiaService.findByStudentCount(student);
+    public int findByStudentCount(String comy, String student) {
+        return qingJiaService.findByStudentCount(comy, student);
     }
 
     @RequestMapping("findbytimeyearandmonthandday")
     @ResponseBody
-    public List<Qingjia> findByTimeYearAndMonthAndDay(Timestamp timestamp, Integer Page, Integer num) {
-        return qingJiaService.findByTimeYearAndMonthAndDay(timestamp, Page, num);
+    public List<Qingjia> findByTimeYearAndMonthAndDay(String comy, Timestamp timestamp, Integer Page, Integer num) {
+        return qingJiaService.findByTimeYearAndMonthAndDay(comy, timestamp, Page, num);
     }
 
     @RequestMapping("findbytimeyearandmonthanddaycount")
     @ResponseBody
-    public int findByTimeYearAndMonthAndDayCount(Timestamp timestamp) {
+    public int findByTimeYearAndMonthAndDayCount(String comy, Timestamp timestamp) {
         System.out.println(timestamp);
-        return qingJiaService.findByTimeYearAndMonthAndDayCount(timestamp);
+        return qingJiaService.findByTimeYearAndMonthAndDayCount(comy, timestamp);
     }
 
     @RequestMapping("findbytimeyearandmonth")
     @ResponseBody
-    public List<Qingjia> findByTimeYearAndMonth(Timestamp timestamp, Integer Page, Integer num) {
-        return qingJiaService.findByTimeYearAndMonth(timestamp, Page, num);
+    public List<Qingjia> findByTimeYearAndMonth(String comy, Timestamp timestamp, Integer Page, Integer num) {
+        return qingJiaService.findByTimeYearAndMonth(comy, timestamp, Page, num);
     }
 
     @RequestMapping("findbytimeyearandmonthcount")
     @ResponseBody
-    public int findByTimeYearAndMonthCount(Timestamp timestamp) {
-        return qingJiaService.findByTimeYearAndMonthCount(timestamp);
+    public int findByTimeYearAndMonthCount(String comy, Timestamp timestamp) {
+        return qingJiaService.findByTimeYearAndMonthCount(comy, timestamp);
     }
 
     @RequestMapping("findbytimeyear")
     @ResponseBody
-    public List<Qingjia> findByTimeYear(Timestamp timestamp, Integer Page, Integer num) {
-        return qingJiaService.findByTimeYear(timestamp, Page, num);
+    public List<Qingjia> findByTimeYear(String comy, Timestamp timestamp, Integer Page, Integer num) {
+        return qingJiaService.findByTimeYear(comy, timestamp, Page, num);
     }
 
     @RequestMapping("findbytimeyearcount")
     @ResponseBody
-    public int findByTimeYearCount(Timestamp timestamp) {
-        return qingJiaService.findByTimeYearCount(timestamp);
+    public int findByTimeYearCount(String comy, Timestamp timestamp) {
+        return qingJiaService.findByTimeYearCount(comy, timestamp);
     }
 
     @RequestMapping("findbyteacher")
     @ResponseBody
-    public List<Qingjia> findByTeacher(String teacher, Integer Page, Integer num) {
-        return qingJiaService.findByTeacher(teacher, Page, num);
+    public List<Qingjia> findByTeacher(String comy, String teacher, Integer Page, Integer num) {
+        return qingJiaService.findByTeacher(comy, teacher, Page, num);
     }
 
     @RequestMapping("findbynamecount")
     @ResponseBody
-    public int findByNameCount(String name) {
-        return qingJiaService.findByNameCount(name);
+    public int findByNameCount(String comy, String name) {
+        return qingJiaService.findByNameCount(comy, name);
     }
 
     @RequestMapping("findbyname")
     @ResponseBody
-    public List<Qingjia> findByName(String name, Integer Page, Integer num) {
-        return qingJiaService.findByName(name, Page, num);
+    public List<Qingjia> findByName(String comy, String name, Integer Page, Integer num) {
+        return qingJiaService.findByName(comy, name, Page, num);
     }
 
     @RequestMapping("insertqingjia")
@@ -182,19 +182,19 @@ public class QingJiaController {
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i = qingJiaService.findAllCount();
+    public String ExcleStudent(HttpServletRequest request, String comy) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i = qingJiaService.findAllCount(comy);
         CreateExlceUtil<Qingjia> createExlceUtil = new CreateExlceUtil<>(request, Qingjia.class, "假期表");
-        List<Qingjia> list = qingJiaService.findAll(1, i);
+        List<Qingjia> list = qingJiaService.findAll(comy, 1, i);
         return createExlceUtil.createExcle(list);
     }
 
     @RequestMapping("update")
     public String updateQingJia(Qingjia qingjia) {
         int i = qingJiaService.updateQingJia(qingjia);
-        if (i!=0){
-            return  "loginp_6";
-        }else return "redirect:/edit-holiday.html";
+        if (i != 0) {
+            return "loginp_6";
+        } else return "redirect:/edit-holiday.html";
     }
 
     @RequestMapping("findbyid")

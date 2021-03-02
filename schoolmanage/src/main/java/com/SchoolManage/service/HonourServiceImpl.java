@@ -25,93 +25,103 @@ public class HonourServiceImpl implements HonourService {
     private HonourDao honourDao;
 
     @Override
-    public List<Honour> findByName(String name, Integer startPage, Integer num) {
-        return honourDao.findByName(name, startPage - 1, num);
+    public List<Honour> findByName(String comy, String name, Integer startPage, Integer num) {
+        return honourDao.findByName(comy, name, startPage - 1, num);
     }
 
     @Override
-    public int findByNameCount(String name) {
-        return honourDao.findByNameCount(name);
+    public int findByNameCount(String comy, String name) {
+        return honourDao.findByNameCount(comy, name);
     }
 
     @Override
-    public List<Honour> findAll(Integer Page, Integer num) {
-        return honourDao.findAll((Page - 1) * num, num);
+    public List<Honour> findAll(String comy, Integer Page, Integer num) {
+        return honourDao.findAll(comy, (Page - 1) * num, num);
     }
 
     @Override
-    public int findAllCount() {
-        return honourDao.findAllCount();
+    public int findAllCount(String comy) {
+        return honourDao.findAllCount(comy);
     }
 
     @Override
-    public List<Honour> findByStudentPage(String student, Integer Page, Integer num) {
-        return honourDao.findByStudentPage(student, (Page - 1) * num, num);
+    public List<Honour> findByStudentPage(String comy, String student, Integer Page, Integer num) {
+        return honourDao.findByStudentPage(comy, student, (Page - 1) * num, num);
     }
 
     @Override
-    public List<Honour> findByStudentNoPage(String student) {
-        return honourDao.findByStudentNoPage(student);
+    public List<Honour> findByStudentNoPage(String comy, String student) {
+        return honourDao.findByStudentNoPage(comy, student);
     }
 
     @Override
-    public int findByStudentCount(String student) {
-        return honourDao.findByStudentCount(student);
+    public int findByStudentCount(String comy, String student) {
+        return honourDao.findByStudentCount(comy, student);
     }
 
     @Override
-    public List<Honour> findByType(String Type, Integer Page, Integer num) {
-        return honourDao.findByType(Type, (Page - 1) * num, num);
+    public List<Honour> findByType(String comy, String Type, Integer Page, Integer num) {
+        return honourDao.findByType(comy, Type, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTypeCount(String type) {
-        return honourDao.findByTypeCount(type);
+    public int findByTypeCount(String comy, String type) {
+        return honourDao.findByTypeCount(comy, type);
     }
 
     @Override
-    public List<Honour> findByPrize(String prize, Integer Page, Integer num) {
-        return honourDao.findByPrize(prize, (Page - 1) * num, num);
+    public List<Honour> findByPrize(String comy, String prize, Integer Page, Integer num) {
+        return honourDao.findByPrize(comy, prize, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByPrizeCount(String prize) {
-        return honourDao.findByPrizeCount(prize);
+    public int findByPrizeCount(String comy, String prize) {
+        return honourDao.findByPrizeCount(comy, prize);
     }
 
     @Override
-    public List<Honour> findByTime(Date time, Integer Page, Integer num) {
-        return honourDao.findByTime(time, (Page - 1) * num, num);
+    public List<Honour> findByDate(String comy, Date date, Integer Page, Integer num) {
+        return honourDao.findByDate(comy, date, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTimeCount(Date time) {
-        return honourDao.findByTimeCount(time);
+    public int findByDateCount(String comy, Date date) {
+        return honourDao.findByDateCount(comy, date);
     }
 
     @Override
-    public List<Honour> findByTimeYearAndMonth(Date time, Integer Page, Integer num) {
-        return honourDao.findByTimeYearAndMonth(time, (Page - 1) * num, num);
+    public List<Honour> findByTime(String comy, Date time, Integer Page, Integer num) {
+        return honourDao.findByTime(comy, time, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTimeYearAndMonthCount(Date time) {
-        return honourDao.findByTimeYearAndMonthCount(time);
+    public int findByTimeCount(String comy, Date time) {
+        return honourDao.findByTimeCount(comy, time);
     }
 
     @Override
-    public List<Honour> findByTimeYear(Date time, Integer Page, Integer num) {
-        return honourDao.findByTimeYear(time, (Page - 1) * num, num);
+    public List<Honour> findByTimeYearAndMonth(String comy, Date time, Integer Page, Integer num) {
+        return honourDao.findByTimeYearAndMonth(comy, time, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTimeYearCount(Date time) {
-        return honourDao.findByTimeYearCount(time);
+    public int findByTimeYearAndMonthCount(String comy, Date time) {
+        return honourDao.findByTimeYearAndMonthCount(comy, time);
     }
 
     @Override
-    public List<Honour> findByConditions(Map<String, String> map, Integer Page, Integer num) {
-        return honourDao.findByConditions(map, (Page - 1) * num, num);
+    public List<Honour> findByTimeYear(String comy, Date time, Integer Page, Integer num) {
+        return honourDao.findByTimeYear(comy, time, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByTimeYearCount(String comy, Date time) {
+        return honourDao.findByTimeYearCount(comy, time);
+    }
+
+    @Override
+    public List<Honour> findByConditions(String comy, Map<String, String> map, Integer Page, Integer num) {
+        return honourDao.findByConditions(comy, map, (Page - 1) * num, num);
     }
 
     @Override

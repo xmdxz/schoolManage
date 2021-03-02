@@ -25,15 +25,15 @@ public class StudentServiceImpl implements StudentService {
     private StudentDao studentDao;
 
     @Override
-    public List<Student> findByDirection(String direction, int page, int num) {
+    public List<Student> findByDirection(String comy, String direction, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByDirection(direction, startpage, num);
+        return studentDao.findByDirection(comy, direction, startpage, num);
     }
 
     @Override
-    public List<Student> findPage(int page, int num) {
+    public List<Student> findPage(String comy, int page, int num) {
         int startpage = (page - 1) * num;
-        List<Student> page1 = studentDao.findPage(startpage, num);
+        List<Student> page1 = studentDao.findPage(comy, startpage, num);
         return page1;
     }
 
@@ -48,27 +48,27 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByName(String name, int page, int num) {
+    public List<Student> findByName(String comy, String name, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByName(name, startpage, num);
+        return studentDao.findByName(comy, name, startpage, num);
     }
 
     @Override
-    public List<Student> findByClass_or(String original_class, int page, int num) {
+    public List<Student> findByClass_or(String comy, String original_class, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByClass_or(original_class, startpage, num);
+        return studentDao.findByClass_or(comy, original_class, startpage, num);
     }
 
     @Override
-    public List<Student> findByClass_pe(String present_class, int page, int num) {
+    public List<Student> findByClass_pe(String comy, String present_class, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByClass_pe(present_class, startpage, num);
+        return studentDao.findByClass_pe(comy, present_class, startpage, num);
     }
 
     @Override
-    public List<Student> findByMajor(String major, int page, int num) {
+    public List<Student> findByMajor(String comy, String major, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByMajor(major, startpage, num);
+        return studentDao.findByMajor(comy, major, startpage, num);
     }
 
     @Override
@@ -77,8 +77,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findAll() {
-        return studentDao.findAll();
+    public List<Student> findAll(String comy) {
+        return studentDao.findAll(comy);
     }
 
     @Override
@@ -87,33 +87,33 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int selectStudentNum(String conditionName, String conditionValue) {
-        return studentDao.selectStudentNum(conditionName, conditionValue);
+    public int selectStudentNum(String comy, String conditionName, String conditionValue) {
+        return studentDao.selectStudentNum(comy, conditionName, conditionValue);
     }
 
     @Override
-    public List<Student> findByMultipleConditions(Map<String, String> conditions, int page, int num) {
+    public List<Student> findByMultipleConditions(String comy, Map<String, String> conditions, int page, int num) {
         int startpage = (page - 1) * num;
-        return studentDao.findByMultipleConditions(conditions, startpage, num);
+        return studentDao.findByMultipleConditions(comy, conditions, startpage, num);
     }
 
     @Override
-    public int findByMultipleConditionsCount(Map<String, String> nconditions) {
-        return studentDao.findByMultipleConditionsCount(nconditions);
+    public int findByMultipleConditionsCount(String comy, Map<String, String> nconditions) {
+        return studentDao.findByMultipleConditionsCount(comy, nconditions);
     }
 
     @Override
-    public int findByNameCount(String name) {
-        return studentDao.findByNameCount(name);
+    public int findByNameCount(String comy, String name) {
+        return studentDao.findByNameCount(comy, name);
     }
 
     @Override
-    public int BatchAddition(String path) {
+    public int BatchAddition(String comy, String path) {
         int num = 0;
         try {
             //path写实际path
             TableUtil<Student> tableUtil = new TableUtil<Student>(path, Student.class);
-            List<Student> database = studentDao.findAll();
+            List<Student> database = studentDao.findAll(comy);
             List<Student> list = tableUtil.GetTableRowContent(database);
             //调用插入接口
             //批量上传，list集合
@@ -130,23 +130,23 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Map<String, Integer> findByArea(List<String> arealist) {
+    public Map<String, Integer> findByArea(String comy, List<String> arealist) {
         Map<String, Integer> map = new HashMap<>();
         for (int i = 0; i < arealist.size(); i++) {
             String area = arealist.get(i);
-            int byArea = studentDao.findByArea(area);
+            int byArea = studentDao.findByArea(comy, area);
             map.put(area, byArea);
         }
         return map;
     }
 
     @Override
-    public List<Student> findByAreaStudent(String area, int Page, int num) {
-        return studentDao.findByAreaStudent(area, (Page - 1) * num, num);
+    public List<Student> findByAreaStudent(String comy, String area, int Page, int num) {
+        return studentDao.findByAreaStudent(comy, area, (Page - 1) * num, num);
     }
 
     @Override
-    public int findAllNum() {
-        return studentDao.findAllNum();
+    public int findAllNum(String comy) {
+        return studentDao.findAllNum(comy);
     }
 }

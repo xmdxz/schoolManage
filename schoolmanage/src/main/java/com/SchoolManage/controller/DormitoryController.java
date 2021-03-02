@@ -3,7 +3,6 @@ package com.SchoolManage.controller;
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.Dormitory;
-import com.SchoolManage.pojo.Honour;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.DormitoryService;
 import com.SchoolManage.service.LogService;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,27 +53,27 @@ public class DormitoryController {
 
     @RequestMapping("findAll")
     @ResponseBody
-    public List<Dormitory> findAll(int Page, int num) {
+    public List<Dormitory> findAll(String comy, int Page, int num) {
 
-        return dormitoryService.findAll(Page, num);
+        return dormitoryService.findAll(comy, Page, num);
     }
 
     @RequestMapping("findAllNum")
     @ResponseBody
-    public int findAllNum() {
-        return dormitoryService.findAllNum();
+    public int findAllNum(String comy) {
+        return dormitoryService.findAllNum(comy);
     }
 
     @RequestMapping("findByName")
     @ResponseBody
-    public List<Dormitory> findByName(String name, int Page, int num) {
-        return dormitoryService.findByName(name, Page, num);
+    public List<Dormitory> findByName(String comy, String name, int Page, int num) {
+        return dormitoryService.findByName(comy, name, Page, num);
     }
 
     @RequestMapping("findByNameNum")
     @ResponseBody
-    public int findByNameNum(String name) {
-        return dormitoryService.findByNameNum(name);
+    public int findByNameNum(String comy, String name) {
+        return dormitoryService.findByNameNum(comy, name);
     }
 
     @RequestMapping("findById")
@@ -86,26 +84,26 @@ public class DormitoryController {
 
     @RequestMapping("findByBuilding")
     @ResponseBody
-    public List<Dormitory> findByBuilding(String building, int Page, int num) {
-        return dormitoryService.findByBuilding(building, Page, num);
+    public List<Dormitory> findByBuilding(String comy, String building, int Page, int num, HttpServletRequest request) {
+        return dormitoryService.findByBuilding(comy, building, Page, num);
     }
 
     @RequestMapping("findByBuildingNum")
     @ResponseBody
-    public int findByBuildingNum(String building) {
-        return dormitoryService.findByBuildingNum(building);
+    public int findByBuildingNum(String comy, String building) {
+        return dormitoryService.findByBuildingNum(comy, building);
     }
 
     @RequestMapping("findByNumber")
     @ResponseBody
-    public List<Dormitory> findByNumber(String number, int Page, int num) {
-        return dormitoryService.findByNumber(number, Page, num);
+    public List<Dormitory> findByNumber(String comy, String number, int Page, int num) {
+        return dormitoryService.findByNumber(comy, number, Page, num);
     }
 
     @RequestMapping("findByNumberNum")
     @ResponseBody
-    public int findByNumberNum(String number) {
-        return dormitoryService.findByNumberNum(number);
+    public int findByNumberNum(String comy, String number) {
+        return dormitoryService.findByNumberNum(comy, number);
     }
 
     @RequestMapping("findByBuildingAndNumber")
@@ -143,32 +141,30 @@ public class DormitoryController {
     }
 
     @RequestMapping("updateData")
-    public String updateData(Dormitory dormitory,HttpServletRequest request) {
+    public String updateData(Dormitory dormitory, HttpServletRequest request) {
         int i = dormitoryService.updateData(dormitory);
-        AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-        logService.insertNew("更新","的 宿舍信息",a.getName(),"编号为"+dormitory.getBuilding()+"#"+dormitory.getNumber(),"宿舍表");
-        if (i!=0){
-            return  "loginp_2";
-        }else return "redirect:/hostel.html";
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        logService.insertNew("更新", "的 宿舍信息", a.getName(), "编号为" + dormitory.getBuilding() + "#" + dormitory.getNumber(), "宿舍表");
+        if (i != 0) {
+            return "loginp_2";
+        } else return "redirect:/hostel.html";
     }
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request,String building,String number) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+    public String ExcleStudent(HttpServletRequest request, String comy, String building, String number) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         CreateExlceUtil<Dormitory> createExlceUtil;
-        List<Dormitory> list =new ArrayList<Dormitory>();
-        if(building!=null&&!"".equals(building))
-        {
+        List<Dormitory> list = new ArrayList<Dormitory>();
+        if (building != null && !"".equals(building)) {
             createExlceUtil = new CreateExlceUtil<>(request, Dormitory.class, "宿舍表");
-            if(dormitoryService.findByBuildingAndNumber(building, number)!=null)
-            list.add(dormitoryService.findByBuildingAndNumber(building, number));
+            if (dormitoryService.findByBuildingAndNumber(building, number) != null)
+                list.add(dormitoryService.findByBuildingAndNumber(building, number));
             else
                 list.clear();
-        }
-        else {
-            int i = dormitoryService.findAllNum();
+        } else {
+            int i = dormitoryService.findAllNum(comy);
             createExlceUtil = new CreateExlceUtil<>(request, Dormitory.class, "宿舍表");
-            list = dormitoryService.findAll(1, i);
+            list = dormitoryService.findAll(comy, 1, i);
             System.out.println(list);
         }
 
@@ -183,15 +179,17 @@ public class DormitoryController {
         List<Student> list = dormitoryService.findDormitoryMember(dormitory, 1, i);
         return createExlceUtil.createExcle(list);
     }
+
     @RequestMapping(value = "Excle3", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        Dormitory dormitory=new Dormitory("例如:11号楼","例如:302","xxx",1);
-        return ExcleTemplate.getTemplate(request,dormitory,"宿舍表模板");
+        Dormitory dormitory = new Dormitory("例如:11号楼", "例如:302", "xxx", 1, "年级");
+        return ExcleTemplate.getTemplate(request, dormitory, "宿舍表模板");
     }
+
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file, String comy) {
         if (file == null) {
             return "请选择文件";
         }
@@ -212,10 +210,10 @@ public class DormitoryController {
             int i = 66;
             try {
                 System.out.println(path);
-                i = dormitoryService.BatchAddition(path);
+                i = dormitoryService.BatchAddition(comy, path);
                 dest.delete();
-                AdminUser a =(AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上传","宿舍信息",a.getName(),"多条","宿舍表");
+                AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+                logService.insertNew("上传", "宿舍信息", a.getName(), "多条", "宿舍表");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();

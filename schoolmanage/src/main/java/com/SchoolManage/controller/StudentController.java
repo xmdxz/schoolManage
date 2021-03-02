@@ -2,7 +2,6 @@ package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.AdminUser;
-import com.SchoolManage.pojo.Honour;
 import com.SchoolManage.pojo.Student;
 import com.SchoolManage.service.FeaturesService;
 import com.SchoolManage.service.LogService;
@@ -60,29 +59,29 @@ public class StudentController {
 
     @RequestMapping("findall")
     @ResponseBody
-    public List<Student> findAll() {
-        List<Student> all = studentService.findAll();
+    public List<Student> findAll(String comy) {
+        List<Student> all = studentService.findAll(comy);
         return all;
     }
 
     @RequestMapping("findallnum")
     @ResponseBody
-    public int findAllNum() {
-        int all = studentService.findAllNum();
+    public int findAllNum(String comy) {
+        int all = studentService.findAllNum(comy);
         return all;
     }
 
     @RequestMapping("findbypage")
     @ResponseBody
-    public List<Student> findByPage(int page, int num) {
-        List<Student> page1 = studentService.findPage(page, num);
+    public List<Student> findByPage(String comy, int page, int num) {
+        List<Student> page1 = studentService.findPage(comy, page, num);
         return page1;
     }
 
     @RequestMapping("findbydirection")
     @ResponseBody
-    public List<Student> findByDirection(String direction, int page, int num) {
-        List<Student> byDirection = studentService.findByDirection(direction, page, num);
+    public List<Student> findByDirection(String comy, String direction, int page, int num) {
+        List<Student> byDirection = studentService.findByDirection(comy, direction, page, num);
         return byDirection;
     }
 
@@ -95,37 +94,37 @@ public class StudentController {
 
     @RequestMapping("findbyname")
     @ResponseBody
-    public List<Student> findByName(String name, int page, int num) {
-        List<Student> byName = studentService.findByName(name, page, num);
+    public List<Student> findByName(String comy, String name, int page, int num) {
+        List<Student> byName = studentService.findByName(comy, name, page, num);
         return byName;
     }
 
     @RequestMapping("findByNameCount")
     @ResponseBody
-    public String findByNameCount(String name) {
+    public String findByNameCount(String comy, String name) {
 
-        int i = studentService.findByNameCount(name);
+        int i = studentService.findByNameCount(comy, name);
         return Integer.toString(i);
     }
 
     @RequestMapping("findbyclass_or")
     @ResponseBody
-    public List<Student> findByClass_or(String original_class, int page, int num) {
-        List<Student> byClass_or = studentService.findByClass_or(original_class, page, num);
+    public List<Student> findByClass_or(String comy, String original_class, int page, int num) {
+        List<Student> byClass_or = studentService.findByClass_or(comy, original_class, page, num);
         return byClass_or;
     }
 
     @RequestMapping("findbyclass_pe")
     @ResponseBody
-    public List<Student> findByClass_pe(String present_class, int page, int num) {
-        List<Student> byClass_pe = studentService.findByClass_pe(present_class, page, num);
+    public List<Student> findByClass_pe(String comy, String present_class, int page, int num) {
+        List<Student> byClass_pe = studentService.findByClass_pe(comy, present_class, page, num);
         return byClass_pe;
     }
 
     @RequestMapping("findbymajor")
     @ResponseBody
-    public List<Student> findByMajor(String major, int page, int num) {
-        List<Student> bymajor = studentService.findByMajor(major, page, num);
+    public List<Student> findByMajor(String comy, String major, int page, int num) {
+        List<Student> bymajor = studentService.findByMajor(comy, major, page, num);
         return bymajor;
     }
 
@@ -166,8 +165,8 @@ public class StudentController {
 
     @RequestMapping("getcount")
     @ResponseBody
-    public String getCount(String conditionName, String conditionValue) {
-        int i = studentService.selectStudentNum(conditionName, conditionValue);
+    public String getCount(String comy, String conditionName, String conditionValue) {
+        int i = studentService.selectStudentNum(comy, conditionName, conditionValue);
         return Integer.toString(i);
     }
 
@@ -180,7 +179,7 @@ public class StudentController {
 
     @RequestMapping("findByMultipleConditions")
     @ResponseBody
-    public List<Student> findByMultipleConditions(String major, String direction, String present_class
+    public List<Student> findByMultipleConditions(String comy, String major, String direction, String present_class
             , String original_class, String present_post, String original_post, int page, int num) {
 
         Map<String, String> map = new HashMap<>();
@@ -202,12 +201,12 @@ public class StudentController {
         if (original_post != null) {
             map.put("original_post", original_post);
         }
-        return studentService.findByMultipleConditions(map, page, num);
+        return studentService.findByMultipleConditions(comy, map, page, num);
     }
 
     @RequestMapping("findByMultipleConditionsCount")
     @ResponseBody
-    public String findByMultipleConditionsCount(String major, String direction, String present_class
+    public String findByMultipleConditionsCount(String comy, String major, String direction, String present_class
             , String original_class, String present_post, String original_post) {
 
         Map<String, String> map = new HashMap<>();
@@ -229,7 +228,7 @@ public class StudentController {
         if (original_post != null && "".equals(original_post)) {
             map.put("original_post", original_post);
         }
-        int i = studentService.findByMultipleConditionsCount(map);
+        int i = studentService.findByMultipleConditionsCount(comy, map);
         return Integer.toString(i);
     }
 
@@ -281,17 +280,17 @@ public class StudentController {
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request, String major, String direction, String present_class
+    public String ExcleStudent(String comy, HttpServletRequest request, String major, String direction, String present_class
             , String original_class, String present_post, String original_post, String nativeplace) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         CreateExlceUtil<Student> createExlceUtil;
         List<Student> list;
         if (nativeplace != null && !"".equals(nativeplace)) {
             ArrayList<String> arealist = new ArrayList<>();
             arealist.add(nativeplace);
-            Map<String, Integer> a = studentService.findByArea(arealist);
+            Map<String, Integer> a = studentService.findByArea(comy, arealist);
             int i = a.get(nativeplace);
             createExlceUtil = new CreateExlceUtil<>(request, Student.class, "学生表");
-            list = studentService.findByAreaStudent(nativeplace, 1, i);
+            list = studentService.findByAreaStudent(comy, nativeplace, 1, i);
         } else {
             Map<String, String> map = new HashMap<>();
             if (major != null && "".equals(major)) {
@@ -312,23 +311,25 @@ public class StudentController {
             if (original_post != null && "".equals(original_post)) {
                 map.put("original_post", original_post);
             }
-            int i = studentService.findByMultipleConditionsCount(map);
+            int i = studentService.findByMultipleConditionsCount(comy, map);
             createExlceUtil = new CreateExlceUtil<>(request, Student.class, "学生表");
-            list = studentService.findByMultipleConditions(map, 1, i);
+            list = studentService.findByMultipleConditions(comy, map, 1, i);
         }
         return createExlceUtil.createExcle(list);
     }
+
     @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        Student student=new Student("xxx","xxx","xxx","例如:2020","xxx",
-                "例：软件工程，大数据方向，数媒，智能","例如:软件1901","xxx","例如:11号楼","xxx","xxx","例：JavaEE，移动互联，人工智能，大数据,嵌入式","xxx","xxx","xxx","xxx","xxx","xxx","xxx",
-                "无","例如:软件1901","例如:班长，团支，学委","例如:班长，团支，学委","xxx","xxx","例如:302","xxx", "xxx");
-        return ExcleTemplate.getTemplate(request,student,"学生表模板");
+        Student student = new Student("xxx", "xxx", "xxx", "例如:2020", "xxx",
+                "例：软件工程，大数据方向，数媒，智能", "例如:软件1901", "xxx", "例如:11号楼", "xxx", "xxx", "例：JavaEE，移动互联，人工智能，大数据,嵌入式", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx",
+                "无", "例如:软件1901", "例如:班长，团支，学委", "例如:班长，团支，学委", "xxx", "xxx", "例如:302", "xxx", "xxx");
+        return ExcleTemplate.getTemplate(request, student, "学生表模板");
     }
+
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+    public String upfile(HttpServletRequest request, String comy, @RequestParam("file") MultipartFile file) {
         if (file == null) {
             return "请选择文件";
         }
@@ -349,7 +350,7 @@ public class StudentController {
             int i = 66;
             try {
                 System.out.println(path);
-                i = studentService.BatchAddition(path);
+                i = studentService.BatchAddition(comy, path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
                 logService.insertNew("上传", "学生信息", a.getName(), "多条", "学生表");
@@ -368,7 +369,8 @@ public class StudentController {
 
     @RequestMapping("findbyarea")
     @ResponseBody
-    public Map<String, Integer> findByArea(String area1,
+    public Map<String, Integer> findByArea(String comy,
+                                           String area1,
                                            String area2,
                                            String area3,
                                            String area4,
@@ -403,26 +405,26 @@ public class StudentController {
         arealist.add(area14);
         arealist.add(area15);
         arealist.add(area16);
-        Map<String, Integer> byArea = studentService.findByArea(arealist);
+        Map<String, Integer> byArea = studentService.findByArea(comy, arealist);
         return byArea;
     }
 
     @RequestMapping("findbyareastudent")
     @ResponseBody
-    public List<Student> findByAreaStudent(String area, int page, int num) {
+    public List<Student> findByAreaStudent(String comy, String area, int page, int num) {
         System.out.println("打印" + area);
         System.out.println(page);
         System.out.println(num);
-        List<Student> byAreaStudent = studentService.findByAreaStudent(area, page, num);
+        List<Student> byAreaStudent = studentService.findByAreaStudent(comy, area, page, num);
         return byAreaStudent;
     }
 
     @RequestMapping("findbyareastudentNum")
     @ResponseBody
-    public Integer findByAreaStudent(String area) {
+    public Integer findByAreaStudent(String comy, String area) {
         ArrayList<String> arealist = new ArrayList<>();
         arealist.add(area);
-        Map<String, Integer> a = studentService.findByArea(arealist);
+        Map<String, Integer> a = studentService.findByArea(comy, arealist);
         int i = a.get(area);
         return i;
     }
