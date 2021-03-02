@@ -17,6 +17,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
+        registry.addViewController("/index-20.html").setViewName("index-20");
         registry.addViewController("/login.html").setViewName("login");
         registry.addViewController("/students.html").setViewName("students");
         registry.addViewController("/students-20.html").setViewName("students-20");
@@ -38,10 +39,13 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/holiday-20.html").setViewName("holiday-20");
         registry.addViewController("/event.html").setViewName("event");
         registry.addViewController("/hostel.html").setViewName("hostel");
+        registry.addViewController("/hostel-20.html").setViewName("hostel-20");
         registry.addViewController("/add-hostel.html").setViewName("add-hostel");
+        registry.addViewController("/add-hostel-20.html").setViewName("add-hostel-20");
         registry.addViewController("/loginp_2.html").setViewName("loginp_2");
         registry.addViewController("/loginp_3.html").setViewName("loginp_3");
         registry.addViewController("/edit-hostel.html").setViewName("edit-hostel");
+        registry.addViewController("/edit-hostel-20.html").setViewName("edit-hostel-20");
         registry.addViewController("/member-hostel.html").setViewName("member-hostel");
         registry.addViewController("/profile.html").setViewName("profile");
         registry.addViewController("/activity.html").setViewName("activity");

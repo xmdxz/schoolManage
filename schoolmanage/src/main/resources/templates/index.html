@@ -42,7 +42,7 @@
             type: "post",
             url: "log/all",
             dataType: "json",
-            data: {'page': jiluPage},
+            data: {comy:'2019','page': jiluPage},
         }).done(function (res) {
 
             for (var i = 0; i < res.length; i++) {
@@ -65,7 +65,7 @@
                 type: "post",
                 url: "log/all",
                 dataType: "json",
-                data: {'page': jiluPage},
+                data: {comy:'2019','page': jiluPage},
             }).done(function (res) {
                 if (res.length == 0) {
                     swal("没有更多信息啦");
@@ -103,6 +103,7 @@
         $.ajax({
             type: "post",
             url: "student/findallnum",
+            data:{comy:'2019'},
             dataType: "json",
         }).done(function (res) {
             numbers = res;
@@ -112,6 +113,7 @@
         $.ajax({
             type: "post",
             url: "honour/findallcount",
+            data:{comy:'2019'},
             dataType: "json",
         }).done(function (res) {
             numbers_1 = res;
@@ -121,7 +123,7 @@
         $.ajax({
             type: "post",
             url: "QingJia/findbytimeyearandmonthanddaycount",
-            data:{timestamp:new Date().getTime()},
+            data:{comy:'2019',timestamp:new Date().getTime()},
             dataType: "json",
         }).done(function (res) {
             numbers_2 = res;
@@ -131,6 +133,7 @@
         $.ajax({
             type: "post",
             url: "department/findallnum",
+            data:{comy:'2019'},
             dataType: "json",
         }).done(function (res) {
             number = res;
@@ -469,10 +472,41 @@
                         <a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>体育</span></a>
                     </li> -->
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="hostel.html">宿舍列表</a></li>
-                            <li><a href="add-hostel.html">宿舍添加</a></li>
+                            <li class="submenu">
+                                <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="hostel.html">19级宿舍列表</a></li>
+                                    <li><a href="add-hostel.html">19级宿舍添加</a></li>
+                                </ul>
+                            </li>
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <li class="submenu">
+                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="hostel-20.html">20级宿舍列表</a></li>
+                                    <li><a href="add-hostel-20.html">20级宿舍添加</a></li>
+                                </ul>
+                            </li>
+                            <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+                            <!--									<li><a href="student-details.html">学生信息</a></li>-->
+                            <!--                            <li><a href="add-student.html">学生添加</a></li>-->
+                            <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
                     <li class="submenu">
