@@ -32,17 +32,17 @@ public class TalkController {
 
     @RequestMapping("findall")
     @ResponseBody
-    public List<Talk> findAll(Integer Page, HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        return talkService.findAll(Page, a.getName());
+    public List<Talk> findAll(String comy, HttpServletRequest request) {
+//        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        return talkService.findAll(comy);
     }
 
-    @RequestMapping("findallcount")
-    @ResponseBody
-    public int findAllCount(HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        return talkService.findAllCount(a.getName());
-    }
+//    @RequestMapping("findallcount")
+//    @ResponseBody
+//    public int findAllCount(HttpServletRequest request) {
+//        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+//        return talkService.findAllCount(a.getName());
+//    }
 
     @RequestMapping("inserttalk")
     public String insertTalk(Talk talk, HttpServletRequest request) {
@@ -54,38 +54,38 @@ public class TalkController {
         } else return "redirect:/edit-talk.html?error=true";
     }
 
-    @RequestMapping("findbystudentnopage")
-    @ResponseBody
-    public List<Talk> findByStudentNoPage(String student, HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        return talkService.findByStudentNoPage(student, a.getName());
-    }
+//    @RequestMapping("findbystudentnopage")
+//    @ResponseBody
+//    public List<Talk> findByStudentNoPage(String student, HttpServletRequest request) {
+//        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+//        return talkService.findByStudentNoPage(student, a.getName());
+//    }
 
-    @RequestMapping("findbystudentpage")
-    @ResponseBody
-    public List<Talk> findByStudentPage(String student, Integer Page, HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        return talkService.findByStudentPage(student, Page, a.getName());
-    }
-
-    @RequestMapping("findbystudentcount")
-    @ResponseBody
-    public int findByStudentCount(String student, HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        return talkService.findByStudentCount(student, a.getName());
-    }
+//    @RequestMapping("findbystudentpage")
+//    @ResponseBody
+//    public List<Talk> findByStudentPage(String student, Integer Page, HttpServletRequest request) {
+//        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+//        return talkService.findByStudentPage(student, Page, a.getName());
+//    }
+//
+//    @RequestMapping("findbystudentcount")
+//    @ResponseBody
+//    public int findByStudentCount(String student, HttpServletRequest request) {
+//        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+//        return talkService.findByStudentCount(student, a.getName());
+//    }
 
     @RequestMapping("findbyteacher")
     @ResponseBody
-    public List<Talk> findByTeacher(String teacher, Integer Page, Integer num) {
-        return talkService.findByTeacher(teacher, Page, num);
+    public List<Talk> findByTeacher(String comy, String teacher) {
+        return talkService.findByTeacher(comy, teacher);
     }
 
     @RequestMapping("deletetalk")
     @ResponseBody
     public Map<String, Object> deleteTalk(Integer id, HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        int i = talkService.deleteTalk(id, a.getName());
+//        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        int i = talkService.deleteTalk(id);
         HashMap<String, Object> map = new HashMap<>();
         if (i != 0) {
             map.put("msg", "success");
@@ -107,28 +107,28 @@ public class TalkController {
 
     @RequestMapping("findbytime")
     @ResponseBody
-    public List<Talk> findByTime(Date date, Integer Page, Integer num) {
-        return talkService.findByTime(date, Page, num);
+    public List<Talk> findByTime(String comy, Date date) {
+        return talkService.findByTime(comy, date);
     }
 
-    @RequestMapping("findbytimecount")
-    @ResponseBody
-    public int findByTimeCount(Date date, HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        return talkService.findByTimeCount(date, a.getName());
-    }
+//    @RequestMapping("findbytimecount")
+//    @ResponseBody
+//    public int findByTimeCount(Date date, HttpServletRequest request) {
+//        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+//        return talkService.findByTimeCount(date, a.getName());
+//    }
 
     @RequestMapping("findbytimeyearandmonth")
     @ResponseBody
-    public List<Talk> findByTimeYearAndMonth(Date date, Integer Page, Integer num) {
-        return talkService.findByTimeYearAndMonth(date, Page, num);
+    public List<Talk> findByTimeYearAndMonth(String comy, Date date) {
+        return talkService.findByTimeYearAndMonth(comy, date);
     }
 
-    @RequestMapping("findbytimeyearandmonthcount")
-    @ResponseBody
-    public int findByTimeYearAndMonthCount(Date date) {
-        return talkService.findByTimeYearAndMonthCount(date);
-    }
+//    @RequestMapping("findbytimeyearandmonthcount")
+//    @ResponseBody
+//    public int findByTimeYearAndMonthCount(Date date) {
+//        return talkService.findByTimeYearAndMonthCount(date);
+//    }
 
     //这个接口用于绑定的时候验证权限
     @RequestMapping("checkuser")
@@ -152,7 +152,7 @@ public class TalkController {
     }
 
     @RequestMapping("update")
-    public String update(Talk talk,HttpServletRequest request){
+    public String update(Talk talk, HttpServletRequest request) {
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         talk.setTeacher(a.getName());
         int i = talkService.updata(talk);
