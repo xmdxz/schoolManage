@@ -25,7 +25,7 @@ public class AuthorityHandlerInterceptor implements HandlerInterceptor {
             String[] split = responsible.split(",");
             for (int i = 0; i < split.length; i++) {
                 System.out.println(split[i]);
-                if (split[i].equals("大一")) {
+                if (split[i].equals("2020")) {
                     flag = 1;
                     break;
                 }

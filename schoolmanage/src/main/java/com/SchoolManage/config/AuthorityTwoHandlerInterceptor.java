@@ -25,7 +25,7 @@ public class AuthorityTwoHandlerInterceptor implements HandlerInterceptor {
             String[] split = responsible.split(",");
             for (int i = 0; i < split.length; i++) {
                 System.out.println(split[i]);
-                if (split[i].equals("大二")) {
+                if (split[i].equals("2019")) {
                     flag = 1;
                     break;
                 }
