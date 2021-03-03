@@ -237,7 +237,7 @@ $(document).ready(function() {
             $container.imagesLoaded(function(){
                 $container.isotope({
                     itemSelector: '.project_item',
-                    transitionDuration: '1s',
+                    transitionDuration: '0s',
                     layoutMode: 'fitRows'
                 });
             });
