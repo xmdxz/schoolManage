@@ -130,23 +130,23 @@ public class ActivityController {
     }
 
     @RequestMapping("insertac")
-    public String insertAc(Activity activity, HttpServletRequest request) {
+    public String insertAc(Activity activity, String comy,HttpServletRequest request) {
         int i = activityService.insertAc(activity);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表", "2019");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表",comy);
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
 
     @RequestMapping("deleteac")
     @ResponseBody
-    public Map<String, Object> deleteAc(int id, HttpServletRequest request) {
+    public Map<String, Object> deleteAc(int id, String comy,HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
         int i = activityService.deleteAc(id);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("删除", "的活动信息 ", a.getName(), "编号为" + id, "活动表","2019");
+            logService.insertNew("删除", "的活动信息 ", a.getName(), "编号为" + id, "活动表",comy);
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -165,18 +165,18 @@ public class ActivityController {
     }
 
     @RequestMapping("update")
-    public String update(Activity activity, HttpServletRequest request) {
+    public String update(Activity activity, String comy,HttpServletRequest request) {
         int i = activityService.updateData(activity);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表","2019");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表",comy);
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
 
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+    public String upfile(HttpServletRequest request,String comy, @RequestParam("file") MultipartFile file) {
         if (file == null) {
             return "请选择文件";
         }
@@ -200,7 +200,7 @@ public class ActivityController {
                 i = activityService.BatchAddition(path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上窜", "活动信息", a.getName(), "多条", "活动表","2019");
+                logService.insertNew("上窜", "活动信息", a.getName(), "多条", "活动表",comy);
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();

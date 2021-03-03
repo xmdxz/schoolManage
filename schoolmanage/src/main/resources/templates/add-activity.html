@@ -41,8 +41,17 @@
         //获取缓存中登录账号的信息
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
+        var responsible=adminuserInfo.responsible;
         $(document).ready(function () {
-            $('#InfoName').text(name)
+            $('#InfoName').text(name);
+            $('#comy').val(responsible);
+            if(responsible=='2019')
+            {
+                $('[name="Q20"]').css("display","none")
+            }
+            else if(responsible=='2020'){
+                $('[name="Q19"]').css("display","none")
+            }
             $("#bt1").click(function () {
                 $('#excelFile').trigger("click");
                 $('#excelFile').change(function (event) {
@@ -54,7 +63,7 @@
                         $.ajax({
                             url: 'activity/upfile',
                             type: 'post',
-                            data: formData,
+                            data: {formData,comy:responsible},
                             processData: false, // 告诉jQuery不要去处理发送的数据
                             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
                             success: function (res) {
@@ -194,15 +203,15 @@
                         <a href="#"><i class="fas fa-th-large"></i> <span> 仪表板</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="index.html">19级学生</a></li>
-                            <li><a href="index-20.html">20级学生</a></li>
+                            <li name="Q19"><a href="index.html">19级学生</a></li>
+                            <li name="Q20"><a href="index-20.html">20级学生</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
                         <a href="#"><i class="fas fa-user-graduate"></i> <span>学生</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li class="submenu">
+                            <li class="submenu" name="Q19">
                                 <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="students.html">19级学生列表</a></li>
@@ -223,7 +232,7 @@
                             <!--											<li><a href="add-student.html">学生添加</a></li>-->
                             <!--										</ul>-->
                             <!--									</li>-->
-                            <li class="submenu">
+                            <li class="submenu" name="Q20">
                                 <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="students-20.html">20级学生列表</a></li>
@@ -283,7 +292,7 @@
                         <a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li class="submenu">
+                            <li class="submenu" name="Q19">
                                 <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="holiday.html">19级假期列表</a></li>
@@ -304,7 +313,7 @@
                             <!--											<li><a href="add-student.html">学生添加</a></li>-->
                             <!--										</ul>-->
                             <!--									</li>-->
-                            <li class="submenu">
+                            <li class="submenu" name="Q20">
                                 <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="holiday-20.html">20级假期列表</a></li>
@@ -321,7 +330,7 @@
                         <a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li class="submenu">
+                            <li class="submenu" name="Q19">
                                 <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="honour.html">19级荣誉列表</a></li>
@@ -342,7 +351,7 @@
                             <!--											<li><a href="add-student.html">学生添加</a></li>-->
                             <!--										</ul>-->
                             <!--									</li>-->
-                            <li class="submenu">
+                            <li class="submenu" name="Q20">
                                 <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="honour-20.html">20级荣誉列表</a></li>
@@ -399,7 +408,7 @@
                         <a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span
                                 class="menu-arrow"></span></a>
                         <ul>
-                            <li class="submenu">
+                            <li class="submenu" name="Q19">
                                 <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="hostel.html">19级宿舍列表</a></li>
@@ -420,7 +429,7 @@
                             <!--											<li><a href="add-student.html">学生添加</a></li>-->
                             <!--										</ul>-->
                             <!--									</li>-->
-                            <li class="submenu">
+                            <li class="submenu" name="Q20">
                                 <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="hostel-20.html">20级宿舍列表</a></li>
@@ -542,6 +551,13 @@
                                             <label>活动名称</label>
                                             <input type="text" class="form-control" value="" placeholder="请输入"
                                                    name="active" id="active">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6" style="display: none">
+                                        <div class="form-group">
+                                            <label>年份</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" id="comy"
+                                                   name="comy">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">

@@ -103,6 +103,15 @@
                             data: {'username': username},
                         }).done(function (res) {
                             var adminuserInfo = res;
+                            var responsible = adminuserInfo.responsible;
+                            var arr =responsible.split(',');
+                            if(arr.length==2)
+                            {
+                                adminuserInfo.responsible=1;
+                            }
+                            else {
+                                adminuserInfo.responsible=arr[0];
+                            }
                             window.localStorage.setItem("adminuserInfo", JSON.stringify(adminuserInfo));
                         })
 
