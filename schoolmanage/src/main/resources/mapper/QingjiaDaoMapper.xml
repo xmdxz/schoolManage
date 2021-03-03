@@ -5,17 +5,17 @@
 
 <mapper namespace="com.SchoolManage.dao.QingJiaDao">
     <insert id="insertQingjia">
-        insert into qingjia(student, teacher, start_time, end_time, cause, name, clazz, comy)
+        insert into qingjia(student, teacher, start_time, end_time, cause, name, clazz, comy, phone)
         values (#{qingjia.student}, #{qingjia.teacher}, #{qingjia.start_time,jdbcType=TIMESTAMP},
                 #{qingjia.end_time,jdbcType=TIMESTAMP}, #{qingjia.cause}, #{qingjia.name}, #{qingjia.clazz},
-                #{qingjia.comy})
+                #{qingjia.comy}, #{qingjia.phone})
     </insert>
     <insert id="insertQingjias">
-        insert into qingjia(student,teacher,start_time,end_time,cause,name,clazz,comy)
+        insert into qingjia(student,teacher,start_time,end_time,cause,name,clazz,comy,phone)
         values
         <foreach collection="list" separator="," item="item">
             (#{item.student}, #{item.teacher}, #{item.start_time,jdbcType=TIMESTAMP},
-            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause},#{item.name},#{item.clazz},#{item.comy})
+            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause},#{item.name},#{item.clazz},#{item.comy},#{item.phone)
         </foreach>
     </insert>
     <delete id="deleteQingjia">
@@ -209,7 +209,8 @@
             end_time   = #{end_time},
             `name`     = #{name},
             clazz      = #{clazz},
-            comy       = #{comy}
+            comy       = #{comy},
+            phone      = #{phone}
         where id = #{id};
     </update>
     <select id="findById" resultType="com.SchoolManage.pojo.Qingjia">
