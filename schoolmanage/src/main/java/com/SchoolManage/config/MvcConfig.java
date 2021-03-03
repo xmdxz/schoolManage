@@ -87,5 +87,6 @@ public class MvcConfig implements WebMvcConfigurer {
         //添加20级的权限的页面
         registry.addInterceptor(new AuthorityHandlerInterceptor()).addPathPatterns("/students-20.html", "add-student-20.html", "edit-student-20.html");
     }
+    
 
 }

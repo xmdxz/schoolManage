@@ -18,12 +18,12 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         Object administer = session.getAttribute("administer");
-        if(administer==null){
+        if (administer == null) {
             response.sendRedirect("/login.html");
             return false;
         }
         return true;
-
+        
     }
 
 }
