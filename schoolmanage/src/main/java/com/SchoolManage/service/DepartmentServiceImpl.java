@@ -23,20 +23,20 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartMentDao departMentDao;
 
     @Override
-    public List<DepartMent> findAll(String comy, int Page, int num) {
+    public List<DepartMent> findAll(int Page, int num) {
         int startPage = (Page - 1) * num;
-        return departMentDao.findAll(comy, startPage, num);
+        return departMentDao.findAll(startPage, num);
     }
 
     @Override
-    public int findAllNum(String comy) {
-        return departMentDao.findAllNum(comy);
+    public int findAllNum() {
+        return departMentDao.findAllNum();
     }
 
     @Override
-    public List<DepartMent> findByName(String comy, String name, int Page, int num) {
+    public List<DepartMent> findByName(String name, int Page, int num) {
         int startPage = (Page - 1) * num;
-        return departMentDao.findByName(comy, name, startPage, num);
+        return departMentDao.findByName(name, startPage, num);
     }
 
     @Override
@@ -45,30 +45,30 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public int findByNameNum(String comy, String name) {
-        return departMentDao.findByNameNum(comy, name);
+    public int findByNameNum(String name) {
+        return departMentDao.findByNameNum(name);
     }
 
     @Override
-    public List<DepartMent> findByMinister(String comy, String Minister, int Page, int num) {
+    public List<DepartMent> findByMinister(String Minister, int Page, int num) {
         int startPage = (Page - 1) * num;
-        return departMentDao.findByMinister(comy, Minister, startPage, num);
+        return departMentDao.findByMinister(Minister, startPage, num);
     }
 
     @Override
-    public int findByMinisterNum(String comy, String minister) {
-        return departMentDao.findByMinisterNum(comy, minister);
+    public int findByMinisterNum(String minister) {
+        return departMentDao.findByMinisterNum(minister);
     }
 
     @Override
-    public List<DepartMent> findByCollege(String comy, String college, int Page, int num) {
+    public List<DepartMent> findByCollege(String college, int Page, int num) {
         int startPage = (Page - 1) * num;
-        return departMentDao.findByCollege(comy, college, startPage, num);
+        return departMentDao.findByCollege(college, startPage, num);
     }
 
     @Override
-    public int findByCollegeNum(String comy, String college) {
-        return departMentDao.findByCollegeNum(comy, college);
+    public int findByCollegeNum(String college) {
+        return departMentDao.findByCollegeNum(college);
     }
 
     @Override
