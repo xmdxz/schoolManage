@@ -71,6 +71,7 @@
 			var responsible=adminuserInfo.responsible;
 			$(document).ready(function () {
 				$('#InfoName').text(name);
+				$('#comy').val(responsible);
 				if(responsible=='2019')
 				{
 					$('[name="Q20"]').css("display","none")
@@ -519,6 +520,13 @@
 												<div class="form-group">
 													<label>编号</label>
 													<input type="text" class="form-control" value="" placeholder="请输入" name="id" id="id">
+												</div>
+											</div>
+											<div class="col-12 col-sm-6" style="display: none">
+												<div class="form-group">
+													<label>年份</label>
+													<input type="text" class="form-control" value="" placeholder="请输入" id="comy"
+														   name="comy">
 												</div>
 											</div>
 											<div class="col-12 col-sm-6">

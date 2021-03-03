@@ -285,7 +285,7 @@
 									type: "post",
 									url: "/department/deletedata",
 									dataType: "json",
-									data: {'id': id},
+									data: {'id': id,comy:responsible},
 								}).done(function (res) {
 									if (res.code == 500) {
 										swal("删除失败", "服务器繁忙中...", "warning");
