@@ -13,7 +13,7 @@
     <select id="findAll" resultType="com.SchoolManage.pojo.OriginalClass">
         select * from original_class
         <if test="comy != null and comy != '' ">
-            where comy like "%" #{comy} "%"
+            where find_in_set(comy,#{comy})
         </if>
         limit #{startPage},#{num}
     </select>
