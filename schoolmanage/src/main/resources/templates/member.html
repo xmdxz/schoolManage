@@ -116,10 +116,18 @@
 			//获取缓存中登录账号的信息
 			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
 			var name=adminuserInfo.name;
+			var responsible=adminuserInfo.responsible;
 			const everypage_2 = 10; //每页的数量
 			var allpage_2= 1;
 			$(document).ready(function () {
 				$('#InfoName').text(name);
+				if(responsible=='2019')
+				{
+					$('[name="Q20"]').css("display","none")
+				}
+				else if(responsible=='2020'){
+					$('[name="Q19"]').css("display","none")
+				}
 				$("[name='weiyi']").attr("href","add-member.html?name="+Name);
 				var downing = false;
 				$("#bt1").click(function (){
@@ -444,15 +452,15 @@
 								<a href="#"><i class="fas fa-th-large"></i> <span> 仪表板</span> <span
 										class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="index.html">19级学生</a></li>
-									<li><a href="index-20.html">20级学生</a></li>
+									<li  name="Q19"><a href="index.html">19级学生</a></li>
+									<li name="Q20"><a href="index-20.html">20级学生</a></li>
 								</ul>
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="fas fa-user-graduate"></i> <span>学生</span> <span
 										class="menu-arrow"></span></a>
 								<ul>
-									<li class="submenu">
+									<li class="submenu"  name="Q19">
 										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
 										<ul>
 											<li><a href="students.html">19级学生列表</a></li>
@@ -473,7 +481,7 @@
 									<!--											<li><a href="add-student.html">学生添加</a></li>-->
 									<!--										</ul>-->
 									<!--									</li>-->
-									<li class="submenu">
+									<li class="submenu" name="Q20">
 										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
 										<ul>
 											<li><a href="students-20.html">20级学生列表</a></li>
@@ -531,7 +539,7 @@
 								<a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span
 										class="menu-arrow"></span></a>
 								<ul>
-									<li class="submenu">
+									<li class="submenu"  name="Q19">
 										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
 										<ul>
 											<li><a href="holiday.html">19级假期列表</a></li>
@@ -552,7 +560,7 @@
 									<!--											<li><a href="add-student.html">学生添加</a></li>-->
 									<!--										</ul>-->
 									<!--									</li>-->
-									<li class="submenu">
+									<li class="submenu" name="Q20">
 										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
 										<ul>
 											<li><a href="holiday-20.html">20级假期列表</a></li>
@@ -569,7 +577,7 @@
 								<a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span
 										class="menu-arrow"></span></a>
 								<ul>
-									<li class="submenu">
+									<li class="submenu"  name="Q19">
 										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
 										<ul>
 											<li><a href="honour.html">19级荣誉列表</a></li>
@@ -590,7 +598,7 @@
 									<!--											<li><a href="add-student.html">学生添加</a></li>-->
 									<!--										</ul>-->
 									<!--									</li>-->
-									<li class="submenu">
+									<li class="submenu" name="Q20">
 										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
 										<ul>
 											<li><a href="honour-20.html">20级荣誉列表</a></li>
@@ -647,7 +655,7 @@
 								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span
 										class="menu-arrow"></span></a>
 								<ul>
-									<li class="submenu">
+									<li class="submenu"  name="Q19">
 										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
 										<ul>
 											<li><a href="hostel.html">19级宿舍列表</a></li>
@@ -668,7 +676,7 @@
 									<!--											<li><a href="add-student.html">学生添加</a></li>-->
 									<!--										</ul>-->
 									<!--									</li>-->
-									<li class="submenu">
+									<li class="submenu" name="Q20">
 										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
 										<ul>
 											<li><a href="hostel-20.html">20级宿舍列表</a></li>
