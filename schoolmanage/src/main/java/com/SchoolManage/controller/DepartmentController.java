@@ -167,6 +167,7 @@ public class DepartmentController {
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request,String comy, @RequestParam("file") MultipartFile file) {
+        System.out.println(comy);
         if (file == null) {
             return "请选择文件";
         }
