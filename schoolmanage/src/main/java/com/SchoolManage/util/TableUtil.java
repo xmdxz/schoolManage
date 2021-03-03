@@ -139,7 +139,7 @@ public class TableUtil<T> {
                 Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
                 method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
             }
-            clazz.getMethod("setComy").invoke(t, comy.toString());
+            clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
             if (!Ts.contains(t)) {
                 Ts.add(t);
             }
@@ -197,7 +197,7 @@ public class TableUtil<T> {
                 Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
                 method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
             }
-            clazz.getMethod("setComy").invoke(t, comy.toString());
+            clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
             if (!Ts.contains(t)) {
                 Ts.add(t);
             }
