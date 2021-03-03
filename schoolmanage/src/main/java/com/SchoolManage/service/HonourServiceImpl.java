@@ -150,13 +150,13 @@ public class HonourServiceImpl implements HonourService {
     }
 
     @Override
-    public int BatchAddition(String path) {
+    public int BatchAddition(String path, String comy) {
         int num = 0;
         try {
             //path写实际path
             TableUtil<Honour> tableUtil = new TableUtil<Honour>(path, Honour.class);
 
-            List<Honour> list = tableUtil.GetTableRowContent();
+            List<Honour> list = tableUtil.GetTableRowContent(comy);
             //调用插入接口
             //批量上传，list集合
             num = honourDao.insertHons(list);

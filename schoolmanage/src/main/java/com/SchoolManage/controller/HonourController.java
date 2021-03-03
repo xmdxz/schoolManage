@@ -150,7 +150,7 @@ public class HonourController {
                 return "loginp_7";
             else
                 return "loginp_7-20";
-        } else{
+        } else {
             if (honour.getComy().equals("2019"))
                 return "redirect:/add-honour.html";
             else
@@ -189,7 +189,7 @@ public class HonourController {
                 return "loginp_7";
             else
                 return "loginp_7-20";
-        } else{
+        } else {
             if (honour.getComy().equals("2019"))
                 return "redirect:/add-honour.html";
             else
@@ -217,7 +217,7 @@ public class HonourController {
 
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file, String comy) {
         if (file == null) {
             return "请选择文件";
         }
@@ -238,7 +238,7 @@ public class HonourController {
             int i = 66;
             try {
                 System.out.println(path);
-                i = honourService.BatchAddition(path);
+                i = honourService.BatchAddition(path, comy);
                 System.out.println(new File(path).delete());
                 return "上传成功了";
             } catch (Exception e) {

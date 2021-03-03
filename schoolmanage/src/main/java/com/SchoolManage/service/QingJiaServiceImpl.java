@@ -131,13 +131,13 @@ public class QingJiaServiceImpl implements QingJiaService {
     }
 
     @Override
-    public int BatchAddition(String path) {
+    public int BatchAddition(String path, String comy) {
         int num = 0;
         try {
             //path写实际path
             TableUtil<Qingjia> tableUtil = new TableUtil<Qingjia>(path, Qingjia.class);
 
-            List<Qingjia> list = tableUtil.GetTableRowContent();
+            List<Qingjia> list = tableUtil.GetTableRowContent(comy);
             //调用插入接口
             //批量上传，list集合
             num = qingJiaDao.insertQingjias(list);

@@ -206,7 +206,7 @@ public interface QingJiaService {
     /**
      * 批量添加学生
      */
-    int BatchAddition(String path);
+    int BatchAddition(String path, String comy);
 
     /**
      * @Author RainGoal
