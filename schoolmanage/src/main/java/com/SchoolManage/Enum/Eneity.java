@@ -119,6 +119,7 @@ public enum Eneity {
             put("请假原因", "cause");
             put("结束时间", "end_time");
             put("共请假次数", "num");
+            put("联系电话", "phone");
         }
     }),
 
