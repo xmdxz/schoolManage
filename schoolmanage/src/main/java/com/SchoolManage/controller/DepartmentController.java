@@ -102,35 +102,35 @@ public class DepartmentController {
     }
 
     @RequestMapping("insertdata")
-    public String insertData(DepartMent departMent, HttpServletRequest request) {
+    public String insertData(DepartMent departMent,String comy, HttpServletRequest request) {
         System.out.println(departMent);
         int i = departmentService.insertData(departMent);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("插入", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表", "2019");
+            logService.insertNew("插入", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表", comy);
             return "loginp_1";
         } else return "redirect:/departments.html";
     }
 
     @RequestMapping("updatedata")
-    public String updateData(DepartMent departMent, HttpServletRequest request) {
+    public String updateData(DepartMent departMent, String comy,HttpServletRequest request) {
         System.out.println(departMent);
         int i = departmentService.updateData(departMent);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表", "2019");
+            logService.insertNew("更新", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表", comy);
             return "loginp_1";
         } else return "redirect:/departments.html";
     }
 
     @RequestMapping("deletedata")
     @ResponseBody
-    public Map<String, Object> deleteData(int id, HttpServletRequest request) {
+    public Map<String, Object> deleteData(int id, String comy,HttpServletRequest request) {
         int i = departmentService.deleteData(id);
         Map<String, Object> map = new HashMap<>();
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("删除", "的 部门信息", a.getName(), "编号为" + id, "部门表", "2019");
+            logService.insertNew("删除", "的 部门信息", a.getName(), "编号为" + id, "部门表", comy);
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -166,7 +166,7 @@ public class DepartmentController {
 
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+    public String upfile(HttpServletRequest request,String comy, @RequestParam("file") MultipartFile file) {
         if (file == null) {
             return "请选择文件";
         }
@@ -190,7 +190,7 @@ public class DepartmentController {
                 i = departmentService.BatchAddition(path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上传", "部门信息", a.getName(), "多条", "部门表", "2019");
+                logService.insertNew("上传", "部门信息", a.getName(), "多条", "部门表", comy);
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();
