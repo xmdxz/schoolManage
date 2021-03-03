@@ -20,6 +20,7 @@ public class AuthorityHandlerInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         AdminUser administer = (AdminUser) session.getAttribute("administer");
         String responsible = administer.getResponsible();
+        System.out.println(responsible);
         int flag = 0;
         if (responsible != "") {
             String[] split = responsible.split(",");
