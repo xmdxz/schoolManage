@@ -13,7 +13,7 @@ public interface LogService {
      *
      * @param teacher
      */
-    int insertNew(String type, String message, String teacher, String student, String table);
+    int insertNew(String type, String message, String teacher, String student, String table,String comy);
 
     /**
      * 查找全部操作记录,并根据时间排序

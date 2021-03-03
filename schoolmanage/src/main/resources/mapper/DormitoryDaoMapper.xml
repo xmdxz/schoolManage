@@ -52,7 +52,7 @@
         and bedroom_hao = dormitory.number) as num
         from dormitory
         <if test="comy != null and comy != '' ">
-            where comy like "%" #{comy} "%"
+            where find_in_set(comy,#{comy})
         </if>
         limit #{startPage},#{num}
     </select>
@@ -60,7 +60,7 @@
         select count(*)
         from dormitory
         <if test="comy != null and comy != '' ">
-            where comy like "%" #{comy} "%"
+            where find_in_set(comy,#{comy})
         </if>
     </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.Dormitory">
@@ -72,7 +72,7 @@
         from dormitory
         where manage = #{name}
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         limit #{startPage}
         , #{num}
@@ -82,7 +82,7 @@
         from dormitory
         where manage = #{name}
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Dormitory">
@@ -103,7 +103,7 @@
         from dormitory
         where building = #{building}
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         limit #{startPage}
         , #{num}
@@ -113,7 +113,7 @@
         from dormitory
         where building = #{building}
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
     </select>
     <select id="findByNumber" resultType="com.SchoolManage.pojo.Dormitory">
@@ -125,7 +125,7 @@
         from dormitory
         where number = #{number}
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         limit #{startPage}
         , #{num}
@@ -139,7 +139,7 @@
         from dormitory
         where number = #{number}
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
     </select>
     <select id="findByBuildingAndNumber" resultType="com.SchoolManage.pojo.Dormitory">
@@ -160,7 +160,7 @@
         and bedroom_hao = dormitory.number) as num
         from dormitory
         <if test="comy != null and comy != '' ">
-            where comy like "%" #{comy} "%"
+            where find_in_set(comy,#{comy})
         </if>
     </select>
 </mapper>

@@ -61,7 +61,7 @@
             $.ajax({
                 type: "post",
                 url: "student/findbyareastudentNum",
-                data: {area: area},
+                data: {comy:'2020',area: area},
                 dataType: "json",
                 async: false,
             }).done(function (res) {
@@ -72,7 +72,7 @@
                 type: "post",
                 url: "student/findbyareastudent",
                 dataType: "json",
-                data: {area: area, 'page': 1, 'num': everypage_3},
+                data: {comy:'2020',area: area, 'page': 1, 'num': everypage_3},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -123,6 +123,7 @@
                 type: "post",
                 url: "student/getcount",
                 dataType: "json",
+                data:{comy:'2020'},
                 async: false,
             }).done(function (res) {
                 //console.log(Math.ceil(res / everypage))
@@ -133,7 +134,7 @@
                 type: "post",
                 url: "student/findbypage",
                 dataType: "json",
-                data: {'page': 1, 'num': everypage},
+                data: {comy:'2020','page': 1, 'num': everypage},
             }).done(function (res) {
                 console.log(res)
                 var msg = "";
@@ -188,7 +189,7 @@
                 type: "post",
                 url: "student/findbypage",
                 dataType: "json",
-                data: {'page': page, 'num': everypage},
+                data: {comy:'2020','page': page, 'num': everypage},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -228,13 +229,13 @@
                             type: "post",
                             url: "/student/delete",
                             dataType: "json",
-                            data: {'id': id},
+                            data: {'id': id,comy:'2020'},
                         }).done(function (res) {
                             if (res.code == 500) {
                                 swal("删除失败", "服务器繁忙中...", "warning");
                             } else if (res.code == 200) {
                                 swal("删除成功！", "即将返回学生列表", "success");
-                                setTimeout("window.location.href='students.html'", "1200");
+                                setTimeout("window.location.href='students-20.html'", "1200");
                             }
                         })
                     } else {
@@ -452,7 +453,7 @@
                         dataType: "json",
                         async: false,
                         data: {
-                            major: map.get("major"), direction: map.get("direction"), present_class:
+                            comy:'2020',major: map.get("major"), direction: map.get("direction"), present_class:
                                 map.get("present_class"), original_class: map.get("original_class"),
                             present_post: map.get("present_post"), original_post: map.get("original_post")
                         }
@@ -465,7 +466,7 @@
                         url: "/student/findByMultipleConditions",
                         dataType: "json",
                         data: {
-                            major: map.get("major"),
+                            comy:'2020', major: map.get("major"),
                             direction: map.get("direction"),
                             present_class:
                                 map.get("present_class"),
@@ -579,7 +580,7 @@
                     $.ajax({
                         type: "post",
                         url: "student/findByNameCount",
-                        data: {name: a},
+                        data: {comy:'2020',name: a},
                         dataType: "json",
                         async: false,
                     }).done(function (res) {
@@ -590,7 +591,7 @@
                         type: "post",
                         url: "student/findbyname",
                         dataType: "json",
-                        data: {name: a, 'page': 1, 'num': everypage_2},
+                        data: {comy:'2020',name: a, 'page': 1, 'num': everypage_2},
                     }).done(function (res) {
                         var msg = "";
                         $.each(res, function (i, n) {
@@ -648,7 +649,7 @@
                     url: 'student/Excle',
                     dataType: 'text',
                     data: {
-                        major: map.get("major"),
+                        comy:'2020',major: map.get("major"),
                         direction: map.get("direction"),
                         present_class:
                             map.get("present_class"),
@@ -676,7 +677,7 @@
                 url: "student/findByMultipleConditions",
                 dataType: "json",
                 data: {
-                    major: map.get("major"),
+                    comy:'2020',major: map.get("major"),
                     direction: map.get("direction"),
                     present_class:
                         map.get("present_class"),
@@ -722,7 +723,7 @@
                 type: "post",
                 url: "student/findbyname",
                 dataType: "json",
-                data: {name: a, page: page, num: everypage_2},
+                data: {comy:'2020',name: a, page: page, num: everypage_2},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -749,7 +750,7 @@
                 type: "post",
                 url: "student/findbyareastudent",
                 dataType: "json",
-                data: {area: area, page: page, num: everypage_3},
+                data: {comy:'2020',area: area, page: page, num: everypage_3},
             }).done(function (res) {
                 var msg = "";
                 $.each(res, function (i, n) {
@@ -870,8 +871,13 @@
                     <li class="menu-title">
                         <span>主菜单</span>
                     </li>
-                    <li>
-                        <a href="index.html"><i class="fas fa-th-large"></i> <span>仪表板</span></a>
+                    <li class="submenu">
+                        <a href="#"><i class="fas fa-th-large"></i> <span> 仪表板</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="index.html">19级学生</a></li>
+                            <li><a href="index-20.html">20级学生</a></li>
+                        </ul>
                     </li>
                     <li class="submenu active">
                         <a href="#"><i class="fas fa-user-graduate"></i> <span>学生</span> <span
@@ -954,17 +960,79 @@
                                 </ul>
                             </li> -->
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="holiday.html">假期列表</a></li>
-                            <li><a href="add-holiday.html">假期添加</a></li>
+                            <li class="submenu">
+                                <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="holiday.html">19级假期列表</a></li>
+                                    <li><a href="add-holiday.html">19级假期添加</a></li>
+                                </ul>
+                            </li>
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <li class="submenu">
+                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="holiday-20.html">20级假期列表</a></li>
+                                    <li><a href="add-holiday-20.html">20级假期添加</a></li>
+                                </ul>
+                            </li>
+                            <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+                            <!--									<li><a href="student-details.html">学生信息</a></li>-->
+                            <!--                            <li><a href="add-student.html">学生添加</a></li>-->
+                            <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="honour.html">荣誉列表</a></li>
-                            <li><a href="add-honour.html">荣誉添加</a></li>
+                            <li class="submenu">
+                                <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="honour.html">19级荣誉列表</a></li>
+                                    <li><a href="add-honour.html">19级荣誉添加</a></li>
+                                </ul>
+                            </li>
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <li class="submenu">
+                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="honour-20.html">20级荣誉列表</a></li>
+                                    <li><a href="add-honour-20.html">20级荣誉添加</a></li>
+                                </ul>
+                            </li>
+                            <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+                            <!--									<li><a href="student-details.html">学生信息</a></li>-->
+                            <!--                            <li><a href="add-student.html">学生添加</a></li>-->
+                            <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
                     <!--                    <li>-->
@@ -1008,10 +1076,41 @@
                         <a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>
                     </li> -->
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="hostel.html">宿舍列表</a></li>
-                            <li><a href="add-hostel.html">宿舍添加</a></li>
+                            <li class="submenu">
+                                <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="hostel.html">19级宿舍列表</a></li>
+                                    <li><a href="add-hostel.html">19级宿舍添加</a></li>
+                                </ul>
+                            </li>
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <li class="submenu">
+                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="hostel-20.html">20级宿舍列表</a></li>
+                                    <li><a href="add-hostel-20.html">20级宿舍添加</a></li>
+                                </ul>
+                            </li>
+                            <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+                            <!--									<li><a href="student-details.html">学生信息</a></li>-->
+                            <!--                            <li><a href="add-student.html">学生添加</a></li>-->
+                            <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
                     <li class="submenu">

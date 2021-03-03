@@ -1,7 +1,6 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Activity;
-import org.apache.ibatis.annotations.Param;
 
 import java.sql.Date;
 import java.util.List;
@@ -19,14 +18,14 @@ public interface ActivityService {
      *
      * @return
      */
-    List<Activity> findAll(String comy, Integer Page, Integer num);
+    List<Activity> findAll(Integer Page, Integer num);
 
     /**
      * 查询全部数量
      *
      * @return
      */
-    int findAllCount(String comy);
+    int findAllCount();
 
     /**
      * 根据学生查询
@@ -34,7 +33,7 @@ public interface ActivityService {
      * @param student
      * @return
      */
-    List<Activity> findByStudentPage(String comy, String student, Integer Page, Integer num);
+    List<Activity> findByStudentPage(String student, Integer Page, Integer num);
 
     /**
      * 根据学生查询，无分页
@@ -42,7 +41,7 @@ public interface ActivityService {
      * @param student
      * @return
      */
-    List<Activity> findByStudentNoPage(String comy, String student);
+    List<Activity> findByStudentNoPage(String student);
 
     /**
      * 根据学生查询数量
@@ -50,7 +49,7 @@ public interface ActivityService {
      * @param student
      * @return
      */
-    int findByStudentCount(String comy, String student);
+    int findByStudentCount(String student);
 
     /**
      * 根据活动查询
@@ -58,7 +57,7 @@ public interface ActivityService {
      * @param active
      * @return
      */
-    List<Activity> findByActive(String comy, String active, Integer Page, Integer num);
+    List<Activity> findByActive(String active, Integer Page, Integer num);
 
     /**
      * 根据活动查询数量
@@ -66,7 +65,7 @@ public interface ActivityService {
      * @param active
      * @return
      */
-    int findByActiveCount(String comy, String active);
+    int findByActiveCount(String active);
 
     /**
      * 根据年月日时间查询,活动的话，应该不会使用
@@ -74,7 +73,7 @@ public interface ActivityService {
      * @param date
      * @return
      */
-    List<Activity> findByTime(String comy, Date date, Integer Page, Integer num);
+    List<Activity> findByTime(Date date, Integer Page, Integer num);
 
     /**
      * 根据年月日查询数量
@@ -82,7 +81,7 @@ public interface ActivityService {
      * @param date
      * @return
      */
-    int findByTimeCount(String comy, Date date);
+    int findByTimeCount(Date date);
 
     /**
      * 根据负责人查找
@@ -90,7 +89,7 @@ public interface ActivityService {
      * @param responsible
      * @return
      */
-    List<Activity> findByRes(String comy, String responsible, Integer Page, Integer num);
+    List<Activity> findByRes(String responsible, Integer Page, Integer num);
 
     /**
      * 根据负责人查询数量
@@ -98,7 +97,7 @@ public interface ActivityService {
      * @param responsible
      * @return
      */
-    int findByResCount(String comy, String responsible);
+    int findByResCount(String responsible);
 
     /**
      * 根据年月查询
@@ -107,7 +106,7 @@ public interface ActivityService {
      * @param num
      * @return
      */
-    List<Activity> findByTimeYearAndMonth(String comy, Date time, Integer Page, Integer num);
+    List<Activity> findByTimeYearAndMonth(Date time, Integer Page, Integer num);
 
     /**
      * 根据年月查询数量
@@ -115,7 +114,7 @@ public interface ActivityService {
      * @param time
      * @return
      */
-    int findByTimeYearAndMonthCount(String comy, Date time);
+    int findByTimeYearAndMonthCount(Date time);
 
     /**
      * 根据年查询
@@ -125,7 +124,7 @@ public interface ActivityService {
      * @param num
      * @return
      */
-    List<Activity> findByTimeYear(String comy, Date time, Integer Page, Integer num);
+    List<Activity> findByTimeYear(Date time, Integer Page, Integer num);
 
     /**
      * 根据年查询数量
@@ -133,7 +132,7 @@ public interface ActivityService {
      * @param time
      * @return
      */
-    int findByTimeYearCount(String comy, Date time);
+    int findByTimeYearCount(Date time);
 
     /**
      * 插入单挑
@@ -172,7 +171,7 @@ public interface ActivityService {
     /**
      * 更新信息的
      */
-    int updateData(@Param(value = "activity") Activity activity);
+    int updateData(Activity activity);
 
     /**
      * 批量添加学生

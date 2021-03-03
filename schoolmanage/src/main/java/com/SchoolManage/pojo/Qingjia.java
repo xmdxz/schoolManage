@@ -46,9 +46,9 @@ public class Qingjia {
      */
     private String clazz;
     /**
-     * 班级
+     * 次数
      */
-    private String num;
+    private Integer num;
 
     /**
      * 年级

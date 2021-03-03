@@ -5,15 +5,14 @@
 
 <mapper namespace="com.SchoolManage.dao.ActivityDao">
     <insert id="insertAc">
-        insert into activity(responsible, remarks, active, time, comy)
-        values (#{activity.responsible}, #{activity.remarks}, #{activity.active}, #{activity.time,jdbcType=DATE},
-                #{activity.comy})
+        insert into activity(responsible, remarks, active, time)
+        values (#{activity.responsible}, #{activity.remarks}, #{activity.active}, #{activity.time,jdbcType=DATE})
     </insert>
     <insert id="insertAcs">
-        insert into activity(responsible,remarks, active, time,comy)
+        insert into activity(responsible,remarks, active, time)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.responsible},#{item.remarks},#{item.active},#{item.time,jdbcType=DATE},#{item.comy})
+            (#{item.responsible},#{item.remarks},#{item.active},#{item.time,jdbcType=DATE})
         </foreach>
     </insert>
     <update id="updateData">
@@ -22,8 +21,7 @@
             remarks     = #{activity.remarks},
             active      = #{activity.active},
             time        = #{activity.time},
-            comy        = #{activity.comy}
-        where id = #{activity.id}
+            where id = #{activity.id}
     </update>
     <delete id="deleteAc">
         delete
@@ -34,135 +32,88 @@
 
     <select id="findAll" resultType="com.SchoolManage.pojo.Activity">
         select *, (select count(*) from activemember where activemember.activity = activity.id) as number
-        from activity
-        <if test="comy != null and comy != '' ">
-            where comy like "%" #{comy} "%"
-        </if>
-        limit
-        #{startPage},#{num}
+        from activity limit #{startPage},#{num}
     </select>
     <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Activity">
         select *, (select count(*) from activemember where activemember.activity = activity.id) as number
         from activity
         where id in (select activity from activemember where student = #{student})
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
-        limit
-        #{startPage}, #{num}
+            limit #{startPage}
+            , #{num}
     </select>
     <select id="findByActive" resultType="com.SchoolManage.pojo.Activity">
         select *, (select count(*) from activemember where activemember.activity = activity.id) as number
         from activity
         where active like "%" #{active} "%"
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
         limit #{startPage}
-        , #{num}
+            , #{num}
     </select>
     <select id="findByTime" resultType="com.SchoolManage.pojo.Activity">
         select *, (select count(*) from activemember where activemember.activity = activity.id) as number
         from activity
         where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
-        limit #{startPage}
-        , #{num}
+            limit #{startPage}
+            , #{num}
     </select>
     <select id="findAllCount" resultType="java.lang.Integer">
         select count(*)
         from activity
-        <if test="comy != null and comy != '' ">
-            where comy like "%" #{comy} "%"
-        </if>
     </select>
     <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Activity">
         select *, (select count(*) from activemember where activemember.activity = activity.id) as number
         from activity
         where id in (select activity from activemember where student = #{student})
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
     </select>
     <select id="findByStudentCount" resultType="java.lang.Integer">
         select count(*)
         from activity
         where id in (select activity from activemember where student = #{student})
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
     </select>
     <select id="findByActiveCount" resultType="java.lang.Integer">
         select count(*)
         from activity
         where active like "%" #{active} "%"
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
     </select>
     <select id="findByTimeCount" resultType="java.lang.Integer">
         select count(*)
         from activity
         where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
     </select>
     <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Activity">
         select *, (select count(*) from activemember where activemember.activity = activity.id) as number
         from activity
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
-        limit #{startPage}
-        , #{num}
+            limit #{startPage}
+            , #{num}
     </select>
     <select id="findByTimeYearAndMonthCount" resultType="java.lang.Integer">
         select count(*)
         from activity
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
     </select>
     <select id="findByTimeYear" resultType="com.SchoolManage.pojo.Activity">
         select *, (select count(*) from activemember where activemember.activity = activity.id) as number
         from activity
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
-        limit #{startPage}
-        , #{num}
+            limit #{startPage}
+            , #{num}
     </select>
     <select id="findByTimeYearCount" resultType="java.lang.Integer">
         select count(*)
         from activity
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
     </select>
     <select id="findByRes" resultType="com.SchoolManage.pojo.Activity">
         select *, (select count(*) from activemember where activemember.activity = activity.id) as number
         from activity
         where responsible like "%" #{responsible} "%"
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
         limit #{startPage}
-        , #{num}
+            , #{num}
     </select>
     <select id="findByResCount" resultType="java.lang.Integer">
         select count(*)
         from activity
         where responsible like "%" #{responsible} "%"
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Activity">
         select *
@@ -173,17 +124,12 @@
         select *
         from activity
         where time like "%" #{date} "%"
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
-        limit #{startPage},#{num}
+            limit #{startPage}
+            , #{num}
     </select>
     <select id="findByDateCount" resultType="java.lang.Integer">
         select count(*)
         from activity
         where time like "%" #{date} "%"
-        <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
-        </if>
     </select>
 </mapper>

@@ -13,7 +13,7 @@ $(document).ready(function () {
 	$.ajax({
 		type: "post",
 		url: "/student/findbyarea",
-		data:{comy:'2019',area1:areaarray[0],area2:areaarray[1],area3:areaarray[2],area4:areaarray[3],area5:areaarray[4],area6:areaarray[5],area7:areaarray[6],area8:areaarray[7],area9:areaarray[8],area10:areaarray[9],area11:areaarray[10],area12:areaarray[11],area13:areaarray[12],area14:areaarray[13],area15:areaarray[14],area16:areaarray[15]},
+		data:{comy:'2020',area1:areaarray[0],area2:areaarray[1],area3:areaarray[2],area4:areaarray[3],area5:areaarray[4],area6:areaarray[5],area7:areaarray[6],area8:areaarray[7],area9:areaarray[8],area10:areaarray[9],area11:areaarray[10],area12:areaarray[11],area13:areaarray[12],area14:areaarray[13],area15:areaarray[14],area16:areaarray[15]},
 		async: false,
 		dataType: "json",
 	}).done(function (res) {
@@ -73,7 +73,7 @@ $(document).ready(function () {
                 dataPointSelection: function (event, chartContext, config) {
                     console.log(config.w.config.labels[config.dataPointIndex]);
                     var area = config.w.config.labels[config.dataPointIndex];
-                    window.location.href='students.html?area='+area;
+                    window.location.href='students-20.html?area='+area;
                 }
             },
             toolbar: {

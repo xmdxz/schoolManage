@@ -17,6 +17,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
+        registry.addViewController("/index-20.html").setViewName("index-20");
         registry.addViewController("/login.html").setViewName("login");
         registry.addViewController("/students.html").setViewName("students");
         registry.addViewController("/students-20.html").setViewName("students-20");
@@ -26,6 +27,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/edit-student.html").setViewName("edit-student");
         registry.addViewController("/edit-student-20.html").setViewName("edit-student-20");
         registry.addViewController("/loginp.html").setViewName("loginp");
+        registry.addViewController("/loginp-20.html").setViewName("loginp-20");
         registry.addViewController("/loginp_1.html").setViewName("loginp_1");
         registry.addViewController("/Test.html").setViewName("test");
         registry.addViewController("/departments.html").setViewName("departments");
@@ -35,12 +37,17 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/edit-member.html").setViewName("edit-member");
         registry.addViewController("/add-member.html").setViewName("add-member");
         registry.addViewController("/holiday.html").setViewName("holiday");
+        registry.addViewController("/holiday-20.html").setViewName("holiday-20");
         registry.addViewController("/event.html").setViewName("event");
         registry.addViewController("/hostel.html").setViewName("hostel");
+        registry.addViewController("/hostel-20.html").setViewName("hostel-20");
         registry.addViewController("/add-hostel.html").setViewName("add-hostel");
+        registry.addViewController("/add-hostel-20.html").setViewName("add-hostel-20");
         registry.addViewController("/loginp_2.html").setViewName("loginp_2");
+        registry.addViewController("/loginp_2-20.html").setViewName("loginp_2-20");
         registry.addViewController("/loginp_3.html").setViewName("loginp_3");
         registry.addViewController("/edit-hostel.html").setViewName("edit-hostel");
+        registry.addViewController("/edit-hostel-20.html").setViewName("edit-hostel-20");
         registry.addViewController("/member-hostel.html").setViewName("member-hostel");
         registry.addViewController("/profile.html").setViewName("profile");
         registry.addViewController("/activity.html").setViewName("activity");
@@ -52,24 +59,27 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/add-member-activity.html").setViewName("add-member-activity");
         registry.addViewController("/psychology.html").setViewName("psychology");
         registry.addViewController("/edit-holiday.html").setViewName("edit-holiday");
+        registry.addViewController("/edit-holiday-20.html").setViewName("edit-holiday-20");
         registry.addViewController("/add-holiday.html").setViewName("add-holiday");
+        registry.addViewController("/add-holiday-20.html").setViewName("add-holiday-20");
         registry.addViewController("/add-talk.html").setViewName("add-talk");
         registry.addViewController("/edit-talk.html").setViewName("edit-talk");
         registry.addViewController("/loginp_5.html").setViewName("loginp_5");
         registry.addViewController("/loginp_6.html").setViewName("loginp_6");
+        registry.addViewController("/loginp_6-20.html").setViewName("loginp_6-20");
+        registry.addViewController("/loginp_7.html").setViewName("loginp_7");
+        registry.addViewController("/loginp_7-20.html").setViewName("loginp_7-20");
         registry.addViewController("/honour.html").setViewName("honour");
+        registry.addViewController("/honour-20.html").setViewName("honour-20");
         registry.addViewController("/add-honour.html").setViewName("add-honour");
+        registry.addViewController("/add-honour-20.html").setViewName("add-honour-20");
         registry.addViewController("/edit-honour.html").setViewName("edit-honour");
-        registry.addViewController("/noresponsible.html").setViewName("noresponsible");
+        registry.addViewController("/edit-honour-20.html").setViewName("edit-honour-20");
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/login.html", "/admin/login", "/admin/captcha", "/admin/getadminuser", "/assets/**");
-        //配置需要大一权限的页面在这里配置
-        registry.addInterceptor(new AuthorityHandlerInterceptor()).addPathPatterns("/students.html", "/add-student.html", "edit-student.html");
-        //配置需要大二权限的页面在这里配置
-        registry.addInterceptor(new AuthorityTwoHandlerInterceptor()).addPathPatterns("/students-20.html", "add-student-20.html", "edit-student-20.html");
+                .excludePathPatterns("/login.html","/admin/login","/admin/captcha","/admin/getadminuser","/assets/**");
     }
 }

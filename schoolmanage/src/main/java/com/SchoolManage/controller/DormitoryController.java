@@ -117,19 +117,29 @@ public class DormitoryController {
         int i = dormitoryService.insertData(dormitory);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("插入", "的 宿舍信息", a.getName(), "编号为" + dormitory.getBuilding() + "#" + dormitory.getNumber(), "宿舍表");
-            return "loginp_2";
-        } else return "redirect:/hostel.html";
+            logService.insertNew("插入", "的 宿舍信息", a.getName(), "编号为" + dormitory.getBuilding() + "#" + dormitory.getNumber(), "宿舍表",dormitory.getComy());
+            if (dormitory.getComy().equals("2019"))
+                return "loginp_2";
+            else
+                return "loginp_2-20";
+
+        } else
+        {
+            if (dormitory.getComy().equals("2019"))
+                return "redirect:/hostel.html";
+            else
+                return "redirect:/hostel-20.html";
+        }
     }
 
     @RequestMapping("deleteData")
     @ResponseBody
-    public Map<String, Object> deleteData(String building, String number, HttpServletRequest request) {
+    public Map<String, Object> deleteData(String building, String number, HttpServletRequest request,String comy) {
         int i = dormitoryService.deleteData(building, number);
         Map<String, Object> map = new HashMap<>();
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("插入", "的 宿舍信息", a.getName(), "编号为" + building + "#" + number, "宿舍表");
+            logService.insertNew("插入", "的 宿舍信息", a.getName(), "编号为" + building + "#" + number, "宿舍表",comy);
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -144,10 +154,21 @@ public class DormitoryController {
     public String updateData(Dormitory dormitory, HttpServletRequest request) {
         int i = dormitoryService.updateData(dormitory);
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        logService.insertNew("更新", "的 宿舍信息", a.getName(), "编号为" + dormitory.getBuilding() + "#" + dormitory.getNumber(), "宿舍表");
+        logService.insertNew("更新", "的 宿舍信息", a.getName(), "编号为" + dormitory.getBuilding() + "#" + dormitory.getNumber(), "宿舍表",dormitory.getComy());
         if (i != 0) {
-            return "loginp_2";
-        } else return "redirect:/hostel.html";
+            if (dormitory.getComy().equals("2019"))
+                return "loginp_2";
+            else
+                return "loginp_2-20";
+
+        } else
+        {
+            if (dormitory.getComy().equals("2019"))
+                return "redirect:/hostel.html";
+            else
+                return "redirect:/hostel-20.html";
+        }
+
     }
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
@@ -213,7 +234,7 @@ public class DormitoryController {
                 i = dormitoryService.BatchAddition(comy, path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上传", "宿舍信息", a.getName(), "多条", "宿舍表");
+                logService.insertNew("上传", "宿舍信息", a.getName(), "多条", "宿舍表",comy);
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();

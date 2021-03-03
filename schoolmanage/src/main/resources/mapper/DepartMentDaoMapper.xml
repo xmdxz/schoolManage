@@ -36,7 +36,7 @@
         select *,(select count(*) from member where member.department = department.name) as num from
         department
         <if test="comy != null and comy != '' ">
-            where comy like "%" #{comy} "%"
+            where find_in_set(comy,#{comy})
         </if>
         limit #{startPage},#{num};
     </select>
@@ -45,7 +45,7 @@
         from department
         where department.name like "%" #{name} "%"
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         limit #{startPage}
         , #{num};
@@ -55,7 +55,7 @@
         from department
         where department.minister like "%" #{minister} "%"
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         limit #{startPage}
         , #{num};
@@ -65,7 +65,7 @@
         from department
         where department.college like "%" #{college} "%"
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         limit #{startPage}
         , #{num};
@@ -74,7 +74,7 @@
         select count(*)
         from department
         <if test="comy != null and comy != '' ">
-            where comy like "%" #{comy} "%"
+            where find_in_set(comy,#{comy})
         </if>
     </select>
     <select id="findByNameNum" resultType="java.lang.Integer">
@@ -82,7 +82,7 @@
         from department
         where department.name like "%" #{name} "%"
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
     </select>
     <select id="findByMinisterNum" resultType="java.lang.Integer">
@@ -90,7 +90,7 @@
         from department
         where department.minister like "%" #{minister} "%"
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
     </select>
     <select id="findByCollegeNum" resultType="java.lang.Integer">

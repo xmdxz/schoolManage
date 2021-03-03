@@ -18,14 +18,14 @@ public interface ActivityDao {
      *
      * @return
      */
-    List<Activity> findAll(@Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Activity> findAll(@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 查询全部数量
      *
      * @return
      */
-    int findAllCount(@Param(value = "comy") String comy);
+    int findAllCount();
 
     /**
      * 根据学生查询
@@ -33,7 +33,7 @@ public interface ActivityDao {
      * @param student
      * @return
      */
-    List<Activity> findByStudentPage(@Param(value = "comy") String comy, @Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Activity> findByStudentPage(@Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据学生查询，无分页
@@ -41,7 +41,7 @@ public interface ActivityDao {
      * @param student
      * @return
      */
-    List<Activity> findByStudentNoPage(@Param(value = "comy") String comy, @Param(value = "student") String student);
+    List<Activity> findByStudentNoPage(@Param(value = "student") String student);
 
 
     /**
@@ -50,7 +50,7 @@ public interface ActivityDao {
      * @param student
      * @return
      */
-    int findByStudentCount(@Param(value = "comy") String comy, @Param(value = "student") String student);
+    int findByStudentCount(@Param(value = "student") String student);
 
     /**
      * 根据活动查询
@@ -58,7 +58,7 @@ public interface ActivityDao {
      * @param active
      * @return
      */
-    List<Activity> findByActive(@Param(value = "comy") String comy, @Param(value = "active") String active, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Activity> findByActive(@Param(value = "active") String active, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据活动查询数量
@@ -66,7 +66,7 @@ public interface ActivityDao {
      * @param active
      * @return
      */
-    int findByActiveCount(@Param(value = "comy") String comy, @Param(value = "active") String active);
+    int findByActiveCount(@Param(value = "active") String active);
 
     /**
      * 根据年月日时间查询,活动的话，应该不会使用
@@ -74,7 +74,7 @@ public interface ActivityDao {
      * @param date
      * @return
      */
-    List<Activity> findByTime(@Param(value = "comy") String comy, @Param(value = "time") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Activity> findByTime(@Param(value = "time") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据年月日查询数量
@@ -82,7 +82,7 @@ public interface ActivityDao {
      * @param date
      * @return
      */
-    int findByTimeCount(@Param(value = "comy") String comy, @Param(value = "time") Date date);
+    int findByTimeCount(@Param(value = "time") Date date);
 
     /**
      * 根据负责人查找
@@ -90,7 +90,7 @@ public interface ActivityDao {
      * @param responsible
      * @return
      */
-    List<Activity> findByRes(@Param(value = "comy") String comy, @Param(value = "responsible") String responsible, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Activity> findByRes(@Param(value = "responsible") String responsible, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
 
     /**
@@ -99,7 +99,7 @@ public interface ActivityDao {
      * @param responsible
      * @return
      */
-    int findByResCount(@Param(value = "comy") String comy, @Param(value = "responsible") String responsible);
+    int findByResCount(@Param(value = "responsible") String responsible);
 
 
     /**
@@ -109,10 +109,10 @@ public interface ActivityDao {
      * @param time
      * @return
      */
-    List<Activity> findByDate(@Param(value = "comy") String comy, @Param(value = "date") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Activity> findByDate(@Param(value = "date") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
 
-    int findByDateCount(@Param(value = "comy") String comy, @Param(value = "date") Date time);
+    int findByDateCount(@Param(value = "date") Date time);
 
     /**
      * 根据年月查询
@@ -121,7 +121,7 @@ public interface ActivityDao {
      * @param num
      * @return
      */
-    List<Activity> findByTimeYearAndMonth(@Param(value = "comy") String comy, @Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Activity> findByTimeYearAndMonth(@Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据年月查询数量
@@ -129,7 +129,7 @@ public interface ActivityDao {
      * @param time
      * @return
      */
-    int findByTimeYearAndMonthCount(@Param(value = "comy") String comy, @Param(value = "time") Date time);
+    int findByTimeYearAndMonthCount(@Param(value = "time") Date time);
 
     /**
      * 根据年查询
@@ -139,7 +139,7 @@ public interface ActivityDao {
      * @param num
      * @return
      */
-    List<Activity> findByTimeYear(@Param(value = "comy") String comy, @Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<Activity> findByTimeYear(@Param(value = "time") Date time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 根据年查询数量
@@ -147,7 +147,7 @@ public interface ActivityDao {
      * @param time
      * @return
      */
-    int findByTimeYearCount(@Param(value = "comy") String comy, @Param(value = "time") Date time);
+    int findByTimeYearCount(@Param(value = "time") Date time);
 
     /**
      * 插入单挑

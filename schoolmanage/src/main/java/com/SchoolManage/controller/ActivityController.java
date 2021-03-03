@@ -42,92 +42,91 @@ public class ActivityController {
 
     @RequestMapping("findall")
     @ResponseBody
-    public List<Activity> findAll(String comy, int page, int num) {
-        List<Activity> list = activityService.findAll(comy, page, num);
+    public List<Activity> findAll(int page, int num) {
+        List<Activity> list = activityService.findAll(page, num);
         return list;
     }
 
     @RequestMapping("findallcount")
     @ResponseBody
-    public int findAllCount(String comy) {
-        int allCount = activityService.findAllCount(comy);
+    public int findAllCount() {
+        int allCount = activityService.findAllCount();
         return allCount;
     }
 
     @RequestMapping("findbystudentpage")
     @ResponseBody
-    public List<Activity> findByStudentPage(String comy,
-                                            String student,
+    public List<Activity> findByStudentPage(String student,
                                             int page,
                                             int num) {
-        List<Activity> byStudentPage = activityService.findByStudentPage(comy, student, page, num);
+        List<Activity> byStudentPage = activityService.findByStudentPage(student, page, num);
         return byStudentPage;
     }
 
     @RequestMapping("findByStudentNoPage")
     @ResponseBody
-    public List<Activity> findByStudentNoPage(String comy, String student) {
-        return activityService.findByStudentNoPage(comy, student);
+    public List<Activity> findByStudentNoPage(String student) {
+        return activityService.findByStudentNoPage(student);
     }
 
     @RequestMapping("findbystudentcount")
     @ResponseBody
-    public int findByStudentCount(String comy, String student) {
-        return activityService.findByStudentCount(comy, student);
+    public int findByStudentCount(String student) {
+        return activityService.findByStudentCount(student);
     }
 
     @RequestMapping("findbyactive")
     @ResponseBody
-    public List<Activity> findByActive(String comy, String active, Integer Page, Integer num) {
-        return activityService.findByActive(comy, active, Page, num);
+    public List<Activity> findByActive(String active, Integer Page, Integer num) {
+        return activityService.findByActive(active, Page, num);
     }
 
     @RequestMapping("findbyactivecount")
     @ResponseBody
-    public Integer findByActiveCount(String comy, String active) {
-        return activityService.findByActiveCount(comy, active);
+    public Integer findByActiveCount(String active) {
+        return activityService.findByActiveCount(active);
     }
 
     @RequestMapping("findbytime")
     @ResponseBody
-    public List<Activity> findByTime(String comy, Date date, Integer Page, Integer num) {
-        return activityService.findByTime(comy, date, Page, num);
+    public List<Activity> findByTime(Date date, Integer Page, Integer num) {
+        return activityService.findByTime(date, Page, num);
     }
 
     @RequestMapping("findbytimecount")
     @ResponseBody
-    public int findByTimeCount(String comy, Date date) {
-        return activityService.findByTimeCount(comy, date);
+    public int findByTimeCount(Date date) {
+        return activityService.findByTimeCount(date);
     }
 
     @RequestMapping("findbytimeyearandmonthcount")
     @ResponseBody
-    public List<Activity> findByTimeYearAndMonth(String comy, Date time, Integer Page, Integer num) {
-        return activityService.findByTimeYearAndMonth(comy, time, Page, num);
+    public List<Activity> findByTimeYearAndMonth(Date time, Integer Page, Integer num) {
+        return activityService.findByTimeYearAndMonth(time, Page, num);
     }
 
     @RequestMapping("findbyres")
     @ResponseBody
-    public List<Activity> findByRes(String comy, String responsible, Integer Page, Integer num) {
-        return activityService.findByRes(comy, responsible, Page, num);
+    public List<Activity> findByRes(String responsible, Integer Page, Integer num) {
+        return activityService.findByRes(responsible, Page, num);
     }
 
     @RequestMapping("findbyrescount")
     @ResponseBody
-    public int findByResCount(String comy, String responsible) {
-        return activityService.findByResCount(comy, responsible);
+    public int findByResCount(String responsible) {
+        return activityService.findByResCount(responsible);
     }
 
     @RequestMapping("findbytimeyear")
     @ResponseBody
-    public List<Activity> findByTimeYear(String comy, Date time, Integer Page, Integer num) {
-        return findByTimeYear(comy, time, Page, num);
+    public List<Activity> findByTimeYear(Date time, Integer Page, Integer num) {
+        return findByTimeYear(time, Page, num);
     }
 
     @RequestMapping("findbytimeyearcount")
     @ResponseBody
-    public int findByTimeYearCount(String comy, Date time) {
-        return activityService.findByTimeYearCount(comy, time);
+    public int findByTimeYearCount(Date time) {
+        return activityService.findByTimeYearCount(time);
     }
 
     @RequestMapping("insertac")
@@ -135,7 +134,7 @@ public class ActivityController {
         int i = activityService.insertAc(activity);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表", "2019");
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
@@ -147,7 +146,7 @@ public class ActivityController {
         int i = activityService.deleteAc(id);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("删除", "的活动信息 ", a.getName(), "编号为" + id, "活动表");
+            logService.insertNew("删除", "的活动信息 ", a.getName(), "编号为" + id, "活动表","2019");
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -170,7 +169,7 @@ public class ActivityController {
         int i = activityService.updateData(activity);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表");
+            logService.insertNew("更新", "的 " + activity.getActive(), a.getName(), "编号为" + activity.getId(), "活动表","2019");
             return "loginp_3";
         } else return "redirect:/activity.html";
     }
@@ -201,7 +200,7 @@ public class ActivityController {
                 i = activityService.BatchAddition(path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上窜", "活动信息", a.getName(), "多条", "活动表");
+                logService.insertNew("上窜", "活动信息", a.getName(), "多条", "活动表","2019");
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();
@@ -217,18 +216,18 @@ public class ActivityController {
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request, String comy, String responsible) throws
+    public String ExcleStudent(HttpServletRequest request, String responsible) throws
             NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         CreateExlceUtil<Activity> createExlceUtil;
         List<Activity> list;
         if (responsible != null && !"".equals(responsible)) {
-            int i = activityService.findByResCount(comy, responsible);
+            int i = activityService.findByResCount(responsible);
             createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
-            list = activityService.findByRes(comy, responsible, 1, i);
+            list = activityService.findByRes(responsible, 1, i);
         } else {
-            int i = activityService.findAllCount(comy);
+            int i = activityService.findAllCount();
             createExlceUtil = new CreateExlceUtil<>(request, Activity.class, "活动表");
-            list = activityService.findAll(comy, 1, i);
+            list = activityService.findAll(1, i);
         }
 
         return createExlceUtil.createExcle(list);

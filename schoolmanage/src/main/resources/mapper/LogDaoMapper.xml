@@ -15,7 +15,7 @@
         select *
         from log
         <if test="comy != null and comy != '' ">
-            where comy like "%" #{comy} "%"
+            where find_in_set(comy,#{comy})
         </if>
         order by time desc
         limit #{page},7
@@ -26,7 +26,7 @@
         from log
         where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         order by time desc
     </select>
@@ -36,7 +36,7 @@
         from log
         where operation_teacher = #{username}
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         order by time desc
     </select>
@@ -46,7 +46,7 @@
         from log
         where operation_student = #{id}
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         order by time desc
     </select>
@@ -56,7 +56,7 @@
         from log
         where operation_table = #{table}
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         order by time desc
     </select>
@@ -65,7 +65,7 @@
         from log
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         order by time desc
     </select>
@@ -74,7 +74,7 @@
         from log
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         order by time desc
     </select>
@@ -83,7 +83,7 @@
         from log
         where time like "%" #{date} "%"
         <if test="comy != null and comy != '' ">
-            and comy like "%" #{comy} "%"
+            and find_in_set(comy,#{comy})
         </if>
         order by time desc
     </select>

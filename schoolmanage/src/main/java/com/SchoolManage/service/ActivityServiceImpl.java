@@ -26,79 +26,79 @@ public class ActivityServiceImpl implements ActivityService {
 
 
     @Override
-    public List<Activity> findAll(String comy, Integer Page, Integer num) {
-        return activityDao.findAll(comy, (Page - 1) * num, num);
+    public List<Activity> findAll(Integer Page, Integer num) {
+        return activityDao.findAll((Page - 1) * num, num);
     }
 
     @Override
-    public int findAllCount(String comy) {
-        return activityDao.findAllCount(comy);
+    public int findAllCount() {
+        return activityDao.findAllCount();
     }
 
     @Override
-    public List<Activity> findByStudentPage(String comy, String student, Integer Page, Integer num) {
-        return activityDao.findByStudentPage(comy, student, (Page - 1) * num, num);
+    public List<Activity> findByStudentPage(String student, Integer Page, Integer num) {
+        return activityDao.findByStudentPage(student, (Page - 1) * num, num);
     }
 
     @Override
-    public List<Activity> findByStudentNoPage(String comy, String student) {
-        return activityDao.findByStudentNoPage(comy, student);
+    public List<Activity> findByStudentNoPage(String student) {
+        return activityDao.findByStudentNoPage(student);
     }
 
     @Override
-    public int findByStudentCount(String comy, String student) {
-        return activityDao.findByStudentCount(comy, student);
+    public int findByStudentCount(String student) {
+        return activityDao.findByStudentCount(student);
     }
 
     @Override
-    public List<Activity> findByActive(String comy, String active, Integer Page, Integer num) {
-        return activityDao.findByActive(comy, active, (Page - 1) * num, num);
+    public List<Activity> findByActive(String active, Integer Page, Integer num) {
+        return activityDao.findByActive(active, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByActiveCount(String comy, String active) {
-        return activityDao.findByActiveCount(comy, active);
+    public int findByActiveCount(String active) {
+        return activityDao.findByActiveCount(active);
     }
 
     @Override
-    public List<Activity> findByTime(String comy, Date date, Integer Page, Integer num) {
-        return activityDao.findByTime(comy, date, (Page - 1) * num, num);
+    public List<Activity> findByTime(Date date, Integer Page, Integer num) {
+        return activityDao.findByTime(date, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTimeCount(String comy, Date date) {
-        return activityDao.findByTimeCount(comy, date);
+    public int findByTimeCount(Date date) {
+        return activityDao.findByTimeCount(date);
     }
 
     @Override
-    public List<Activity> findByRes(String comy, String responsible, Integer Page, Integer num) {
-        return activityDao.findByRes(comy, responsible, (Page - 1) * num, num);
+    public List<Activity> findByRes(String responsible, Integer Page, Integer num) {
+        return activityDao.findByRes(responsible, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByResCount(String comy, String responsible) {
-        return activityDao.findByResCount(comy, responsible);
+    public int findByResCount(String responsible) {
+        return activityDao.findByResCount(responsible);
     }
 
 
     @Override
-    public List<Activity> findByTimeYearAndMonth(String comy, Date time, Integer Page, Integer num) {
-        return activityDao.findByTimeYearAndMonth(comy, time, (Page - 1) * num, num);
+    public List<Activity> findByTimeYearAndMonth(Date time, Integer Page, Integer num) {
+        return activityDao.findByTimeYearAndMonth(time, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTimeYearAndMonthCount(String comy, Date time) {
-        return activityDao.findByTimeYearAndMonthCount(comy, time);
+    public int findByTimeYearAndMonthCount(Date time) {
+        return activityDao.findByTimeYearAndMonthCount(time);
     }
 
     @Override
-    public List<Activity> findByTimeYear(String comy, Date time, Integer Page, Integer num) {
-        return activityDao.findByTimeYear(comy, time, (Page - 1) * num, num);
+    public List<Activity> findByTimeYear(Date time, Integer Page, Integer num) {
+        return activityDao.findByTimeYear(time, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByTimeYearCount(String comy, Date time) {
-        return activityDao.findByTimeYearCount(comy, time);
+    public int findByTimeYearCount(Date time) {
+        return activityDao.findByTimeYearCount(time);
     }
 
     @Override

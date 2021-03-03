@@ -329,8 +329,9 @@
             }
             return t
         }();
+//-------------------------这里这里-----------
         e(a.prototype, t.prototype), a.prototype._create = function () {
-            this._transn = {ingProperties: {}, clean: {}, onEnd: {}}, this.css({position: "absolute"})
+            this._transn = {ingProperties: {}, clean: {}, onEnd: {}}, this.css({position: "static"})
         }, a.prototype.handleEvent = function (t) {
             var e = "on" + t.type;
             this[e] && this[e](t)
@@ -352,6 +353,7 @@
             var t = this.layout.size, e = this.layout.options, i = {};
             e.isOriginLeft ? (i.left = this.position.x + t.paddingLeft + "px", i.right = "") : (i.right = this.position.x + t.paddingRight + "px", i.left = ""), e.isOriginTop ? (i.top = this.position.y + t.paddingTop + "px", i.bottom = "") : (i.bottom = this.position.y + t.paddingBottom + "px", i.top = ""), this.css(i), this.emitEvent("layout", [this])
         };
+
         var y = f ? function (t, e) {
             return "translate3d(" + t + "px, " + e + "px, 0)"
         } : function (t, e) {

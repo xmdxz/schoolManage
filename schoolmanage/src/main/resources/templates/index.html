@@ -3,8 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>学生信息管理系统后台</title>
 
     <!-- Favicon -->
@@ -14,14 +13,11 @@
           href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet"
-          th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}">
 
     <!-- Fontawesome CSS -->
-    <link rel="stylesheet"
-          th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
-    <link rel="stylesheet"
-          th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
 
     <!-- Main CSS -->
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
@@ -46,7 +42,7 @@
             type: "post",
             url: "log/all",
             dataType: "json",
-            data: {'page': jiluPage},
+            data: {comy:'2019','page': jiluPage},
         }).done(function (res) {
 
             for (var i = 0; i < res.length; i++) {
@@ -69,7 +65,7 @@
                 type: "post",
                 url: "log/all",
                 dataType: "json",
-                data: {'page': jiluPage},
+                data: {comy:'2019','page': jiluPage},
             }).done(function (res) {
                 if (res.length == 0) {
                     swal("没有更多信息啦");
@@ -107,6 +103,7 @@
         $.ajax({
             type: "post",
             url: "student/findallnum",
+            data:{comy:'2019'},
             dataType: "json",
         }).done(function (res) {
             numbers = res;
@@ -116,25 +113,27 @@
         $.ajax({
             type: "post",
             url: "honour/findallcount",
+            data:{comy:'2019'},
             dataType: "json",
         }).done(function (res) {
             numbers_1 = res;
-            document.getElementById("numbers_1").innerText = numbers_1;
+            document.getElementById("numbers_1").innerText =numbers_1;
         });
         var numbers_2;
         $.ajax({
             type: "post",
             url: "QingJia/findbytimeyearandmonthanddaycount",
-            data: {timestamp: new Date().getTime()},
+            data:{comy:'2019',timestamp:new Date().getTime()},
             dataType: "json",
         }).done(function (res) {
             numbers_2 = res;
-            document.getElementById("numbers_2").innerText = numbers_2;
+            document.getElementById("numbers_2").innerText =numbers_2;
         });
         var number;
         $.ajax({
             type: "post",
             url: "department/findallnum",
+            data:{comy:'2019'},
             dataType: "json",
         }).done(function (res) {
             number = res;
@@ -164,8 +163,7 @@
                 <img th:src="@{/assets/img/logo.png}" alt="Logo">
             </a>
             <a href="index.html" class="logo logo-small">
-                <img th:src="@{/assets/img/logo-small.png}" alt="Logo"
-                     width="30" height="30">
+                <img th:src="@{/assets/img/logo-small.png}" alt="Logo" width="30" height="30">
             </a>
         </div>
         <!-- /Logo -->
@@ -178,8 +176,7 @@
         <div class="top-nav-search">
             <form>
                 <input type="text" class="form-control" placeholder="搜索">
-                <button class="btn" type="submit"><i class="fas fa-search"></i>
-                </button>
+                <button class="btn" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
         <!-- /Search Bar -->
@@ -202,22 +199,22 @@
                     </div>
                     <div class="noti-content">
                         <ul class="notification-list">
-                            <!--                            <li class="notification-message">-->
-                            <!--                                <a href="#">-->
-                            <!--                                    <div class="media">-->
-                            <!--												<span class="avatar avatar-sm">-->
-                            <!--													<img class="avatar-img rounded-circle" alt="User Image"-->
-                            <!--                                                         th:src="@{/assets/img/profiles/avatar-02.jpg}">-->
-                            <!--												</span>-->
-                            <!--                                        <div class="media-body">-->
-                            <!--                                            <p class="noti-details"><span class="noti-title">Carlson Tech</span> has-->
-                            <!--                                                approved <span class="noti-title">your-->
-                            <!--															estimate</span></p>-->
-                            <!--                                            <p class="noti-time"><span class="notification-time">4 mins ago</span></p>-->
-                            <!--                                        </div>-->
-                            <!--                                    </div>-->
-                            <!--                                </a>-->
-                            <!--                            </li>-->
+<!--                            <li class="notification-message">-->
+<!--                                <a href="#">-->
+<!--                                    <div class="media">-->
+<!--												<span class="avatar avatar-sm">-->
+<!--													<img class="avatar-img rounded-circle" alt="User Image"-->
+<!--                                                         th:src="@{/assets/img/profiles/avatar-02.jpg}">-->
+<!--												</span>-->
+<!--                                        <div class="media-body">-->
+<!--                                            <p class="noti-details"><span class="noti-title">Carlson Tech</span> has-->
+<!--                                                approved <span class="noti-title">your-->
+<!--															estimate</span></p>-->
+<!--                                            <p class="noti-time"><span class="notification-time">4 mins ago</span></p>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </a>-->
+<!--                            </li>-->
                         </ul>
                     </div>
                     <div class="topnav-dropdown-footer">
@@ -229,18 +226,15 @@
 
             <!-- User Menu -->
             <li class="nav-item dropdown has-arrow">
-                <a href="#" class="dropdown-toggle nav-link"
-                   data-toggle="dropdown">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 							<span class="user-img"><img class="rounded-circle"
                                                         th:src="@{/assets/img/profiles/avatar-01.jpg}"
-                                                        width="31"
-                                                        alt="Ryan Taylor"></span>
+                                                        width="31" alt="Ryan Taylor"></span>
                 </a>
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img th:src="@{/assets/img/profiles/avatar-01.jpg}"
-                                 alt="User Image"
+                            <img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="User Image"
                                  class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
@@ -249,7 +243,7 @@
                         </div>
                     </div>
                     <a class="dropdown-item" href="profile.html">我的个人资料</a>
-                    <!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
+<!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
                     <a class="dropdown-item" href="/admin/logout">注销</a>
                 </div>
             </li>
@@ -269,23 +263,26 @@
                     <li class="menu-title">
                         <span>主菜单</span>
                     </li>
-                    <li class="active">
-                        <a href="index.html"><i class="fas fa-th-large"></i>
-                            <span>仪表板</span></a>
+<!--                    <li class="active">-->
+<!--                        <a href="index.html"><i class="fas fa-th-large"></i> <span>仪表板</span></a>-->
+<!--                    </li>-->
+                    <li class="submenu active">
+                        <a href="#"><i class="fas fa-th-large"></i> <span> 仪表板</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="index.html" class="active">19级学生</a></li>
+                            <li><a href="index-20.html">20级学生</a></li>
+                        </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"><i
-                                class="fas fa-user-graduate"></i>
-                            <span>学生</span> <span
-                                    class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-user-graduate"></i> <span>学生</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
                             <li class="submenu">
-                                <a href="#"> <span>19级学生</span> <span
-                                        class="menu-arrow"></span></a>
+                                <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
                                     <li><a href="students.html">19级学生列表</a></li>
-                                    <li><a href="add-student.html">19级学生添加</a>
-                                    </li>
+                                    <li><a href="add-student.html">19级学生添加</a></li>
                                 </ul>
                             </li>
                             <!--									<li class="submenu">-->
@@ -303,16 +300,10 @@
                             <!--										</ul>-->
                             <!--									</li>-->
                             <li class="submenu">
-
-                                <a href="#"> <span>20级学生</span> <span
-                                        class="menu-arrow"></span></a>
-
+                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
                                 <ul>
-                                    <li><a href="students-20.html">20级学生列表</a>
-                                    </li>
-                                    <li>
-                                        <a href="add-student-20.html">20级学生添加</a>
-                                    </li>
+                                    <li><a href="students-20.html">20级学生列表</a></li>
+                                    <li><a href="add-student-20.html">20级学生添加</a></li>
                                 </ul>
                             </li>
                             <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
@@ -321,20 +312,19 @@
                             <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
-                    <!--                    <li class="submenu">-->
-                    <!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> 教师</span> <span-->
-                    <!--                                class="menu-arrow"></span></a>-->
-                    <!--                        <ul>-->
-                    <!--                            <li><a href="teachers.html">教师名单</a></li>-->
-                    <!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
-                    <!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
-                    <!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
-                    <!--                        </ul>-->
-                    <!--                    </li>-->
+<!--                    <li class="submenu">-->
+<!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> 教师</span> <span-->
+<!--                                class="menu-arrow"></span></a>-->
+<!--                        <ul>-->
+<!--                            <li><a href="teachers.html">教师名单</a></li>-->
+<!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
+<!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
+<!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-building"></i>
-                            <span> 部门</span> <span
-                                    class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="departments.html">部门列表</a></li>
                             <li><a href="add-department.html">部门添加</a></li>
@@ -366,34 +356,93 @@
                         </ul>
                     </li> -->
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-holly-berry"></i>
-                            <span>假期</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="holiday.html">假期列表</a></li>
-                            <li><a href="add-holiday.html">假期添加</a></li>
+                            <li class="submenu">
+                                <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="holiday.html">19级假期列表</a></li>
+                                    <li><a href="add-holiday.html">19级假期添加</a></li>
+                                </ul>
+                            </li>
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <li class="submenu">
+                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="holiday-20.html">20级假期列表</a></li>
+                                    <li><a href="add-holiday-20.html">20级假期添加</a></li>
+                                </ul>
+                            </li>
+                            <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+                            <!--									<li><a href="student-details.html">学生信息</a></li>-->
+                            <!--                            <li><a href="add-student.html">学生添加</a></li>-->
+                            <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-address-card"></i>
-                            <span>荣誉</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="honour.html">荣誉列表</a></li>
-                            <li><a href="add-honour.html">荣誉添加</a></li>
+                            <li class="submenu">
+                                <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="honour.html">19级荣誉列表</a></li>
+                                    <li><a href="add-honour.html">19级荣誉添加</a></li>
+                                </ul>
+                            </li>
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <li class="submenu">
+                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="honour-20.html">20级荣誉列表</a></li>
+                                    <li><a href="add-honour-20.html">20级荣誉添加</a></li>
+                                </ul>
+                            </li>
+                            <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+                            <!--									<li><a href="student-details.html">学生信息</a></li>-->
+                            <!--                            <li><a href="add-student.html">学生添加</a></li>-->
+                            <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
-                    <!--                    <li>-->
-                    <!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
-                    <!--                    </li>-->
-                    <!--                    <li>-->
-                    <!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
-                    <!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
+<!--                    </li>-->
                     <li>
-                        <a href="event.html"><i class="fas fa-calendar-day"></i>
-                            <span>日志</span></a>
+                        <a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
                     </li>
-                    <!--                    <li>-->
-                    <!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
-                    <!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
+<!--                    </li>-->
                     <!-- <li>
                         <a href="library.html"><i class="fas fa-book"></i> <span>图书馆</span></a>
                     </li> -->
@@ -423,25 +472,53 @@
                         <a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>体育</span></a>
                     </li> -->
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span>
-                            <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="hostel.html">宿舍列表</a></li>
-                            <li><a href="add-hostel.html">宿舍添加</a></li>
+                            <li class="submenu">
+                                <a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="hostel.html">19级宿舍列表</a></li>
+                                    <li><a href="add-hostel.html">19级宿舍添加</a></li>
+                                </ul>
+                            </li>
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <li class="submenu">
+                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="hostel-20.html">20级宿舍列表</a></li>
+                                    <li><a href="add-hostel-20.html">20级宿舍添加</a></li>
+                                </ul>
+                            </li>
+                            <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+                            <!--									<li><a href="student-details.html">学生信息</a></li>-->
+                            <!--                            <li><a href="add-student.html">学生添加</a></li>-->
+                            <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-basketball-ball"></i>
-                            <span>活动</span> <span
-                                    class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="activity.html">活动列表</a></li>
                             <li><a href="add-activity.html">活动添加</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="psychology.html"><i class="fas fa-comment"></i>
-                            <span>谈话</span></a>
+                        <a href="psychology.html"><i class="fas fa-comment"></i> <span>谈话</span></a>
                     </li>
                     <!-- <li>
                         <a href="transport.html"><i class="fas fa-bus"></i> <span>运输</span></a>
@@ -657,62 +734,62 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-center">
-                                    <!--                                    <thead class="thead-light">-->
-                                    <!--                                    <tr>-->
-                                    <!--                                        <th>学号</th>-->
-                                    <!--                                        <th>姓名</th>-->
-                                    <!--                                        <th class="text-center">现班级</th>-->
-                                    <!--                                        <th class="text-center">学院</th>-->
-                                    <!--                                        <th class="text-right">备注</th>-->
-                                    <!--                                    </tr>-->
-                                    <!--                                    </thead>-->
-                                    <!--                                    <tbody>-->
-                                    <!--                                    <tr>-->
-                                    <!--                                        <td class="text-nowrap">-->
-                                    <!--                                            <div>10001</div>-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td class="text-nowrap">秦宇泽</td>-->
-                                    <!--                                        <td class="text-center">软件1915</td>-->
-                                    <!--                                        <td class="text-center">软件学院</td>-->
-                                    <!--                                        <td class="text-right">-->
-                                    <!--                                            <div>奖项</div>-->
-                                    <!--                                        </td>-->
-                                    <!--                                    </tr>-->
-                                    <!--                                    <tr>-->
-                                    <!--                                        <td class="text-nowrap">-->
-                                    <!--                                            <div>10002</div>-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td class="text-nowrap">李雨胜</td>-->
-                                    <!--                                        <td class="text-center">软件1910</td>-->
-                                    <!--                                        <td class="text-center">软件学院</td>-->
-                                    <!--                                        <td class="text-right">-->
-                                    <!--                                            <div>奖项</div>-->
-                                    <!--                                        </td>-->
-                                    <!--                                    </tr>-->
-                                    <!--                                    <tr>-->
-                                    <!--                                        <td class="text-nowrap">-->
-                                    <!--                                            <div>10003</div>-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td class="text-nowrap">袁鑫</td>-->
-                                    <!--                                        <td class="text-center">软件1904</td>-->
-                                    <!--                                        <td class="text-center">软件学院</td>-->
-                                    <!--                                        <td class="text-right">-->
-                                    <!--                                            <div>奖项</div>-->
-                                    <!--                                        </td>-->
-                                    <!--                                    </tr>-->
-                                    <!--                                    <tr>-->
-                                    <!--                                        <td class="text-nowrap">-->
-                                    <!--                                            <div>10004</div>-->
-                                    <!--                                        </td>-->
-                                    <!--                                        <td class="text-nowrap">杨树博</td>-->
-                                    <!--                                        <td class="text-center">软件1904</td>-->
-                                    <!--                                        <td class="text-center">软件学院</td>-->
-                                    <!--                                        <td class="text-right">-->
-                                    <!--                                            <div>奖项</div>-->
-                                    <!--                                        </td>-->
-                                    <!--                                    </tr>-->
+<!--                                    <thead class="thead-light">-->
+<!--                                    <tr>-->
+<!--                                        <th>学号</th>-->
+<!--                                        <th>姓名</th>-->
+<!--                                        <th class="text-center">现班级</th>-->
+<!--                                        <th class="text-center">学院</th>-->
+<!--                                        <th class="text-right">备注</th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    <tr>-->
+<!--                                        <td class="text-nowrap">-->
+<!--                                            <div>10001</div>-->
+<!--                                        </td>-->
+<!--                                        <td class="text-nowrap">秦宇泽</td>-->
+<!--                                        <td class="text-center">软件1915</td>-->
+<!--                                        <td class="text-center">软件学院</td>-->
+<!--                                        <td class="text-right">-->
+<!--                                            <div>奖项</div>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td class="text-nowrap">-->
+<!--                                            <div>10002</div>-->
+<!--                                        </td>-->
+<!--                                        <td class="text-nowrap">李雨胜</td>-->
+<!--                                        <td class="text-center">软件1910</td>-->
+<!--                                        <td class="text-center">软件学院</td>-->
+<!--                                        <td class="text-right">-->
+<!--                                            <div>奖项</div>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td class="text-nowrap">-->
+<!--                                            <div>10003</div>-->
+<!--                                        </td>-->
+<!--                                        <td class="text-nowrap">袁鑫</td>-->
+<!--                                        <td class="text-center">软件1904</td>-->
+<!--                                        <td class="text-center">软件学院</td>-->
+<!--                                        <td class="text-right">-->
+<!--                                            <div>奖项</div>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <td class="text-nowrap">-->
+<!--                                            <div>10004</div>-->
+<!--                                        </td>-->
+<!--                                        <td class="text-nowrap">杨树博</td>-->
+<!--                                        <td class="text-center">软件1904</td>-->
+<!--                                        <td class="text-center">软件学院</td>-->
+<!--                                        <td class="text-right">-->
+<!--                                            <div>奖项</div>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
 
-                                    <!--                                    </tbody>-->
+<!--                                    </tbody>-->
                                 </table>
                             </div>
                         </div>
@@ -738,46 +815,44 @@
             </div>
 
             <!-- Socail Media Follows -->
-            <!--            <div class="row">-->
-            <!--                <div class="col-xl-3 col-sm-6 col-12">-->
-            <!--                    <div class="card flex-fill fb sm-box">-->
-            <!--                        <i class="fab fa-facebook"></i>-->
-            <!--                        <h6>50,095</h6>-->
-            <!--                        <p>Likes</p>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-xl-3 col-sm-6 col-12">-->
-            <!--                    <div class="card flex-fill twitter sm-box">-->
-            <!--                        <i class="fab fa-twitter"></i>-->
-            <!--                        <h6>48,596</h6>-->
-            <!--                        <p>Follows</p>-->
-            <!--                    </div>-->
-            <!--                </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col-xl-3 col-sm-6 col-12">-->
+<!--                    <div class="card flex-fill fb sm-box">-->
+<!--                        <i class="fab fa-facebook"></i>-->
+<!--                        <h6>50,095</h6>-->
+<!--                        <p>Likes</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-xl-3 col-sm-6 col-12">-->
+<!--                    <div class="card flex-fill twitter sm-box">-->
+<!--                        <i class="fab fa-twitter"></i>-->
+<!--                        <h6>48,596</h6>-->
+<!--                        <p>Follows</p>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-            <!--                <div class="col-xl-3 col-sm-6 col-12">-->
-            <!--                    <div class="card flex-fill insta sm-box">-->
-            <!--                        <i class="fab fa-instagram"></i>-->
-            <!--                        <h6>52,085</h6>-->
-            <!--                        <p>Follows</p>-->
-            <!--                    </div>-->
-            <!--                </div>-->
+<!--                <div class="col-xl-3 col-sm-6 col-12">-->
+<!--                    <div class="card flex-fill insta sm-box">-->
+<!--                        <i class="fab fa-instagram"></i>-->
+<!--                        <h6>52,085</h6>-->
+<!--                        <p>Follows</p>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-            <!--                <div class="col-xl-3 col-sm-6 col-12">-->
-            <!--                    <div class="card flex-fill linkedin sm-box">-->
-            <!--                        <i class="fab fa-linkedin-in"></i>-->
-            <!--                        <h6>69,050</h6>-->
-            <!--                        <p>Follows</p>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
+<!--                <div class="col-xl-3 col-sm-6 col-12">-->
+<!--                    <div class="card flex-fill linkedin sm-box">-->
+<!--                        <i class="fab fa-linkedin-in"></i>-->
+<!--                        <h6>69,050</h6>-->
+<!--                        <p>Follows</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <!-- /Socail Media Follows -->
         </div>
 
         <!-- Footer -->
         <footer>
-            <p>Copyright © 2021-2025 <a
-                    href="https://beian.miit.gov.cn/#/Integrated/index">晋ICP备2020012125号</a>
-            </p>
+            <p>Copyright © 2021-2025 <a href="https://beian.miit.gov.cn/#/Integrated/index">晋ICP备2020012125号</a></p>
             <div style="display: none">
                 <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1279694279'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1279694279' type='text/javascript'%3E%3C/script%3E"));</script>
             </div>
