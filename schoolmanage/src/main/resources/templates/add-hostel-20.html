@@ -44,7 +44,6 @@
         var responsible=adminuserInfo.responsible;
         $(document).ready(function () {
             $('#InfoName').text(name);
-            $('#InfoName').text(name);
             if(responsible=='2019')
             {
                 $('[name="Q20"]').css("display","none")
@@ -60,10 +59,11 @@
                     var temp = files[0];
                     if (temp) {
                         formData.append('file', temp);
+                        formData.append('comy','2020');
                         $.ajax({
                             url: 'dormitory/upfile',
                             type: 'post',
-                            data: {formData,comy:'2020'},
+                            data: formData,
                             processData: false, // 告诉jQuery不要去处理发送的数据
                             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
                             success: function (res) {

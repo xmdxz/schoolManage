@@ -65,10 +65,11 @@
                     var temp = files[0];
                     if (temp) {
                         formData.append('file', temp);
+                        formData.append('comy','2020');
                         $.ajax({
                             url: 'QingJia/upfile',
                             type: 'post',
-                            data: {formData,comy:'2020'},
+                            data: formData,
                             processData: false, // 告诉jQuery不要去处理发送的数据
                             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
                             success: function (res) {
