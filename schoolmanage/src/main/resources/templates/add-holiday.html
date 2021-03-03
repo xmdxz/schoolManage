@@ -34,6 +34,7 @@
 
     <!-- Custom JS -->
     <script th:src="@{/assets/js/script.js}"></script>
+    <script th:src="@{/assets/js/moment.min.js}"></script>
     <!-- alert beautiful-->
     <link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
     <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
@@ -44,8 +45,8 @@
         $(document).ready(function () {
             $('#InfoName').text(name);
             var date = new Date();
-            var date_1 = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + " 08:00:00";
-            var date_2 = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + " 20:00:00";
+            var date_1 =moment(date).format('Y-MM-DD HH:mm:ss');
+            var date_2=moment(date).format('Y-MM-DD HH:mm:ss');
             $('#start_time').val(date_1);
             $('#end_time').val(date_2);
             $("#bt1").click(function () {
@@ -544,6 +545,13 @@
                                             <label>现班级</label>
                                             <input type="text" class="form-control" value="" placeholder="例：软件1901"
                                                    id="clazz" name="clazz">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>联系方式</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   id="phone" name="phone">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
