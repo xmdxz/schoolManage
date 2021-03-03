@@ -148,7 +148,7 @@ public class ActiveMemberController {
 
         } else return "redirect:/activity.html";
     }
-
+    
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
