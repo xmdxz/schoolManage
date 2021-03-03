@@ -44,35 +44,40 @@ public class StudentController {
     public String addStudent(Student student, HttpServletRequest request) {
 //        Map<String, Object> map = new HashMap<>();
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        int i = studentService.insertStudent(student);
-        if (i != 0) {
+
+//        if (i != 0) {
 //            map.put("msg", "添加成功");
 //            map.put("code", 200);
-            //判断管理员是否有权限添加学生
-            String responsible = a.getResponsible();
-            String[] split = responsible.split(",");
-            int flag = 0;
-            for (int j = 0; j < split.length; i++) {
-                if (split[j].equals(student.getComy())) {
-                    flag = 1;
-                }
+        //判断管理员是否有权限添加学生
+        String responsible = a.getResponsible();
+        String[] split = responsible.split(",");
+        int flag = 0;
+        for (int j = 0; j < split.length; j++) {
+            if (split[j].equals(student.getComy())) {
+                flag = 1;
             }
-            if (flag == 1) {
+        }
+        System.out.println(flag);
+        if (flag == 1) {
+            int i = studentService.insertStudent(student);
+            if (i != 0) {
                 logService.insertNew("添加", "的学生信息 ", a.getName(), "学号为" + student.getId(), "学生表", student.getComy());
-            }
-            if (student.getComy().equals("2019"))
-                return "loginp";
-            else
-                return "loginp-20";
-        } else {
+                if (student.getComy().equals("2019"))
+                    return "loginp";
+                else
+                    return "loginp-20";
+            } else {
 //            map.put("msg", "添加失败");
 //            map.put("code", 500);
-            if (student.getComy().equals("2019"))
-                return "studentsp";
-            else
-                return "students-20";
-        }
+                if (student.getComy().equals("2019"))
+                    return "studentsp";
+                else
+                    return "students-20";
+            }
+
+        } else return "index";
     }
+
 
     @RequestMapping("findall")
     @ResponseBody

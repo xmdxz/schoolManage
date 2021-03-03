@@ -6,11 +6,12 @@
 <mapper namespace="com.SchoolManage.dao.HonourDao">
     <insert id="insertHon">
         insert into honour(student, type, prize, time, name, clazz, comy)
-        values (#{honour.student}, #{honour.type}, #{honour.prize}, #{honour.time,jdbcType=DATE},
+        values (#{honour.student}, #{honour.type}, #{honour.prize},
+                #{honour.time,jdbcType=DATE},
                 #{honour.name}, #{honour.clazz}, #{honour.comy})
     </insert>
     <insert id="insertHons">
-        insert into honour(student,type,prize,time,name,clazz,comy)
+        insert into honour(student,`type`,prize,`time`,`name`,clazz,comy)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.student},#{item.type},#{item.prize},#{item.time,jdbcType=DATE},
@@ -86,7 +87,8 @@
         select * from honour
         <if test="map != null">
             <where>
-                <foreach collection="map" item="item" index="key" separator="and">
+                <foreach collection="map" item="item" index="key"
+                         separator="and">
                     ${key} = #{item}
                 </foreach>
             </where>
@@ -147,7 +149,8 @@
             and find_in_set(comy,#{comy})
         </if>
     </select>
-    <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Honour">
+    <select id="findByTimeYearAndMonth"
+            resultType="com.SchoolManage.pojo.Honour">
         select *
         from honour
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
