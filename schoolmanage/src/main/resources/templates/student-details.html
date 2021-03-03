@@ -46,7 +46,7 @@
 				var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
 				var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
 				var Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
-				console.log(Id)
+				console.log(Id);
 				$.ajax({
 					type:"post",
 					url:"student/findbyid",
@@ -82,6 +82,24 @@
 				else if(responsible=='2020'){
 					$('[name="Q19"]').css("display","none")
 				}
+				$.ajax({
+					type:"post",
+					url:"QingJia/findbystudentcount",
+					dataType:"json",
+					async: false,
+					data: {student:Id}
+				}).done(function (res) {
+					document.getElementById("qj").innerText =res;
+				});
+				$.ajax({
+					type:"post",
+					url:"honour/findbystudentcount",
+					dataType:"json",
+					async: false,
+					data: {student:Id}
+				}).done(function (res) {
+					document.getElementById("ry").innerText =res;
+				});
 				$.ajax({
 					type:"post",
 					url:"QingJia/findbystudentnopage",
@@ -145,7 +163,7 @@
 				<!-- Search Bar -->
 				<div class="top-nav-search">
 					<form>
-						<input type="text" class="form-control" placeholder="Search here">
+						<input type="text" class="form-control" placeholder="搜索">
 						<button class="btn" type="submit"><i class="fas fa-search"></i></button>
 					</form>
 				</div>
@@ -463,8 +481,12 @@
 									<li><a href="add-activity.html">活动添加</a></li>
 								</ul>
 							</li>
-							<li>
-								<a href="psychology.html"><i class="fas fa-comment"></i> <span>谈话</span></a>
+							<li class="submenu">
+								<a href="#"><i class="fas fa-comment"></i> <span>谈话</span><span class="menu-arrow"></span> </a>
+								<ul>
+									<li name="Q19"><a href="psychology.html" >19级谈话</a></li>
+									<li name="Q20"><a href="psychology-20.html" >20级谈话</a></li>
+								</ul>
 							</li>
 <!--							<li>-->
 <!--								<a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>-->
@@ -576,28 +598,32 @@
 											</div>
 										</div>
 
+										<div class="row mt-3">
+											<div class="col-md-12">
+												<p></p>
+											</div>
+										</div>
 
-
-<!--										<div class="row follow-sec">-->
-<!--                                            <div class="col-md-4 mb-3">-->
-<!--											<div class="blue-box">-->
-<!--												<h3>2850</h3>-->
-<!--												<p>项荣誉</p>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--                                            <div class="col-md-4 mb-3">-->
-<!--                                                <div class="blue-box">-->
-<!--                                                    <h3>2050</h3>-->
-<!--                                                    <p>次请假</p>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-md-4 mb-3">-->
-<!--                                                <div class="blue-box">-->
-<!--                                                    <h3>2950</h3>-->
-<!--                                                    <p>挂科</p>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--										</div>-->
+										<div class="row follow-sec">
+                                            <div class="col-md-4 mb-3">
+											<div class="blue-box">
+												<h3 id="ry"></h3>
+												<p>项荣誉</p>
+											</div>
+										</div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="blue-box">
+                                                    <h3 id="qj"></h3>
+                                                    <p>次请假</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="blue-box">
+                                                    <h3>0</h3>
+                                                    <p>挂科</p>
+                                                </div>
+                                            </div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -804,7 +830,7 @@
 
 				<!-- Footer -->
 		<footer>
-			<p>Copyright © 2021-2025 <a href="https://beian.miit.gov.cn/#/Integrated/index">晋ICP备2020012125号</a></p>
+
 		</footer>
 				<!-- /Footer -->
 			</div>

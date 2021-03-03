@@ -211,6 +211,7 @@ public class DormitoryController {
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file, String comy) {
+        System.out.println(comy);
         if (file == null) {
             return "请选择文件";
         }

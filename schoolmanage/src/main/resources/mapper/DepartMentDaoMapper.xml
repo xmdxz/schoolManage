@@ -5,15 +5,14 @@
 
 <mapper namespace="com.SchoolManage.dao.DepartMentDao">
     <insert id="insertData">
-        insert into department(name, college, minister, phone, comy)
-        values (#{departMent.name}, #{departMent.college}, #{departMent.minister}, #{departMent.phone},
-                #{departMent.comy})
+        insert into department(name, college, minister, phone)
+        values (#{departMent.name}, #{departMent.college}, #{departMent.minister}, #{departMent.phone})
     </insert>
     <insert id="insertDatas">
-        insert into department(name,college,minister,phone,comy)
+        insert into department(name,college,minister,phone)
         values
         <foreach collection="list" separator="," item="item">
-            (#{item.name},#{item.college},#{item.minister},#{item.phone},#{item.comy})
+            (#{item.name},#{item.college},#{item.minister},#{item.phone})
         </foreach>
     </insert>
     <update id="updateData">
@@ -21,8 +20,7 @@
         set name     = #{departMent.name},
             college  = #{departMent.college},
             minister = #{departMent.minister},
-            phone    = #{departMent.phone},
-            comy     = #{departMent.comy}
+            phone    = #{departMent.phone}
         where id = #{departMent.id}
     </update>
     <delete id="deleteData">
@@ -33,65 +31,41 @@
 
 
     <select id="findAll" resultType="com.SchoolManage.pojo.DepartMent">
-        select *,(select count(*) from member where member.department = department.name) as num from
-        department
-        <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
-        </if>
+        select *, (select count(*) from member where member.department = department.name) as num
+        from department
         limit #{startPage},#{num};
     </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.DepartMent">
         select *, (select count(*) from member where member.department = department.name) as num
         from department
         where department.name like "%" #{name} "%"
-        <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
-        </if>
-        limit #{startPage}
-        , #{num};
+        limit #{startPage} , #{num};
     </select>
     <select id="findByMinister" resultType="com.SchoolManage.pojo.DepartMent">
         select *, (select count(*) from member where member.department = department.name) as num
         from department
         where department.minister like "%" #{minister} "%"
-        <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
-        </if>
-        limit #{startPage}
-        , #{num};
+        limit #{startPage} , #{num};
     </select>
     <select id="findByCollege" resultType="com.SchoolManage.pojo.DepartMent">
         select *, (select count(*) from member where member.department = department.name) as num
         from department
         where department.college like "%" #{college} "%"
-        <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
-        </if>
-        limit #{startPage}
-        , #{num};
+        limit #{startPage} , #{num};
     </select>
     <select id="findAllNum" resultType="java.lang.Integer">
         select count(*)
         from department
-        <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
-        </if>
     </select>
     <select id="findByNameNum" resultType="java.lang.Integer">
         select count(*)
         from department
         where department.name like "%" #{name} "%"
-        <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
-        </if>
     </select>
     <select id="findByMinisterNum" resultType="java.lang.Integer">
         select count(*)
         from department
         where department.minister like "%" #{minister} "%"
-        <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
-        </if>
     </select>
     <select id="findByCollegeNum" resultType="java.lang.Integer">
         select count(*)

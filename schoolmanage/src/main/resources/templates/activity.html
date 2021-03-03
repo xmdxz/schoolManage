@@ -81,7 +81,7 @@
 					var msg = "";
 					$.each(res, function (i, n) {
 						msg += "<tr>";
-						msg += "<td>" + n.id+"</td>";
+						msg += "<td>" + (i+1) + "</td>";
 						msg += "<td>" + n.active + "</td>";
 						msg += "<td>" + n.time+ "</td>";
 						msg += "<td>" + n.responsible + "</td>";
@@ -138,7 +138,7 @@
 					var msg = "";
 					$.each(res, function (i, n) {
 						msg += "<tr>";
-						msg += "<td>" + n.id + "</td>";
+						msg += "<td>" + (i+1) + "</td>";
 						msg += "<td>" + n.active + "</td>";
 						msg += "<td>" + n.time + "</td>";
 						msg += "<td>" + n.responsible + "</td>";
@@ -226,7 +226,7 @@
 						var msg = "";
 						$.each(res, function (i, n) {
 							msg += "<tr>";
-							msg += "<td>" + n.id+"</td>";
+							msg += "<td>" + (i+1) + "</td>";
 							msg += "<td>" + n.active + "</td>";
 							msg += "<td>" + n.time+ "</td>";
 							msg += "<td>" + n.responsible + "</td>";
@@ -276,7 +276,7 @@
 					var msg = "";
 					$.each(res, function (i, n) {
 						msg += "<tr>";
-						msg += "<td>" + n.id+"</td>";
+						msg += "<td>" + (i+1) + "</td>";
 						msg += "<td>" + n.active + "</td>";
 						msg += "<td>" + n.time+ "</td>";
 						msg += "<td>" + n.responsible + "</td>";
@@ -299,7 +299,7 @@
 					var msg = "";
 					$.each(res, function (i, n) {
 						msg += "<tr>";
-						msg += "<td>" + n.id+"</td>";
+						msg += "<td>" + (i+1) + "</td>";
 						msg += "<td>" + n.active + "</td>";
 						msg += "<td>" + n.time+ "</td>";
 						msg += "<td>" + n.responsible + "</td>";
@@ -323,7 +323,7 @@
 					var msg = "";
 					$.each(res, function (i, n) {
 						msg += "<tr>";
-						msg += "<td>" + n.id+"</td>";
+						msg += "<td>" + (i+1) + "</td>";
 						msg += "<td>" + n.active + "</td>";
 						msg += "<td>" + n.time+ "</td>";
 						msg += "<td>" + n.responsible + "</td>";
@@ -717,8 +717,12 @@
 									<li><a href="add-activity.html">活动添加</a></li>
 								</ul>
 							</li>
-							<li>
-								<a href="psychology.html"><i class="fas fa-comment"></i> <span>谈话</span></a>
+							<li class="submenu">
+								<a href="#"><i class="fas fa-comment"></i> <span>谈话</span><span class="menu-arrow"></span> </a>
+								<ul>
+									<li name="Q19"><a href="psychology.html" >19级谈话</a></li>
+									<li name="Q20"><a href="psychology-20.html" >20级谈话</a></li>
+								</ul>
 							</li>
 							<!-- <li> 
 								<a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>

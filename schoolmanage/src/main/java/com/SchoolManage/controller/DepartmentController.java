@@ -41,22 +41,22 @@ public class DepartmentController {
 
     @RequestMapping("findall")
     @ResponseBody
-    public List<DepartMent> findAll(String comy, int page, int num) {
-        List<DepartMent> all = departmentService.findAll(comy, page, num);
+    public List<DepartMent> findAll(int page, int num) {
+        List<DepartMent> all = departmentService.findAll(page, num);
         return all;
     }
 
     @RequestMapping("findallnum")
     @ResponseBody
-    public int findAllNum(String comy) {
-        int allNum = departmentService.findAllNum(comy);
+    public int findAllNum() {
+        int allNum = departmentService.findAllNum();
         return allNum;
     }
 
     @RequestMapping("findbyname")
     @ResponseBody
-    public List<DepartMent> findByName(String comy, String name, int page, int num) {
-        List<DepartMent> byName = departmentService.findByName(comy, name, page, num);
+    public List<DepartMent> findByName(String name, int page, int num) {
+        List<DepartMent> byName = departmentService.findByName(name, page, num);
         return byName;
     }
 
@@ -69,68 +69,68 @@ public class DepartmentController {
 
     @RequestMapping("findbynamenum")
     @ResponseBody
-    public String findByNameNum(String comy, String name) {
-        return Integer.toString(departmentService.findByNameNum(comy, name));
+    public String findByNameNum(String name) {
+        return Integer.toString(departmentService.findByNameNum(name));
     }
 
     @RequestMapping("findbyminister")
     @ResponseBody
-    public List<DepartMent> findByMinister(String comy, String minister, int page, int num) {
-        List<DepartMent> byMinister = departmentService.findByMinister(comy, minister, page, num);
+    public List<DepartMent> findByMinister(String minister, int page, int num) {
+        List<DepartMent> byMinister = departmentService.findByMinister(minister, page, num);
         return byMinister;
     }
 
     @RequestMapping("findbyministernum")
     @ResponseBody
-    public int findByMinisterNum(String comy, String minister) {
-        int byMinisterNum = departmentService.findByMinisterNum(comy, minister);
+    public int findByMinisterNum(String minister) {
+        int byMinisterNum = departmentService.findByMinisterNum(minister);
         return byMinisterNum;
     }
 
     @RequestMapping("findbycollege")
     @ResponseBody
-    public List<DepartMent> findByCollege(String comy, String college, int page, int num) {
-        List<DepartMent> byCollege = departmentService.findByCollege(comy, college, page, num);
+    public List<DepartMent> findByCollege(String college, int page, int num) {
+        List<DepartMent> byCollege = departmentService.findByCollege(college, page, num);
         return byCollege;
     }
 
     @RequestMapping("findbycollegenum")
     @ResponseBody
-    public int findByCollegeNum(String comy, String college) {
-        int byCollegeNum = departmentService.findByCollegeNum(comy, college);
+    public int findByCollegeNum(String college) {
+        int byCollegeNum = departmentService.findByCollegeNum(college);
         return byCollegeNum;
     }
 
     @RequestMapping("insertdata")
-    public String insertData(DepartMent departMent, String comy,HttpServletRequest request) {
+    public String insertData(DepartMent departMent,String comy, HttpServletRequest request) {
         System.out.println(departMent);
         int i = departmentService.insertData(departMent);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("插入", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表",comy);
+            logService.insertNew("插入", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表", comy);
             return "loginp_1";
         } else return "redirect:/departments.html";
     }
 
     @RequestMapping("updatedata")
-    public String updateData(DepartMent departMent,String comy, HttpServletRequest request) {
+    public String updateData(DepartMent departMent, String comy,HttpServletRequest request) {
         System.out.println(departMent);
         int i = departmentService.updateData(departMent);
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("更新", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表",comy);
+            logService.insertNew("更新", "的 " + departMent.getName(), a.getName(), "编号为" + departMent.getId(), "部门表", comy);
             return "loginp_1";
         } else return "redirect:/departments.html";
     }
 
     @RequestMapping("deletedata")
     @ResponseBody
-    public Map<String, Object> deleteData(int id, HttpServletRequest request) {
+    public Map<String, Object> deleteData(int id, String comy,HttpServletRequest request) {
         int i = departmentService.deleteData(id);
         Map<String, Object> map = new HashMap<>();
         if (i != 0) {
             AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-            logService.insertNew("删除", "的 部门信息", a.getName(), "编号为" + id, "部门表","2019");
+            logService.insertNew("删除", "的 部门信息", a.getName(), "编号为" + id, "部门表", comy);
             map.put("msg", "success");
             map.put("code", 200);
             return map;
@@ -143,17 +143,17 @@ public class DepartmentController {
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request, String comy) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i = departmentService.findAllNum(comy);
+    public String ExcleStudent(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i = departmentService.findAllNum();
         CreateExlceUtil<DepartMent> createExlceUtil = new CreateExlceUtil<>(request, DepartMent.class, "部门表");
-        List<DepartMent> list = departmentService.findAll(comy, 1, i);
+        List<DepartMent> list = departmentService.findAll(1, i);
         return createExlceUtil.createExcle(list);
     }
 
     @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        DepartMent departMent = new DepartMent(1, "xxx", "xxx", "xxx", "xxx", 0, "年级");
+        DepartMent departMent = new DepartMent(1, "xxx", "xxx", "xxx", "xxx", 0);
         return ExcleTemplate.getTemplate(request, departMent, "部门表模板");
     }
 
@@ -167,6 +167,7 @@ public class DepartmentController {
     @PostMapping("upfile")
     @ResponseBody
     public String upfile(HttpServletRequest request,String comy, @RequestParam("file") MultipartFile file) {
+        System.out.println(comy);
         if (file == null) {
             return "请选择文件";
         }
@@ -190,7 +191,7 @@ public class DepartmentController {
                 i = departmentService.BatchAddition(path);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-                logService.insertNew("上传", "部门信息", a.getName(), "多条", "部门表",comy);
+                logService.insertNew("上传", "部门信息", a.getName(), "多条", "部门表", comy);
                 return "上传成功了";
             } catch (Exception e) {
                 dest.delete();

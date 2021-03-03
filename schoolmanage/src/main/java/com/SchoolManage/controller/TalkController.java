@@ -48,10 +48,20 @@ public class TalkController {
     public String insertTalk(Talk talk, HttpServletRequest request) {
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         talk.setTeacher(a.getName());
-        talk.setComy(a.getResponsible());
+        talk.setComy("2019");
         int i = talkService.insertTalk(talk);
         if (i != 0) {
-            return "redirect:/loginp_5.html";
+            return "redirect:/loginp_5.html?id=1";
+        } else return "redirect:/edit-talk.html?error=true";
+    }
+    @RequestMapping("inserttalk2")
+    public String insertTalk2(Talk talk, HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        talk.setTeacher(a.getName());
+        talk.setComy("2020");
+        int i = talkService.insertTalk(talk);
+        if (i != 0) {
+            return "redirect:/loginp_5.html?id=2";
         } else return "redirect:/edit-talk.html?error=true";
     }
 
@@ -110,9 +120,14 @@ public class TalkController {
     @ResponseBody
     public List<Talk> findByTime(Date date,HttpServletRequest request) {
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        return talkService.findByTime(a.getResponsible(), date);
+        return talkService.findByTime("2019", date);
     }
-
+    @RequestMapping("findbytime2")
+    @ResponseBody
+    public List<Talk> findByTime2(Date date,HttpServletRequest request) {
+        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+        return talkService.findByTime("2020", date);
+    }
 //    @RequestMapping("findbytimecount")
 //    @ResponseBody
 //    public int findByTimeCount(Date date, HttpServletRequest request) {
@@ -157,10 +172,9 @@ public class TalkController {
     public String update(Talk talk, HttpServletRequest request) {
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
         talk.setTeacher(a.getName());
-        talk.setComy(a.getResponsible());
         int i = talkService.updata(talk);
         if (i != 0) {
-            return "redirect:/loginp_5.html";
+            return "redirect:/loginp_5.html?id="+(talk.getComy().equals("2019")?"1":"2");
         } else return "redirect:/edit-talk.html?error=true";
     }
 }

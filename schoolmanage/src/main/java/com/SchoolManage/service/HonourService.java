@@ -50,7 +50,7 @@ public interface HonourService {
     /**
      * 批量添加学生
      */
-    int BatchAddition(String path);
+    int BatchAddition(String path, String comy);
 
     /**
      * 根据学生查找

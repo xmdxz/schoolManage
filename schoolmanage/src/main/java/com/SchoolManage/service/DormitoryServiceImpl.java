@@ -110,7 +110,7 @@ public class DormitoryServiceImpl implements DormitoryService {
             //path写实际path
             TableUtil<Dormitory> tableUtil = new TableUtil<Dormitory>(path, Dormitory.class);
             List<Dormitory> database = dormitoryDao.findAllNoPage(comy);
-            List<Dormitory> list = tableUtil.GetTableRowContent();
+            List<Dormitory> list = tableUtil.GetTableRowContent(database, comy);
             //调用插入接口
             //批量上传，list集合
             num = dormitoryDao.insertDatas(list);

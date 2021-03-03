@@ -126,7 +126,7 @@ public class QingJiaController {
                 return "loginp_6";
             else
                 return "loginp_6-20";
-        } else{
+        } else {
             if (qingjia.getComy().equals("2019"))
                 return "redirect:/edit-holiday.html";
             else
@@ -153,7 +153,7 @@ public class QingJiaController {
 
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+    public String upfile(HttpServletRequest request, @RequestParam("file") MultipartFile file, String comy) {
         if (file == null) {
             return "请选择文件";
         }
@@ -174,7 +174,7 @@ public class QingJiaController {
             int i = 66;
             try {
                 System.out.println(path);
-                i = qingJiaService.BatchAddition(path);
+                i = qingJiaService.BatchAddition(path, comy);
                 dest.delete();
                 return "上传成功了";
             } catch (Exception e) {
@@ -206,7 +206,7 @@ public class QingJiaController {
                 return "loginp_6";
             else
                 return "loginp_6-20";
-        } else{
+        } else {
             if (qingjia.getComy().equals("2019"))
                 return "redirect:/edit-holiday.html";
             else
