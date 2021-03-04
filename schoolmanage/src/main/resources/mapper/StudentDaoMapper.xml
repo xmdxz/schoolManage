@@ -195,7 +195,12 @@
         <if test="map != null">
             <where>
                 <foreach collection="map" index="key" item="value" separator="and">
-                    ${key} = #{value}
+                    <if test="item == present_class or item == original_class">
+                        ${key} like "%" #{value} "%"
+                    </if>
+                    <if test="item != present_class or item != original_class">
+                        ${key} = #{value}
+                    </if>
                 </foreach>
                 <if test="comy != null and comy != '' ">
                     and find_in_set(comy,#{comy})
@@ -214,7 +219,12 @@
         <if test="maps != null">
             <where>
                 <foreach collection="maps" index="key" item="values" separator="and">
-                    ${key} = #{values}
+                    <if test="item == present_class or item == original_class">
+                        ${key} like "%" #{value} "%"
+                    </if>
+                    <if test="item != present_class or item != original_class">
+                        ${key} = #{value}
+                    </if>
                 </foreach>
                 <if test="comy != null and comy != '' ">
                     and find_in_set(comy,#{comy})
