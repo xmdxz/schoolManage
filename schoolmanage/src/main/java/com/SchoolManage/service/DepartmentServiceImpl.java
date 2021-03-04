@@ -100,7 +100,10 @@ public class DepartmentServiceImpl implements DepartmentService {
             List<DepartMent> list = tableUtil.GetTableRowContent();
             //调用插入接口
             //批量上传，list集合
-            num = departMentDao.insertDatas(list);
+            if (list.size() != 0) {
+                num = departMentDao.insertDatas(list);
+
+            }
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
             return -2;

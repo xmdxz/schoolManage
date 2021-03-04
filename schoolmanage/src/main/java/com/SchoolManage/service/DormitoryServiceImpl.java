@@ -113,7 +113,9 @@ public class DormitoryServiceImpl implements DormitoryService {
             List<Dormitory> list = tableUtil.GetTableRowContent(database, comy);
             //调用插入接口
             //批量上传，list集合
-            num = dormitoryDao.insertDatas(list);
+            if (list.size() != 0) {
+                num = dormitoryDao.insertDatas(list);
+            }
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
             return -2;

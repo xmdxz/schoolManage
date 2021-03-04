@@ -140,7 +140,10 @@ public class QingJiaServiceImpl implements QingJiaService {
             List<Qingjia> list = tableUtil.GetTableRowContent(comy);
             //调用插入接口
             //批量上传，list集合
-            num = qingJiaDao.insertQingjias(list);
+            if (list.size() != 0) {
+                num = qingJiaDao.insertQingjias(list);
+
+            }
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
             return -2;

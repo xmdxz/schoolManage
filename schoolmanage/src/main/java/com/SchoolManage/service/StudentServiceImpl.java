@@ -117,7 +117,10 @@ public class StudentServiceImpl implements StudentService {
             List<Student> list = tableUtil.GetTableRowContent(database);
             //调用插入接口
             //批量上传，list集合
-            num = studentDao.insertBatchStudent(list);
+            if (list.size() != 0) {
+                num = studentDao.insertBatchStudent(list);
+
+            }
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
             return -2;

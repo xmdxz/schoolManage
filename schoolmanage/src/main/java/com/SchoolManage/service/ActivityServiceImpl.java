@@ -135,7 +135,10 @@ public class ActivityServiceImpl implements ActivityService {
             List<Activity> list = tableUtil.GetTableRowContent();
             //调用插入接口
             //批量上传，list集合
-            num = activityDao.insertAcs(list);
+            if (list.size() != 0) {
+                num = activityDao.insertAcs(list);
+
+            }
         } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
             e.printStackTrace();
             return -2;
