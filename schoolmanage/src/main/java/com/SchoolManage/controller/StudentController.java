@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -455,5 +459,14 @@ public class StudentController {
         Map<String, Integer> a = studentService.findByArea(comy, arealist);
         int i = a.get(area);
         return i;
+    }
+
+    @RequestMapping("getimg")
+    public void getImg(HttpServletResponse response, String id) throws IOException {
+        String path = "/users/raingoal/desktop/image/";
+        BufferedImage read = ImageIO.read(new File(path + id + ".jpg"));
+        ServletOutputStream outputStream = response.getOutputStream();
+        ImageIO.write(read, "jpg", outputStream);
+        outputStream.close();
     }
 }

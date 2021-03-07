@@ -83,12 +83,12 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/login.html", "/admin/login", "/admin/captcha", "/admin/getadminuser", "/assets/**");
+                .excludePathPatterns("/login.html", "/admin/login", "/admin/captcha", "/admin/getadminuser", "/assets/**", "/upload/**");
         //添加19级的权限的页面
         registry.addInterceptor(new AuthorityTwoHandlerInterceptor()).addPathPatterns("/students.html", "/add-student.html", "edit-student.html");
         //添加20级的权限的页面
         registry.addInterceptor(new AuthorityHandlerInterceptor()).addPathPatterns("/students-20.html", "add-student-20.html", "edit-student-20.html");
     }
-    
+
 
 }
