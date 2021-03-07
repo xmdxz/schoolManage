@@ -34,14 +34,14 @@
     </delete>
     <select id="findAll" resultType="com.SchoolManage.pojo.Member">
         select *
-        from member limit #{startPage},#{num}
+        from member
+        limit #{startPage},#{num}
     </select>
     <select id="findByDepartment" resultType="com.SchoolManage.pojo.Member">
         select *
         from member
         where department like "%" #{department} "%"
-        limit #{startPage}
-            , #{num}
+        limit #{startPage} , #{num}
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Member">
         select *
@@ -51,21 +51,26 @@
     <select id="findByName" resultType="com.SchoolManage.pojo.Member">
         select *
         from member
-        where name like "%" #{name} "%" limit #{startPage}
-            , #{num}
+        where name like "%" #{name} "%"
+        limit #{startPage} , #{num}
     </select>
     <select id="findByPosition" resultType="com.SchoolManage.pojo.Member">
         select *
         from member
-        where position like "%" #{position} "%" limit #{startPage}
-            , #{num}
+        where position like "%" #{position} "%"
+        limit #{startPage} , #{num}
     </select>
     <select id="findByConditions" resultType="com.SchoolManage.pojo.Member">
         select * from member
         <if test="map != null">
             <where>
                 <foreach collection="map" item="value" index="key" separator="and">
-                    ${key} = #{value}
+                    <if test="key == 'clazz'">
+                        ${key} like "%" #{value} "%"
+                    </if>
+                    <if test="key != clazz">
+                        ${key} = #{item}
+                    </if>
                 </foreach>
             </where>
         </if>
@@ -94,7 +99,12 @@
         <if test="map != null">
             <where>
                 <foreach collection="map" item="value" index="key" separator="and">
-                    ${key} = #{value}
+                    <if test="key == 'clazz'">
+                        ${key} like "%" #{value} "%"
+                    </if>
+                    <if test="key != clazz">
+                        ${key} = #{item}
+                    </if>
                 </foreach>
             </where>
         </if>
@@ -109,22 +119,22 @@
         select *
         from member
         where department = #{department}
-          and name like "%" #{name} "%" limit #{startPage}
-            , #{num}
+          and name like "%" #{name} "%"
+        limit #{startPage} , #{num}
     </select>
     <select id="findByDepartmentAndPosition" resultType="com.SchoolManage.pojo.Member">
         select *
         from member
         where department = #{department}
-          and position like "%" #{position} "%" limit #{startPage}
-            , #{num}
+          and position like "%" #{position} "%"
+        limit #{startPage} , #{num}
     </select>
     <select id="findByDepartmentAndClazz" resultType="com.SchoolManage.pojo.Member">
         select *
         from member
         where department = #{department}
-          and clazz like "%" #{clazz} "#" limit #{startPage}
-            , #{num}
+          and clazz like "%" #{clazz} "#"
+        limit #{startPage} , #{num}
     </select>
     <select id="findByDepartmentAndConditions" resultType="com.SchoolManage.pojo.Member">
         select * from member
@@ -132,7 +142,12 @@
             department = #{department},
             <if test="map != null">
                 <foreach collection="map" separator="and" item="value" index="key">
-                    ${key} = #{value}
+                    <if test="key == 'clazz'">
+                        ${key} like "%" #{value} "%"
+                    </if>
+                    <if test="key != clazz">
+                        ${key} = #{item}
+                    </if>
                 </foreach>
             </if>
         </where>
@@ -162,7 +177,12 @@
             department = #{department},
             <if test="map != null">
                 <foreach collection="map" separator="and" item="value" index="key">
-                    ${key} = #{value}
+                    <if test="key == 'clazz'">
+                        ${key} like "%" #{value} "%"
+                    </if>
+                    <if test="key != clazz">
+                        ${key} = #{item}
+                    </if>
                 </foreach>
             </if>
         </where>

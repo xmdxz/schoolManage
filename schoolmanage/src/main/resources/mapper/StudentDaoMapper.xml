@@ -195,10 +195,13 @@
         <if test="map != null">
             <where>
                 <foreach collection="map" index="key" item="value" separator="and">
-                    <if test="item == present_class or item == original_class">
-                        ${key} like "%" #{value} "%"
+                    <if test="key == 'present_class'">
+                        ${key} like concat('%',#{value},'%')
                     </if>
-                    <if test="item != present_class or item != original_class">
+                    <if test="key == 'original_class'">
+                        ${key} like concat('%',#{value},'%')
+                    </if>
+                    <if test="key != 'present_class' and key != 'original_class'">
                         ${key} = #{value}
                     </if>
                 </foreach>
@@ -219,10 +222,13 @@
         <if test="maps != null">
             <where>
                 <foreach collection="maps" index="key" item="values" separator="and">
-                    <if test="item == present_class or item == original_class">
-                        ${key} like "%" #{value} "%"
+                    <if test="key == 'present_class'">
+                        ${key} like concat('%',#{value},'%')
                     </if>
-                    <if test="item != present_class or item != original_class">
+                    <if test="key == 'original_class'">
+                        ${key} like concat('%',#{value},'%')
+                    </if>
+                    <if test="key != 'present_class' and key != 'original_class'">
                         ${key} = #{value}
                     </if>
                 </foreach>

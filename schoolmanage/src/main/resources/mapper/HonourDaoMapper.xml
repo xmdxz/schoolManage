@@ -89,7 +89,13 @@
             <where>
                 <foreach collection="map" item="item" index="key"
                          separator="and">
-                    ${key} = #{item}
+                    <if test="key == 'clazz'">
+                        ${key} like "%" #{item} "%"
+                    </if>
+                    <if test="key != clazz">
+                        ${key} = #{item}
+
+                    </if>
                 </foreach>
             </where>
             <if test="comy != null and comy != '' ">
