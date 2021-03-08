@@ -120,7 +120,7 @@ public class TableUtil<T> {
                         method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
                     }
                 }
-                if (!Ts.contains(t)) {
+                if (!Ts.contains(t) && !getIsNull(t)) {
                     Ts.add(t);
                 }
             }
@@ -151,7 +151,7 @@ public class TableUtil<T> {
                     }
                 }
                 clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
-                if (!Ts.contains(t)) {
+                if (!Ts.contains(t) && !getIsNull(t)) {
                     Ts.add(t);
                 }
             }
@@ -170,6 +170,7 @@ public class TableUtil<T> {
         Set<String> set = this.eneity.keySet();
         List<String> ls = GetTableHead();
         for (int i = 1; i < GetRows(); i++) {
+            System.out.println(GetRows());
             Row row = sheet.getRow(i);
             if (row != null) {
                 T t = (T) clazz.newInstance();
@@ -178,11 +179,12 @@ public class TableUtil<T> {
                     Cell cell = row.getCell(ls.indexOf(s));
                     if (cell != null) {
                         cell.setCellType(CellType.STRING);
+                        System.out.println(field + " == " + cell.getStringCellValue());
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
                         method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
                     }
                 }
-                if (!Ts.contains(t)) {
+                if (!Ts.contains(t) && !getIsNull(t)) {
                     Ts.add(t);
                 }
             }
@@ -208,7 +210,7 @@ public class TableUtil<T> {
                     }
                 }
                 clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
-                if (!Ts.contains(t)) {
+                if (!Ts.contains(t) && !getIsNull(t)) {
                     Ts.add(t);
                 }
             }
@@ -216,7 +218,30 @@ public class TableUtil<T> {
         return Ts;
     }
 
+    public boolean getIsNull(T t) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Set<String> set = this.eneity.keySet();
+        List<Boolean> list = new ArrayList<>();
+        for (String s : set) {
+            String field = this.eneity.get(s);
+            Method method = clazz.getMethod("get" + field.substring(0, 1).toUpperCase() + field.substring(1));
+            Object o = method.invoke(t, null);
+            if (o == null) {
+                list.add(false);
+            } else {
+                list.add(true);
+            }
+        }
+        if (!list.contains(true)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public Object getValue(String type, String value) {
+        if (value == null || "".equals(value)) {
+            return null;
+        }
         Object value1 = new Object();
         if ("String".equalsIgnoreCase(type)) {
             value1 = value.toString();
