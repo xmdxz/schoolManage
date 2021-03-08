@@ -18,6 +18,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TableUtil<T> {
@@ -103,7 +105,7 @@ public class TableUtil<T> {
     }
 
 
-    public List<T> GetTableRowContent(List<T> database) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
+    public List<T> GetTableRowContent(List<T> database) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException, ParseException {
         List<T> Ts = new ArrayList<>();
         Set<String> set = this.eneity.keySet();
         List<String> ls = GetTableHead();
@@ -133,7 +135,7 @@ public class TableUtil<T> {
         return Ts;
     }
 
-    public List<T> GetTableRowContent(List<T> database, String comy) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
+    public List<T> GetTableRowContent(List<T> database, String comy) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException, ParseException {
         List<T> Ts = new ArrayList<>();
         Set<String> set = this.eneity.keySet();
         List<String> ls = GetTableHead();
@@ -165,7 +167,7 @@ public class TableUtil<T> {
     }
 
 
-    public List<T> GetTableRowContent() throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
+    public List<T> GetTableRowContent() throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException, ParseException {
         List<T> Ts = new ArrayList<>();
         Set<String> set = this.eneity.keySet();
         List<String> ls = GetTableHead();
@@ -190,7 +192,7 @@ public class TableUtil<T> {
         return Ts;
     }
 
-    public List<T> GetTableRowContent(String comy) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
+    public List<T> GetTableRowContent(String comy) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException, ParseException {
         List<T> Ts = new ArrayList<>();
         Set<String> set = this.eneity.keySet();
         List<String> ls = GetTableHead();
@@ -216,7 +218,7 @@ public class TableUtil<T> {
         return Ts;
     }
 
-    public Object getValue(String type, String value) {
+    public Object getValue(String type, String value) throws ParseException {
         Object value1 = new Object();
         if ("String".equalsIgnoreCase(type)) {
             value1 = value.toString();
@@ -231,7 +233,13 @@ public class TableUtil<T> {
         } else if ("boolean".equalsIgnoreCase(type)) {
             value1 = Boolean.parseBoolean(value);
         } else if ("date".equalsIgnoreCase(type)) {
-            value1 = Date.valueOf(value.replace("/", "-"));
+            String va=value.replace("|/", "-");
+            String va1=va.replace("/", "-");
+            Date vaa=null;
+            vaa = Date.valueOf(va1);
+            value1=Date.valueOf(String.valueOf(vaa));
+            System.out.println(String.valueOf(vaa));
+            System.out.println(value1);
         } else if ("datetime".equalsIgnoreCase(type)) {
             value1 = Timestamp.valueOf(value.replace("/", "-"));
         } else if ("timestamp".equalsIgnoreCase(type)) {
