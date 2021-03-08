@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -137,6 +138,8 @@ public class MemberServiceImpl implements MemberService {
             //此处应处理表格问题，返回前端
             e.printStackTrace();
             return -3;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return num;
     }
