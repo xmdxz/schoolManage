@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -169,7 +170,6 @@ public class TableUtil<T> {
         Set<String> set = this.eneity.keySet();
         List<String> ls = GetTableHead();
         for (int i = 1; i < GetRows(); i++) {
-            System.out.println(GetRows());
             Row row = sheet.getRow(i);
             if (row != null) {
                 T t = (T) clazz.newInstance();
@@ -242,6 +242,9 @@ public class TableUtil<T> {
         }
         Object value1 = new Object();
         if ("String".equalsIgnoreCase(type)) {
+            if (value.substring(value.lastIndexOf(".") + 1).matches("^0*")) {
+                value = value.substring(0, value.lastIndexOf("."));
+            }
             value1 = value.toString();
         } else if ("int".equalsIgnoreCase(type) || "Integer".equalsIgnoreCase(type)) {
             value1 = Integer.parseInt(value);
@@ -266,14 +269,15 @@ public class TableUtil<T> {
     public String getExcleTypeStringValue(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
-                return cell.getStringCellValue();
+                return cell.getStringCellValue().trim();
             case NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
                     java.util.Date date = cell.getDateCellValue();
                     DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
-                    return dateFormat.format(date);
+                    return dateFormat.format(date).trim();
                 } else {
-                    return Double.toString(cell.getNumericCellValue());
+                    DecimalFormat decimalFormat = new DecimalFormat("0");
+                    return decimalFormat.format(cell.getNumericCellValue()).trim();
                 }
             default:
                 return "";

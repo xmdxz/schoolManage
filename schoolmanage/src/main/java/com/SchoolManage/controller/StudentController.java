@@ -388,6 +388,7 @@ public class StudentController {
                 logService.insertNew("上传", "学生信息", a.getName(), "多条", "学生表", comy);
                 return "上传成功了";
             } catch (Exception e) {
+                e.printStackTrace();
                 dest.delete();
                 return "上传的表格不匹配,请进行修改后重先上传";
             }
