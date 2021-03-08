@@ -3,10 +3,7 @@ package com.SchoolManage.util;
 import com.SchoolManage.Enum.Eneity;
 import com.SchoolManage.exception.FieldNotExistException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
@@ -18,6 +15,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TableUtil<T> {
@@ -115,9 +114,9 @@ public class TableUtil<T> {
                     String field = this.eneity.get(s);
                     Cell cell = row.getCell(ls.indexOf(s));
                     if (cell != null) {
-                        cell.setCellType(CellType.STRING);
+                        String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), value));
                     }
                 }
                 if (!Ts.contains(t) && !getIsNull(t)) {
@@ -145,9 +144,9 @@ public class TableUtil<T> {
                     String field = this.eneity.get(s);
                     Cell cell = row.getCell(ls.indexOf(s));
                     if (cell != null) {
-                        cell.setCellType(CellType.STRING);
+                        String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), value));
                     }
                 }
                 clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
@@ -178,10 +177,9 @@ public class TableUtil<T> {
                     String field = this.eneity.get(s);
                     Cell cell = row.getCell(ls.indexOf(s));
                     if (cell != null) {
-                        cell.setCellType(CellType.STRING);
-                        System.out.println(field + " == " + cell.getStringCellValue());
+                        String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), value));
                     }
                 }
                 if (!Ts.contains(t) && !getIsNull(t)) {
@@ -204,9 +202,9 @@ public class TableUtil<T> {
                     String field = this.eneity.get(s);
                     Cell cell = row.getCell(ls.indexOf(s));
                     if (cell != null) {
-                        cell.setCellType(CellType.STRING);
+                        String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), value));
                     }
                 }
                 clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
@@ -263,6 +261,23 @@ public class TableUtil<T> {
             value1 = Timestamp.valueOf(value);
         }
         return value1;
+    }
+
+    public String getExcleTypeStringValue(Cell cell) {
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue();
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    java.util.Date date = cell.getDateCellValue();
+                    DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+                    return dateFormat.format(date);
+                } else {
+                    return Double.toString(cell.getNumericCellValue());
+                }
+            default:
+                return "";
+        }
     }
 
     /**
