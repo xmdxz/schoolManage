@@ -231,9 +231,9 @@ public class TableUtil<T> {
         } else if ("boolean".equalsIgnoreCase(type)) {
             value1 = Boolean.parseBoolean(value);
         } else if ("date".equalsIgnoreCase(type)) {
-            value1 = Date.valueOf(value);
+            value1 = Date.valueOf(value.replace("/", "-"));
         } else if ("datetime".equalsIgnoreCase(type)) {
-            value1 = Timestamp.valueOf(value);
+            value1 = Timestamp.valueOf(value.replace("/", "-"));
         } else if ("timestamp".equalsIgnoreCase(type)) {
             value1 = Timestamp.valueOf(value);
         }
