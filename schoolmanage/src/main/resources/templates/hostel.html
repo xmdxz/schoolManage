@@ -211,9 +211,9 @@
 					url: "dormitory/findByBuildingAndNumber",
 					data:{comy:'2019',building:building,number:number_1},
 					dataType: "json",
-					async: false,
 				}).done(function (res) {
 					console.log(res)
+					var msg ="";
 					msg += "<tr>";
 					msg += "<td>" + res.building+"</td>";
 					msg += "<td>" + res.number +"宿舍"+ "</td>";
@@ -221,6 +221,7 @@
 					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member-hostel.html?building=" + res.building +"&number="+res.number+"\"" + ">" + res.num +"人"+"</a></h2></td>";
 					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-hostel.html?building=" + res.building +"&number="+res.number+ "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" +"\""+res.building+","+res.number +"\""+")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 					msg += "</tr>";
+					$("#dormitory").html(msg);
 				});
 			}
 			else {
