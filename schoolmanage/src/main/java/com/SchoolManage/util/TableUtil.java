@@ -18,9 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TableUtil<T> {
 
@@ -84,32 +82,47 @@ public class TableUtil<T> {
                     field = field.replaceAll(" ", "");
                     arrayList.add(field);
                 }
+            } else {
+                arrayList.add("");
             }
         }
         return arrayList;
     }
 
+    @Deprecated
+    public Map<String, Integer> GetTableMap() {
+        List<String> list = GetTableHead();
+        Object[] objects = this.eneity.keySet().toArray();
+        List<Object> list1 = Arrays.asList(objects);
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < list1.size(); i++) {
+            Integer integer = list.indexOf(list1.get(i));
+            map.put(list1.get(i).toString(), integer);
+        }
+        return map;
+    }
+
+
     public List<T> GetTableRowContent(List<T> database) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
         List<T> Ts = new ArrayList<>();
+        Set<String> set = this.eneity.keySet();
+        List<String> ls = GetTableHead();
         for (int i = 1; i < GetRows(); i++) {
             Row row = sheet.getRow(i);
-            T t = (T) clazz.newInstance();
-            List<String> list = GetTableHead();
-            for (int index = 0, num = 0; index < list.size(); index++, num++) {
-                String field = this.eneity.get(list.get(index));
-                if (field == null) {
-                    throw new FieldNotExistException("实体类中没有与表格中表头:" + list.get(index) + "对应的属性");
+            if (row != null) {
+                T t = (T) clazz.newInstance();
+                for (String s : set) {
+                    String field = this.eneity.get(s);
+                    Cell cell = row.getCell(ls.indexOf(s));
+                    if (cell != null) {
+                        cell.setCellType(CellType.STRING);
+                        Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+                    }
                 }
-                Cell cell = row.getCell(num);
-                while (cell == null) {
-                    cell = row.getCell(++num);
+                if (!Ts.contains(t)) {
+                    Ts.add(t);
                 }
-                cell.setCellType(CellType.STRING);
-                Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
-            }
-            if (!Ts.contains(t)) {
-                Ts.add(t);
             }
         }
         for (T pojo : database) {
@@ -122,26 +135,25 @@ public class TableUtil<T> {
 
     public List<T> GetTableRowContent(List<T> database, String comy) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
         List<T> Ts = new ArrayList<>();
+        Set<String> set = this.eneity.keySet();
+        List<String> ls = GetTableHead();
         for (int i = 1; i < GetRows(); i++) {
             Row row = sheet.getRow(i);
-            T t = (T) clazz.newInstance();
-            List<String> list = GetTableHead();
-            for (int index = 0, num = 0; index < list.size(); index++, num++) {
-                String field = this.eneity.get(list.get(index));
-                if (field == null) {
-                    throw new FieldNotExistException("实体类中没有与表格中表头:" + list.get(index) + "对应的属性");
+            if (row != null) {
+                T t = (T) clazz.newInstance();
+                for (String s : set) {
+                    String field = this.eneity.get(s);
+                    Cell cell = row.getCell(ls.indexOf(s));
+                    if (cell != null) {
+                        cell.setCellType(CellType.STRING);
+                        Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+                    }
                 }
-                Cell cell = row.getCell(num);
-                while (cell == null) {
-                    cell = row.getCell(++num);
+                clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
+                if (!Ts.contains(t)) {
+                    Ts.add(t);
                 }
-                cell.setCellType(CellType.STRING);
-                Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
-            }
-            clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
-            if (!Ts.contains(t)) {
-                Ts.add(t);
             }
         }
         for (T pojo : database) {
@@ -152,27 +164,27 @@ public class TableUtil<T> {
         return Ts;
     }
 
+
     public List<T> GetTableRowContent() throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
         List<T> Ts = new ArrayList<>();
+        Set<String> set = this.eneity.keySet();
+        List<String> ls = GetTableHead();
         for (int i = 1; i < GetRows(); i++) {
             Row row = sheet.getRow(i);
-            T t = (T) clazz.newInstance();
-            List<String> list = GetTableHead();
-            for (int index = 0, num = 0; index < list.size(); index++, num++) {
-                String field = this.eneity.get(list.get(index));
-                if (field == null) {
-                    throw new FieldNotExistException("实体类中没有与表格中表头:" + list.get(index) + "对应的属性");
+            if (row != null) {
+                T t = (T) clazz.newInstance();
+                for (String s : set) {
+                    String field = this.eneity.get(s);
+                    Cell cell = row.getCell(ls.indexOf(s));
+                    if (cell != null) {
+                        cell.setCellType(CellType.STRING);
+                        Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+                    }
                 }
-                Cell cell = row.getCell(num);
-                while (cell == null) {
-                    cell = row.getCell(++num);
+                if (!Ts.contains(t)) {
+                    Ts.add(t);
                 }
-                cell.setCellType(CellType.STRING);
-                Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
-            }
-            if (!Ts.contains(t)) {
-                Ts.add(t);
             }
         }
         return Ts;
@@ -180,26 +192,25 @@ public class TableUtil<T> {
 
     public List<T> GetTableRowContent(String comy) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
         List<T> Ts = new ArrayList<>();
+        Set<String> set = this.eneity.keySet();
+        List<String> ls = GetTableHead();
         for (int i = 1; i < GetRows(); i++) {
             Row row = sheet.getRow(i);
-            T t = (T) clazz.newInstance();
-            List<String> list = GetTableHead();
-            for (int index = 0, num = 0; index < list.size(); index++, num++) {
-                String field = this.eneity.get(list.get(index));
-                if (field == null) {
-                    throw new FieldNotExistException("实体类中没有与表格中表头:" + list.get(index) + "对应的属性");
+            if (row != null) {
+                T t = (T) clazz.newInstance();
+                for (String s : set) {
+                    String field = this.eneity.get(s);
+                    Cell cell = row.getCell(ls.indexOf(s));
+                    if (cell != null) {
+                        cell.setCellType(CellType.STRING);
+                        Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
+                    }
                 }
-                Cell cell = row.getCell(num);
-                while (cell == null) {
-                    cell = row.getCell(++num);
+                clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
+                if (!Ts.contains(t)) {
+                    Ts.add(t);
                 }
-                cell.setCellType(CellType.STRING);
-                Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), cell.getStringCellValue()));
-            }
-            clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
-            if (!Ts.contains(t)) {
-                Ts.add(t);
             }
         }
         return Ts;

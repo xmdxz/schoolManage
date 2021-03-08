@@ -81,8 +81,7 @@ public class Student {
         if (!(o instanceof Student)) {
             return false;
         }
-        Student student = (Student) o;
-        return Objects.equals(getId(), student.getId());
+        return getId().equals(((Student) o).getId());
     }
 
     @Override
