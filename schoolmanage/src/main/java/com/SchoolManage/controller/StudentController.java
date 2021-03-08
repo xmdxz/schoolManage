@@ -354,8 +354,8 @@ public class StudentController {
     @ResponseBody
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         Student student = new Student("xxx", "xxx", "xxx", "例如:2020", "xxx",
-                "例：软件工程，大数据方向，数媒，智能", "例如:软件1901", "xxx", "例如:11号楼", "xxx", "xxx", "例：JavaEE，移动互联，人工智能，大数据,嵌入式", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx",
-                "无", "例如:软件1901", "例如:班长，团支，学委", "例如:班长，团支，学委", "xxx", "xxx", "例如:302", "xxx", "xxx");
+                "例：软件工程，智能科学与技术，数字媒体艺术,数据科学与大数据技术", "例如:软件1901", "xxx", "例如:11号楼", "xxx", "xxx", "例：JavaEE，移动互联，人工智能，大数据,嵌入式", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx",
+                "无", "例如:软件1901", "例如:班长，团支书，学习委员", "例如:班长，团支，学习委员", "xxx", "xxx", "例如:302", "xxx", "xxx");
         return ExcleTemplate.getTemplate(request, student, "学生表模板");
     }
 
