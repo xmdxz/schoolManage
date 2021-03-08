@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -147,8 +146,6 @@ public class ActivityServiceImpl implements ActivityService {
             //此处应处理表格问题，返回前端
             e.printStackTrace();
             return -3;
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
         return num;
 
