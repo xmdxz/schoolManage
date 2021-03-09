@@ -117,7 +117,7 @@ public class TableUtil<T> {
                     if (cell != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), value));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
                     }
                 }
                 if (!Ts.contains(t) && !getIsNull(t)) {
@@ -147,7 +147,7 @@ public class TableUtil<T> {
                     if (cell != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), value));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
                     }
                 }
                 clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
@@ -179,7 +179,7 @@ public class TableUtil<T> {
                     if (cell != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), value));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
                     }
                 }
                 if (!Ts.contains(t) && !getIsNull(t)) {
@@ -204,7 +204,7 @@ public class TableUtil<T> {
                     if (cell != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), value));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
                     }
                 }
                 clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
@@ -264,6 +264,24 @@ public class TableUtil<T> {
             value1 = Timestamp.valueOf(value);
         }
         return value1;
+    }
+
+    public String formatValueForFUlltoHalf(String value) {
+        if (value == null || "".equals(value)) {
+            return "";
+        }
+        char[] chars = value.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            int unicode = (int) chars[i];
+            if (unicode >= 65281 && unicode <= 65374) {
+                chars[i] = (char) (unicode - 65248);
+            } else if (unicode == 12288) {
+                chars[i] = (char) 32;
+            } else if (unicode >= 128 && unicode <= 160) {
+                chars[i] = (char) 32;
+            }
+        }
+        return new String(chars);
     }
 
     public String getExcleTypeStringValue(Cell cell) {
