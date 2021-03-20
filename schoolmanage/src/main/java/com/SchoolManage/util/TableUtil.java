@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -283,10 +284,27 @@ public class TableUtil<T> {
         }
         return new String(chars);
     }
-
+    public static boolean isValidDate(String str) {
+        boolean convertSuccess=true;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        try {
+            format.setLenient(false);
+            format.parse(str);
+        } catch (ParseException e) {
+            convertSuccess=false;
+        }
+        return convertSuccess;
+    }
     public String getExcleTypeStringValue(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
+                String str=cell.getStringCellValue().trim();
+                if(isValidDate(str))
+                {
+                    str=str.replace("/","-");
+                    str=str+":00";
+                    return str.trim();
+                }
                 return cell.getStringCellValue().trim();
             case NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {

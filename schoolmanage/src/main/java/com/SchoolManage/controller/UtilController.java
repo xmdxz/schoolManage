@@ -26,7 +26,7 @@ public class UtilController {
     @Autowired
     private StudentService studentService;
     //上传的图片路径 测试的时候记得改成自己电脑的路径，部署要更改linux的路径
-    private String filePath = "/users/raingoal/desktop/image";
+    private String filePath = "C:\\Users\\QYZ\\Desktop\\image";
 
     @PostMapping("uploadimg")
     @ResponseBody

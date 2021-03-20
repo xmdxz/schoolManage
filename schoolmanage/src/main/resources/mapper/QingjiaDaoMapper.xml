@@ -15,7 +15,7 @@
         values
         <foreach collection="list" separator="," item="item">
             (#{item.student}, #{item.teacher}, #{item.start_time,jdbcType=TIMESTAMP},
-            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause},#{item.name},#{item.clazz},#{item.comy},#{item.phone)
+            #{item.end_time,jdbcType=TIMESTAMP}, #{item.cause},#{item.name},#{item.clazz},#{item.comy},#{item.phone})
         </foreach>
     </insert>
     <delete id="deleteQingjia">

@@ -75,6 +75,7 @@
 			var responsible=adminuserInfo.responsible;
 			$(document).ready(function () {
 				$('#InfoName').text(name);
+				$('#stimg').attr('src',"/student/getimg?id="+Id);
 				if(responsible=='2019')
 				{
 					$('[name="Q20"]').css("display","none")
@@ -567,7 +568,7 @@
 										<h4>关于我</h4>
 
 										<div class="media mt-3">
-											<img th:src="@{/assets/img/user.jpg}" class="mr-3" alt="...">
+											<img class="mr-3" alt="..." id="stimg">
 											<div class="media-body">
 												<ul>
                                                     <li>

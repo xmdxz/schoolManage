@@ -40,11 +40,13 @@
     <script type="text/javascript">
 		var url = document.location.toString();//获取url地址
 		var studentObj=null;
+        var Id=null;
+        var name_student=null;
 		if(url.indexOf("?")!=-1)
 		{
 			var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
 			var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
-			var Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
+            Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
 			$.ajax({
 				type:"post",
 				url:"student/findbyid",
@@ -52,6 +54,7 @@
 				data: {id:Id}
 			}).done(function (res) {
 				console.log(res)
+                name_student=res.name;
 				obj=res;
 				var props = "";
 				for(var p in obj){
@@ -78,6 +81,32 @@
             else if(responsible=='2020'){
                 $('[name="Q19"]').css("display","none")
             }
+            $('#excelFile').change(function (event) {
+                var files = event.target.files;
+                var formData = new FormData();
+                var temp = files[0];
+                if (temp) {
+                    formData.append('file', temp);
+                    formData.append('id',Id);
+                    formData.append('name',name_student);
+                    $.ajax({
+                        url: 'upload/uploadimg',
+                        type: 'post',
+                        data: formData,
+                        processData: false, // 告诉jQuery不要去处理发送的数据
+                        contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+                        success: function (res) {
+                            console.log(res)
+                            if(res.msg=="success")
+                            swal("上传成功了");
+                            var obj = document.getElementById("excelFile")
+                            obj.outerHTML = obj.outerHTML
+                        }
+
+                    })
+                }
+
+            });
         });
     </script>
 </head>
@@ -655,7 +684,7 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>一寸照片</label>
-                                            <input type="file"  class="form-control">
+                                            <input type="file"  class="form-control" name="excelFile" id="excelFile">
                                         </div>
                                     </div>
 
