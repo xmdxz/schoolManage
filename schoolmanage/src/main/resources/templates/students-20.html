@@ -78,7 +78,7 @@
                 $.each(res, function (i, n) {
                     msg += "<tr>";
                     msg += "<td>" + n.id + "</td>";
-                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/student/getimg?id="+n.id+"\"" + "  alt=" + "\"...\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
                     msg += "<td>" + n.present_class + "</td>";
                     msg += "<td>" + n.original_class + "</td>";
                     msg += "<td>" + n.present_post + "</td>";
@@ -141,7 +141,7 @@
                 $.each(res, function (i, n) {
                     msg += "<tr>";
                     msg += "<td>" + n.id + "</td>";
-                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/student/getimg?id="+n.id+"\"" + "  alt=" + "\"...\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
                     msg += "<td>" + n.present_class + "</td>";
                     msg += "<td>" + n.original_class + "</td>";
                     msg += "<td>" + n.present_post + "</td>";
@@ -195,7 +195,7 @@
                 $.each(res, function (i, n) {
                     msg += "<tr>";
                     msg += "<td>" + n.id + "</td>";
-                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/student/getimg?id="+n.id+"\"" + "  alt=" + "\"...\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
                     msg += "<td>" + n.present_class + "</td>";
                     msg += "<td>" + n.original_class + "</td>";
                     msg += "<td>" + n.present_post + "</td>";
@@ -339,11 +339,11 @@
 
                             }
                             layui.form.render("select");
-                        } else if (info_1 == "数媒") {
+                        } else if (info_1 == "数字媒体艺术") {
                             $('#direction').find('option').remove();
                             $('#direction').append('<option value="0">请选择</option>');
-                            $('#direction').append('<option value="方向一">方向一</option>');
-                            $('#direction').append('<option value="方向二">方向二</option>');
+                            $('#direction').append('<option value="游戏">游戏</option>');
+                            $('#direction').append('<option value="数字影视与动画">数字影视与动画</option>');
                             layui.form.render("select");
                             $('#present_class').find('option').remove();
                             $('#present_class').append('<option value="0">请选择</option>');
@@ -355,7 +355,7 @@
 
                             }
                             layui.form.render("select");
-                        } else if (info_1 == "智能") {
+                        } else if (info_1 == "智能科学与技术") {
                             $('#direction').find('option').remove();
                             $('#direction').append('<option value="0">暂无方向</option>');
                             layui.form.render("select");
@@ -376,13 +376,13 @@
 
                             }
                             layui.form.render("select");
-                        } else if (info_1 == "大数据方向") {
+                        } else if (info_1 == "数据科学与大数据技术") {
                             $('#direction').find('option').remove();
                             $('#direction').append('<option value="0">暂无方向</option>');
                             layui.form.render("select");
                             $('#present_class').find('option').remove();
                             $('#present_class').append('<option value="0">请选择</option>');
-                            for (let i = 1; i <= 1; i++) {
+                            for (let i = 1; i <= 2; i++) {
                                 var banji = "大数据200" + i;
                                 $('#present_class').append('<option value=' + banji + '>' + banji + '</option>');
 
@@ -390,7 +390,7 @@
                             layui.form.render("select");
                             $('#original_class').find('option').remove();
                             $('#original_class').append('<option value="0">请选择</option>');
-                            for (let i = 1; i <= 1; i++) {
+                            for (let i = 1; i <= 2; i++) {
                                 var banji = "大数据200" + i;
                                 $('#original_class').append('<option value=' + banji + '>' + banji + '</option>');
 
@@ -491,7 +491,7 @@
                         $.each(res, function (i, n) {
                             msg += "<tr>";
                             msg += "<td>" + n.id + "</td>";
-                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/student/getimg?id="+n.id+"\"" + "  alt=" + "\"...\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
                             msg += "<td>" + n.present_class + "</td>";
                             msg += "<td>" + n.original_class + "</td>";
                             msg += "<td>" + n.present_post + "</td>";
@@ -547,7 +547,7 @@
                             var msg = "";
                             msg += "<tr>";
                             msg += "<td>" + res.id + "</td>";
-                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + ">" + res.name + "</a></h2></td>";
+                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/student/getimg?id="+res.id+"\"" + "  alt=" + "\"...\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + res.id + "\"" + ">" + res.name + "</a></h2></td>";
                             msg += "<td>" + res.present_class + "</td>";
                             msg += "<td>" + res.original_class + "</td>";
                             msg += "<td>" + res.present_post + "</td>";
@@ -605,7 +605,7 @@
                         $.each(res, function (i, n) {
                             msg += "<tr>";
                             msg += "<td>" + n.id + "</td>";
-                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                            msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/student/getimg?id="+n.id+"\"" + "  alt=" + "\"...\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
                             msg += "<td>" + n.present_class + "</td>";
                             msg += "<td>" + n.original_class + "</td>";
                             msg += "<td>" + n.present_post + "</td>";
@@ -700,7 +700,7 @@
                 $.each(res, function (i, n) {
                     msg += "<tr>";
                     msg += "<td>" + n.id + "</td>";
-                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/student/getimg?id="+n.id+"\"" + "  alt=" + "\"...\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
                     msg += "<td>" + n.present_class + "</td>";
                     msg += "<td>" + n.original_class + "</td>";
                     msg += "<td>" + n.present_post + "</td>";
@@ -737,7 +737,7 @@
                 $.each(res, function (i, n) {
                     msg += "<tr>";
                     msg += "<td>" + n.id + "</td>";
-                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/student/getimg?id="+n.id+"\"" + "  alt=" + "\"...\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
                     msg += "<td>" + n.present_class + "</td>";
                     msg += "<td>" + n.original_class + "</td>";
                     msg += "<td>" + n.present_post + "</td>";
@@ -764,7 +764,7 @@
                 $.each(res, function (i, n) {
                     msg += "<tr>";
                     msg += "<td>" + n.id + "</td>";
-                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/assets/img/profiles/avatar-01.jpg\"" + "  alt=" + "\"User Image\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+                    msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + " class=" + "\"avatar avatar-sm mr-2\"" + " >" + "<img  class=" + "\"avatar-img rounded-circle\"" + "  src=" + "\"/student/getimg?id="+n.id+"\"" + "  alt=" + "\"...\"" + ">" + "</a>" + "<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
                     msg += "<td>" + n.present_class + "</td>";
                     msg += "<td>" + n.original_class + "</td>";
                     msg += "<td>" + n.present_post + "</td>";
@@ -850,7 +850,7 @@
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="User Image"
+                            <img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="..."
                                  class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
@@ -1226,9 +1226,9 @@
                                 <select name="major" id="major" lay-filter="major">
                                     <option value="0">请选择</option>
                                     <option value="软件工程">软件工程</option>
-                                    <option value="大数据方向">大数据方向</option>
-                                    <option value="数媒">数媒</option>
-                                    <option value="智能">智能</option>
+                                    <option value="数据科学与大数据技术">数据科学与大数据技术</option>
+                                    <option value="数字媒体艺术">数字媒体艺术</option>
+                                    <option value="智能科学与技术">智能科学与技术</option>
                                 </select>
                             </div>
                         </div>
@@ -1272,7 +1272,12 @@
                                     <option value="0">请选择</option>
                                     <option value="班长">班长</option>
                                     <option value="团支书">团支书</option>
-                                    <option value="学习委员">学委</option>
+                                    <option value="学习委员">学习委员</option>
+                                    <option value="副班长">副班长</option>
+                                    <option value="宣传委员">宣传委员</option>
+                                    <option value="心理委员">心理委员</option>
+                                    <option value="组织委员">组织委员</option>
+                                    <option value="文体委员">文体委员</option>
                                 </select>
                             </div>
                         </div>
@@ -1282,8 +1287,14 @@
                                 <select name="original_post" lay-filter="major" id="original_post">
                                     <option value="0">请选择</option>
                                     <option value="班长">班长</option>
-                                    <option value="团支书 ">团支书</option>
-                                    <option value="学习委员">学委</option>
+                                    <option value="团支书">团支书</option>
+                                    <option value="学习委员">学习委员</option>
+                                    <option value="副班长">副班长</option>
+                                    <option value="宣传委员">宣传委员</option>
+                                    <option value="心理委员">心理委员</option>
+                                    <option value="组织委员">组织委员</option>
+                                    <option value="文体委员">文体委员</option>
+                                    <option value="纪律委员">纪律委员</option>
                                 </select>
                             </div>
                         </div>

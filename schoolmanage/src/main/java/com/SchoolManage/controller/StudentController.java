@@ -466,7 +466,6 @@ public class StudentController {
     public void getImg(HttpServletResponse response, String id) throws IOException {
         String path = "C:\\Users\\QYZ\\Desktop\\image\\";
         BufferedImage read = ImageIO.read(new File(path + id + ".jpg"));
-
         ServletOutputStream outputStream = response.getOutputStream();
         ImageIO.write(read, "jpg", outputStream);
         outputStream.close();
