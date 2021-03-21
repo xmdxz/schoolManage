@@ -19,6 +19,15 @@ public interface TalkDao {
      */
     List<Talk> findAll(@Param(value = "comy") String comy);
 
+    /**
+     * 全部数量
+     */
+    int findAllCount(@Param(value = "comy") String comy);
+
+    /**
+     * 查找全部，有分页
+     */
+    List<Talk> findAllPage(@Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 插入谈话数据
@@ -34,7 +43,7 @@ public interface TalkDao {
      * @param student
      * @return
      */
-    List<Talk> findByStudent(@Param(value = "student") String student);
+    List<Talk> findByStudent(@Param(value = "comy") String comy, @Param(value = "student") String student, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 模糊查询时间
@@ -42,8 +51,12 @@ public interface TalkDao {
      * @param date
      * @return
      */
-    List<Talk> findByDate(@Param(value = "date") Date date);
+    List<Talk> findByDate(@Param(value = "comy") String comy, @Param(value = "date") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
+    /**
+     * 根据日期查数量
+     */
+    int findByDateCount(@Param(value = "comy") String comy, @Param(value = "date") Date date);
 
     /**
      * 查询学生一共的谈话次数
@@ -59,7 +72,12 @@ public interface TalkDao {
      * @param teacher
      * @return
      */
-    List<Talk> findByTeacher(@Param(value = "comy") String comy, @Param(value = "teacher") String teacher);
+    List<Talk> findByTeacher(@Param(value = "comy") String comy, @Param(value = "teacher") String teacher, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据教师查询数量
+     */
+    int findByTeacherCount(@Param(value = "comy") String comy, @Param(value = "teacher") String teacher);
 
     /**
      * 删除谈话
@@ -83,7 +101,12 @@ public interface TalkDao {
      * @param date
      * @return
      */
-    List<Talk> findByTime(@Param(value = "comy") String comy, @Param(value = "time") Date date);
+    List<Talk> findByTime(@Param(value = "comy") String comy, @Param(value = "time") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    /**
+     * 根据时间查数量
+     */
+    int findByTimeCount(@Param(value = "comy") String comy, @Param(value = "time") Date date);
 
     /**
      * 根据年月查找，也就是某一月
@@ -91,8 +114,16 @@ public interface TalkDao {
      * @param date
      * @return
      */
-    List<Talk> findByTimeYearAndMonth(@Param(value = "comy") String comy, @Param(value = "time") Date date);
+    List<Talk> findByTimeYearAndMonth(@Param(value = "comy") String comy, @Param(value = "time") Date date, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
+    /**
+     * 数量
+     *
+     * @param comy
+     * @param date
+     * @return
+     */
+    int findByTimeYearAndMonthCount(@Param(value = "comy") String comy, @Param(value = "time") Date date);
 
     /**
      * 根据年
@@ -101,8 +132,16 @@ public interface TalkDao {
      * @param date
      * @return
      */
-    List<Talk> findByTimeYear(@Param(value = "comy") String comy, @Param(value = "time") Date date);
+    List<Talk> findByTimeYear(@Param(value = "comy") String comy, @Param(value = "time") Date date, @Param(value = "name") String name, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
+    /**
+     * 数量
+     *
+     * @param comy
+     * @param date
+     * @return
+     */
+    int findByTimeYearCount(@Param(value = "comy") String comy, @Param(value = "time") Date date);
 
     /**
      * 根据id查找
@@ -110,7 +149,7 @@ public interface TalkDao {
      * @param id
      * @return
      */
-    Talk findById(@Param(value = "id") Integer id);
+    Talk findById(@Param(value = "id") Integer id, @Param(value = "comy") String comy);
 
     /**
      * 根据类型查询
@@ -118,8 +157,9 @@ public interface TalkDao {
      * @param types
      * @return
      */
-    List<Talk> findByTypes(@Param(value = "types") String types);
+    List<Talk> findByTypes(@Param(value = "types") String types, @Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
+    int findByTypesCount(@Param(value = "types") String types, @Param(value = "comy") String comy);
 
     /**
      * 三者查询
@@ -130,7 +170,9 @@ public interface TalkDao {
      * @param comy
      * @return
      */
-    List<Talk> findByDateAndTypesAndLevel(@Param(value = "time") Date time, @Param(value = "types") String types, @Param(value = "level") String level, @Param(value = "comy") String comy);
+    List<Talk> findByDateAndTypesAndLevel(@Param(value = "time") Date time, @Param(value = "types") String types, @Param(value = "level") String level, @Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    int findByDateAndTypesAndLevelCount(@Param(value = "time") Date time, @Param(value = "types") String types, @Param(value = "level") String level, @Param(value = "comy") String comy);
 
     /**
      * 更新
