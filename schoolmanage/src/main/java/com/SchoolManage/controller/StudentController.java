@@ -463,10 +463,9 @@ public class StudentController {
     }
 
     @RequestMapping("getimg")
-    public void getImg(HttpServletResponse response, String id) throws IOException {
-        String path = "C:\\Users\\QYZ\\Desktop\\image\\";
+    public void getImg(HttpServletResponse response, String id, HttpServletRequest request) throws IOException {
+        String path = request.getServletContext().getRealPath("/") + "image/";
         BufferedImage read = ImageIO.read(new File(path + id + ".jpg"));
-
         ServletOutputStream outputStream = response.getOutputStream();
         ImageIO.write(read, "jpg", outputStream);
         outputStream.close();

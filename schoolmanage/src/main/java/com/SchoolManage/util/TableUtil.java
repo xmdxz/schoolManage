@@ -118,7 +118,7 @@ public class TableUtil<T> {
                     if (cell != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim().replace(" ", "")));
                     }
                 }
                 if (!Ts.contains(t) && !getIsNull(t)) {
@@ -180,7 +180,7 @@ public class TableUtil<T> {
                     if (cell != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim().replace(" ", "")));
                     }
                 }
                 if (!Ts.contains(t) && !getIsNull(t)) {
@@ -205,7 +205,7 @@ public class TableUtil<T> {
                     if (cell != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim().replace(" ", "")));
                     }
                 }
                 clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
