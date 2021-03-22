@@ -1,6 +1,7 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.dao.TalkDao;
+import com.SchoolManage.dao.TalkService;
 import com.SchoolManage.pojo.Talk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,15 +20,21 @@ public class TalkServiceImpl implements TalkService {
     @Autowired
     private TalkDao talkDao;
 
+
     @Override
     public List<Talk> findAll(String comy) {
         return talkDao.findAll(comy);
     }
 
-//    @Override
-//    public int findAllCount(String comy,String teacher) {
-//        return talkDao.findAllCount(comy,teacher);
-//    }
+    @Override
+    public int findAllCount(String comy) {
+        return talkDao.findAllCount(comy);
+    }
+
+    @Override
+    public List<Talk> findAllPage(String comy, Integer Page, Integer num) {
+        return talkDao.findAllPage(comy, (Page - 1) * num, num);
+    }
 
     @Override
     public int insertTalk(Talk talk) {
@@ -35,20 +42,19 @@ public class TalkServiceImpl implements TalkService {
     }
 
     @Override
-    public List<Talk> findByStudent(String student) {
-        return null;
+    public List<Talk> findByStudent(String comy, String student, Integer Page, Integer num) {
+        return talkDao.findByStudent(comy, student, (Page - 1) * num, num);
     }
 
     @Override
-    public List<Talk> findByDate(Date date) {
-        return null;
+    public List<Talk> findByDate(String comy, Date date, Integer Page, Integer num) {
+        return talkDao.findByDate(comy, date, (Page - 1) * num, num);
     }
 
-//    @Override
-//    public List<Talk> findByStudentNoPage(String comy,String student,String teacher) {
-//        return talkDao.findByStudentNoPage(comy,student,teacher);
-//    }
-
+    @Override
+    public int findByDateCount(String comy, Date date) {
+        return talkDao.findByDateCount(comy, date);
+    }
 
     @Override
     public int findByStudentCount(String student) {
@@ -56,8 +62,13 @@ public class TalkServiceImpl implements TalkService {
     }
 
     @Override
-    public List<Talk> findByTeacher(String comy, String teacher) {
-        return talkDao.findByTeacher(comy, teacher);
+    public List<Talk> findByTeacher(String comy, String teacher, Integer Page, Integer num) {
+        return talkDao.findByTeacher(comy, teacher, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByTeacherCount(String comy, String teacher) {
+        return talkDao.findByTeacherCount(comy, teacher);
     }
 
     @Override
@@ -71,34 +82,58 @@ public class TalkServiceImpl implements TalkService {
     }
 
     @Override
-    public List<Talk> findByTime(String comy, Date date) {
-        return talkDao.findByTime(comy, date);
-    }
-
-
-    @Override
-    public List<Talk> findByTimeYearAndMonth(String comy, Date date) {
-        return talkDao.findByTimeYearAndMonth(comy, date);
+    public List<Talk> findByTime(String comy, Date date, Integer Page, Integer num) {
+        return talkDao.findByTime(comy, date, (Page - 1) * num, num);
     }
 
     @Override
-    public List<Talk> findByTimeYear(String comy, Date date) {
-        return null;
+    public int findByTimeCount(String comy, Date date) {
+        return talkDao.findByTimeCount(comy, date);
     }
 
     @Override
-    public Talk findById(Integer id) {
-        return talkDao.findById(id);
+    public List<Talk> findByTimeYearAndMonth(String comy, Date date, Integer Page, Integer num) {
+        return talkDao.findByTimeYearAndMonth(comy, date, (Page - 1) * num, num);
     }
 
     @Override
-    public List<Talk> findByTypes(String types) {
-        return talkDao.findByTypes(types);
+    public int findByTimeYearAndMonthCount(String comy, Date date) {
+        return talkDao.findByTimeYearAndMonthCount(comy, date);
     }
 
     @Override
-    public List<Talk> findByDateAndTypesAndLevel(Date time, String types, String level, String comy) {
-        return talkDao.findByDateAndTypesAndLevel(time, types, level, comy);
+    public List<Talk> findByTimeYear(String comy, Date date, String name, Integer Page, Integer num) {
+        return talkDao.findByTimeYear(comy, date, name, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByTimeYearCount(String comy, Date date) {
+        return talkDao.findByTimeYearCount(comy, date);
+    }
+
+    @Override
+    public Talk findById(Integer id, String comy) {
+        return talkDao.findById(id, comy);
+    }
+
+    @Override
+    public List<Talk> findByTypes(String types, String comy, Integer Page, Integer num) {
+        return talkDao.findByTypes(types, comy, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByTypesCount(String types, String comy) {
+        return talkDao.findByTypesCount(types, comy);
+    }
+
+    @Override
+    public List<Talk> findByDateAndTypesAndLevel(Date time, String types, String level, String comy, Integer Page, Integer num) {
+        return talkDao.findByDateAndTypesAndLevel(time, types, level, comy, (Page - 1) * num, num);
+    }
+
+    @Override
+    public int findByDateAndTypesAndLevelCount(Date time, String types, String level, String comy) {
+        return talkDao.findByDateAndTypesAndLevelCount(time, types, level, comy);
     }
 
     @Override

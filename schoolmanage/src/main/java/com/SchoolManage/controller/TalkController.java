@@ -1,8 +1,8 @@
 package com.SchoolManage.controller;
 
+import com.SchoolManage.dao.TalkService;
 import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.Talk;
-import com.SchoolManage.service.TalkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -37,12 +37,24 @@ public class TalkController {
         return talkService.findAll(comy);
     }
 
-//    @RequestMapping("findallcount")
+    //    @RequestMapping("findallcount")
 //    @ResponseBody
 //    public int findAllCount(HttpServletRequest request) {
 //        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
 //        return talkService.findAllCount(a.getName());
 //    }
+    @RequestMapping("findallcount")
+    @ResponseBody
+    public int findAllCount(String comy) {
+        return talkService.findAllCount(comy);
+    }
+
+    @RequestMapping("findallpage")
+    @ResponseBody
+    public List<Talk> findAllPage(String comy, Integer Page, Integer num) {
+        return talkService.findAllPage(comy, (Page - 1) * num, num);
+    }
+
 
     @RequestMapping("inserttalk")
     public String insertTalk(Talk talk, HttpServletRequest request) {
@@ -54,6 +66,7 @@ public class TalkController {
             return "redirect:/loginp_5.html?id=1";
         } else return "redirect:/edit-talk.html?error=true";
     }
+
     @RequestMapping("inserttalk2")
     public String insertTalk2(Talk talk, HttpServletRequest request) {
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
@@ -86,10 +99,40 @@ public class TalkController {
 //        return talkService.findByStudentCount(student, a.getName());
 //    }
 
+    @RequestMapping("findbystudent")
+    @ResponseBody
+    public List<Talk> findByStudent(String comy, String student, Integer Page, Integer num) {
+        return talkService.findByStudent(comy, student, (Page - 1) * num, num);
+    }
+
+    @RequestMapping("findbydate")
+    @ResponseBody
+    public List<Talk> findByDate(String comy, Date date, Integer Page, Integer num) {
+        return talkService.findByDate(comy, date, (Page - 1) * num, num);
+    }
+
+    @RequestMapping("findbydatecount")
+    @ResponseBody
+    public int findByDateCount(String comy, Date date) {
+        return talkService.findByDateCount(comy, date);
+    }
+
+    @RequestMapping("findbystudentcount")
+    @ResponseBody
+    public int findByStudentCount(String student) {
+        return talkService.findByStudentCount(student);
+    }
+
     @RequestMapping("findbyteacher")
     @ResponseBody
-    public List<Talk> findByTeacher(String comy, String teacher) {
-        return talkService.findByTeacher(comy, teacher);
+    public List<Talk> findByTeacher(String comy, String teacher, Integer Page, Integer num) {
+        return talkService.findByTeacher(comy, teacher, (Page - 1) * num, num);
+    }
+
+    @RequestMapping("findbyteachercount")
+    @ResponseBody
+    public int findByTeacherCount(String comy, String teacher) {
+        return talkService.findByTeacherCount(comy, teacher);
     }
 
     @RequestMapping("deletetalk")
@@ -118,54 +161,96 @@ public class TalkController {
 
     @RequestMapping("findbytime")
     @ResponseBody
-    public List<Talk> findByTime(Date date,HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        return talkService.findByTime("2019", date);
+    public List<Talk> findByTime(String comy, Date date, Integer Page, Integer num) {
+        return talkService.findByTime(comy, date, (Page - 1) * num, num);
     }
-    @RequestMapping("findbytime2")
-    @ResponseBody
-    public List<Talk> findByTime2(Date date,HttpServletRequest request) {
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        return talkService.findByTime("2020", date);
-    }
+
+    //    @RequestMapping("findbytime2")
+//    @ResponseBody
+//    public List<Talk> findByTime2(Date date, HttpServletRequest request) {
+//        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
+//        return talkService.findByTime("2020", date);
+//    }
 //    @RequestMapping("findbytimecount")
 //    @ResponseBody
 //    public int findByTimeCount(Date date, HttpServletRequest request) {
 //        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
 //        return talkService.findByTimeCount(date, a.getName());
 //    }
+    @RequestMapping("findbytimecount")
+    @ResponseBody
+    public int findByTimeCount(String comy, Date date) {
+        return talkService.findByTimeCount(comy, date);
+    }
 
     @RequestMapping("findbytimeyearandmonth")
     @ResponseBody
-    public List<Talk> findByTimeYearAndMonth(String comy, Date date) {
-        return talkService.findByTimeYearAndMonth(comy, date);
+    public List<Talk> findByTimeYearAndMonth(String comy, Date date, Integer Page, Integer num) {
+        return talkService.findByTimeYearAndMonth(comy, date, (Page - 1) * num, num);
     }
 
-//    @RequestMapping("findbytimeyearandmonthcount")
+    @RequestMapping("findbytimeyearandmonthcount")
+    @ResponseBody
+    public int findByTimeYearAndMonthCount(String comy, Date date) {
+        return talkService.findByTimeYearAndMonthCount(comy, date);
+    }
+
+    @RequestMapping("findbytimeyear")
+    @ResponseBody
+    public List<Talk> findByTimeYear(String comy, Date date, String name, Integer Page, Integer num) {
+        return talkService.findByTimeYear(comy, date, name, (Page - 1) * num, num);
+    }
+
+    //    @RequestMapping("findbytimeyearandmonthcount")
 //    @ResponseBody
 //    public int findByTimeYearAndMonthCount(Date date) {
 //        return talkService.findByTimeYearAndMonthCount(date);
 //    }
-
-    //这个接口用于绑定的时候验证权限
-    @RequestMapping("checkuser")
+    @RequestMapping("findbytimeyearcount")
     @ResponseBody
-    public boolean check(Integer id, HttpServletRequest request) {
-        Talk talk = talkService.findById(id);
-        if (talk == null) return false;
-        AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        if (talk.getTeacher().equals(a.getName())) return true;
-        else return false;
+    public int findByTimeYearCount(String comy, Date date) {
+        return talkService.findByTimeYearCount(comy, date);
     }
 
     @RequestMapping("findbyid")
     @ResponseBody
-    public Talk findById(Integer id, HttpServletRequest request) {
-        Talk talk = talkService.findById(id);
-        if (talk == null) return null;
+    public Talk findById(Integer id, String comy) {
+        return talkService.findById(id, comy);
+    }
+
+    @RequestMapping("findbytypes")
+    @ResponseBody
+    public List<Talk> findByTypes(String types, String comy, Integer Page, Integer num) {
+        return talkService.findByTypes(types, comy, (Page - 1) * num, num);
+    }
+
+    @RequestMapping("findbytypescount")
+    @ResponseBody
+    public int findByTypesCount(String types, String comy) {
+        return talkService.findByTypesCount(types, comy);
+    }
+
+    @RequestMapping("findbydateandtypesandlevel")
+    @ResponseBody
+    public List<Talk> findByDateAndTypesAndLevel(Date time, String types, String level, String comy, Integer Page, Integer num) {
+        return talkService.findByDateAndTypesAndLevel(time, types, level, comy, (Page - 1) * num, num);
+    }
+
+    @RequestMapping("findbydateandtypesandlevelcount")
+    @ResponseBody
+    public int findByDateAndTypesAndLevelCount(Date time, String types, String level, String comy) {
+        return talkService.findByDateAndTypesAndLevelCount(time, types, level, comy);
+    }
+
+    //这个接口用于绑定的时候验证权限
+    @RequestMapping("checkuser")
+    @ResponseBody
+    public boolean check(Integer id, String comy, HttpServletRequest request) {
+        Talk talk = talkService.findById(id, comy);
+        if (talk == null) return false;
         AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
-        if (a.getResponsible().contains(talk.getComy())) return talk;
-        else return null;
+        if (talk.getTeacher().equals(a.getName())) return true;
+        else return false;
     }
 
     @RequestMapping("update")
@@ -174,7 +259,7 @@ public class TalkController {
         talk.setTeacher(a.getName());
         int i = talkService.updata(talk);
         if (i != 0) {
-            return "redirect:/loginp_5.html?id="+(talk.getComy().equals("2019")?"1":"2");
+            return "redirect:/loginp_5.html?id=" + (talk.getComy().equals("2019") ? "1" : "2");
         } else return "redirect:/edit-talk.html?error=true";
     }
 }

@@ -1,25 +1,30 @@
-package com.SchoolManage.service;
+package com.SchoolManage.dao;
 
 import com.SchoolManage.pojo.Talk;
+import org.apache.ibatis.annotations.Param;
 
 import java.sql.Date;
 import java.util.List;
 
-/**
- * @Author RainGoal
- * @Date 2021/2/19 11:53
- * @Description TODO
- * @Version 1.0
- */
 
 public interface TalkService {
+
     /**
      * 查找全部
      *
      * @return
      */
-    List<Talk> findAll(String comy);
+    List<Talk> findAll(@Param(value = "comy") String comy);
 
+    /**
+     * 全部数量
+     */
+    int findAllCount(@Param(value = "comy") String comy);
+
+    /**
+     * 查找全部，有分页
+     */
+    List<Talk> findAllPage(@Param(value = "comy") String comy, @Param(value = "Page") Integer Page, @Param(value = "num") Integer num);
 
     /**
      * 插入谈话数据
@@ -27,7 +32,7 @@ public interface TalkService {
      * @param talk
      * @return
      */
-    int insertTalk(Talk talk);
+    int insertTalk(@Param(value = "talk") Talk talk);
 
     /**
      * 根据学号查找,不分页，用于个人详细信息的展示
@@ -35,7 +40,7 @@ public interface TalkService {
      * @param student
      * @return
      */
-    List<Talk> findByStudent(String student);
+    List<Talk> findByStudent(@Param(value = "comy") String comy, @Param(value = "student") String student, @Param(value = "Page") Integer Page, @Param(value = "num") Integer num);
 
     /**
      * 模糊查询时间
@@ -43,8 +48,12 @@ public interface TalkService {
      * @param date
      * @return
      */
-    List<Talk> findByDate(Date date);
+    List<Talk> findByDate(@Param(value = "comy") String comy, @Param(value = "date") Date date, @Param(value = "Page") Integer Page, @Param(value = "num") Integer num);
 
+    /**
+     * 根据日期查数量
+     */
+    int findByDateCount(@Param(value = "comy") String comy, @Param(value = "date") Date date);
 
     /**
      * 查询学生一共的谈话次数
@@ -52,7 +61,7 @@ public interface TalkService {
      * @param student
      * @return
      */
-    int findByStudentCount(String student);
+    int findByStudentCount(@Param(value = "student") String student);
 
     /**
      * 根据教师查找
@@ -60,7 +69,12 @@ public interface TalkService {
      * @param teacher
      * @return
      */
-    List<Talk> findByTeacher(String comy, String teacher);
+    List<Talk> findByTeacher(@Param(value = "comy") String comy, @Param(value = "teacher") String teacher, @Param(value = "Page") Integer Page, @Param(value = "num") Integer num);
+
+    /**
+     * 根据教师查询数量
+     */
+    int findByTeacherCount(@Param(value = "comy") String comy, @Param(value = "teacher") String teacher);
 
     /**
      * 删除谈话
@@ -68,7 +82,7 @@ public interface TalkService {
      * @param id
      * @return
      */
-    int deleteTalk(Integer id);
+    int deleteTalk(@Param(value = "id") Integer id);
 
     /**
      * 批量插入
@@ -76,7 +90,7 @@ public interface TalkService {
      * @param list
      * @return
      */
-    int insertAllTalk(List<Talk> list);
+    int insertAllTalk(@Param(value = "list") List<Talk> list);
 
     /**
      * 根据具体时间查找，也就是某一天
@@ -84,7 +98,12 @@ public interface TalkService {
      * @param date
      * @return
      */
-    List<Talk> findByTime(String comy, Date date);
+    List<Talk> findByTime(@Param(value = "comy") String comy, @Param(value = "time") Date date, @Param(value = "Page") Integer Page, @Param(value = "num") Integer num);
+
+    /**
+     * 根据时间查数量
+     */
+    int findByTimeCount(@Param(value = "comy") String comy, @Param(value = "time") Date date);
 
     /**
      * 根据年月查找，也就是某一月
@@ -92,8 +111,16 @@ public interface TalkService {
      * @param date
      * @return
      */
-    List<Talk> findByTimeYearAndMonth(String comy, Date date);
+    List<Talk> findByTimeYearAndMonth(@Param(value = "comy") String comy, @Param(value = "time") Date date, @Param(value = "Page") Integer Page, @Param(value = "num") Integer num);
 
+    /**
+     * 数量
+     *
+     * @param comy
+     * @param date
+     * @return
+     */
+    int findByTimeYearAndMonthCount(@Param(value = "comy") String comy, @Param(value = "time") Date date);
 
     /**
      * 根据年
@@ -102,8 +129,16 @@ public interface TalkService {
      * @param date
      * @return
      */
-    List<Talk> findByTimeYear(String comy, Date date);
+    List<Talk> findByTimeYear(@Param(value = "comy") String comy, @Param(value = "time") Date date, @Param(value = "name") String name, @Param(value = "Page") Integer Page, @Param(value = "num") Integer num);
 
+    /**
+     * 数量
+     *
+     * @param comy
+     * @param date
+     * @return
+     */
+    int findByTimeYearCount(@Param(value = "comy") String comy, @Param(value = "time") Date date);
 
     /**
      * 根据id查找
@@ -111,7 +146,7 @@ public interface TalkService {
      * @param id
      * @return
      */
-    Talk findById(Integer id);
+    Talk findById(@Param(value = "id") Integer id, @Param(value = "comy") String comy);
 
     /**
      * 根据类型查询
@@ -119,8 +154,9 @@ public interface TalkService {
      * @param types
      * @return
      */
-    List<Talk> findByTypes(String types);
+    List<Talk> findByTypes(@Param(value = "types") String types, @Param(value = "comy") String comy, @Param(value = "Page") Integer Page, @Param(value = "num") Integer num);
 
+    int findByTypesCount(@Param(value = "types") String types, @Param(value = "comy") String comy);
 
     /**
      * 三者查询
@@ -131,7 +167,9 @@ public interface TalkService {
      * @param comy
      * @return
      */
-    List<Talk> findByDateAndTypesAndLevel(Date time, String types, String level, String comy);
+    List<Talk> findByDateAndTypesAndLevel(@Param(value = "time") Date time, @Param(value = "types") String types, @Param(value = "level") String level, @Param(value = "comy") String comy, @Param(value = "Page") Integer Page, @Param(value = "num") Integer num);
+
+    int findByDateAndTypesAndLevelCount(@Param(value = "time") Date time, @Param(value = "types") String types, @Param(value = "level") String level, @Param(value = "comy") String comy);
 
     /**
      * 更新
@@ -139,5 +177,5 @@ public interface TalkService {
      * @param talk
      * @return
      */
-    int updata(Talk talk);
+    int updata(@Param(value = "talk") Talk talk);
 }
