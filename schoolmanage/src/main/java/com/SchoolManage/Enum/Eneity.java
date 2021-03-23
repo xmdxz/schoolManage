@@ -134,7 +134,37 @@ public enum Eneity {
             put("荣誉", "prize");
             put("获得时间", "time");
         }
-    });
+    }),
+
+    TALKTYPE(new LinkedHashMap<String, String>() {
+        private static final long serialVersionUID = 8710442881691886614L;
+
+        {
+        put("编号", "id");
+        put("类型", "type");
+        put("所属学院", "college");
+        put("人数", "number");
+    }}),
+
+    TALKMEMBER(new LinkedHashMap<String, String>() {
+        private static final long serialVersionUID = -1593903241103609890L;
+
+        {
+        put("编号", "id");
+        put("类型", "type");
+        put("班级", "clazz");
+        put("学号", "code");
+        put("姓名", "name");
+        put("籍贯", "nativeplace");
+        put("宿舍楼", "bedroom_lou");
+        put("宿舍号", "bedroom_hao");
+        put("心理状态", "status");
+        put("本人联系方式", "own_phone");
+        put("家长联系方式", "family_phone");
+        put("地址", "address");
+        put("解决方案", "solution");
+        put("备注", "remarks");
+    }});
 
 
     private Map<String, String> pojo;

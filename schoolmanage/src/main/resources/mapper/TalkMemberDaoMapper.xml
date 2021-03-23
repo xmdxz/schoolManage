@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.TalkMemberDao">
+    <select id="findAll" resultType="com.SchoolManage.pojo.TalkMember">
+        select *
+        from talkmember
+        where type = #{type}
+        limit #{startPage},#{num}
+    </select>
+
+    <select id="findAllCount" resultType="int">
+        select count(*)
+        from talkmember
+        where type = #{type}
+    </select>
+
+    <update id="updateData">
+        update talkmember
+        set type         = #{talkMember.type},
+            clazz        = #{talkMember.clazz},
+            code         = #{talkMember.code},
+            name         = #{talkMember.name},
+            nativeplace  = #{talkMember.nativeplace},
+            bedroom_hao  = #{param1.bedroom_hao},
+            bedroom_lou  = #{param1.bedroom_lou},
+            status       = #{talkMember.status},
+            own_phone    = #{param1.own_phone},
+            family_phone = #{talkMember.family_phone},
+            address      = #{talkMember.address},
+            solution     = #{talkMember.solution},
+            remarks      = #{talkMember.remarks}
+        where id = #{talkMember.id}
+    </update>
+
+    <insert id="insertData">
+        insert into talkmember(type, clazz, code, name, nativeplace, bedroom_hao, bedroom_lou, status, own_phone,
+                               family_phone, address, solution, remarks)
+        values (#{talkMember.type}, #{talkMember.clazz}, #{talkMember.code}, #{talkMember.name},
+                #{talkMember.nativeplace}, #{talkMember.bedroom_hao}, #{talkMember.bedroom_lou}, #{talkMember.status},
+                #{talkMember.own_phone}, #{talkMember.family_phone}, #{talkMember.address}, #{talkMember.solution},
+                #{talkMember.remarks})
+    </insert>
+
+    <insert id="insertDatas">
+        insert into talkmember(type, clazz, code, name, nativeplace, bedroom_hao, bedroom_lou, status, own_phone,
+        family_phone, address, solution, remarks)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.type},#{item.clazz},#{item.code},#{item.name},#{item.name},#{item.nativeplace},#{item.bedroom_hao},#{item.bedroom_lou},#{item.status},#{item.own_phone},#{item.family_phone},#{item.address},#{item.solution},#{item.remarks})
+        </foreach>
+    </insert>
+
+    <delete id="deleteData">
+        delete
+        from talkmember
+        where id = #{id}
+    </delete>
+    <select id="findById" resultType="com.SchoolManage.pojo.TalkMember">
+        select *
+        from talkmember
+        where id = #{id}
+    </select>
+
+    <select id="findByCodeAndType" resultType="com.SchoolManage.pojo.TalkMember">
+        select *
+        from talkmember
+        where type = #{type}
+          and code = #{code}
+        limit #{startPage},#{num}
+    </select>
+
+    <select id="findByCode" resultType="com.SchoolManage.pojo.TalkMember">
+        select *
+        from talkmember
+        where code = #{code}
+        limit #{startPage},#{num}
+    </select>
+
+    <select id="findByCodeAndTypeCount" resultType="int">
+        select count(*)
+        from talkmember
+        where type = #{type}
+          and code = #{code}
+    </select>
+
+    <select id="findByCodeCount" resultType="int">
+        select count(*)
+        from talkmember
+        where code = #{code}
+    </select>
+
+    <select id="findByName" resultType="com.SchoolManage.pojo.TalkMember">
+        select *
+        from talkmember
+        where type = #{type}
+          and name like concat("%", #{name}, "%")
+        limit #{startPage},#{num}
+    </select>
+
+    <select id="findByNameCount" resultType="int">
+        select count(*)
+        from talkmember
+        where type = #{type}
+          and name like concat("%", #{name}, "%")
+    </select>
+</mapper>
