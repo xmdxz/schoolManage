@@ -119,8 +119,24 @@ public class QingJiaController {
     }
     @RequestMapping("findBystart")
     @ResponseBody
-    public List<Qingjia> findBystart(String comy,String time) {
-        return qingJiaService.findBystart_time(comy,time);
+    public List<Qingjia> findBystart(String comy,String time,Integer Page, Integer num) {
+        return qingJiaService.findBystart_time(comy,time,Page,num);
+    }
+    @RequestMapping("findByend")
+    @ResponseBody
+    public List<Qingjia> findByend(String comy,String time,Integer Page, Integer num) {
+        return qingJiaService.findByend_time(comy,time,Page,num);
+    }
+    @RequestMapping("findBystartcount")
+    @ResponseBody
+    public int findBystartCount(String comy, String time) {
+        return qingJiaService.findBystart_timeCount(comy,time);
+    }
+
+    @RequestMapping("findByendcount")
+    @ResponseBody
+    public int findByendCount(String comy, String time) {
+        return qingJiaService.findByend_timeCount(comy,time);
     }
     @RequestMapping("findByNow_time")
     @ResponseBody
@@ -201,10 +217,24 @@ public class QingJiaController {
 
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request, String comy) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i = qingJiaService.findAllCount(comy);
-        CreateExlceUtil<Qingjia> createExlceUtil = new CreateExlceUtil<>(request, Qingjia.class, "假期表");
-        List<Qingjia> list = qingJiaService.findAll(comy, 1, i);
+    public String ExcleStudent(HttpServletRequest request, String comy,String time,String time1) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        CreateExlceUtil<Qingjia> createExlceUtil;
+        List<Qingjia> list;
+        if (time != null && "".equals(time)) {
+            int i = qingJiaService.findBystart_timeCount(comy,time);
+            createExlceUtil = new CreateExlceUtil<>(request, Qingjia.class, "假期表");
+            list = qingJiaService.findBystart_time(comy,time, 1, i);
+        }
+        else if(time1 != null && "".equals(time1)){
+            int i = qingJiaService.findByend_timeCount(comy,time1);
+            createExlceUtil = new CreateExlceUtil<>(request, Qingjia.class, "假期表");
+            list = qingJiaService.findByend_time(comy,time1, 1, i);
+        }
+        else {
+            int i = qingJiaService.findAllCount(comy);
+            createExlceUtil = new CreateExlceUtil<>(request, Qingjia.class, "假期表");
+            list = qingJiaService.findAll(comy, 1, i);
+        }
         return createExlceUtil.createExcle(list);
     }
 

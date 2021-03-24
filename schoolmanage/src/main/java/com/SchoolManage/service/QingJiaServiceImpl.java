@@ -229,7 +229,22 @@ public class QingJiaServiceImpl implements QingJiaService {
     }
 
     @Override
-    public List<Qingjia> findBystart_time(String comy, String time) {
-        return qingJiaDao.findBystart_time(comy,time);
+    public List<Qingjia> findBystart_time(String comy, String time,Integer Page, Integer num) {
+        return qingJiaDao.findBystart_time(comy,time,Page-1,num);
+    }
+
+    @Override
+    public List<Qingjia> findByend_time(String comy, String time, Integer Page, Integer num) {
+        return qingJiaDao.findByend_time(comy,time,Page-1,num);
+    }
+
+    @Override
+    public int findBystart_timeCount(String comy, String time) {
+        return qingJiaDao.findBystart_timeCount(comy,time);
+    }
+
+    @Override
+    public int findByend_timeCount(String comy, String time) {
+        return qingJiaDao.findByend_timeCount(comy,time);
     }
 }
