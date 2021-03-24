@@ -31,7 +31,7 @@ public class TalkTypeController {
     @RequestMapping("findall")
     @ResponseBody
     public List<TalkType> findAll(String comy, Integer Page, Integer num) {
-        return talkTypeService.findAll(comy, (Page - 1) * num, num);
+        return talkTypeService.findAll(comy, Page, num);
     }
 
     @RequestMapping("findallcount")
@@ -49,7 +49,7 @@ public class TalkTypeController {
     @RequestMapping("findbytype")
     @ResponseBody
     public List<TalkType> findByType(String comy, String type, Integer Page, Integer num) {
-        return talkTypeService.findByType(comy, type, (Page - 1) * num, num);
+        return talkTypeService.findByType(comy, type, Page, num);
     }
 
     @RequestMapping("findbytypecount")
@@ -90,5 +90,5 @@ public class TalkTypeController {
         }
     }
 
-  
+
 }

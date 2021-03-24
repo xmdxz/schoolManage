@@ -25,7 +25,7 @@ public class TalkMemberController {
     @RequestMapping("findall")
     @ResponseBody
     public List<TalkMember> findAll(String type, Integer Page, Integer num) {
-        return talkMemberService.findAll(type, (Page - 1) * num, num);
+        return talkMemberService.findAll(type, Page, num);
     }
 
     @RequestMapping("findallcount")
@@ -43,7 +43,7 @@ public class TalkMemberController {
     @RequestMapping("findbycodeandtype")
     @ResponseBody
     public List<TalkMember> findByCodeAndType(String type, String code, Integer Page, Integer num) {
-        return talkMemberService.findByCodeAndType(type, code, (Page - 1) * num, num);
+        return talkMemberService.findByCodeAndType(type, code, Page, num);
     }
 
     @RequestMapping("findbycodeandtypecount")
@@ -55,7 +55,7 @@ public class TalkMemberController {
     @RequestMapping("findbycode")
     @ResponseBody
     public List<TalkMember> findByCode(String code, Integer Page, Integer num) {
-        return talkMemberService.findByCode(code, (Page - 1) * num, num);
+        return talkMemberService.findByCode(code, Page, num);
     }
 
     @RequestMapping("findbycodecount")
@@ -67,7 +67,7 @@ public class TalkMemberController {
     @RequestMapping("findbyname")
     @ResponseBody
     public List<TalkMember> findByName(String type, String name, Integer Page, Integer num) {
-        return talkMemberService.findByName(type, name, (Page - 1) * num, num);
+        return talkMemberService.findByName(type, name, Page, num);
     }
 
     @RequestMapping("findbynamecount")
