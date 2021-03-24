@@ -18,6 +18,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Controller
+@RequestMapping("talkmember")
 public class TalkMemberController {
     @Autowired
     private TalkMemberService talkMemberService;
