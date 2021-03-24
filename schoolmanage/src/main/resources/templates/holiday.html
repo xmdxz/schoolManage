@@ -16,7 +16,8 @@
 		<!-- Fontawesome CSS -->
 		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
 		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
-
+		<!-- layuiCSS -->
+		<link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
 		<!-- Main CSS -->
 		<link rel="stylesheet" th:href="@{/assets/css/style.css}">
 
@@ -50,7 +51,13 @@
 			var allpage_2= 1;
 			const everypage_1 = 20; //每页的数量
 			var allpage_1 = 1;
+			const everypage_3 = 20; //每页的数量
+			var allpage_3 = 1;
+			const everypage_4 = 20; //每页的数量
+			var allpage_4 = 1;
 			var a=null;
+			var time=null;
+			var time1=null;
 			$(document).ready(function () {
 				$('#InfoName').text(name);
 				if(responsible=='2019')
@@ -60,6 +67,153 @@
 				else if(responsible=='2020'){
 					$('[name="Q19"]').css("display","none")
 				}
+				layui.use('laydate', function(){
+					var laydate = layui.laydate;
+					console.log(laydate)
+					//常规用法
+					laydate.render({
+						elem: '#test1'
+						,type: 'datetime'
+						,done: function(value, date, endDate){
+							time=value;
+							$.ajax({
+								type: "post",
+								url: "QingJia/findBystartcount",
+								data:{comy:'2019',time:value},
+								dataType: "json",
+								async: false,
+							}).done(function (res) {
+								console.log(res)
+								allpage_3 = Math.ceil(res / everypage_3);
+							})
+							$.ajax({
+								type: "post",
+								url: "QingJia/findBystart",
+								dataType: "json",
+								data: {comy:'2019',time:value,'Page': 1, 'num': everypage_3},
+							}).done(function (res) {
+								console.log(res)
+								var msg = "";
+								$.each(res, function (i, n) {
+									n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+									n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
+									msg += "<tr>";
+									msg += "<td>" + n.student+"</td>";
+									msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+									msg += "<td>" + n.clazz+ "</td>";
+									msg += "<td>" + n.phone+ "</td>";
+									msg += "<td>" + n.start_time+ "</td>";
+									msg += "<td>" + n.teacher+ "</td>";
+									msg += "<td>" + n.end_time+ "</td>";
+									msg += "<td>" + n.cause+ "</td>";
+									msg += "<td>" + n.num+ "</td>";
+									msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-holiday.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+									msg += "</tr>";
+								});
+								$("#dormitory").html(msg);
+								$('#example').bootstrapPaginator({
+									currentPage: 1,//当前的请求页面。
+									totalPages: allpage_3,//一共多少页。
+									size: "normal",//应该是页眉的大小。
+									bootstrapMajorVersion: 4,//bootstrap的版本要求。
+									alignment: "right",
+									numberOfPages: 8,//一页列出多少数据。
+									itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+										switch (type) {
+											case "first":
+												return "首页";
+											case "prev":
+												return "上一页";
+											case "next":
+												return "下一页";
+											case "last":
+												return "末页";
+											case "page":
+												return page;
+										}
+									},
+									onPageClicked: function (event, originalEvent, type, page) {
+										newpage_3(page,value)
+									}
+								});
+							})
+
+						}
+
+					});
+					laydate.render({
+						elem: '#test2'
+						,type: 'datetime'
+						,done: function(value, date, endDate){
+							time2=value;
+							$.ajax({
+								type: "post",
+								url: "QingJia/findByendcount",
+								data:{comy:'2019',time:value},
+								dataType: "json",
+								async: false,
+							}).done(function (res) {
+								console.log(res)
+								allpage_4 = Math.ceil(res / everypage_4);
+							})
+							$.ajax({
+								type: "post",
+								url: "QingJia/findByend",
+								dataType: "json",
+								data: {comy:'2019',time:value,'Page': 1, 'num': everypage_4},
+							}).done(function (res) {
+								console.log(res)
+								var msg = "";
+								$.each(res, function (i, n) {
+									n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+									n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
+									msg += "<tr>";
+									msg += "<td>" + n.student+"</td>";
+									msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+									msg += "<td>" + n.clazz+ "</td>";
+									msg += "<td>" + n.phone+ "</td>";
+									msg += "<td>" + n.start_time+ "</td>";
+									msg += "<td>" + n.teacher+ "</td>";
+									msg += "<td>" + n.end_time+ "</td>";
+									msg += "<td>" + n.cause+ "</td>";
+									msg += "<td>" + n.num+ "</td>";
+									msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-holiday.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+									msg += "</tr>";
+								});
+								$("#dormitory").html(msg);
+								$('#example').bootstrapPaginator({
+									currentPage: 1,//当前的请求页面。
+									totalPages: allpage_4,//一共多少页。
+									size: "normal",//应该是页眉的大小。
+									bootstrapMajorVersion: 4,//bootstrap的版本要求。
+									alignment: "right",
+									numberOfPages: 8,//一页列出多少数据。
+									itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+										switch (type) {
+											case "first":
+												return "首页";
+											case "prev":
+												return "上一页";
+											case "next":
+												return "下一页";
+											case "last":
+												return "末页";
+											case "page":
+												return page;
+										}
+									},
+									onPageClicked: function (event, originalEvent, type, page) {
+										newpage_4(page,value)
+									}
+								});
+							})
+
+						}
+
+
+					});
+
+				})
 				var downing = false;
 				$("#bt1").click(function (){
 					swal("已经开始下载！", "切勿重复点击！", "success");
@@ -67,7 +221,7 @@
 					downing = true;
 					$.ajax({
 						url: 'QingJia/Excle',
-						data:{comy:'2019'},
+						data:{comy:'2019',time:time,time1:time1},
 						dataType: 'text',
 						success(res){
 							console.log(res);
@@ -316,6 +470,62 @@
 					url: "QingJia/findbyname",
 					dataType: "json",
 					data: {comy:'2019',name:a,Page: page, num: everypage_2},
+				}).done(function (res) {
+					var msg = "";
+					$.each(res, function (i, n) {
+						n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+						n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
+						msg += "<tr>";
+						msg += "<td>" + n.student+"</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + n.clazz+ "</td>";
+						msg += "<td>" + n.phone+ "</td>";
+						msg += "<td>" + n.start_time+ "</td>";
+						msg += "<td>" + n.teacher+ "</td>";
+						msg += "<td>" + n.end_time+ "</td>";
+						msg += "<td>" + n.cause+ "</td>";
+						msg += "<td>" + n.num+ "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-holiday.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "</tr>";
+					});
+					$("#dormitory").html(msg);
+				})
+			}
+			function newpage_3(res,value) {
+				var page = res
+				$.ajax({
+					type: "post",
+					url: "QingJia/findBystart",
+					dataType: "json",
+					data: {comy:'2019',time:value,Page: page, num: everypage_3},
+				}).done(function (res) {
+					var msg = "";
+					$.each(res, function (i, n) {
+						n.start_time=moment(n.start_time).format('Y-M-D-HH:mm');
+						n.end_time=moment(n.end_time).format('Y-M-D-HH:mm');
+						msg += "<tr>";
+						msg += "<td>" + n.student+"</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.student + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + n.clazz+ "</td>";
+						msg += "<td>" + n.phone+ "</td>";
+						msg += "<td>" + n.start_time+ "</td>";
+						msg += "<td>" + n.teacher+ "</td>";
+						msg += "<td>" + n.end_time+ "</td>";
+						msg += "<td>" + n.cause+ "</td>";
+						msg += "<td>" + n.num+ "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-holiday.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "</tr>";
+					});
+					$("#dormitory").html(msg);
+				})
+			}
+			function newpage_4(res,value) {
+				var page = res
+				$.ajax({
+					type: "post",
+					url: "QingJia/findByend",
+					dataType: "json",
+					data: {comy:'2019',time:value,Page: page, num: everypage_4},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
@@ -831,6 +1041,36 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
+
+					<form class="layui-form layui-form-pane" action="">
+						<div class="layui-form-item">
+
+							<div class="row">
+								<div class="col-xs-6 col-md-4">
+									<div class="layui-inline">
+										<label class="layui-form-label">开始日期</label>
+										<div class="layui-input-inline">
+											<input type="text" class="layui-input" id="test1" placeholder="请选择">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-6 col-md-4">
+									<div class="layui-inline">
+										<label class="layui-form-label">结束日期</label>
+										<div class="layui-input-inline">
+											<input type="text" class="layui-input" id="test2" placeholder="请选择">
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</form>
+
+
+
+
 					<div class="row">
 						<div class="col-sm-12">
 
@@ -894,5 +1134,7 @@
 
 		<!-- Custom JS -->
 	<script th:src="@{/assets/js/script.js}"></script>
+		<!-- layui JS -->
+		<script th:src="@{/layui/layui.all.js}" charset="utf-8"></script>
     </body>
 </html>

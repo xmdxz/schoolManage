@@ -229,6 +229,9 @@ public interface QingJiaService {
     Qingjia findById(int id);
     int findByNow_time(String comy);
     Map<String, List<Qingjia>> findBYweek_time(String comy);
-    List<Qingjia> findBystart_time(String comy, String time);
+    List<Qingjia> findBystart_time(String comy, String time,Integer Page, Integer num);
+    List<Qingjia> findByend_time(String comy, String time,Integer Page, Integer num);
+    int findBystart_timeCount(String comy, String time);
+    int findByend_timeCount(String comy, String time);
 
 }
