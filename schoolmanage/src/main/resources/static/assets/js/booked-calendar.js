@@ -42,7 +42,7 @@ function delect(res) {
         });
 }
 function edit(res) {
-    window.location.href='/edit-talk.html?id='+res;
+    window.location.href='/edit-psychology.html?id='+res;
 }
 (function ($) {
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Mapper
 @Repository
+
 public interface TalkTypeDao {
 
     /**

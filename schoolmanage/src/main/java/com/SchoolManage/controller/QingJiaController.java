@@ -119,8 +119,8 @@ public class QingJiaController {
     }
     @RequestMapping("findBystart")
     @ResponseBody
-    public List<Qingjia> findBystart(String comy,String time,Integer Page, Integer num) {
-        return qingJiaService.findBystart_time(comy,time,Page,num);
+    public List<Qingjia> findBystart(String comy,String time,String time1,Integer Page, Integer num) {
+        return qingJiaService.findBystart_time(comy,time,time1,Page,num);
     }
     @RequestMapping("findByend")
     @ResponseBody
@@ -129,8 +129,8 @@ public class QingJiaController {
     }
     @RequestMapping("findBystartcount")
     @ResponseBody
-    public int findBystartCount(String comy, String time) {
-        return qingJiaService.findBystart_timeCount(comy,time);
+    public int findBystartCount(String comy, String time,String time1) {
+        return qingJiaService.findBystart_timeCount(comy,time,time1);
     }
 
     @RequestMapping("findByendcount")
@@ -220,15 +220,10 @@ public class QingJiaController {
     public String ExcleStudent(HttpServletRequest request, String comy,String time,String time1) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         CreateExlceUtil<Qingjia> createExlceUtil;
         List<Qingjia> list;
-        if (time != null && "".equals(time)) {
-            int i = qingJiaService.findBystart_timeCount(comy,time);
+        if (time != null && "".equals(time) ||time1 != null && "".equals(time1)) {
+            int i = qingJiaService.findBystart_timeCount(comy,time,time1);
             createExlceUtil = new CreateExlceUtil<>(request, Qingjia.class, "假期表");
-            list = qingJiaService.findBystart_time(comy,time, 1, i);
-        }
-        else if(time1 != null && "".equals(time1)){
-            int i = qingJiaService.findByend_timeCount(comy,time1);
-            createExlceUtil = new CreateExlceUtil<>(request, Qingjia.class, "假期表");
-            list = qingJiaService.findByend_time(comy,time1, 1, i);
+            list = qingJiaService.findBystart_time(comy,time, time1,1, i);
         }
         else {
             int i = qingJiaService.findAllCount(comy);

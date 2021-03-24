@@ -1,581 +1,870 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-		<title>学生名单-学生信息管理系统</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>学生名单-学生信息管理系统</title>
 
-		<!-- Favicon -->
-		<link rel="shortcut icon" th:href="@{/assets/img/favicon.png}">
+	<!-- Favicon -->
+	<link rel="shortcut icon" th:href="@{/assets/img/favicon.png}">
 
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap">
+	<link rel="stylesheet"
+		  href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&display=swap">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
+	<!-- jQuery -->
+	<script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script th:src="@{/assets/js/popper.min.js}"></script>
+	<script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
+
+	<!-- Slimscroll JS -->
+	<script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
 
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}">
 
-		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/fontawesome.min.css}">
-		<link rel="stylesheet" th:href="@{/assets/plugins/fontawesome/css/all.min.css}">
-		<!-- themify -->
-		<link rel="stylesheet" type="text/css" th:href="@{/assets/css/themify-icons.css}"/>
-		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" th:href="@{/assets/css/font-awesome.css}">
+	<!-- Custom JS -->
+	<script th:src="@{/assets/js/script.js}"></script>
+	<!-- alert beautiful-->
+	<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
+	<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
 
-		<!-- Datetimepicker CSS -->
-		<link rel="stylesheet" th:href="@{/assets/css/bootstrap-datetimepicker.min.css}">
-
-		<!-- Main CSS -->
-		<link rel="stylesheet" th:href="@{/assets/css/style.css}">
-		<!-- alert beautiful-->
-		<link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
-
-
-		<!-- shortcodes -->
-		<link rel="stylesheet" type="text/css" th:href="@{/assets/css/shortcodes.css}">
-		<!-- main -->
-		<link rel="stylesheet" type="text/css" th:href="@{/assets/css/main.css}">
-		<!-- jQuery -->
-
-		<script th:src="@{/assets/js/jquery-3.4.1.min.js}"></script>
-		<script th:src="@{/assets/js/sweetalert-dev.js}"></script>
-
-        <script type="text/javascript">
-			//获取缓存中登录账号的信息
-			var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
-			var name=adminuserInfo.name;
-			var responsible=adminuserInfo.responsible;
-			$(document).ready(function () {
-				$('#InfoName').text(name);
-				if(responsible=='2019')
+	<!--分页.js-->
+	<script th:src="@{/assets/js/bootstrap-paginator.js}"></script>
+	<script type="text/javascript">
+		//获取缓存中登录账号的信息
+		var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
+		var name=adminuserInfo.name;
+		var responsible=adminuserInfo.responsible;
+		const everypage_2 = 10; //每页的数量
+		var allpage_2= 1;
+		$(document).ready(function () {
+			$('#InfoName').text(name);
+			if(responsible=='2019')
+			{
+				$('[name="Q20"]').css("display","none")
+			}
+			else if(responsible=='2020'){
+				$('[name="Q19"]').css("display","none")
+			}
+			var downing = false;
+			$("#bt1").click(function (){
+				swal("已经开始下载！", "切勿重复点击！", "success");
+				if(downing){swal("有一项下载任务进行中！", "切勿重复点击！", "warning");return}
+				downing = true;
+				$.ajax({
+					url: 'talktype/Excle',
+					dataType: 'text',
+					data:{comy:'2019'},
+					success(res){
+						console.log(res);
+						$("#downe").attr("href",res);
+						console.log($("#a")[0]);
+						$("#downe")[0].click()
+						downing = false;
+					}
+				})
+			})
+			$("#sousuo").click(function(){
+				a=$("#Search").val();
+				if(isNumber(a))
 				{
-					$('[name="Q20"]').css("display","none")
+					console.log(a);
+					$.ajax({
+						type:"post",
+						url:"talktype/findbyid",
+						data:{'id':a},
+						dataType:"json",
+					}).done(function (res) {
+						console.log(res)
+						if(res!=null)
+						{
+							var msg = "";
+							msg += "<tr>";
+							msg += "<td>" + (i+1) + "</td>";
+							msg += "<td>" + res.type + "</td>";
+							msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"psychology-member.html?type=" + res.type + "\"" + ">" + res.number+"人"+"</a></h2></td>";
+							msg += "<td>" + res.college + "</td>";
+							msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-psychology.html?id=" + res.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + res.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+							msg += "</tr>";
+							$("#departments").html(msg);
+							$('#example').bootstrapPaginator({
+								currentPage: 1,//当前的请求页面。
+								totalPages: 1,//一共多少页。
+								size: "normal",//应该是页眉的大小。
+								bootstrapMajorVersion: 4,//bootstrap的版本要求。
+								alignment: "right",
+								numberOfPages: 1,//一页列出多少数据。
+								itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+									switch (type) {
+										case "first":
+											return "首页";
+										case "prev":
+											return "上一页";
+										case "next":
+											return "下一页";
+										case "last":
+											return "末页";
+										case "page":
+											return page;
+									}
+								},
+							})
+						}
+
+					})
 				}
-				else if(responsible=='2020'){
-					$('[name="Q19"]').css("display","none")
+				else {
+					$.ajax({
+						type: "post",
+						url: "talktype/findbytypecount",
+						data:{comy:'2019',type:a},
+						dataType: "json",
+						async: false,
+					}).done(function (res) {
+						console.log(res)
+						allpage_2 = Math.ceil(res / everypage_2);
+					})
+					$.ajax({
+						type: "post",
+						url: "talktype/findbytype",
+						dataType: "json",
+						data: {comy:'2019',type:a,'Page': 1, 'num': everypage_2},
+					}).done(function (res) {
+						console.log(res)
+						var msg = "";
+						$.each(res, function (i, n) {
+							msg += "<tr>";
+							msg += "<td>" + (i+1) + "</td>";
+							msg += "<td>" + n.type + "</td>";
+							msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"psychology-member.html?type=" + n.type + "\"" + ">" + n.number+"人"+"</a></h2></td>";
+							msg += "<td>" + n.college + "</td>";
+							msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-psychology.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+							msg += "</tr>";
+						});
+						$("#departments").html(msg);
+						$('#example').bootstrapPaginator({
+							currentPage: 1,//当前的请求页面。
+							totalPages: allpage_2,//一共多少页。
+							size: "normal",//应该是页眉的大小。
+							bootstrapMajorVersion: 4,//bootstrap的版本要求。
+							alignment: "right",
+							numberOfPages: 8,//一页列出多少数据。
+							itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+								switch (type) {
+									case "first":
+										return "首页";
+									case "prev":
+										return "上一页";
+									case "next":
+										return "下一页";
+									case "last":
+										return "末页";
+									case "page":
+										return page;
+								}
+							},
+							onPageClicked: function (event, originalEvent, type, page) {
+								newpage_2(page)
+							}
+						});
+					})
 				}
 			});
-		</script>
-	</head>
-    <body>
-	
-		<!-- Main Wrapper -->
-        <div class="main-wrapper">
-		
-			<!-- Header -->
-            <div class="header">
-			
-				<!-- Logo -->
-                <div class="header-left">
-                    <a href="index.html" class="logo">
-						<img th:src="@{/assets/img/logo.png}" alt="Logo">
-					</a>
-					<a href="index.html" class="logo logo-small">
-						<img th:src="@{/assets/img/logo-small.png}" alt="Logo" width="30" height="30">
-					</a>
-                </div>
-				<!-- /Logo -->
-				
-				<a href="javascript:void(0);" id="toggle_btn">
-					<i class="fas fa-align-left"></i>
-				</a>
-				
-				<!-- Search Bar -->
-				<div class="top-nav-search">
-					<form>
-						<input type="text" class="form-control" placeholder="搜索">
-						<button class="btn" type="submit"><i class="fas fa-search"></i></button>
-					</form>
-				</div>
-				<!-- /Search Bar -->
-				
-				<!-- Mobile Menu Toggle -->
-				<a class="mobile_btn" id="mobile_btn">
-					<i class="fas fa-bars"></i>
-				</a>
-				<!-- /Mobile Menu Toggle -->
-				
-				<!-- Header Right Menu -->
-				<ul class="nav user-menu">
+		});
+		const everypage = 10; //每页的数量
+		var allpage = 1;
+		$.ajax({
+			type: "post",
+			url: "talktype/findallcount",
+			dataType: "json",
+			data:{comy:'2019'},
+			async: false,
+		}).done(function (res) {
+			console.log(res)
+			allpage = Math.ceil(res / everypage);
+		});
+		$.ajax({
+			type: "post",
+			url: "talktype/findall",
+			dataType: "json",
+			data: {comy:'2019','Page': 1, 'num': everypage},
+		}).done(function (res) {
+			console.log(res)
+			var msg = "";
+			$.each(res, function (i, n) {
+				msg += "<tr>";
+				msg += "<td>" + (i+1) + "</td>";
+				msg += "<td>" + n.type + "</td>";
+				msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"psychology-member.html?type=" + n.type + "\"" + ">" + n.number+"人"+"</a></h2></td>";
+				msg += "<td>" + n.college + "</td>";
+				msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-psychology.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+				msg += "</tr>";
+			});
+			$("#departments").html(msg);
+			$('#example').bootstrapPaginator({
+				currentPage: 1,//当前的请求页面。
+				totalPages: allpage,//一共多少页。
+				size: "normal",//应该是页眉的大小。
+				bootstrapMajorVersion: 4,//bootstrap的版本要求。
+				alignment: "right",
+				numberOfPages: 8,//一页列出多少数据。
+				itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+					switch (type) {
+						case "first":
+							return "首页";
+						case "prev":
+							return "上一页";
+						case "next":
+							return "下一页";
+						case "last":
+							return "末页";
+						case "page":
+							return page;
+					}
+				},
+				onPageClicked: function (event, originalEvent, type, page) {
+					newpage(page)
+				}
+			});
+		}).fail(function (err) {
+			alert("系统繁忙哈...")
+		});
+		function newpage(res) {
+			var page = res
+			$.ajax({
+				type: "post",
+				url: "talktype/findall",
+				dataType: "json",
+				data: {comy:'2019','Page': page, 'num': everypage},
+			}).done(function (res) {
+				var msg = "";
+				$.each(res, function (i, n) {
+					msg += "<tr>";
+					msg += "<td>" + (i+1) + "</td>";
+					msg += "<td>" + n.type + "</td>";
+					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"member.html?type=" + n.type + "\"" + ">" + n.number+"人"+"</a></h2></td>";
+					msg += "<td>" + n.college + "</td>";
+					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-department.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+					msg += "</tr>";
+				});
+				$("#departments").html(msg);
+			})
+		}
+		function deldec(id) {
+			var id = id;
+			swal({
+						title: "确定删除吗？",
+						text: "你将无法恢复该谈话信息！",
+						type: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#DD6B55",
+						confirmButtonText: "确定删除！",
+						cancelButtonText: "取消删除！",
+						closeOnConfirm: false,
+						closeOnCancel: false
+					},
+					function (isConfirm) {
+						if (isConfirm) {
+							$.ajax({
+								type: "post",
+								url: "/talktype/deletedata",
+								dataType: "json",
+								data: {'id': id},
+							}).done(function (res) {
+								if (res.code == 500) {
+									swal("删除失败", "服务器繁忙中...", "warning");
+								} else if (res.code == 200) {
+									swal("删除成功！", "即将返回谈话列表", "success");
+									setTimeout("window.location.href='psychology.html'", "1200");
+								}
+							})
+						} else {
+							swal("取消！", "你的部门信息是安全的XD:)",
+									"error");
+						}
+					});
 
-					<!-- Notifications -->
-					<li class="nav-item dropdown noti-dropdown">
-						<div class="dropdown-menu notifications">
-							<div class="topnav-dropdown-header">
-								<span class="notification-title">通知</span>
-								<a href="javascript:void(0)" class="clear-noti">全部清除</a>
-							</div>
-							<div class="noti-content">
-								<ul class="notification-list">
+		}
+		function newpage_2(res) {
+			var page = res
+			$.ajax({
+				type: "post",
+				url: "talktype/findbytype",
+				dataType: "json",
+				data: {comy:'2019',type:a,page: page, num: everypage_2},
+			}).done(function (res) {
+				var msg = "";
+				$.each(res, function (i, n) {
+					msg += "<tr>";
+					msg += "<td>" + (i+1) + "</td>";
+					msg += "<td>" + n.type + "</td>";
+					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"psychology-member.html?type=" + n.type + "\"" + ">" + n.number+"人"+"</a></h2></td>";
+					msg += "<td>" + n.college + "</td>";
+					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-psychology.html?id=" + n.id + "\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+					msg += "</tr>";
+				});
+				$("#departments").html(msg);
+			})
+		}
+		function isNumber(val) {
+			var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+			var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+			if(regPos.test(val) || regNeg.test(val)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	</script>
+</head>
+<body>
 
-								</ul>
-							</div>
-							<div class="topnav-dropdown-footer">
-								<a href="#">查看所有通知</a>
-							</div>
-						</div>
-					</li>
-					<!-- /Notifications -->
-					
-					<!-- User Menu -->
-					<li class="nav-item dropdown has-arrow">
-						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-							<span class="user-img"><img class="rounded-circle" th:src="@{/assets/img/profiles/avatar-01.jpg}" width="31" alt="Ryan Taylor"></span>
-						</a>
-						<div class="dropdown-menu">
-							<div class="user-header">
-								<div class="avatar avatar-sm">
-									<img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="User Image" class="avatar-img rounded-circle">
-								</div>
-								<div class="user-text">
-									<h6 id="InfoName"></h6>
-									<p class="text-muted mb-0">管理员</p>
-								</div>
-							</div>
-							<a class="dropdown-item" href="profile.html">我的个人资料</a>
-<!--							<a class="dropdown-item" href="inbox.html">收件箱</a>-->
-							<a class="dropdown-item" href="login.html">注销</a>
-						</div>
-					</li>
-					<!-- /User Menu -->
-					
-				</ul>
-				<!-- /Header Right Menu -->
-				
-            </div>
-			<!-- /Header -->
-			
-			<!-- Sidebar -->
-            <div class="sidebar" id="sidebar">
-                <div class="sidebar-inner slimscroll">
-					<div id="sidebar-menu" class="sidebar-menu">
-						<ul>
-							<li class="menu-title"> 
-								<span>主菜单</span>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fas fa-th-large"></i> <span> 仪表板</span> <span
-										class="menu-arrow"></span></a>
-								<ul>
-									<li  name="Q19"><a href="index.html">19级学生</a></li>
-									<li  name="Q20"><a href="index-20.html">20级学生</a></li>
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fas fa-user-graduate"></i> <span>学生</span> <span
-										class="menu-arrow"></span></a>
-								<ul>
-									<li class="submenu"  name="Q19">
-										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="students.html">19级学生列表</a></li>
-											<li><a href="add-student.html">19级学生添加</a></li>
-										</ul>
-									</li>
-									<!--									<li class="submenu">-->
-									<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
-									<!--										<ul>-->
-									<!--											<li><a href="students.html">学生列表</a></li>-->
-									<!--											<li><a href="add-student.html">学生添加</a></li>-->
-									<!--										</ul>-->
-									<!--									</li>-->
-									<!--									<li class="submenu">-->
-									<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
-									<!--										<ul>-->
-									<!--											<li><a href="students.html">学生列表</a></li>-->
-									<!--											<li><a href="add-student.html">学生添加</a></li>-->
-									<!--										</ul>-->
-									<!--									</li>-->
-									<li class="submenu" name="Q20">
-										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="students-20.html">20级学生列表</a></li>
-											<li><a href="add-student-20.html">20级学生添加</a></li>
-										</ul>
-									</li>
-									<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
-									<!--									<li><a href="student-details.html">学生信息</a></li>-->
-									<!--                            <li><a href="add-student.html">学生添加</a></li>-->
-									<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
-								</ul>
-							</li>
-<!--							<li class="submenu">-->
-<!--								<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span class="menu-arrow"></span></a>-->
-<!--								<ul>-->
-<!--									<li><a href="teachers.html">教师列表</a></li>-->
-<!--									<li><a href="teacher-details.html">教师信息</a></li>-->
-<!--									<li><a href="add-teacher.html">教师添加</a></li>-->
-<!--									<li><a href="edit-teacher.html">教师编辑</a></li>-->
-<!--								</ul>-->
-<!--							</li>-->
-							<li class="submenu">
-								<a href="#"><i class="fas fa-building"></i> <span>部门</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="departments.html">部门列表</a></li>
-									<li><a href="add-department.html">部门添加</a></li>
-									<!-- <li><a href="edit-department.html">Department Edit</a></li> -->
-								</ul>
-							</li>
-						<!-- 	<li class="submenu">
-								<a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="subjects.html">Subject List</a></li>
-									<li><a href="add-subject.html">Subject Add</a></li>
-									<li><a href="edit-subject.html">Subject Edit</a></li>
-								</ul>
-							</li> -->
+<!-- Main Wrapper -->
+<div class="main-wrapper">
 
-							<li class="menu-title"> 
-								<span>管理</span>
-							</li>
+	<!-- Header -->
+	<div class="header">
 
-						<!-- 	<li class="submenu">
-								<a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> Accounts</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="fees-collections.html">Fees Collection</a></li>
-									<li><a href="expenses.html">Expenses</a></li>
-									<li><a href="salary.html">Salary</a></li>
-									<li><a href="add-fees-collection.html">Add Fees</a></li>
-									<li><a href="add-expenses.html">Add Expenses</a></li>
-									<li><a href="add-salary.html">Add Salary</a></li>
-								</ul>
-							</li> -->
-							<li class="submenu">
-								<a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span
-										class="menu-arrow"></span></a>
-								<ul>
-									<li class="submenu"  name="Q19">
-										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="holiday.html">19级假期列表</a></li>
-											<li><a href="add-holiday.html">19级假期添加</a></li>
-										</ul>
-									</li>
-									<!--									<li class="submenu">-->
-									<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
-									<!--										<ul>-->
-									<!--											<li><a href="students.html">学生列表</a></li>-->
-									<!--											<li><a href="add-student.html">学生添加</a></li>-->
-									<!--										</ul>-->
-									<!--									</li>-->
-									<!--									<li class="submenu">-->
-									<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
-									<!--										<ul>-->
-									<!--											<li><a href="students.html">学生列表</a></li>-->
-									<!--											<li><a href="add-student.html">学生添加</a></li>-->
-									<!--										</ul>-->
-									<!--									</li>-->
-									<li class="submenu" name="Q20">
-										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="holiday-20.html">20级假期列表</a></li>
-											<li><a href="add-holiday-20.html">20级假期添加</a></li>
-										</ul>
-									</li>
-									<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
-									<!--									<li><a href="student-details.html">学生信息</a></li>-->
-									<!--                            <li><a href="add-student.html">学生添加</a></li>-->
-									<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span
-										class="menu-arrow"></span></a>
-								<ul>
-									<li class="submenu"  name="Q19">
-										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="honour.html">19级荣誉列表</a></li>
-											<li><a href="add-honour.html">19级荣誉添加</a></li>
-										</ul>
-									</li>
-									<!--									<li class="submenu">-->
-									<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
-									<!--										<ul>-->
-									<!--											<li><a href="students.html">学生列表</a></li>-->
-									<!--											<li><a href="add-student.html">学生添加</a></li>-->
-									<!--										</ul>-->
-									<!--									</li>-->
-									<!--									<li class="submenu">-->
-									<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
-									<!--										<ul>-->
-									<!--											<li><a href="students.html">学生列表</a></li>-->
-									<!--											<li><a href="add-student.html">学生添加</a></li>-->
-									<!--										</ul>-->
-									<!--									</li>-->
-									<li class="submenu" name="Q20">
-										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="honour-20.html">20级荣誉列表</a></li>
-											<li><a href="add-honour-20.html">20级荣誉添加</a></li>
-										</ul>
-									</li>
-									<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
-									<!--									<li><a href="student-details.html">学生信息</a></li>-->
-									<!--                            <li><a href="add-student.html">学生添加</a></li>-->
-									<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
-								</ul>
-							</li>
-<!--							<li> -->
-<!--								<a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
-<!--							</li>-->
-<!--							<li> -->
-<!--								<a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
-<!--							</li>-->
-							<li>
-								<a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
-							</li>
-<!--							<li> -->
-<!--								<a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
-<!--							</li>-->
-							<!-- <li> 
-								<a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
-							</li> -->
+		<!-- Logo -->
+		<div class="header-left">
+			<a href="index.html" class="logo">
+				<img th:src="@{/assets/img/logo.png}" alt="Logo">
+			</a>
+			<a href="index.html" class="logo logo-small">
+				<img th:src="@{assets/img/logo-small.png}" alt="Logo" width="30" height="30">
+			</a>
+		</div>
+		<!-- /Logo -->
 
-							<!-- <li class="menu-title"> 
-								<span>Pages</span>
-							</li> -->
+		<a href="javascript:void(0);" id="toggle_btn">
+			<i class="fas fa-align-left"></i>
+		</a>
 
-							<!-- <li class="submenu">
-								<a href="#"><i class="fas fa-shield-alt"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="login.html">Login</a></li>
-									<li><a href="register.html">Register</a></li>
-									<li><a href="forgot-password.html">Forgot Password</a></li>
-									<li><a href="error-404.html">Error Page</a></li>
-								</ul>
-							</li> -->
-							<!-- <li> 
-								<a href="blank-page.html"><i class="fas fa-file"></i> <span>Blank Page</span></a>
-							</li> -->
+		<!-- Search Bar -->
+		<div class="top-nav-search">
+			<form>
+				<input type="text" class="form-control" placeholder="搜索" id="Search">
+				<button class="btn" type="button" id="sousuo"><i class="fas fa-search"></i></button>
+			</form>
+		</div>
+		<!-- /Search Bar -->
 
-							<li class="menu-title"> 
-								<span>其他</span>
-							</li>
+		<!-- Mobile Menu Toggle -->
+		<a class="mobile_btn" id="mobile_btn">
+			<i class="fas fa-bars"></i>
+		</a>
+		<!-- /Mobile Menu Toggle -->
 
-						<!-- 	<li> 
-								<a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>
-							</li> -->
-							<li class="submenu">
-								<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span
-										class="menu-arrow"></span></a>
-								<ul>
-									<li class="submenu"  name="Q19">
-										<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="hostel.html">19级宿舍列表</a></li>
-											<li><a href="add-hostel.html">19级宿舍添加</a></li>
-										</ul>
-									</li>
-									<!--									<li class="submenu">-->
-									<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
-									<!--										<ul>-->
-									<!--											<li><a href="students.html">学生列表</a></li>-->
-									<!--											<li><a href="add-student.html">学生添加</a></li>-->
-									<!--										</ul>-->
-									<!--									</li>-->
-									<!--									<li class="submenu">-->
-									<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
-									<!--										<ul>-->
-									<!--											<li><a href="students.html">学生列表</a></li>-->
-									<!--											<li><a href="add-student.html">学生添加</a></li>-->
-									<!--										</ul>-->
-									<!--									</li>-->
-									<li class="submenu" name="Q20">
-										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="hostel-20.html">20级宿舍列表</a></li>
-											<li><a href="add-hostel-20.html">20级宿舍添加</a></li>
-										</ul>
-									</li>
-									<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
-									<!--									<li><a href="student-details.html">学生信息</a></li>-->
-									<!--                            <li><a href="add-student.html">学生添加</a></li>-->
-									<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="activity.html">活动列表</a></li>
-									<li><a href="add-activity.html">活动添加</a></li>
-								</ul>
-							</li>
-							<li class="submenu">
-								<a href="#"><i class="fas fa-comment"></i> <span>谈话</span><span class="menu-arrow"></span> </a>
-								<ul>
-									<li name="Q19"><a href="psychology.html" class="active">19级谈话</a></li>
-									<li name="Q20"><a href="psychology-20.html" >20级谈话</a></li>
-								</ul>
-							</li>
-							<!-- <li> 
-								<a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>
-							</li> -->
-						<!-- 	<li class="menu-title"> 
-								<span>UI Interface</span>
-							</li> -->
-							<!-- <li> 
-								<a href="components.html"><i class="fas fa-vector-square"></i> <span>Components</span></a>
-							</li> -->
-							<!-- <li class="submenu">
-								<a href="#"><i class="fas fa-columns"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="form-basic-inputs.html">Basic Inputs </a></li>
-									<li><a href="form-input-groups.html">Input Groups </a></li>
-									<li><a href="form-horizontal.html">Horizontal Form </a></li>
-									<li><a href="form-vertical.html"> Vertical Form </a></li>
-									<li><a href="form-mask.html"> Form Mask </a></li>
-									<li><a href="form-validation.html"> Form Validation </a></li>
-								</ul>
-							</li> -->
-						<!-- 	<li class="submenu">
-								<a href="#"><i class="fas fa-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li><a href="tables-basic.html">Basic Tables </a></li>
-									<li><a href="data-tables.html">Data Table </a></li>
-								</ul>
-							</li> -->
-							<!-- <li class="submenu">
-								<a href="javascript:void(0);"><i class="fas fa-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
-								<ul>
-									<li class="submenu">
-										<a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>
-										<ul>
-											<li><a href="javascript:void(0);"><span>Level 2</span></a></li>
-											<li class="submenu">
-												<a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
-												<ul>
-													<li><a href="javascript:void(0);">Level 3</a></li>
-													<li><a href="javascript:void(0);">Level 3</a></li>
-												</ul>
-											</li>
-											<li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
-										</ul>
-									</li> -->
-									<!-- <li>
-										<a href="javascript:void(0);"> <span>Level 1</span></a>
-									</li> -->
-								</ul>
-							</li>
+		<!-- Header Right Menu -->
+		<ul class="nav user-menu">
+
+			<!-- Notifications -->
+			<li class="nav-item dropdown noti-dropdown">
+				<div class="dropdown-menu notifications">
+					<div class="topnav-dropdown-header">
+						<span class="notification-title">通知</span>
+						<a href="javascript:void(0)" class="clear-noti"> 全部清除</a>
+					</div>
+					<div class="noti-content">
+						<ul class="notification-list">
+
 						</ul>
 					</div>
-                </div>
-            </div>
-			<!-- /Sidebar -->
-			
-			<!-- Page Wrapper -->
-            <div class="page-wrapper">
-                <div class="content container-fluid">
-				
-					<!-- Page Header -->
-					<div class="page-header" style="margin-top: -0.23rem">
-						<div class="row align-items-center">
-							<div class="col">
-								<h3 class="page-title">谈话</h3>
-								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.html">仪表板</a></li>
-									<li class="breadcrumb-item active">谈话</li>
+					<div class="topnav-dropdown-footer">
+						<a href="#">查看所有通知</a>
+					</div>
+				</div>
+			</li>
+			<!-- /Notifications -->
+
+			<!-- User Menu -->
+			<li class="nav-item dropdown has-arrow">
+				<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+					<span class="user-img"><img class="rounded-circle" th:src="@{/assets/img/profiles/avatar-01.jpg}" width="31" alt="Ryan Taylor"></span>
+				</a>
+				<div class="dropdown-menu">
+					<div class="user-header">
+						<div class="avatar avatar-sm">
+							<img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="User Image" class="avatar-img rounded-circle">
+						</div>
+						<div class="user-text">
+							<h6 id="InfoName"></h6>
+							<p class="text-muted mb-0">管理员</p>
+						</div>
+					</div>
+					<a class="dropdown-item" href="profile.html">我的个人资料</a>
+					<!--							<a class="dropdown-item" href="inbox.html">收件箱</a>-->
+					<a class="dropdown-item" href="login.html">注销</a>
+				</div>
+			</li>
+			<!-- /User Menu -->
+
+		</ul>
+		<!-- /Header Right Menu -->
+
+	</div>
+	<!-- /Header -->
+
+	<!-- Sidebar -->
+	<div class="sidebar" id="sidebar">
+		<div class="sidebar-inner slimscroll">
+			<div id="sidebar-menu" class="sidebar-menu">
+				<ul>
+					<li class="menu-title">
+						<span>主菜单</span>
+					</li>
+					<li class="submenu">
+						<a href="#"><i class="fas fa-th-large"></i> <span> 仪表板</span> <span
+								class="menu-arrow"></span></a>
+						<ul>
+							<li name="Q19"><a href="index.html">19级学生</a></li>
+							<li name="Q20"><a href="index-20.html">20级学生</a></li>
+						</ul>
+					</li>
+					<li class="submenu">
+						<a href="#"><i class="fas fa-user-graduate"></i> <span>学生</span> <span
+								class="menu-arrow"></span></a>
+						<ul>
+							<li class="submenu" name="Q19">
+								<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="students.html">19级学生列表</a></li>
+									<li><a href="add-student.html">19级学生添加</a></li>
 								</ul>
+							</li>
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<li class="submenu" name="Q20">
+								<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="students-20.html">20级学生列表</a></li>
+									<li><a href="add-student-20.html">20级学生添加</a></li>
+								</ul>
+							</li>
+							<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+							<!--									<li><a href="student-details.html">学生信息</a></li>-->
+							<!--                            <li><a href="add-student.html">学生添加</a></li>-->
+							<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
+						</ul>
+					</li>
+					<!--							<li class="submenu">-->
+					<!--								<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span class="menu-arrow"></span></a>-->
+					<!--								<ul>-->
+					<!--									<li><a href="teachers.html">教师列表</a></li>-->
+					<!--									<li><a href="teacher-details.html">教师信息</a></li>-->
+					<!--									<li><a href="add-teacher.html">教师添加</a></li>-->
+					<!--									<li><a href="edit-teacher.html">教师编辑</a></li>-->
+					<!--								</ul>-->
+					<!--							</li>-->
+					<li class="submenu">
+						<a href="#"><i class="fas fa-building"></i> <span>部门</span> <span class="menu-arrow"></span></a>
+						<ul>
+							<li><a href="departments.html">部门列表</a></li>
+							<li><a href="add-department.html">部门添加</a></li>
+							<!--									<li><a href="edit-department.html">部门编辑</a></li>-->
+						</ul>
+					</li>
+					<!-- <li class="submenu">
+                        <a href="#"><i class="fas fa-book-reader"></i> <span> Subjects</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="subjects.html">Subject List</a></li>
+                            <li><a href="add-subject.html">Subject Add</a></li>
+                            <li><a href="edit-subject.html">Subject Edit</a></li>
+                        </ul>
+                    </li> -->
+
+					<li class="menu-title">
+						<span>管理</span>
+					</li>
+
+					<!-- 	<li class="submenu">
+                            <a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> Accounts</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="fees-collections.html">Fees Collection</a></li>
+                                <li><a href="expenses.html">Expenses</a></li>
+                                <li><a href="salary.html">Salary</a></li>
+                                <li><a href="add-fees-collection.html">Add Fees</a></li>
+                                <li><a href="add-expenses.html">Add Expenses</a></li>
+                                <li><a href="add-salary.html">Add Salary</a></li>
+                            </ul>
+                        </li> -->
+					<li class="submenu" name="Q19">
+						<a href="#"><i class="fas fa-holly-berry"></i> <span>假期</span> <span
+								class="menu-arrow"></span></a>
+						<ul>
+							<li class="submenu">
+								<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="holiday.html">19级假期列表</a></li>
+									<li><a href="add-holiday.html">19级假期添加</a></li>
+								</ul>
+							</li>
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<li class="submenu" name="Q20">
+								<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="holiday-20.html">20级假期列表</a></li>
+									<li><a href="add-holiday-20.html">20级假期添加</a></li>
+								</ul>
+							</li>
+							<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+							<!--									<li><a href="student-details.html">学生信息</a></li>-->
+							<!--                            <li><a href="add-student.html">学生添加</a></li>-->
+							<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
+						</ul>
+					</li>
+					<li class="submenu">
+						<a href="#"><i class="fas fa-address-card"></i> <span>荣誉</span> <span
+								class="menu-arrow"></span></a>
+						<ul>
+							<li class="submenu" name="Q19">
+								<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="honour.html">19级荣誉列表</a></li>
+									<li><a href="add-honour.html">19级荣誉添加</a></li>
+								</ul>
+							</li>
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<li class="submenu" name="Q20">
+								<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="honour-20.html">20级荣誉列表</a></li>
+									<li><a href="add-honour-20.html">20级荣誉添加</a></li>
+								</ul>
+							</li>
+							<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+							<!--									<li><a href="student-details.html">学生信息</a></li>-->
+							<!--                            <li><a href="add-student.html">学生添加</a></li>-->
+							<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
+						</ul>
+					</li>
+					<!--							<li>-->
+					<!--								<a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
+					<!--							</li>-->
+					<!--							<li>-->
+					<!--								<a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
+					<!--							</li>-->
+					<li>
+						<a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
+					</li>
+					<!--							<li>-->
+					<!--								<a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
+					<!--							</li>-->
+					<!-- 	<li>
+                            <a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>
+                        </li> -->
+
+					<!-- 	<li class="menu-title">
+                            <span>Pages</span>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="#"><i class="fas fa-shield-alt"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="login.html">Login</a></li>
+                                <li><a href="register.html">Register</a></li>
+                                <li><a href="forgot-password.html">Forgot Password</a></li>
+                                <li><a href="error-404.html">Error Page</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="blank-page.html"><i class="fas fa-file"></i> <span>Blank Page</span></a>
+                        </li> -->
+
+					<li class="menu-title">
+						<span>其他</span>
+					</li>
+
+					<!-- 	<li>
+                            <a href="sports.html"><i class="fas fa-baseball-ball"></i> <span>Sports</span></a>
+                        </li> -->
+					<li class="submenu">
+						<a href="#"><i class="fas fa-hotel"></i> <span>宿舍</span> <span
+								class="menu-arrow"></span></a>
+						<ul>
+							<li class="submenu" name="Q19">
+								<a href="#"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="hostel.html">19级宿舍列表</a></li>
+									<li><a href="add-hostel.html">19级宿舍添加</a></li>
+								</ul>
+							</li>
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<li class="submenu" name="Q20">
+								<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="hostel-20.html">20级宿舍列表</a></li>
+									<li><a href="add-hostel-20.html">20级宿舍添加</a></li>
+								</ul>
+							</li>
+							<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+							<!--									<li><a href="student-details.html">学生信息</a></li>-->
+							<!--                            <li><a href="add-student.html">学生添加</a></li>-->
+							<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
+						</ul>
+					</li>
+					<li class="submenu">
+						<a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span class="menu-arrow"></span></a>
+						<ul>
+							<li><a href="activity.html">活动列表</a></li>
+							<li><a href="add-activity.html">活动添加</a></li>
+						</ul>
+					</li>
+					<li class="submenu active">
+						<a href="#"><i class="fas fa-comment"></i> <span>谈话</span> <span
+								class="menu-arrow"></span></a>
+						<ul>
+							<li class="submenu" name="Q19">
+								<a href="#" class="active"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+								<ul id="weiyi1">
+									<li><a href="psychology.html" class="active">19级谈话列表</a></li>
+									<li><a href="add-psychology.html">19级谈话添加</a></li>
+								</ul>
+							</li>
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<!--									<li class="submenu">-->
+							<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+							<!--										<ul>-->
+							<!--											<li><a href="students.html">学生列表</a></li>-->
+							<!--											<li><a href="add-student.html">学生添加</a></li>-->
+							<!--										</ul>-->
+							<!--									</li>-->
+							<li class="submenu" name="Q20">
+								<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+								<ul>
+									<li><a href="psychology-20.html">20级谈话列表</a></li>
+									<li><a href="add-psychology-20.html">20级谈话添加</a></li>
+								</ul>
+							</li>
+							<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+							<!--									<li><a href="student-details.html">学生信息</a></li>-->
+							<!--                            <li><a href="add-student.html">学生添加</a></li>-->
+							<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
+						</ul>
+					</li>
+					<!-- <li>
+                        <a href="transport.html"><i class="fas fa-bus"></i> <span>Transport</span></a>
+                    </li> -->
+					<!-- <li class="menu-title">
+                        <span>UI Interface</span>
+                    </li> -->
+					<!-- 	<li>
+                            <a href="components.html"><i class="fas fa-vector-square"></i> <span>Components</span></a>
+                        </li> -->
+					<!-- <li class="submenu">
+                        <a href="#"><i class="fas fa-columns"></i> <span> Forms </span> <span class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="form-basic-inputs.html">Basic Inputs </a></li>
+                            <li><a href="form-input-groups.html">Input Groups </a></li>
+                            <li><a href="form-horizontal.html">Horizontal Form </a></li>
+                            <li><a href="form-vertical.html"> Vertical Form </a></li>
+                            <li><a href="form-mask.html"> Form Mask </a></li>
+                            <li><a href="form-validation.html"> Form Validation </a></li>
+                        </ul>
+                    </li> -->
+					<!-- <li class="submenu">
+                        <a href="#"><i class="fas fa-table"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="tables-basic.html">Basic Tables </a></li>
+                            <li><a href="data-tables.html">Data Table </a></li>
+                        </ul>
+                    </li> -->
+					<!-- <li class="submenu">
+                        <a href="javascript:void(0);"><i class="fas fa-code"></i> <span>Multi Level</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                            <li class="submenu">
+                                <a href="javascript:void(0);"> <span>Level 1</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="javascript:void(0);"><span>Level 2</span></a></li>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);"> <span> Level 2</span> <span class="menu-arrow"></span></a>
+                                        <ul>
+                                            <li><a href="javascript:void(0);">Level 3</a></li>
+                                            <li><a href="javascript:void(0);">Level 3</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
+                                </ul>
+                            </li> -->
+					<!-- <li>
+                        <a href="javascript:void(0);"> <span>Level 1</span></a>
+                    </li> -->
+				</ul>
+				</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /Sidebar -->
+
+	<!-- Page Wrapper -->
+	<div class="page-wrapper">
+		<div class="content container-fluid">
+
+			<!-- Page Header -->
+			<div class="page-header">
+				<div class="row align-items-center">
+					<div class="col">
+						<h3 class="page-title">谈话</h3>
+						<ul class="breadcrumb">
+							<li class="breadcrumb-item"><a href="index.html">仪表板</a></li>
+							<li class="breadcrumb-item active">谈话</li>
+						</ul>
+					</div>
+					<div class="col-auto text-right float-right ml-auto">
+						<!--								<a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i>下载</a>-->
+						<!--								<a href="add-department.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>-->
+						<a download id="downe" href="" style="display: none"> </a>
+						<button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</button>
+						<!--                        <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> 下载</a>-->
+						<a href="add-psychology.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+					</div>
+				</div>
+			</div>
+			<!-- /Page Header -->
+
+			<div class="row">
+				<div class="col-sm-12">
+
+					<div class="card card-table">
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-hover table-center mb-0 datatable">
+									<thead>
+									<tr>
+										<th>编号</th>
+										<th>谈话类型</th>
+										<th>谈话成员</th>
+										<th>学院</th>
+										<th class="text-right">编辑</th>
+									</tr>
+									</thead>
+									<tbody id="departments">
+									<!--												<tr>-->
+									<!--													<td>10001</td>-->
+									<!--													<td>-->
+									<!--														<h2>-->
+									<!--															<a>自律部</a>-->
+									<!--														</h2>-->
+									<!--													</td>-->
+									<!--													<td>谁谁谁</td>-->
+									<!--													<td>1995</td>-->
+									<!--													<td>180</td>-->
+									<!--													<td class="text-right">-->
+									<!--														<div class="actions">-->
+									<!--															<a href="edit-department.html" class="btn btn-sm bg-success-light mr-2">-->
+									<!--																<i class="fas fa-pen"></i>-->
+									<!--															</a>-->
+									<!--															<a href="#" class="btn btn-sm bg-danger-light">-->
+									<!--																<i class="fas fa-trash"></i>-->
+									<!--															</a>-->
+									<!--														</div>-->
+									<!--													</td>-->
+									<!--												</tr>-->
+
+									</tbody>
+								</table>
+							</div>
+							<div class="pagination" style="text-align: center;float:right;margin-top:1.5625em;">
+								<div style="float: right;margin-right:0.1rem">
+									<ul id="example"></ul>
+								</div>
 							</div>
 						</div>
 					</div>
-					<!-- /Page Header -->
-
-					<!--row-->
-					<div class="row">
-						<div class="col-lg-12 col-md-12">
-							<!--section-title-->
-							<div class="section-title style1">
-								<div class="title-header">
-									<h5><strong><a href="add-talk.html">添加</a></strong>新的内容</h5>
-									<h2 class="title">您的谈话 <strong>内容</strong></h2>
-								</div>
-								<div class="title-desc"><p>点击下方对应日期便可查看当天的谈话记录条目，点击正上方月份年分即可回到本日，点击左方添加可以添加新的谈话记录。</p>
-								</div>
-							</div><!--section-title end-->
-						</div>
-					</div><!--row end-->
-					<!--row-->
-					<div class="row">
-						<div class="col-lg-6 ttm-tabs ttm-tab-style-02">
-							<ul class="tabs portfolio-filter">
-								<li class="tab active"><a href="#" data-filter="*">全部</a></li>
-								<li class="tab"><a href="#" data-filter=".study">学业预警</a></li>
-								<li class="tab"><a href="#" data-filter=".lovey">心理障碍</a></li>
-								<li class="tab"><a href="#" data-filter=".ill">疾病残疾</a></li>
-								<li class="tab"><a href="#" data-filter=".family">家庭变故</a></li>
-								<li class="tab"><a href="#" data-filter=".self">孤儿</a></li>
-								<li class="tab"><a href="#" data-filter=".liv">信教学生</a></li>
-								<li class="tab"><a href="#" data-filter=".less">少数民族</a></li>
-								<li class="tab"><a href="#" data-filter=".other">其他</a></li>
-							</ul>
-							<!-- acadion -->
-							<div class="content-tab col accordion" >
-								<div class="col isotope-project " id="talks">
-								<!--
-									<div class="toggle ttm-style-befault box-shadow_1 ttm-toggle-title-bgcolor-white project_item family love-psychology">
-										<div class="toggle-title"><a href="#">1. Which types logo services you provide ?</a></div>
-										<div class="toggle-content" style="display: none;">
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-											<div style="float: right">
-												<a title="修改"   tabindex="0"><i class="ti ti-pencil"></i></a>
-												<a href="detail-style-1.html" class="ttm_link" tabindex="0"><i class="ti ti-trash"></i></a>
-											</div>
-										</div>
-									</div>
-								-->
-
-
-								</div>
-							</div><!-- acadion end-->
-						</div>
-						<div class="col-lg-6">
-							<div id="calendar" class="calendar small"></div>
-						</div>
-					</div>
-					<!-- row end -->
-				
-
 				</div>
-			
-				<!-- Footer -->
-				<footer>
-					<p>Copyright © 2021-2025 <a href="https://beian.miit.gov.cn/#/Integrated/index">晋ICP备2020012125号</a></p>
-				</footer>
-				<!-- /Footer -->
-				
 			</div>
-			<!-- /Page Wrapper -->
-		
-        </div>
-		<!-- /Main Wrapper -->
-		
-		<!-- jQuery -->
-        <script th:src="@{/assets/js/jquery-3.4.1.min.js}"></script>
+		</div>
 
-		<!-- Bootstrap Core JS -->
-        <script th:src="@{/assets/js/popper.min.js}"></script>
-        <script th:src="@{/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
-		
-		<!-- Slimscroll JS -->
-        <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+		<footer>
+			<p>Copyright © 2021-2025 <a href="https://beian.miit.gov.cn/#/Integrated/index">晋ICP备2020012125号</a></p>
+		</footer>
+		<!-- /Footer -->
 
-		<!-- Datetimepicker JS -->
-		<script th:src="@{/assets/js/moment.min.js}"></script>
-		<script th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
+	</div>
+	<!-- /Page Wrapper -->
 
-		
-		<!-- Custom JS -->
-		<script  th:src="@{/assets/js/script.js}"></script>
-		<!-- Javascript -->
+</div>
+<!-- /Main Wrapper -->
 
-		<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<!-- jQuery -->
+<script th:src="@{/assets/js/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap-paginator.js}"></script>
+
+<!-- Slimscroll JS -->
+<script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
 
-		<script th:src="@{/assets/js/booked-calendar.js}"></script>
-		<script th:src="@{/assets/js/main.js}"></script>
-		<script th:src="@{/assets/js/jquery-isotope.js}"></script>
-		<script th:src="@{/assets/js/imagesloaded.min.js}"></script>
 
-    </body>
+<!-- Custom JS -->
+<script th:src="@{/assets/js/script.js}"></script>
+</body>
 </html>

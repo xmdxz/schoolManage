@@ -1,5 +1,12 @@
 package com.SchoolManage.pojo;
 
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class TalkMember {
 
     /**

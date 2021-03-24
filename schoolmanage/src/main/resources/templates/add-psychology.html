@@ -31,16 +31,13 @@
     <!-- Slimscroll JS -->
     <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
-
-    <!-- Custom JS -->
-    <script th:src="@{/assets/js/script.js}"></script>
     <!-- alert beautiful-->
     <link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
     <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
     <script type="text/javascript">
         //获取缓存中登录账号的信息
-        var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
-        var name=adminuserInfo.name;
+        var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
+        var name = adminuserInfo.name;
         var responsible=adminuserInfo.responsible;
         $(document).ready(function () {
             $('#InfoName').text(name);
@@ -51,6 +48,54 @@
             else if(responsible=='2020'){
                 $('[name="Q19"]').css("display","none")
             }
+            $("#bt1").click(function () {
+                $('#excelFile').trigger("click");
+                $('#excelFile').change(function (event) {
+                    var files = event.target.files;
+                    var formData = new FormData();
+                    var temp = files[0];
+                    if (temp) {
+                        formData.append('file', temp);
+                        formData.append('comy','2019');
+                        $.ajax({
+                            url: 'talktype/upfile',
+                            type: 'post',
+                            data: formData,
+                            processData: false, // 告诉jQuery不要去处理发送的数据
+                            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+                            success: function (res) {
+                                console.log(res)
+                                swal(res);
+                                var obj = document.getElementById("excelFile")
+                                obj.outerHTML = obj.outerHTML
+                            }
+
+                        })
+                    }
+
+                });
+
+            })
+            var downing = false;
+            $("#bt2").click(function () {
+                swal("已经开始下载！", "切勿重复点击！", "success");
+                if (downing) {
+                    swal("有一项下载任务进行中！", "切勿重复点击！", "warning");
+                    return
+                }
+                downing = true;
+                $.ajax({
+                    url: 'department/Excle2',
+                    dataType: 'text',
+                    success(res) {
+                        console.log(res);
+                        $("#downe").attr("href", res);
+                        console.log($("#a")[0]);
+                        $("#downe")[0].click()
+                        downing = false;
+                    }
+                })
+            })
         });
     </script>
 </head>
@@ -97,6 +142,7 @@
 
             <!-- Notifications -->
             <li class="nav-item dropdown noti-dropdown">
+
                 <div class="dropdown-menu notifications">
                     <div class="topnav-dropdown-header">
                         <span class="notification-title">通知</span>
@@ -132,7 +178,7 @@
                         </div>
                     </div>
                     <a class="dropdown-item" href="profile.html">我的个人资料</a>
-<!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
+                    <!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
                     <a class="dropdown-item" href="login.html">注销</a>
                 </div>
             </li>
@@ -197,16 +243,16 @@
                             <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
-<!--                    <li class="submenu">-->
-<!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> 教师</span> <span-->
-<!--                                class="menu-arrow"></span></a>-->
-<!--                        <ul>-->
-<!--                            <li><a href="teachers.html">教师名单</a></li>-->
-<!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
-<!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
-<!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
+                    <!--                    <li class="submenu">-->
+                    <!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> 教师</span> <span-->
+                    <!--                                class="menu-arrow"></span></a>-->
+                    <!--                        <ul>-->
+                    <!--                            <li><a href="teachers.html">教师名单</a></li>-->
+                    <!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
+                    <!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
+                    <!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                    </li>-->
                     <li class="submenu">
                         <a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span
                                 class="menu-arrow"></span></a>
@@ -316,18 +362,18 @@
                             <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
-<!--                    <li>-->
-<!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
+                    <!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
+                    <!--                    </li>-->
                     <li>
                         <a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
                     </li>
-<!--                    <li>-->
-<!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
+                    <!--                    </li>-->
                     <!-- <li>
                         <a href="library.html"><i class="fas fa-book"></i> <span>图书馆</span></a>
                     </li> -->
@@ -402,11 +448,42 @@
                             <li><a href="add-activity.html">活动添加</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="#"><i class="fas fa-comment"></i> <span>谈话</span><span class="menu-arrow"></span> </a>
+                    <li class="submenu active">
+                        <a href="#"><i class="fas fa-comment"></i> <span>谈话</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
-                            <li name="Q19"><a href="psychology.html" class="active">19级谈话</a></li>
-                            <li name="Q20"><a href="psychology-20.html" >20级谈话</a></li>
+                            <li class="submenu" name="Q19">
+                                <a href="#" class="active"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+                                <ul id="weiyi1">
+                                    <li><a href="psychology.html">19级谈话列表</a></li>
+                                    <li><a href="add-psychology.html" class="active">19级谈话添加</a></li>
+                                </ul>
+                            </li>
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <!--									<li class="submenu">-->
+                            <!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+                            <!--										<ul>-->
+                            <!--											<li><a href="students.html">学生列表</a></li>-->
+                            <!--											<li><a href="add-student.html">学生添加</a></li>-->
+                            <!--										</ul>-->
+                            <!--									</li>-->
+                            <li class="submenu" name="Q20">
+                                <a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+                                <ul>
+                                    <li><a href="psychology-20.html">20级谈话列表</a></li>
+                                    <li><a href="add-psychology-20.html">20级谈话添加</a></li>
+                                </ul>
+                            </li>
+                            <!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+                            <!--									<li><a href="student-details.html">学生信息</a></li>-->
+                            <!--                            <li><a href="add-student.html">学生添加</a></li>-->
+                            <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
                     <!-- <li>
@@ -478,6 +555,16 @@
                             <li class="breadcrumb-item active">添加谈话</li>
                         </ul>
                     </div>
+                    <div class="col-auto text-right float-right ml-auto">
+                        <a download id="downe" href="" style="display: none"> </a>
+                        <button type="button" id="bt2" class="btn btn-outline-primary mr-2"><i
+                                class="fas fa-download"></i> 下载模板
+                        </button>
+                        <input type="file" name="excelFile" id="excelFile" style="display:none" accept=".xls,.xlsx">
+                        <button type="button" id="bt1" class="btn btn-outline-primary mr-2"><i
+                                class="fas fa-upload"></i> 批量添加
+                        </button>
+                    </div>
                 </div>
             </div>
             <!-- /Page Header -->
@@ -487,44 +574,30 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <form action="/talk/inserttalk" method="post" onsubmit="return checks()">
+                            <form action="talktype/insertdata" method="post">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5 class="form-title"><span>谈话添加</span></h5>
+                                        <h5 class="form-title"><span>谈话详细信息</span></h5>
                                     </div>
                                     <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>谈话对象</label>
-                                            <input type="text" class="form-control" max="11" value="" placeholder="请输入谈话对象学号"
-                                                   name="student" id="student">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>时间</label>
-                                            <input type="text" class="form-control" value="" placeholder="格式:2000-10-10" id="time"
-                                                   name="time">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <label>谈话内容</label>
-                                                <textarea rows="5" cols="5" class="form-control" placeholder="" name="content" id="content"></textarea>
-                                            </div>
-                                    </div>
-                                    <div class="col-md-10">
                                         <div class="form-group">
                                             <label>谈话类型</label>
-                                            <select class="form-control" name="types" id="types" >
-                                                <option value="study">学业预警</option>
-                                                <option value="lovely">心理障碍</option>
-                                                <option value="ill">疾病残疾</option>
-                                                <option value="family">家庭变故</option>
-                                                <option value="self">孤儿</option>
-                                                <option value="liv">信教学生</option>
-                                                <option value="less">少数民族</option>
-                                                <option value="other">其他</option>
-                                            </select>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" id="type"
+                                                   name="type">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6" style="display: none">
+                                        <div class="form-group">
+                                            <label>年份</label>
+                                            <input type="text" class="form-control" value="2019" placeholder="请输入" id="comy"
+                                                   name="comy">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>学院</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   id="college" name="college">
                                         </div>
                                     </div>
                                     <div class="col-12">

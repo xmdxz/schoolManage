@@ -171,7 +171,7 @@ public class StudentController {
 //            map.put("msg", "添加失败");
 //            map.put("code", 500);
             if (student.getComy().equals("2019"))
-                return "studentsp";
+                return "students";
             else
                 return "students-20";
         }

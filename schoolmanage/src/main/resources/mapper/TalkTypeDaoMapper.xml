@@ -26,9 +26,6 @@
     <select id="findById" resultType="com.SchoolManage.pojo.TalkType">
         select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
         where id = #{id}
-        <if test="comy != '' and comy != null">
-            and find_in_set(comy,#{comy})
-        </if>
     </select>
 
     <select id="findByType" resultType="com.SchoolManage.pojo.TalkType">

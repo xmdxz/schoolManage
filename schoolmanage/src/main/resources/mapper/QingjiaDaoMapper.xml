@@ -247,14 +247,16 @@
         </if>
     </select>
     <select id="findBystart_time" resultType="com.SchoolManage.pojo.Qingjia">
-        select  * from qingjia where  TO_DAYS(start_time)=TO_DAYS(#{time})
+        select  * from qingjia where  TO_DAYS(start_time)>=TO_DAYS(#{time})
+        and  <![CDATA[ TO_DAYS(end_time)<=TO_DAYS(#{time1})]]>
         <if test="comy != null and comy != '' ">
             and find_in_set(comy,#{comy})
         </if>
         limit #{startPage},#{num}
     </select>
     <select id="findBystart_timeCount" resultType="java.lang.Integer">
-        select  count(*) from qingjia where  TO_DAYS(start_time)=TO_DAYS(#{time})
+        select  count(*) from qingjia where  TO_DAYS(start_time)>=TO_DAYS(#{time})
+        and <![CDATA[ TO_DAYS(end_time)<=TO_DAYS(#{time1})]]>
         <if test="comy != null and comy != '' ">
             and find_in_set(comy,#{comy})
         </if>

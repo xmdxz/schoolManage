@@ -219,8 +219,8 @@ public interface QingJiaDao {
 
     int findByNow_time(@Param(value = "comy") String comy);
     List<Qingjia> findBYweek_time(@Param(value = "comy") String comy);
-    List<Qingjia> findBystart_time(@Param(value = "comy") String comy,@Param(value = "time") String time,@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
-    int findBystart_timeCount(@Param(value = "comy") String comy,@Param(value = "time") String time);
+    List<Qingjia> findBystart_time(@Param(value = "comy") String comy,@Param(value = "time") String time,@Param(value = "time1") String time1,@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    int findBystart_timeCount(@Param(value = "comy") String comy,@Param(value = "time") String time,@Param(value = "time1") String time1);
     List<Qingjia> findByend_time(@Param(value = "comy") String comy,@Param(value = "time") String time,@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
     int findByend_timeCount(@Param(value = "comy") String comy,@Param(value = "time") String time);
 

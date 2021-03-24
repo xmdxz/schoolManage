@@ -1,10 +1,16 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.dao.TalkTypeDao;
+import com.SchoolManage.exception.FieldNotExistException;
+import com.SchoolManage.pojo.DepartMent;
+import com.SchoolManage.pojo.Student;
 import com.SchoolManage.pojo.TalkType;
+import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -66,5 +72,31 @@ public class TalkTypeServiceImpl implements TalkTypeService {
     @Override
     public int deleteData(Integer id) {
         return talkTypeDao.deleteData(id);
+    }
+
+    @Override
+    public int BatchAddition(String path,String comy) {
+        int num = 0;
+        try {
+            //path写实际path
+            TableUtil<TalkType> tableUtil = new TableUtil<TalkType>(path, TalkType.class);
+            int i=talkTypeDao.findAllCount(comy);
+            List<TalkType> database = talkTypeDao.findAll(comy,1,i);
+            List<TalkType> list = tableUtil.GetTableRowContent(database);
+            //调用插入接口
+            //批量上传，list集合
+            if (list.size() != 0) {
+                num = talkTypeDao.insertDatas(list);
+
+            }
+        } catch (IOException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchFieldException e) {
+            e.printStackTrace();
+            return -2;
+        } catch (FieldNotExistException e) {
+            //此处应处理表格问题，返回前端
+            e.printStackTrace();
+            return -3;
+        }
+        return num;
     }
 }

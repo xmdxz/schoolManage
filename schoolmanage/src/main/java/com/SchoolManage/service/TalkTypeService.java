@@ -93,4 +93,8 @@ public interface TalkTypeService {
      * @return
      */
     int deleteData(Integer id);
+    /**
+     * 批量添加啊
+     */
+    int BatchAddition(String path,String comy);
 }

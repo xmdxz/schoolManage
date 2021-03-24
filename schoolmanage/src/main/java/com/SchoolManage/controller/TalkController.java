@@ -64,7 +64,7 @@ public class TalkController {
         int i = talkService.insertTalk(talk);
         if (i != 0) {
             return "redirect:/loginp_5.html?id=1";
-        } else return "redirect:/edit-talk.html?error=true";
+        } else return "redirect:/edit-psychology.html?error=true";
     }
 
     @RequestMapping("inserttalk2")
@@ -75,7 +75,7 @@ public class TalkController {
         int i = talkService.insertTalk(talk);
         if (i != 0) {
             return "redirect:/loginp_5.html?id=2";
-        } else return "redirect:/edit-talk.html?error=true";
+        } else return "redirect:/edit-psychology.html?error=true";
     }
 
 //    @RequestMapping("findbystudentnopage")
@@ -260,6 +260,6 @@ public class TalkController {
         int i = talkService.updata(talk);
         if (i != 0) {
             return "redirect:/loginp_5.html?id=" + (talk.getComy().equals("2019") ? "1" : "2");
-        } else return "redirect:/edit-talk.html?error=true";
+        } else return "redirect:/edit-psychology.html?error=true";
     }
 }

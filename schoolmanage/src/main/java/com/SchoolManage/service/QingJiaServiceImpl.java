@@ -229,8 +229,8 @@ public class QingJiaServiceImpl implements QingJiaService {
     }
 
     @Override
-    public List<Qingjia> findBystart_time(String comy, String time,Integer Page, Integer num) {
-        return qingJiaDao.findBystart_time(comy,time,Page-1,num);
+    public List<Qingjia> findBystart_time(String comy, String time,String time1,Integer Page, Integer num) {
+        return qingJiaDao.findBystart_time(comy,time,time1,Page-1,num);
     }
 
     @Override
@@ -239,8 +239,8 @@ public class QingJiaServiceImpl implements QingJiaService {
     }
 
     @Override
-    public int findBystart_timeCount(String comy, String time) {
-        return qingJiaDao.findBystart_timeCount(comy,time);
+    public int findBystart_timeCount(String comy, String time,String time1) {
+        return qingJiaDao.findBystart_timeCount(comy,time,time1);
     }
 
     @Override
