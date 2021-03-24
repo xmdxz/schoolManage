@@ -122,12 +122,13 @@
         var numbers_2;
         $.ajax({
             type: "post",
-            url: "QingJia/findbytimeyearandmonthanddaycount",
-            data:{comy:'2019',timestamp:new Date().getTime()},
+            url: "QingJia/findByNow_time",
+            data:{comy:'2019'},
             dataType: "json",
         }).done(function (res) {
+            console.log(res);
             numbers_2 = res;
-            document.getElementById("numbers_2").innerText =numbers_2;
+            document.getElementById("numbers_2").innerText = numbers_2;
         });
         var number;
         $.ajax({

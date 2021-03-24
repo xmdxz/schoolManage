@@ -1,9 +1,11 @@
 package com.SchoolManage.service;
 
 import com.SchoolManage.pojo.Qingjia;
+import org.apache.ibatis.annotations.Param;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author RainGoal
@@ -225,4 +227,8 @@ public interface QingJiaService {
      * @Date 2021/2/23
      */
     Qingjia findById(int id);
+    int findByNow_time(String comy);
+    Map<String, List<Qingjia>> findBYweek_time(String comy);
+    List<Qingjia> findBystart_time(String comy, String time);
+
 }

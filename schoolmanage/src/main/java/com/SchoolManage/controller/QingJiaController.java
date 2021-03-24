@@ -117,6 +117,16 @@ public class QingJiaController {
     public List<Qingjia> findByName(String comy, String name, Integer Page, Integer num) {
         return qingJiaService.findByName(comy, name, Page, num);
     }
+    @RequestMapping("findBystart")
+    @ResponseBody
+    public List<Qingjia> findBystart(String comy,String time) {
+        return qingJiaService.findBystart_time(comy,time);
+    }
+    @RequestMapping("findByNow_time")
+    @ResponseBody
+    public int findByNow_time(String comy) {
+        return qingJiaService.findByNow_time(comy);
+    }
 
     @RequestMapping("insertqingjia")
     public String insertQingjia(Qingjia qingjia) {
@@ -220,4 +230,14 @@ public class QingJiaController {
     public Qingjia findById(int id) {
         return qingJiaService.findById(id);
     }
+
+    @RequestMapping("findBYweek")
+    @ResponseBody
+    public Map<String, List<Qingjia>> findBYweek(String comy) {
+
+
+        Map<String, List<Qingjia>> byArea = qingJiaService.findBYweek_time(comy);
+        return byArea;
+    }
+
 }
