@@ -159,7 +159,7 @@
     <select id="findOriginalCadre" resultType="com.SchoolManage.pojo.Student">
         select *
         from student,
-        (select * from original_class where class = #{clazz}) temp
+        (select * from original_class where className = #{clazz}) temp
         where student.id in
         (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
         temp.publicize)
@@ -180,7 +180,7 @@
     <select id="findPresentCadre" resultType="com.SchoolManage.pojo.Student">
         select *
         from student,
-        (select * from present_class where class = #{clazz}) temp
+        (select * from present_class where className = #{clazz}) temp
         where student.id in
         (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
         temp.publicize)
@@ -246,7 +246,7 @@
     <select id="findPresentCadreCount" resultType="java.lang.Integer">
         select count(*)
         from student,
-        (select * from present_class where class = #{clazz}) temp
+        (select * from present_class where className = #{clazz}) temp
         where student.id in
         (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
         temp.publicize)
@@ -257,7 +257,7 @@
     <select id="findOriginalCadreCount" resultType="java.lang.Integer">
         select count(*)
         from student,
-        (select * from original_class where class = #{clazz}) temp
+        (select * from original_class where className = #{clazz}) temp
         where student.id in
         (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
         temp.publicize)

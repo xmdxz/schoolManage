@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.SchoolManage.dao.TalkTypeDao">
+    <select id="findAll" resultType="com.SchoolManage.pojo.TalkType">
+        select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
+        <where>
+            <if test="comy != '' and comy != null">
+                and find_in_set(comy,#{comy})
+            </if>
+        </where>
+        limit #{startPage},#{num}
+    </select>
+
+    <select id="findAllCount" resultType="int">
+        select count(*) from talktype
+        <where>
+            <if test="comy != '' and comy != null">
+                and find_in_set(comy,#{comy})
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" resultType="com.SchoolManage.pojo.TalkType">
+        select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
+        where id = #{id}
+        <if test="comy != '' and comy != null">
+            and find_in_set(comy,#{comy})
+        </if>
+    </select>
+
+    <select id="findByType" resultType="com.SchoolManage.pojo.TalkType">
+        select *,(select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
+        where type like concat("%",#{type},"%")
+        <if test="comy != '' and comy != null">
+            and find_in_set(comy,#{comy})
+        </if>
+    </select>
+
+    <select id="findByTypeCount" resultType="int">
+        select count(*) from talktype
+        where type like concat("%",#{type},"%")
+        <if test="comy != '' and comy != null">
+            and find_in_set(comy,#{comy})
+        </if>
+    </select>
+
+    <update id="updateData">
+        update talktype
+        set type    = #{talkType.type},
+            college = #{talkType.college},
+            comy    = #{talkType.comy}
+        where id = #{talkType.id}
+    </update>
+
+    <insert id="insertData">
+        insert into talktype(type, college, comy)
+        values (#{talkType.type}, #{talkType.college}, #{talkType.comy})
+    </insert>
+
+    <insert id="insertDatas">
+        insert into talktype(type, college, comy) values
+        <foreach collection="list" separator="," item="item">
+            (#{item.type},#{item.college},#{item.comy})
+        </foreach>
+    </insert>
+
+    <delete id="deleteData">
+        delete
+        from talktype
+        where id = #{id}
+    </delete>
+
+    <select id="getType" resultType="java.lang.String">
+        select type
+        from talktype
+        group by type
+    </select>
+</mapper>
