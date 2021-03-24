@@ -216,4 +216,8 @@ public interface QingJiaDao {
      * @Date 2021/2/23
      */
     Qingjia findById(int id);
+
+    int findByNow_time(@Param(value = "comy") String comy);
+    List<Qingjia> findBYweek_time(@Param(value = "comy") String comy);
+    List<Qingjia> findBystart_time(@Param(value = "comy") String comy,@Param(value = "time") String time);
 }

@@ -240,4 +240,22 @@
             and find_in_set(comy,#{comy})
         </if>
     </select>
+    <select id="findByNow_time" resultType="java.lang.Integer">
+        select  DISTINCT COUNT(*) from qingjia where  TO_DAYS(end_time)=TO_DAYS(NOW())
+        <if test="comy != null and comy != '' ">
+            and find_in_set(comy,#{comy})
+        </if>
+    </select>
+    <select id="findBystart_time" resultType="com.SchoolManage.pojo.Qingjia">
+        select  * from qingjia where  TO_DAYS(start_time)=TO_DAYS(#{time})
+        <if test="comy != null and comy != '' ">
+            and find_in_set(comy,#{comy})
+        </if>
+    </select>
+    <select id="findBYweek_time" resultType="com.SchoolManage.pojo.Qingjia">
+        select  * from qingjia where  YEARWEEK(DATE_FORMAT(start_time,'%Y-%m-%d'))=YEARWEEK(NOW())
+        <if test="comy != null and comy != '' ">
+            and find_in_set(comy,#{comy})
+        </if>
+    </select>
 </mapper>

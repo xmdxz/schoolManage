@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author RainGoal
@@ -163,5 +163,73 @@ public class QingJiaServiceImpl implements QingJiaService {
     @Override
     public Qingjia findById(int id) {
         return qingJiaDao.findById(id);
+    }
+
+    @Override
+    public int findByNow_time(String comy) {
+        return qingJiaDao.findByNow_time(comy);
+    }
+
+    @Override
+    public Map<String, List<Qingjia>> findBYweek_time(String comy) {
+        List<Qingjia> qingjias = qingJiaDao.findBYweek_time(comy);
+        List<Qingjia> qingjias0=new ArrayList<>();
+        List<Qingjia> qingjias1=new ArrayList<>();
+        List<Qingjia> qingjias2=new ArrayList<>();
+        List<Qingjia> qingjias3=new ArrayList<>();
+        List<Qingjia> qingjias4=new ArrayList<>();
+        List<Qingjia> qingjias5=new ArrayList<>();
+        List<Qingjia> qingjias6=new ArrayList<>();
+        HashMap<String, List<Qingjia>> map = new HashMap<>();
+        String[] weekDays = {"周日","周一","周二", "周三","周四", "周五","周六"};
+        Calendar calendar = Calendar.getInstance();
+        for (Qingjia q : qingjias
+        ) {
+            calendar.setTime(q.getStart_time());
+            int w = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+            if (w < 0)
+                w = 0;
+            if(w==0)
+            {
+               qingjias0.add(q);
+            }
+            if(w==1)
+            {
+                qingjias1.add(q);
+            }
+            if(w==2)
+            {
+                qingjias2.add(q);
+            }
+            if(w==3)
+            {
+                qingjias3.add(q);
+            }
+            if(w==4)
+            {
+                qingjias4.add(q);
+            }
+            if(w==5)
+            {
+                qingjias5.add(q);
+            }
+            if(w==6)
+            {
+                qingjias6.add(q);
+            }
+        }
+        map.put(weekDays[0],qingjias0);
+        map.put(weekDays[1],qingjias1);
+        map.put(weekDays[2],qingjias2);
+        map.put(weekDays[3],qingjias3);
+        map.put(weekDays[4],qingjias4);
+        map.put(weekDays[5],qingjias5);
+        map.put(weekDays[6],qingjias6);
+        return map;
+    }
+
+    @Override
+    public List<Qingjia> findBystart_time(String comy, String time) {
+        return qingJiaDao.findBystart_time(comy,time);
     }
 }
