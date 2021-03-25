@@ -121,7 +121,7 @@ public class TableUtil<T> {
                     if (cell != null && field != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim().replace(" ", "")));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
                     }
                 }
                 if (!Ts.contains(t) && !getIsNull(t)) {
@@ -183,7 +183,7 @@ public class TableUtil<T> {
                     if (cell != null && field != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim().replace(" ", "")));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
                     }
                 }
                 if (!Ts.contains(t) && !getIsNull(t)) {
@@ -208,7 +208,7 @@ public class TableUtil<T> {
                     if (cell != null && field != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
-                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim().replace(" ", "")));
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
                     }
                 }
                 clazz.getMethod("setComy", String.class).invoke(t, comy.toString());
@@ -265,6 +265,8 @@ public class TableUtil<T> {
         } else if ("datetime".equalsIgnoreCase(type)) {
             value1 = Timestamp.valueOf(value.replace("/", "-"));
         } else if ("timestamp".equalsIgnoreCase(type)) {
+            System.out.println(value);
+            System.out.println(value.replace("/", "-"));
             value1 = Timestamp.valueOf(value);
         }
         return value1;
