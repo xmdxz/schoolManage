@@ -2,8 +2,6 @@ package com.SchoolManage.service;
 
 import com.SchoolManage.dao.TalkTypeDao;
 import com.SchoolManage.exception.FieldNotExistException;
-import com.SchoolManage.pojo.DepartMent;
-import com.SchoolManage.pojo.Student;
 import com.SchoolManage.pojo.TalkType;
 import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,14 +73,13 @@ public class TalkTypeServiceImpl implements TalkTypeService {
     }
 
     @Override
-    public int BatchAddition(String path,String comy) {
+    public int BatchAddition(String path, String comy) {
         int num = 0;
         try {
             //path写实际path
             TableUtil<TalkType> tableUtil = new TableUtil<TalkType>(path, TalkType.class);
-            int i=talkTypeDao.findAllCount(comy);
-            List<TalkType> database = talkTypeDao.findAll(comy,1,i);
-            List<TalkType> list = tableUtil.GetTableRowContent(database);
+            List<TalkType> database = talkTypeDao.findAllNoPage(comy);
+            List<TalkType> list = tableUtil.GetTableRowContent(database, comy);
             //调用插入接口
             //批量上传，list集合
             if (list.size() != 0) {

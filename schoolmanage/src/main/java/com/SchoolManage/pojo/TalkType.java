@@ -2,6 +2,8 @@ package com.SchoolManage.pojo;
 
 import lombok.*;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,4 +34,17 @@ public class TalkType {
      * 人数
      */
     private Integer number;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TalkType)) return false;
+        TalkType talkType = (TalkType) o;
+        return Objects.equals(getType(), talkType.getType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getType());
+    }
 }

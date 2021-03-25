@@ -27,14 +27,14 @@
     <select id="findAll" resultType="com.SchoolManage.pojo.Talk">
         select * from talk
         <if test="comy != null and comy !='' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByStudent" resultType="com.SchoolManage.pojo.Talk">
         select * from talk
         where student = #{student}
         <if test="comy != null and comy !='' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -42,14 +42,14 @@
         select count(*) from talk
         where student = #{student}
         <if test="comy != null and comy !='' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByTeacher" resultType="com.SchoolManage.pojo.Talk">
         select * from talk
         where teacher like "%" #{teacher} "%"
         <if test="comy != null and comy !='' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -58,7 +58,7 @@
         from talk
         where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -67,7 +67,7 @@
         from talk
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -76,7 +76,7 @@
         from talk
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -84,7 +84,7 @@
         select *
         from talk
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         where id = #{id}
     </select>
@@ -92,7 +92,7 @@
         select * from talk
         where types like "%" #{types} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -101,7 +101,7 @@
         from talk
         where time like "%" #{time} "%" and types like "%" #{types} "%" and level like "%" #{level} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -109,7 +109,7 @@
         select * from talk
         where time like "%" #{date} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -127,7 +127,7 @@
     <select id="findAllPage" resultType="com.SchoolManage.pojo.Talk">
         select * from talk
         <if test="comy != null and comy !='' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -135,7 +135,7 @@
     <select id="findAllCount" resultType="int">
         select count(*) from talk
         <if test="comy != null and comy !='' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
     </select>
 
@@ -143,7 +143,7 @@
         select count(*) from talk
         where teacher like "%" #{teacher} "%"
         <if test="comy != null and comy !='' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 
@@ -151,7 +151,7 @@
         select count(*) from talk
         where time like "%" #{date} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 
@@ -160,7 +160,7 @@
         from talk
         where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 
@@ -169,7 +169,7 @@
         from talk
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 
@@ -178,7 +178,7 @@
         from talk
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 
@@ -186,7 +186,7 @@
         select count(*) from talk
         where types like "%" #{types} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 
@@ -195,7 +195,7 @@
         from talk
         where time like "%" #{time} "%" and types like "%" #{types} "%" and level like "%" #{level} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 </mapper>

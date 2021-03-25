@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.SchoolManage.dao.OriginalClassDao">
-
     <select id="findClazz" resultType="com.SchoolManage.pojo.OriginalClass">
         select *
         from original_class
@@ -13,7 +12,7 @@
     <select id="findAll" resultType="com.SchoolManage.pojo.OriginalClass">
         select * from original_class
         <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>

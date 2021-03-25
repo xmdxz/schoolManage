@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface TalkTypeDao {
 
+    List<TalkType> findAllNoPage(@Param(value = "comy") String comy);
+
     /**
      * 获取类型
      *

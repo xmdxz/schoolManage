@@ -72,7 +72,7 @@
         from student
         where name like "%" #{name} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -82,7 +82,7 @@
         from student
         where original_class like "%" #{original_class} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -92,7 +92,7 @@
         from student
         where major like "%" #{major} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -102,7 +102,7 @@
         from student
         where present_class like "%" #{present_class} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -111,7 +111,7 @@
         select *
         from student
         <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="selectStudentNum" resultType="java.lang.Integer">
@@ -121,7 +121,7 @@
                 and ${conditionName} = #{conditionValue}
             </if>
             <if test="comy != null and comy != '' ">
-                and find_in_set(comy,#{comy})
+                and find_in_set(#{comy},comy)
             </if>
         </where>
     </select>
@@ -129,7 +129,7 @@
         select *
         from student
         <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -137,7 +137,7 @@
         select count(*)
         from student
         <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByDirection" resultType="com.SchoolManage.pojo.Student">
@@ -145,7 +145,7 @@
         from student
         where direction like "%" #{direction} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -164,7 +164,7 @@
         (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
         temp.publicize)
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -173,7 +173,7 @@
         select direction
         from student
         <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
         group by direction
     </select>
@@ -185,7 +185,7 @@
         (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
         temp.publicize)
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -206,14 +206,14 @@
                     </if>
                 </foreach>
                 <if test="comy != null and comy != '' ">
-                    and find_in_set(comy,#{comy})
+                    and find_in_set(#{comy},comy)
                 </if>
             </where>
             limit #{startPage},#{num}
         </if>
         <if test="map == null">
             <if test="comy != null and comy != '' ">
-                where find_in_set(comy,#{comy})
+                where find_in_set(#{comy},comy)
             </if>
         </if>
     </select>
@@ -233,13 +233,13 @@
                     </if>
                 </foreach>
                 <if test="comy != null and comy != '' ">
-                    and find_in_set(comy,#{comy})
+                    and find_in_set(#{comy},comy)
                 </if>
             </where>
         </if>
         <if test="maps == null">
             <if test="comy != null and comy != '' ">
-                where find_in_set(comy,#{comy})
+                where find_in_set(#{comy},comy)
             </if>
         </if>
     </select>
@@ -251,7 +251,7 @@
         (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
         temp.publicize)
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findOriginalCadreCount" resultType="java.lang.Integer">
@@ -262,7 +262,7 @@
         (temp.monitor, temp.study, temp.league, temp.vice_monitor, temp.mentality, temp.style, temp.organization,
         temp.publicize)
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByDirectionCount" resultType="java.lang.Integer">
@@ -270,7 +270,7 @@
         from student
         where direction like "%" #{direction} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByNameCount" resultType="java.lang.Integer">
@@ -278,7 +278,7 @@
         from student
         where name like "%" #{name} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByClass_orCount" resultType="java.lang.Integer">
@@ -286,7 +286,7 @@
         from student
         where original_class like "%" #{original_class} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByClass_peCount" resultType="java.lang.Integer">
@@ -294,7 +294,7 @@
         from student
         where present_class like "%" #{present_class} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByMajorCount" resultType="java.lang.Integer">
@@ -302,7 +302,7 @@
         from student
         where major like "%" #{major} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByArea" parameterType="String" resultType="int">
@@ -310,7 +310,7 @@
         from student
         where nativeplace like concat('%', #{area}, '%')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByAreaStudent" resultType="com.SchoolManage.pojo.Student">
@@ -318,7 +318,7 @@
         from student
         where nativeplace like concat('%', #{area}, '%')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}

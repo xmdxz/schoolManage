@@ -8,7 +8,7 @@
         select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
         <where>
             <if test="comy != '' and comy != null">
-                and find_in_set(comy,#{comy})
+                and find_in_set(#{comy},comy)
             </if>
         </where>
         limit #{startPage},#{num}
@@ -18,13 +18,14 @@
         select count(*) from talktype
         <where>
             <if test="comy != '' and comy != null">
-                and find_in_set(comy,#{comy})
+                and find_in_set(#{comy},comy)
             </if>
         </where>
     </select>
 
     <select id="findById" resultType="com.SchoolManage.pojo.TalkType">
-        select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
+        select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number
+        from talktype
         where id = #{id}
     </select>
 
@@ -32,7 +33,7 @@
         select *,(select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
         where type like concat("%",#{type},"%")
         <if test="comy != '' and comy != null">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 
@@ -40,7 +41,7 @@
         select count(*) from talktype
         where type like concat("%",#{type},"%")
         <if test="comy != '' and comy != null">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 
@@ -74,5 +75,14 @@
         select type
         from talktype
         group by type
+    </select>
+
+    <select id="findAllNoPage" resultType="com.SchoolManage.pojo.TalkType">
+        select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
+        <where>
+            <if test="comy != '' and comy != null">
+                and find_in_set(#{comy},comy)
+            </if>
+        </where>
     </select>
 </mapper>

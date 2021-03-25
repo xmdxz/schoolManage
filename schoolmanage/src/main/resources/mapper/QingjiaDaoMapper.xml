@@ -33,7 +33,7 @@
         ) as num
         from qingjia qingjia1
         <if test="comy != null and comy != '' ">
-            where find_in_set(qingjia1.comy,#{comy})
+            where find_in_set(#{comy},qingjia1.comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -45,7 +45,7 @@
         from qingjia qingjia1
         where qingjia1.student = #{student}
         <if test="comy != null and comy != '' ">
-            and find_in_set(qingjia1.comy,#{comy})
+            and find_in_set(#{comy},qingjia1.comy)
         </if>
     </select>
     <select id="findByTeacher" resultType="com.SchoolManage.pojo.Qingjia">
@@ -57,7 +57,7 @@
         from qingjia qingjia1
         where qingjia1.teacher = #{teacher}
         <if test="comy != null and comy != '' ">
-            and find_in_set(qingjia1.comy,#{comy})
+            and find_in_set(#{comy},qingjia1.comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -65,7 +65,7 @@
         select count(*)
         from qingjia
         <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByStudentPage" resultType="com.SchoolManage.pojo.Qingjia">
@@ -76,7 +76,7 @@
         from qingjia qingjia1
         where qingjia1.student = #{student}
         <if test="comy != null and comy != '' ">
-            and find_in_set(qingjia1.comy,#{comy})
+            and find_in_set(#{comy},qingjia1.comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -86,7 +86,7 @@
         from qingjia
         where student = #{student}
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByTimeYearAndMonthAndDay" resultType="com.SchoolManage.pojo.Qingjia">
@@ -98,7 +98,7 @@
         where (date_format(qingjia1.start_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
         or date_format(qingjia1.end_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d'))
         <if test="comy != null and comy != '' ">
-            and find_in_set(qingjia1.comy,#{comy})
+            and find_in_set(#{comy},qingjia1.comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -109,7 +109,7 @@
         where (date_format(start_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
         or date_format(end_time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d'))
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByTimeYearAndMonth" resultType="com.SchoolManage.pojo.Qingjia">
@@ -121,7 +121,7 @@
         where (date_format(qingjia1.start_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
         or date_format(qingjia1.end_time, '%Y-%m') = date_format(#{time}, '%Y-%m'))
         <if test="comy != null and comy != '' ">
-            and find_in_set(qingjia1.comy,#{comy})
+            and find_in_set(#{comy},qingjia1.comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -132,7 +132,7 @@
         where (date_format(start_time, '%Y-%m') = date_format(#{time}, '%Y-%m')
         or date_format(end_time, '%Y-%m') = date_format(#{time}, '%Y-%m'))
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByTimeYear" resultType="com.SchoolManage.pojo.Qingjia">
@@ -144,7 +144,7 @@
         where (date_format(qingjia1.start_time, '%Y') = date_format(#{time}, '%Y')
         or date_format(qingjia1.end_time, '%Y') = date_format(#{time}, '%Y'))
         <if test="comy != null and comy != '' ">
-            and find_in_set(qingjia1.comy,#{comy})
+            and find_in_set(#{comy},qingjia1.comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -155,7 +155,7 @@
         where (date_format(start_time, '%Y') = date_format(#{time}, '%Y')
         or date_format(end_time, '%Y') = date_format(#{time}, '%Y'))
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByName" resultType="com.SchoolManage.pojo.Qingjia">
@@ -166,7 +166,7 @@
         from qingjia qingjia1
         where qingjia1.name like "%" #{name} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(qingjia1.comy,#{comy})
+            and find_in_set(#{comy},qingjia1.comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -176,7 +176,7 @@
         from qingjia
         where name like "%" #{name} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByClazz" resultType="com.SchoolManage.pojo.Qingjia">
@@ -187,7 +187,7 @@
         from qingjia qingjia1
         where clazz like "%" #{clazz} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(qingjia1.comy,#{comy})
+            and find_in_set(#{comy},qingjia1.comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -197,7 +197,7 @@
         from qingjia
         where clazz like "%" #{clazz} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <update id="updateQingJia" parameterType="com.SchoolManage.pojo.Qingjia">
@@ -227,7 +227,7 @@
         where (qingjia1.start_time like "%" #{date} "%"
         or qingjia1.end_time like "%" #{date} "%")
         <if test="comy != null and comy != '' ">
-            and find_in_set(qingjia1.comy,#{comy})
+            and find_in_set(#{comy},qingjia1.comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -237,47 +237,47 @@
         where (start_time like "%" #{date} "%"
         or end_time like "%" #{date} "%")
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByNow_time" resultType="java.lang.Integer">
-        select  DISTINCT COUNT(*) from qingjia where  TO_DAYS(end_time)=TO_DAYS(NOW())
+        select DISTINCT COUNT(*) from qingjia where TO_DAYS(end_time)=TO_DAYS(NOW())
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findBystart_time" resultType="com.SchoolManage.pojo.Qingjia">
-        select  * from qingjia where  TO_DAYS(start_time)>=TO_DAYS(#{time})
+        select * from qingjia where TO_DAYS(start_time)>=TO_DAYS(#{time})
         and  <![CDATA[ TO_DAYS(end_time)<=TO_DAYS(#{time1})]]>
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
     <select id="findBystart_timeCount" resultType="java.lang.Integer">
-        select  count(*) from qingjia where  TO_DAYS(start_time)>=TO_DAYS(#{time})
+        select count(*) from qingjia where TO_DAYS(start_time)>=TO_DAYS(#{time})
         and <![CDATA[ TO_DAYS(end_time)<=TO_DAYS(#{time1})]]>
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByend_time" resultType="com.SchoolManage.pojo.Qingjia">
-        select  * from qingjia where  TO_DAYS(end_time)=TO_DAYS(#{time})
+        select * from qingjia where TO_DAYS(end_time)=TO_DAYS(#{time})
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
     <select id="findByend_timeCount" resultType="java.lang.Integer">
-        select  count(*) from qingjia where  TO_DAYS(end_time)=TO_DAYS(#{time})
+        select count(*) from qingjia where TO_DAYS(end_time)=TO_DAYS(#{time})
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findBYweek_time" resultType="com.SchoolManage.pojo.Qingjia">
-        select  * from qingjia where  YEARWEEK(DATE_FORMAT(start_time,'%Y-%m-%d'))=YEARWEEK(NOW())
+        select * from qingjia where YEARWEEK(DATE_FORMAT(start_time,'%Y-%m-%d'))=YEARWEEK(NOW())
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 </mapper>

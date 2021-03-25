@@ -39,7 +39,7 @@
         select *
         from honour
         <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -48,7 +48,7 @@
         from honour
         where student = #{student}
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -58,7 +58,7 @@
         from honour
         where type like "%" #{type} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -68,7 +68,7 @@
         from honour
         where prize like "%" #{prize} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -78,7 +78,7 @@
         from honour
         where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -94,17 +94,16 @@
                     </if>
                     <if test="key != clazz">
                         ${key} = #{item}
-
                     </if>
                 </foreach>
             </where>
             <if test="comy != null and comy != '' ">
-                and find_in_set(comy,#{comy})
+                and find_in_set(#{comy},comy)
             </if>
         </if>
         <if test="map == null">
             <if test="comy != null and comy != '' ">
-                where find_in_set(comy,#{comy})
+                where find_in_set(#{comy},comy)
             </if>
         </if>
     </select>
@@ -112,7 +111,7 @@
         select count(*)
         from honour
         <if test="comy != null and comy != '' ">
-            where find_in_set(comy,#{comy})
+            where find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByStudentNoPage" resultType="com.SchoolManage.pojo.Honour">
@@ -120,7 +119,7 @@
         from honour
         where student = #{student}
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByStudentCount" resultType="java.lang.Integer">
@@ -128,7 +127,7 @@
         from honour
         where student = #{student}
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByTypeCount" resultType="java.lang.Integer">
@@ -136,7 +135,7 @@
         from honour
         where type like "%" #{type} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByPrizeCount" resultType="java.lang.Integer">
@@ -144,7 +143,7 @@
         from honour
         where prize like "%" #{prize} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByTimeCount" resultType="java.lang.Integer">
@@ -152,7 +151,7 @@
         from honour
         where date_format(time, '%Y-%m-%d') = date_format(#{time}, '%Y-%m-%d')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByTimeYearAndMonth"
@@ -161,7 +160,7 @@
         from honour
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -171,7 +170,7 @@
         from honour
         where date_format(time, '%Y-%m') = date_format(#{time}, '%Y-%m')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByTimeYear" resultType="com.SchoolManage.pojo.Honour">
@@ -179,7 +178,7 @@
         from honour
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -189,7 +188,7 @@
         from honour
         where date_format(time, '%Y') = date_format(#{time}, '%Y')
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findById" resultType="com.SchoolManage.pojo.Honour">
@@ -202,7 +201,7 @@
         from honour
         where name like "%" #{name} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage}
         , #{num}
@@ -212,7 +211,7 @@
         from honour
         where name like "%" #{name} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
     <select id="findByDate" resultType="com.SchoolManage.pojo.Honour">
@@ -220,7 +219,7 @@
         from honour
         where time like "%" #{date} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
         limit #{startPage},#{num}
     </select>
@@ -229,7 +228,7 @@
         from honour
         where time like "%" #{date} "%"
         <if test="comy != null and comy != '' ">
-            and find_in_set(comy,#{comy})
+            and find_in_set(#{comy},comy)
         </if>
     </select>
 </mapper>

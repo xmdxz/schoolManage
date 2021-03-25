@@ -112,10 +112,13 @@ public class TableUtil<T> {
             Row row = sheet.getRow(i);
             if (row != null) {
                 T t = (T) clazz.newInstance();
-                for (String s : set) {
+                for (String s : ls) {
                     String field = this.eneity.get(s);
+                    System.out.println("field:" + field);
                     Cell cell = row.getCell(ls.indexOf(s));
-                    if (cell != null) {
+                    System.out.println(ls.indexOf(s));
+                    System.out.println("cell:" + cell);
+                    if (cell != null && field != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
                         method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim().replace(" ", "")));
@@ -142,10 +145,10 @@ public class TableUtil<T> {
             Row row = sheet.getRow(i);
             if (row != null) {
                 T t = (T) clazz.newInstance();
-                for (String s : set) {
+                for (String s : ls) {
                     String field = this.eneity.get(s);
                     Cell cell = row.getCell(ls.indexOf(s));
-                    if (cell != null) {
+                    if (cell != null && field != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
                         method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
@@ -174,10 +177,10 @@ public class TableUtil<T> {
             Row row = sheet.getRow(i);
             if (row != null) {
                 T t = (T) clazz.newInstance();
-                for (String s : set) {
+                for (String s : ls) {
                     String field = this.eneity.get(s);
                     Cell cell = row.getCell(ls.indexOf(s));
-                    if (cell != null) {
+                    if (cell != null && field != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
                         method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim().replace(" ", "")));
@@ -199,10 +202,10 @@ public class TableUtil<T> {
             Row row = sheet.getRow(i);
             if (row != null) {
                 T t = (T) clazz.newInstance();
-                for (String s : set) {
+                for (String s : ls) {
                     String field = this.eneity.get(s);
                     Cell cell = row.getCell(ls.indexOf(s));
-                    if (cell != null) {
+                    if (cell != null && field != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
                         method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim().replace(" ", "")));
@@ -284,25 +287,26 @@ public class TableUtil<T> {
         }
         return new String(chars);
     }
+
     public static boolean isValidDate(String str) {
-        boolean convertSuccess=true;
+        boolean convertSuccess = true;
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         try {
             format.setLenient(false);
             format.parse(str);
         } catch (ParseException e) {
-            convertSuccess=false;
+            convertSuccess = false;
         }
         return convertSuccess;
     }
+
     public String getExcleTypeStringValue(Cell cell) {
         switch (cell.getCellType()) {
             case STRING:
-                String str=cell.getStringCellValue().trim();
-                if(isValidDate(str))
-                {
-                    str=str.replace("/","-");
-                    str=str+":00";
+                String str = cell.getStringCellValue().trim();
+                if (isValidDate(str)) {
+                    str = str.replace("/", "-");
+                    str = str + ":00";
                     return str.trim();
                 }
                 return cell.getStringCellValue().trim();
