@@ -5,7 +5,7 @@
 
 <mapper namespace="com.SchoolManage.dao.TalkTypeDao">
     <select id="findAll" resultType="com.SchoolManage.pojo.TalkType">
-        select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
+        select *, (select count(*) from talkmember where talkmember.type = talktype.id) as number from talktype
         <where>
             <if test="comy != '' and comy != null">
                 and find_in_set(#{comy},comy)
@@ -24,13 +24,13 @@
     </select>
 
     <select id="findById" resultType="com.SchoolManage.pojo.TalkType">
-        select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number
+        select *, (select count(*) from talkmember where talkmember.type = talktype.id) as number
         from talktype
         where id = #{id}
     </select>
 
     <select id="findByType" resultType="com.SchoolManage.pojo.TalkType">
-        select *,(select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
+        select *,(select count(*) from talkmember where talkmember.type = talktype.id) as number from talktype
         where type like concat("%",#{type},"%")
         <if test="comy != '' and comy != null">
             and find_in_set(#{comy},comy)
@@ -74,11 +74,12 @@
     <select id="getType" resultType="java.lang.String">
         select type
         from talktype
+        where comy = #{comy}
         group by type
     </select>
 
     <select id="findAllNoPage" resultType="com.SchoolManage.pojo.TalkType">
-        select *, (select count(*) from talkmember where talkmember.type = talktype.type) as number from talktype
+        select *, (select count(*) from talkmember where talkmember.type = talktype.id) as number from talktype
         <where>
             <if test="comy != '' and comy != null">
                 and find_in_set(#{comy},comy)

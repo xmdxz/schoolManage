@@ -16,8 +16,12 @@ public class TalkMember {
     /**
      * 类型
      */
-    private String type;
+    private String typeName;
 
+    /**
+     * 类型对应类型ID
+     */
+    private Integer type;
     /**
      * 班级
      */
@@ -32,7 +36,6 @@ public class TalkMember {
      * 姓名
      */
     private String name;
-
 
 
     /**

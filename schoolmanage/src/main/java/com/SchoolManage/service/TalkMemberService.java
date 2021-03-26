@@ -21,7 +21,7 @@ public interface TalkMemberService {
      * @param num
      * @return
      */
-    List<TalkMember> findAll(String type, Integer Page, Integer num);
+    List<TalkMember> findAll(Integer type, Integer Page, Integer num);
 
     /**
      * 查找数量
@@ -29,7 +29,7 @@ public interface TalkMemberService {
      * @param id
      * @return
      */
-    int findAllCount(String type);
+    int findAllCount(Integer type);
 
     /**
      * 根据id查找
@@ -46,9 +46,9 @@ public interface TalkMemberService {
      * @param code
      * @return
      */
-    List<TalkMember> findByCodeAndType(String type, String code,String comy, Integer Page, Integer num);
+    List<TalkMember> findByCodeAndType(Integer type, String code, Integer Page, Integer num);
 
-    int findByCodeAndTypeCount(String type, String code,String comy);
+    int findByCodeAndTypeCount(Integer type, String code);
 
     /**
      * 根据学号查找
@@ -67,9 +67,9 @@ public interface TalkMemberService {
      * @param name
      * @return
      */
-    List<TalkMember> findByName(String type, String name,String comy, Integer Page, Integer num);
+    List<TalkMember> findByName(Integer type, String name, Integer Page, Integer num);
 
-    int findByNameCount(String type, String name,String comy);
+    int findByNameCount(Integer type, String name);
 
     /**
      * 更新
@@ -102,10 +102,13 @@ public interface TalkMemberService {
      * @return
      */
     int deleteData(Integer id);
-    int findBytypeCount(String type,String comy);
+
+    int findBytypeCount(Integer type);
+
     /**
      * 批量添加啊
      */
-    int BatchAddition(String path,String type, String comy);
-    List<TalkMember> findBytype(String type,String comy,Integer Page, Integer num);
+    int BatchAddition(String path, Integer type, String comy);
+
+    List<TalkMember> findBytype(Integer type, Integer Page, Integer num);
 }

@@ -32,7 +32,6 @@
     <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
 
-
     <!-- Custom JS -->
     <script th:src="@{/assets/js/script.js}"></script>
     <!-- alert beautiful-->
@@ -40,47 +39,44 @@
     <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
     <script type="text/javascript">
         var url = document.location.toString();//获取url地址
-        var studentObj=null;
-        var Id=null;
-        var Name=null;
-        if(url.indexOf("?")!=-1)
-        {
-            var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+        var studentObj = null;
+        var Id = null;
+        var Name = null;
+        if (url.indexOf("?") != -1) {
+            var urlParmStr = url.slice(url.indexOf('?') + 1);//获取问号后所有的字符串
             var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
             Id = arr[0].split("=")[1];//获取数组中第一个参数// unit_title=decodeURI(unit_title);//转码将解码方式换为decodeURI，将中文参数获取
-            Name=arr[1].split("=")[1];
-            Name=decodeURI(Name);
+            Name = arr[1].split("=")[1];
+            Name = decodeURI(Name);
             $.ajax({
-                type:"post",
-                url:"talkmember/findbyid",
-                dataType:"json",
-                data: {id:Id}
+                type: "post",
+                url: "talkmember/findbyid",
+                dataType: "json",
+                data: {id: Id}
             }).done(function (res) {
                 console.log(res)
-                obj=res;
+                obj = res;
                 var props = "";
-                for(var p in obj){
-                    if(typeof(obj[p])=="function"){
+                for (var p in obj) {
+                    if (typeof (obj[p]) == "function") {
                         obj[p]();
-                    }else{
-                        if(document.getElementById(p)!=null)
-                            document.getElementById(p).value= obj[p];
+                    } else {
+                        if (document.getElementById(p) != null)
+                            document.getElementById(p).value = obj[p];
                     }
                 }
             })
         }
         //获取缓存中登录账号的信息
-        var adminuserInfo=JSON.parse(window.localStorage.getItem("adminuserInfo"));
-        var name=adminuserInfo.name;
-        var responsible=adminuserInfo.responsible;
+        var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
+        var name = adminuserInfo.name;
+        var responsible = adminuserInfo.responsible;
         $(document).ready(function () {
             $('#InfoName').text(name);
-            if(responsible=='2019')
-            {
-                $('[name="Q20"]').css("display","none")
-            }
-            else if(responsible=='2020'){
-                $('[name="Q19"]').css("display","none")
+            if (responsible == '2019') {
+                $('[name="Q20"]').css("display", "none")
+            } else if (responsible == '2020') {
+                $('[name="Q19"]').css("display", "none")
             }
         });
     </script>
@@ -148,12 +144,14 @@
             <!-- User Menu -->
             <li class="nav-item dropdown has-arrow">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                    <span class="user-img"><img class="rounded-circle" th:src="@{/assets/img/profiles/avatar-01.jpg}" width="31" alt="Ryan Taylor"></span>
+                    <span class="user-img"><img class="rounded-circle" th:src="@{/assets/img/profiles/avatar-01.jpg}"
+                                                width="31" alt="Ryan Taylor"></span>
                 </a>
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="User Image" class="avatar-img rounded-circle">
+                            <img th:src="@{/assets/img/profiles/avatar-01.jpg}" alt="User Image"
+                                 class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
                             <h6 id="InfoName"></h6>
@@ -161,7 +159,7 @@
                         </div>
                     </div>
                     <a class="dropdown-item" href="profile.html">我的个人资料</a>
-<!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
+                    <!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
                     <a class="dropdown-item" href="login.html">注销</a>
                 </div>
             </li>
@@ -227,17 +225,18 @@
                             <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
                     </li>
-<!--                    <li class="submenu">-->
-<!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span class="menu-arrow"></span></a>-->
-<!--                        <ul>-->
-<!--                            <li><a href="teachers.html">教师列表</a></li>-->
-<!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
-<!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
-<!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
+                    <!--                    <li class="submenu">-->
+                    <!--                        <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span>教师</span> <span class="menu-arrow"></span></a>-->
+                    <!--                        <ul>-->
+                    <!--                            <li><a href="teachers.html">教师列表</a></li>-->
+                    <!--                            <li><a href="teacher-details.html">教师信息</a></li>-->
+                    <!--                            <li><a href="add-teacher.html">教师添加</a></li>-->
+                    <!--                            <li><a href="edit-teacher.html">教师编辑</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                    </li>-->
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-building"></i> <span> 部门</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="departments.html">部门列表</a></li>
                             <li><a href="add-department.html">部门添加</a></li>
@@ -343,19 +342,20 @@
                             <!--                            <li><a href="add-student.html">学生添加</a></li>-->
                             <!--									<li><a href="edit-student.html">学生编辑</a></li>-->
                         </ul>
-                    </li>>
-<!--                    <li>-->
-<!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
-<!--                    </li>-->
+                    </li>
+                    >
+                    <!--                    <li>-->
+                    <!--                        <a href="fees.html"><i class="fas fa-comment-dollar"></i> <span>费用</span></a>-->
+                    <!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="exam.html"><i class="fas fa-clipboard-list"></i> <span>考试列表</span></a>-->
+                    <!--                    </li>-->
                     <li>
                         <a href="event.html"><i class="fas fa-calendar-day"></i> <span>日志</span></a>
                     </li>
-<!--                    <li>-->
-<!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
-<!--                    </li>-->
+                    <!--                    <li>-->
+                    <!--                        <a href="time-table.html"><i class="fas fa-table"></i> <span>时间表</span></a>-->
+                    <!--                    </li>-->
                     <!--							<li> -->
                     <!--								<a href="library.html"><i class="fas fa-book"></i> <span>Library</span></a>-->
                     <!--							</li>-->
@@ -423,7 +423,8 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span class="menu-arrow"></span></a>
+                        <a href="#"><i class="fas fa-basketball-ball"></i> <span>活动</span> <span
+                                class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="activity.html">活动列表</a></li>
                             <li><a href="add-activity.html">活动添加</a></li>
@@ -553,21 +554,24 @@
                                     <div class="col-12 col-sm-6" style="display: none">
                                         <div class="form-group">
                                             <label>年份</label>
-                                            <input type="text" class="form-control" value="2019" placeholder="请输入" name="comy"
+                                            <input type="text" class="form-control" value="2019" placeholder="请输入"
+                                                   name="comy"
                                                    id="comy">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6" style="display: none">
                                         <div class="form-group">
                                             <label>编号</label>
-                                            <input type="text" class="form-control" value="2019" placeholder="请输入" name="id"
+                                            <input type="text" class="form-control" value="2019" placeholder="请输入"
+                                                   name="id"
                                                    id="id">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>学号</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" name="code"
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   name="code"
                                                    id="code">
                                         </div>
                                     </div>
@@ -589,7 +593,7 @@
                                         <div class="form-group">
                                             <label>谈话类型</label>
                                             <input type="text" class="form-control" value="" placeholder="请输入"
-                                                   id="type" name="type">
+                                                   id="typeName" name="typeName">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
@@ -609,21 +613,24 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>心理状态</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="status"
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   id="status"
                                                    name="status">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>解决办法</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="solution"
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   id="solution"
                                                    name="solution">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>备注</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="remarks"
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   id="remarks"
                                                    name="remarks">
                                         </div>
                                     </div>

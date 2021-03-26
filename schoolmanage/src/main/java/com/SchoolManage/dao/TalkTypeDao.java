@@ -19,7 +19,7 @@ public interface TalkTypeDao {
      *
      * @return
      */
-    List<String> getType();
+    List<String> getType(@Param(value = "comy") String comy);
 
     /**
      * 查询全部

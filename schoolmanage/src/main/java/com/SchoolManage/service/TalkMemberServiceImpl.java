@@ -3,7 +3,6 @@ package com.SchoolManage.service;
 import com.SchoolManage.dao.TalkMemberDao;
 import com.SchoolManage.exception.FieldNotExistException;
 import com.SchoolManage.pojo.TalkMember;
-import com.SchoolManage.pojo.TalkType;
 import com.SchoolManage.util.TableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +24,12 @@ public class TalkMemberServiceImpl implements TalkMemberService {
 
 
     @Override
-    public List<TalkMember> findAll(String type, Integer Page, Integer num) {
+    public List<TalkMember> findAll(Integer type, Integer Page, Integer num) {
         return talkMemberDao.findAll(type, (Page - 1) * num, num);
     }
 
     @Override
-    public int findAllCount(String type) {
+    public int findAllCount(Integer type) {
         return talkMemberDao.findAllCount(type);
     }
 
@@ -40,13 +39,13 @@ public class TalkMemberServiceImpl implements TalkMemberService {
     }
 
     @Override
-    public List<TalkMember> findByCodeAndType(String type, String code, String comy,Integer Page, Integer num) {
-        return talkMemberDao.findByCodeAndType(type, code, comy,(Page - 1) * num, num);
+    public List<TalkMember> findByCodeAndType(Integer type, String code, Integer Page, Integer num) {
+        return talkMemberDao.findByCodeAndType(type, code, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByCodeAndTypeCount(String type, String code,String comy) {
-        return talkMemberDao.findByCodeAndTypeCount(type, code,comy);
+    public int findByCodeAndTypeCount(Integer type, String code) {
+        return talkMemberDao.findByCodeAndTypeCount(type, code);
     }
 
     @Override
@@ -60,13 +59,13 @@ public class TalkMemberServiceImpl implements TalkMemberService {
     }
 
     @Override
-    public List<TalkMember> findByName(String type, String name,String comy, Integer Page, Integer num) {
-        return talkMemberDao.findByName(type, name, comy,(Page - 1) * num, num);
+    public List<TalkMember> findByName(Integer type, String name, Integer Page, Integer num) {
+        return talkMemberDao.findByName(type, name, (Page - 1) * num, num);
     }
 
     @Override
-    public int findByNameCount(String type, String name,String comy) {
-        return talkMemberDao.findByNameCount(type, name,comy);
+    public int findByNameCount(Integer type, String name) {
+        return talkMemberDao.findByNameCount(type, name);
     }
 
     @Override
@@ -90,19 +89,17 @@ public class TalkMemberServiceImpl implements TalkMemberService {
     }
 
     @Override
-    public int findBytypeCount(String type, String comy) {
-        return talkMemberDao.findBytypeCount(type,comy);
+    public int findBytypeCount(Integer type) {
+        return talkMemberDao.findBytypeCount(type);
     }
 
     @Override
-    public int BatchAddition(String path,String type, String comy) {
+    public int BatchAddition(String path, Integer type, String comy) {
         int num = 0;
         try {
             //path写实际path
-            TableUtil<TalkMember> tableUtil = new TableUtil<TalkMember>(path,TalkMember.class);
-            int i=talkMemberDao.findBytypeCount(type,comy);
-            List<TalkMember> database = talkMemberDao.findBytype(type,comy,1,i);
-            List<TalkMember> list = tableUtil.GetTableRowContent(database, comy);
+            TableUtil<TalkMember> tableUtil = new TableUtil<TalkMember>(path, TalkMember.class);
+            List<TalkMember> list = tableUtil.GetTableRowContent(type, comy);
             //调用插入接口
             //批量上传，list集合
             if (list.size() != 0) {
@@ -121,7 +118,7 @@ public class TalkMemberServiceImpl implements TalkMemberService {
     }
 
     @Override
-    public List<TalkMember> findBytype(String type, String comy, Integer Page, Integer num) {
-        return talkMemberDao.findBytype(type,comy,(Page-1),num);
+    public List<TalkMember> findBytype(Integer type, Integer Page, Integer num) {
+        return talkMemberDao.findBytype(type, (Page - 1), num);
     }
 }

@@ -2,12 +2,11 @@ package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.AdminUser;
-import com.SchoolManage.pojo.Member;
 import com.SchoolManage.pojo.TalkMember;
-import com.SchoolManage.pojo.TalkType;
 import com.SchoolManage.service.TalkMemberService;
 import com.SchoolManage.util.CreateExlceUtil;
 import com.SchoolManage.util.ExcleTemplate;
+import com.SchoolManage.util.TypeTo;
 import com.SchoolManage.util.UnicodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,13 +38,13 @@ public class TalkMemberController {
 
     @RequestMapping("findall")
     @ResponseBody
-    public List<TalkMember> findAll(String type, Integer Page, Integer num) {
+    public List<TalkMember> findAll(Integer type, Integer Page, Integer num) {
         return talkMemberService.findAll(type, Page, num);
     }
 
     @RequestMapping("findallcount")
     @ResponseBody
-    public int findAllCount(String type) {
+    public int findAllCount(Integer type) {
         return talkMemberService.findAllCount(type);
     }
 
@@ -57,19 +56,19 @@ public class TalkMemberController {
 
     @RequestMapping("findbycodeandtype")
     @ResponseBody
-    public List<TalkMember> findByCodeAndType(String type, String code, String comy,Integer Page, Integer num) {
-        return talkMemberService.findByCodeAndType(type, code,comy, Page, num);
+    public List<TalkMember> findByCodeAndType(Integer type, String code, Integer Page, Integer num) {
+        return talkMemberService.findByCodeAndType(type, code, Page, num);
     }
 
     @RequestMapping("findbycodeandtypecount")
     @ResponseBody
-    public int findByCodeAndTypeCount(String type, String code,String comy) {
-        return talkMemberService.findByCodeAndTypeCount(type,code,comy);
+    public int findByCodeAndTypeCount(Integer type, String code) {
+        return talkMemberService.findByCodeAndTypeCount(type, code);
     }
 
     @RequestMapping("findbycode")
     @ResponseBody
-    public List<TalkMember> findByCode(String code,Integer Page, Integer num) {
+    public List<TalkMember> findByCode(String code, Integer Page, Integer num) {
         return talkMemberService.findByCode(code, Page, num);
     }
 
@@ -81,38 +80,43 @@ public class TalkMemberController {
 
     @RequestMapping("findbyname")
     @ResponseBody
-    public List<TalkMember> findByName(String type, String name,String comy, Integer Page, Integer num) {
-        return talkMemberService.findByName(type, name,comy, Page, num);
+    public List<TalkMember> findByName(Integer type, String name, Integer Page, Integer num) {
+        return talkMemberService.findByName(type, name, Page, num);
     }
+
     @RequestMapping("findbytype")
     @ResponseBody
-    public List<TalkMember> findByType(String type, String comy, Integer Page, Integer num) {
-        return talkMemberService.findBytype(type, comy, Page, num);
+    public List<TalkMember> findByType(Integer type, Integer Page, Integer num) {
+        return talkMemberService.findBytype(type, Page, num);
     }
+
     @RequestMapping("findbytypecount")
     @ResponseBody
-    public int findByTypeCount(String type, String comy) {
-        return talkMemberService.findBytypeCount(type, comy);
+    public int findByTypeCount(Integer type) {
+        return talkMemberService.findBytypeCount(type);
     }
+
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request, String type,String comy) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        int i = talkMemberService.findBytypeCount(type,comy);
+    public String ExcleStudent(HttpServletRequest request, Integer type) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        int i = talkMemberService.findBytypeCount(type);
         CreateExlceUtil<TalkMember> createExlceUtil = new CreateExlceUtil<>(request, TalkMember.class, "谈话成员表");
-        List<TalkMember> list = talkMemberService.findBytype(type, comy,1, i);
+        List<TalkMember> list = talkMemberService.findBytype(type, 1, i);
         return createExlceUtil.createExcle(list);
     }
+
     @RequestMapping("findbynamecount")
     @ResponseBody
-    public int findByNameCount(String type, String name,String comy) {
-        return talkMemberService.findByNameCount(type, name,comy);
+    public int findByNameCount(Integer type, String name) {
+        return talkMemberService.findByNameCount(type, name);
     }
 
     @RequestMapping("updatedata")
-    public String updateData(TalkMember talkMember) {
+    public String updateData(TalkMember talkMember, String comy) {
+        talkMember.setType(TypeTo.getTypeTo(talkMember.getTypeName(), comy));
         int i = talkMemberService.updateData(talkMember);
         UnicodeUtil util = new UnicodeUtil();
-        String str = util.gbEncoding(talkMember.getType());//中文换为unicode编码
+        String str = util.gbEncoding(talkMember.getTypeName());//中文换为unicode编码
 
         str = str.replace('\\', '_'); //url中不允许出现、 所以转换
 
@@ -122,23 +126,26 @@ public class TalkMemberController {
     }
 
     @RequestMapping("insertdata")
-    public String insertData(TalkMember talkMember) {
+    public String insertData(TalkMember talkMember, String comy) {
+        talkMember.setType(TypeTo.getTypeTo(talkMember.getTypeName(), comy));
         int i = talkMemberService.insertData(talkMember);
         UnicodeUtil util = new UnicodeUtil();
-        String str = util.gbEncoding(talkMember.getType());//中文换为unicode编码
+        String str = util.gbEncoding(talkMember.getTypeName());//中文换为unicode编码
         str = str.replace('\\', '_'); //url中不允许出现、 所以转换
         if (i != 0) {
             System.out.println(str);
-            return "redirect:/loginp_9.html?type=" +str;
+            return "redirect:/loginp_9.html?type=" + str;
         } else return "redirect:/psychology.html";
     }
+
     @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        TalkMember talkMember = new TalkMember(1,"xxx","xxx","xxx","xxx","xxx","xxx","xxx","xxx","xxx","xxx");
+        TalkMember talkMember = new TalkMember(1, "xxx", 0, "xxx", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx", "xxx");
         return ExcleTemplate.getTemplate(request, talkMember, "谈话成员表模板");
 
     }
+
     @RequestMapping("deletedata")
     @ResponseBody
     public Map<String, Object> deleteData(int id) {
@@ -154,9 +161,10 @@ public class TalkMemberController {
             return map;
         }
     }
+
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request,String type, String comy, @RequestParam("file") MultipartFile file) {
+    public String upfile(HttpServletRequest request, Integer type, String comy, @RequestParam("file") MultipartFile file) {
         if (file == null) {
             return "请选择文件";
         }
@@ -177,7 +185,7 @@ public class TalkMemberController {
             int i = 66;
             try {
                 System.out.println(path);
-                i = talkMemberService.BatchAddition(path,type,comy);
+                i = talkMemberService.BatchAddition(path, type, comy);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
                 return "上传成功了";

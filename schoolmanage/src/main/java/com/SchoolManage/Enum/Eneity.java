@@ -140,27 +140,29 @@ public enum Eneity {
         private static final long serialVersionUID = 8710442881691886614L;
 
         {
-        put("编号", "id");
-        put("类型", "type");
-        put("所属学院", "college");
-        put("人数", "number");
-    }}),
+            put("编号", "id");
+            put("类型", "type");
+            put("所属学院", "college");
+            put("人数", "number");
+        }
+    }),
 
     TALKMEMBER(new LinkedHashMap<String, String>() {
         private static final long serialVersionUID = -1593903241103609890L;
 
         {
-        put("编号", "id");
-        put("类型", "type");
-        put("班级", "clazz");
-        put("学号", "code");
-        put("姓名", "name");
-        put("心理状态", "status");
-        put("本人联系方式", "own_phone");
-        put("家长联系方式", "family_phone");
-        put("解决方案", "solution");
-        put("备注", "remarks");
-    }});
+            put("编号", "id");
+            put("类型", "typeName");
+            put("班级", "clazz");
+            put("学号", "code");
+            put("姓名", "name");
+            put("心理状态", "status");
+            put("本人联系方式", "own_phone");
+            put("家长联系方式", "family_phone");
+            put("解决方案", "solution");
+            put("备注", "remarks");
+        }
+    });
 
 
     private Map<String, String> pojo;

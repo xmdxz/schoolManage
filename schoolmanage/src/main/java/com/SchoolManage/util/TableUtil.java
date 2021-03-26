@@ -191,6 +191,32 @@ public class TableUtil<T> {
         return Ts;
     }
 
+    public List<T> GetTableRowContent(Integer type, String comy) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
+        List<T> Ts = new ArrayList<>();
+        Set<String> set = this.eneity.keySet();
+        List<String> ls = GetTableHead();
+        for (int i = 1; i < GetRows(); i++) {
+            Row row = sheet.getRow(i);
+            if (row != null) {
+                T t = (T) clazz.newInstance();
+                for (String s : ls) {
+                    String field = this.eneity.get(s);
+                    Cell cell = row.getCell(ls.indexOf(s));
+                    if (cell != null && field != null) {
+                        String value = getExcleTypeStringValue(cell);
+                        Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());
+                        method.invoke(t, getValue(clazz.getDeclaredField(field).getType().getSimpleName(), formatValueForFUlltoHalf(value).trim()));
+                    }
+                }
+                clazz.getMethod("setType", Integer.class).invoke(t, TypeTo.getTypeTo((String) clazz.getMethod("getTypeName").invoke(t, null), comy));
+                if (!Ts.contains(t) && !getIsNull(t)) {
+                    Ts.add(t);
+                }
+            }
+        }
+        return Ts;
+    }
+
     public List<T> GetTableRowContent(String comy) throws IllegalAccessException, InstantiationException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, FieldNotExistException {
         List<T> Ts = new ArrayList<>();
         Set<String> set = this.eneity.keySet();

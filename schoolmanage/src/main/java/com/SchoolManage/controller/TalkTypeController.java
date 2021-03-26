@@ -2,8 +2,6 @@ package com.SchoolManage.controller;
 
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.AdminUser;
-import com.SchoolManage.pojo.DepartMent;
-import com.SchoolManage.pojo.Honour;
 import com.SchoolManage.pojo.TalkType;
 import com.SchoolManage.service.TalkTypeService;
 import com.SchoolManage.util.CreateExlceUtil;
@@ -20,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +36,8 @@ public class TalkTypeController {
 
     @RequestMapping("gettype")
     @ResponseBody
-    public List<String> getType() {
-        return talkTypeService.getType();
+    public List<String> getType(String comy) {
+        return talkTypeService.getType(comy);
     }
 
     @RequestMapping("findall")
@@ -70,10 +67,11 @@ public class TalkTypeController {
     @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
     @ResponseBody
     public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
-        TalkType talkType = new TalkType(1,"xxx","xxx","xxx",0);
+        TalkType talkType = new TalkType(1, "xxx", "xxx", "xxx", 0);
         return ExcleTemplate.getTemplate(request, talkType, "谈话表模板");
 
     }
+
     @RequestMapping("findbytypecount")
     @ResponseBody
     public int findByTypeCount(String comy, String type) {
@@ -131,17 +129,19 @@ public class TalkTypeController {
             return map;
         }
     }
+
     @RequestMapping(value = "Excle", produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String ExcleStudent(HttpServletRequest request,String comy) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+    public String ExcleStudent(HttpServletRequest request, String comy) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
         int i = talkTypeService.findAllCount(comy);
         CreateExlceUtil<TalkType> createExlceUtil = new CreateExlceUtil<>(request, TalkType.class, "谈话表");
-        List<TalkType> list = talkTypeService.findAll(comy,1, i);
+        List<TalkType> list = talkTypeService.findAll(comy, 1, i);
         return createExlceUtil.createExcle(list);
     }
+
     @PostMapping("upfile")
     @ResponseBody
-    public String upfile(HttpServletRequest request,String comy, @RequestParam("file") MultipartFile file) {
+    public String upfile(HttpServletRequest request, String comy, @RequestParam("file") MultipartFile file) {
         if (file == null) {
             return "请选择文件";
         }
@@ -162,7 +162,7 @@ public class TalkTypeController {
             int i = 66;
             try {
                 System.out.println(path);
-                i = talkTypeService.BatchAddition(path,comy);
+                i = talkTypeService.BatchAddition(path, comy);
                 dest.delete();
                 AdminUser a = (AdminUser) request.getSession().getAttribute("administer");
                 return "上传成功了";

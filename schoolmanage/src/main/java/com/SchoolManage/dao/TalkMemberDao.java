@@ -12,6 +12,15 @@ import java.util.List;
 public interface TalkMemberDao {
 
     /**
+     * 通过前端输入type获取对应数据库具体id
+     *
+     * @param type
+     * @param comy
+     * @return
+     */
+    Integer findByTypeDatabase(@Param(value = "type") String type, @Param(value = "comy") String comy);
+
+    /**
      * 根据类型id查找
      *
      * @param type
@@ -19,7 +28,7 @@ public interface TalkMemberDao {
      * @param num
      * @return
      */
-    List<TalkMember> findAll(@Param(value = "type") String type, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<TalkMember> findAll(@Param(value = "type") Integer type, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
     /**
      * 查找数量
@@ -27,7 +36,7 @@ public interface TalkMemberDao {
      * @param id
      * @return
      */
-    int findAllCount(@Param(value = "type") String type);
+    int findAllCount(@Param(value = "type") Integer type);
 
     /**
      * 根据id查找
@@ -36,9 +45,11 @@ public interface TalkMemberDao {
      * @return
      */
     TalkMember findById(@Param(value = "id") Integer id);
-    int findBytypeCount(@Param(value = "type") String type,@Param(value = "comy") String comy);
 
-    List<TalkMember> findBytype(@Param(value = "type") String type,@Param(value = "comy") String comy,@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    int findBytypeCount(@Param(value = "type") Integer type);
+
+    List<TalkMember> findBytype(@Param(value = "type") Integer type, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
     /**
      * 学号
      *
@@ -46,9 +57,9 @@ public interface TalkMemberDao {
      * @param code
      * @return
      */
-    List<TalkMember> findByCodeAndType(@Param(value = "type") String type, @Param(value = "code") String code, @Param(value = "comy") String comy,@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<TalkMember> findByCodeAndType(@Param(value = "type") Integer type, @Param(value = "code") String code, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
-    int findByCodeAndTypeCount(@Param(value = "type") String type, @Param(value = "code") String code,@Param(value = "comy") String comy);
+    int findByCodeAndTypeCount(@Param(value = "type") Integer type, @Param(value = "code") String code);
 
     /**
      * 根据学号查找
@@ -67,9 +78,9 @@ public interface TalkMemberDao {
      * @param name
      * @return
      */
-    List<TalkMember> findByName(@Param(value = "type") String type, @Param(value = "name") String name,@Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<TalkMember> findByName(@Param(value = "type") Integer type, @Param(value = "name") String name, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
-    int findByNameCount(@Param(value = "type") String type, @Param(value = "name") String name,@Param(value = "comy") String comy);
+    int findByNameCount(@Param(value = "type") Integer type, @Param(value = "name") String name);
 
     /**
      * 更新

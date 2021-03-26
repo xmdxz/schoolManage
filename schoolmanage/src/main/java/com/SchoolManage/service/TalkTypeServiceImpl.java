@@ -23,8 +23,8 @@ public class TalkTypeServiceImpl implements TalkTypeService {
     private TalkTypeDao talkTypeDao;
 
     @Override
-    public List<String> getType() {
-        return talkTypeDao.getType();
+    public List<String> getType(String comy) {
+        return talkTypeDao.getType(comy);
     }
 
     @Override

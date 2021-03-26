@@ -18,7 +18,7 @@ public interface TalkTypeService {
      *
      * @return
      */
-    List<String> getType();
+    List<String> getType(String comy);
 
     /**
      * 查询全部
@@ -93,8 +93,9 @@ public interface TalkTypeService {
      * @return
      */
     int deleteData(Integer id);
+
     /**
      * 批量添加啊
      */
-    int BatchAddition(String path,String comy);
+    int BatchAddition(String path, String comy);
 }
