@@ -3,9 +3,11 @@ package com.SchoolManage.controller;
 import com.SchoolManage.exception.NameNullException;
 import com.SchoolManage.pojo.AdminUser;
 import com.SchoolManage.pojo.DepartMent;
+import com.SchoolManage.pojo.Honour;
 import com.SchoolManage.pojo.TalkType;
 import com.SchoolManage.service.TalkTypeService;
 import com.SchoolManage.util.CreateExlceUtil;
+import com.SchoolManage.util.ExcleTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +67,13 @@ public class TalkTypeController {
         return talkTypeService.findByType(comy, type, Page, num);
     }
 
+    @RequestMapping(value = "Excle2", produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String ExcleStudent2(HttpServletRequest request) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException, NameNullException {
+        TalkType talkType = new TalkType(1,"xxx","xxx","xxx",0);
+        return ExcleTemplate.getTemplate(request, talkType, "谈话表模板");
+
+    }
     @RequestMapping("findbytypecount")
     @ResponseBody
     public int findByTypeCount(String comy, String type) {

@@ -258,10 +258,10 @@ public class QingJiaController {
 
     @RequestMapping("findBYweek")
     @ResponseBody
-    public Map<String, List<Qingjia>> findBYweek(String comy) {
+    public Map<String,Integer> findBYweek(String comy) {
 
 
-        Map<String, List<Qingjia>> byArea = qingJiaService.findBYweek_time(comy);
+        Map<String, Integer> byArea = qingJiaService.findBYweek_time(comy);
         return byArea;
     }
 

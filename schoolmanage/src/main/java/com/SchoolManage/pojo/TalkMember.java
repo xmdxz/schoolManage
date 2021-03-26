@@ -33,18 +33,7 @@ public class TalkMember {
      */
     private String name;
 
-    /**
-     * 籍贯
-     */
-    private String nativeplace;
-    /**
-     * 宿舍号
-     */
-    private String bedroom_hao;
-    /**
-     * 宿舍楼
-     */
-    private String bedroom_lou;
+
 
     /**
      * 心里状态
@@ -60,12 +49,6 @@ public class TalkMember {
      * 家庭手机号
      */
     private String family_phone;
-
-    /**
-     * 家庭住址
-     */
-    private String address;
-
     /**
      * 解决办法
      */
@@ -75,4 +58,6 @@ public class TalkMember {
      * 备注
      */
     private String remarks;
+
+    private String comy;
 }

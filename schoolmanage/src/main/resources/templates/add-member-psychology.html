@@ -31,11 +31,22 @@
     <!-- Slimscroll JS -->
     <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
+    <!-- Custom JS -->
+    <script th:src="@{/assets/js/script.js}"></script>
     <!-- alert beautiful-->
     <link rel="stylesheet" th:href="@{/assets/css/sweetalert.css}">
     <script th:src="@{/assets/js/sweetalert-dev.js}"></script>
     <script type="text/javascript">
         //获取缓存中登录账号的信息
+        var url = document.location.toString();//获取url地址
+        var Name = null;
+        if (url.indexOf("?") != -1) {
+            var urlParmStr = url.slice(url.indexOf('?') + 1);//获取问号后所有的字符串
+            var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+            Name = arr[0].split("=")[1];//获取数组中第一个参数//
+            Name = decodeURI(Name);//转码将解码方式换为decodeURI，将中文参数获取
+            console.log(Name)
+        }
         var adminuserInfo = JSON.parse(window.localStorage.getItem("adminuserInfo"));
         var name = adminuserInfo.name;
         var responsible=adminuserInfo.responsible;
@@ -48,6 +59,7 @@
             else if(responsible=='2020'){
                 $('[name="Q19"]').css("display","none")
             }
+            $('#type').val(Name);
             $("#bt1").click(function () {
                 $('#excelFile').trigger("click");
                 $('#excelFile').change(function (event) {
@@ -56,9 +68,10 @@
                     var temp = files[0];
                     if (temp) {
                         formData.append('file', temp);
-                        formData.append('comy','2019');
+                        formData.append('type', Name);
+                        formData.append('comy', '2019');
                         $.ajax({
-                            url: 'talktype/upfile',
+                            url: 'talkmember/upfile',
                             type: 'post',
                             data: formData,
                             processData: false, // 告诉jQuery不要去处理发送的数据
@@ -85,7 +98,7 @@
                 }
                 downing = true;
                 $.ajax({
-                    url: 'talktype/Excle2',
+                    url: 'talkmember/Excle2',
                     dataType: 'text',
                     success(res) {
                         console.log(res);
@@ -142,7 +155,6 @@
 
             <!-- Notifications -->
             <li class="nav-item dropdown noti-dropdown">
-
                 <div class="dropdown-menu notifications">
                     <div class="topnav-dropdown-header">
                         <span class="notification-title">通知</span>
@@ -178,7 +190,7 @@
                         </div>
                     </div>
                     <a class="dropdown-item" href="profile.html">我的个人资料</a>
-                    <!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
+<!--                    <a class="dropdown-item" href="inbox.html">收件箱</a>-->
                     <a class="dropdown-item" href="login.html">注销</a>
                 </div>
             </li>
@@ -258,7 +270,7 @@
                                 class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="departments.html">部门列表</a></li>
-                            <li><a href="add-department.html">部门添加</a></li>
+                            <li><a href="add-department.html" class="active">部门添加</a></li>
                             <!--									<li><a href="edit-department.html">部门编辑</a></li>-->
                         </ul>
                     </li>
@@ -549,10 +561,10 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="page-title">添加谈话</h3>
+                        <h3 class="page-title">添加谈话成员</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="departments.html">谈话</a></li>
-                            <li class="breadcrumb-item active">添加谈话</li>
+                            <li class="breadcrumb-item"><a href="departments.html">部门</a></li>
+                            <li class="breadcrumb-item active">添加谈话成员</li>
                         </ul>
                     </div>
                     <div class="col-auto text-right float-right ml-auto">
@@ -574,30 +586,79 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <form action="talktype/insertdata" method="post">
+                            <form action="talkmember/insertdata" method="post">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5 class="form-title"><span>谈话详细信息</span></h5>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                            <label>谈话类型</label>
-                                            <input type="text" class="form-control" value="" placeholder="请输入" id="type"
-                                                   name="type">
-                                        </div>
+                                        <h5 class="form-title"><span>成员信息</span></h5>
                                     </div>
                                     <div class="col-12 col-sm-6" style="display: none">
                                         <div class="form-group">
                                             <label>年份</label>
-                                            <input type="text" class="form-control" value="2019" placeholder="请输入" id="comy"
-                                                   name="comy">
+                                            <input type="text" class="form-control" value="2019" placeholder="请输入" name="comy"
+                                                   id="comy">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
-                                            <label>学院</label>
+                                            <label>学号</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" name="code"
+                                                   id="code">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>姓名</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" id="name"
+                                                   name="name">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>班级</label>
+                                            <input type="text" class="form-control" value="" placeholder="例：软件1901"
+                                                   id="clazz" name="clazz">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>谈话类型</label>
                                             <input type="text" class="form-control" value="" placeholder="请输入"
-                                                   id="college" name="college">
+                                                   id="type" name="type">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>本人手机号</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   id="own_phone" name="own_phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>家长手机号</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入"
+                                                   id="family_phone" name="family_phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>心理状态</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" id="status"
+                                                   name="status">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>解决办法</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" id="solution"
+                                                   name="solution">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label>备注</label>
+                                            <input type="text" class="form-control" value="" placeholder="请输入" id="remarks"
+                                                   name="remarks">
                                         </div>
                                     </div>
                                     <div class="col-12">

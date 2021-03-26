@@ -241,7 +241,7 @@
         </if>
     </select>
     <select id="findByNow_time" resultType="java.lang.Integer">
-        select DISTINCT COUNT(*) from qingjia where TO_DAYS(end_time)=TO_DAYS(NOW())
+        select DISTINCT COUNT(*) from qingjia where TO_DAYS(start_time)=TO_DAYS(NOW())
         <if test="comy != null and comy != '' ">
             and find_in_set(#{comy},comy)
         </if>

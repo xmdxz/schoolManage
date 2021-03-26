@@ -35,7 +35,9 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/add-department.html").setViewName("add-department");
         registry.addViewController("/member.html").setViewName("member");
         registry.addViewController("/edit-member.html").setViewName("edit-member");
+        registry.addViewController("/edit-member-psychology.html").setViewName("edit-member-psychology");
         registry.addViewController("/add-member.html").setViewName("add-member");
+        registry.addViewController("/add-member-psychology.html").setViewName("add-member-psychology");
         registry.addViewController("/holiday.html").setViewName("holiday");
         registry.addViewController("/holiday-20.html").setViewName("holiday-20");
         registry.addViewController("/event.html").setViewName("event");
@@ -72,6 +74,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/loginp_6-20.html").setViewName("loginp_6-20");
         registry.addViewController("/loginp_7.html").setViewName("loginp_7");
         registry.addViewController("/loginp_8.html").setViewName("loginp_8");
+        registry.addViewController("/loginp_9.html").setViewName("loginp_9");
         registry.addViewController("/loginp_7-20.html").setViewName("loginp_7-20");
         registry.addViewController("/honour.html").setViewName("honour");
         registry.addViewController("/honour-20.html").setViewName("honour-20");

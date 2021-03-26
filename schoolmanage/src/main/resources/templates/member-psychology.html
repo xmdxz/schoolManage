@@ -49,15 +49,14 @@
 				var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
 				Name= arr[0].split("=")[1];//获取数组中第一个参数//
 				Name=decodeURI(Name);//转码将解码方式换为decodeURI，将中文参数获取
-				console.log(Name)
 			}
 			const everypage = 10; //每页的数量
 			var allpage = 1;
 			$.ajax({
 				type: "post",
-				url: "member/findbydepartmentnum",
+				url: "talkmember/findbytypecount",
 				dataType: "json",
-				data:{department:Name},
+				data:{type:Name,comy:'2019'},
 				async: false,
 			}).done(function (res) {
 				console.log(res)
@@ -65,22 +64,25 @@
 			});
 			$.ajax({
 				type: "post",
-				url: "member/findbydepartment",
+				url: "talkmember/findbytype",
 				dataType: "json",
-				data: {department:Name,'page': 1, 'num': everypage},
+				data: {type:Name,comy:'2019','Page': 1, 'num': everypage},
 			}).done(function (res) {
 				console.log(res)
 				var msg = "";
 				$.each(res, function (i, n) {
 					msg += "<tr>";
-					msg += "<td>" + n.id + "</td>";
-					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+					msg += "<td>" + (i+1) + "</td>";
+					msg += "<td>" + n.code + "</td>";
+					msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.code + "\"" + ">" + n.name + "</a></h2></td>";
 					msg += "<td>" + n.clazz + "</td>";
-					msg += "<td>" + n.department + "</td>";
-					msg += "<td>" + n.position + "</td>";
-					msg += "<td>" + n.phone + "</td>";
-					msg += "<td>" + n.qq + "</td>";
-					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + n.id +"&department="+n.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+					msg += "<td>" + n.type + "</td>";
+					msg += "<td>" + n.own_phone + "</td>";
+					msg += "<td>" + n.family_phone + "</td>";
+					msg += "<td>" + n.status + "</td>";
+					msg += "<td>" + n.solution + "</td>";
+					msg += "<td>" + n.remarks + "</td>";
+					msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member-psychology.html?id=" + n.id +"&type="+n.type+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 
 					msg += "</tr>";
 				});
@@ -119,6 +121,8 @@
 			var responsible=adminuserInfo.responsible;
 			const everypage_2 = 10; //每页的数量
 			var allpage_2= 1;
+			const everypage_3 = 10; //每页的数量
+			var allpage_3= 1;
 			$(document).ready(function () {
 				$('#InfoName').text(name);
 				if(responsible=='2019')
@@ -128,16 +132,16 @@
 				else if(responsible=='2020'){
 					$('[name="Q19"]').css("display","none")
 				}
-				$("[name='weiyi']").attr("href","add-member.html?name="+Name);
+				$("[name='weiyi']").attr("href","add-member-psychology.html?type="+Name);
 				var downing = false;
 				$("#bt1").click(function (){
 					swal("已经开始下载！", "切勿重复点击！", "success");
 					if(downing){swal("有一项下载任务进行中！", "切勿重复点击！", "warning");return}
 					downing = true;
 					$.ajax({
-						url: 'member/Excle',
+						url: 'talkmember/Excle',
 						dataType: 'text',
-						data:{name:Name},
+						data:{type:Name,comy:'2019'},
 						success(res){
 							console.log(res);
 							$("#downe").attr("href",res);
@@ -151,58 +155,73 @@
 					a=$("#Search").val();
 					if(isNumber(a))
 					{
-						console.log(a);
 						$.ajax({
-							type:"post",
-							url:"member/findByDepartmentAndId",
-							data:{id:a,department:Name},
-							dataType:"json",
+							type: "post",
+							url: "talkmember/findbycodeandtypecount",
+							data:{code:a,type:Name,comy:'2019'},
+							dataType: "json",
+							async: false,
 						}).done(function (res) {
-							if(res!=null)
-							{
-								var msg = "";
+							console.log(res)
+							allpage_3 = Math.ceil(res / everypage_3);
+						})
+						$.ajax({
+							type: "post",
+							url: "talkmember/findbycodeandtype",
+							dataType: "json",
+							data: {code:a,type:Name,comy:'2019',Page: 1, num: everypage_3},
+						}).done(function (res) {
+							console.log(res)
+							var msg = "";
+							$.each(res, function (i, n) {
 								msg += "<tr>";
-								msg += "<td>" + res.id + "</td>";
-								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + res.id + "\"" + ">" + res.name + "</a></h2></td>";
-								msg += "<td>" + res.clazz + "</td>";
-								msg += "<td>" + res.department + "</td>";
-								msg += "<td>" + res.position + "</td>";
-								msg += "<td>" + res.phone + "</td>";
-								msg += "<td>" + res.qq + "</td>";
-								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + res.id +"&department="+res.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + res.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
-								msg += "</tr>";
-								$("#departments").html(msg);
-								$('#example').bootstrapPaginator({
-									currentPage: 1,//当前的请求页面。
-									totalPages: 1,//一共多少页。
-									size: "normal",//应该是页眉的大小。
-									bootstrapMajorVersion: 4,//bootstrap的版本要求。
-									alignment: "right",
-									numberOfPages: 1,//一页列出多少数据。
-									itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
-										switch (type) {
-											case "first":
-												return "首页";
-											case "prev":
-												return "上一页";
-											case "next":
-												return "下一页";
-											case "last":
-												return "末页";
-											case "page":
-												return page;
-										}
-									},
-								})
-							}
+								msg += "<td>" + (i+1) + "</td>";
+								msg += "<td>" + n.code + "</td>";
+								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.code + "\"" + ">" + n.name + "</a></h2></td>";
+								msg += "<td>" + n.clazz + "</td>";
+								msg += "<td>" + n.type + "</td>";
+								msg += "<td>" + n.own_phone + "</td>";
+								msg += "<td>" + n.family_phone + "</td>";
+								msg += "<td>" + n.status + "</td>";
+								msg += "<td>" + n.solution + "</td>";
+								msg += "<td>" + n.remarks + "</td>";
+								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member-psychology.html?id=" + n.id +"&type="+n.type+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
 
+								msg += "</tr>";
+							});
+							$("#departments").html(msg);
+							$('#example').bootstrapPaginator({
+								currentPage: 1,//当前的请求页面。
+								totalPages: allpage_3,//一共多少页。
+								size: "normal",//应该是页眉的大小。
+								bootstrapMajorVersion: 4,//bootstrap的版本要求。
+								alignment: "right",
+								numberOfPages: 8,//一页列出多少数据。
+								itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+									switch (type) {
+										case "first":
+											return "首页";
+										case "prev":
+											return "上一页";
+										case "next":
+											return "下一页";
+										case "last":
+											return "末页";
+										case "page":
+											return page;
+									}
+								},
+								onPageClicked: function (event, originalEvent, type, page) {
+									newpage_3(page)
+								}
+							});
 						})
 					}
 					else {
 						$.ajax({
 							type: "post",
-							url: "member/findByDepartmentAndNameNum",
-							data:{name:a,department:Name},
+							url: "talkmember/findbynamecount",
+							data:{name:a,type:Name,comy:'2019'},
 							dataType: "json",
 							async: false,
 						}).done(function (res) {
@@ -211,21 +230,25 @@
 						})
 						$.ajax({
 							type: "post",
-							url: "member/findByDepartmentAndName",
+							url: "talkmember/findbyname",
 							dataType: "json",
-							data: {name:a,department:Name,startPage: 1, num: everypage_2},
+							data: {name:a,type:Name,comy:'2019',Page: 1, num: everypage_2},
 						}).done(function (res) {
 							var msg = "";
 							$.each(res, function (i, n) {
 								msg += "<tr>";
-								msg += "<td>" + n.id + "</td>";
-								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+								msg += "<td>" + (i+1) + "</td>";
+								msg += "<td>" + n.code + "</td>";
+								msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.code + "\"" + ">" + n.name + "</a></h2></td>";
 								msg += "<td>" + n.clazz + "</td>";
-								msg += "<td>" + n.department + "</td>";
-								msg += "<td>" + n.position + "</td>";
-								msg += "<td>" + n.phone + "</td>";
-								msg += "<td>" + n.qq + "</td>";
-								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + n.id +"&department="+n.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+								msg += "<td>" + n.type + "</td>";
+								msg += "<td>" + n.own_phone + "</td>";
+								msg += "<td>" + n.family_phone + "</td>";
+								msg += "<td>" + n.status + "</td>";
+								msg += "<td>" + n.solution + "</td>";
+								msg += "<td>" + n.remarks + "</td>";
+								msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member-psychology.html?id=" + n.id +"&type="+n.type+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+
 								msg += "</tr>";
 							});
 							$("#departments").html(msg);
@@ -262,21 +285,25 @@
 				var page = res
 				$.ajax({
 					type: "post",
-					url: "member/findbydepartment",
+					url: "talkmember/findbytype",
 					dataType: "json",
-					data: {department:Name,'page': page, 'num': everypage},
+					data: {type:Name,comy:'2019','Page': 1, 'num': everypage},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
 						msg += "<tr>";
-						msg += "<td>" + n.id + "</td>";
-						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + (i+1) + "</td>";
+						msg += "<td>" + n.code + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.code + "\"" + ">" + n.name + "</a></h2></td>";
 						msg += "<td>" + n.clazz + "</td>";
-						msg += "<td>" + n.department + "</td>";
-						msg += "<td>" + n.position + "</td>";
-						msg += "<td>" + n.phone + "</td>";
-						msg += "<td>" + n.qq + "</td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + n.id +"&department="+n.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "<td>" + n.type + "</td>";
+						msg += "<td>" + n.own_phone + "</td>";
+						msg += "<td>" + n.family_phone + "</td>";
+						msg += "<td>" + n.status + "</td>";
+						msg += "<td>" + n.solution + "</td>";
+						msg += "<td>" + n.remarks + "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member-psychology.html?id=" + n.id +"&type="+n.type+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+
 						msg += "</tr>";
 					});
 					$("#departments").html(msg);
@@ -286,21 +313,53 @@
 				var page = res
 				$.ajax({
 					type: "post",
-					url: "member/findByDepartmentAndName",
+					url: "talkmember/findbyname",
 					dataType: "json",
-					data: {name:a,department:Name,startPage: page, num: everypage_2},
+					data: {name:a,type:Name,comy:'2019',Page: 1, num: everypage_2},
 				}).done(function (res) {
 					var msg = "";
 					$.each(res, function (i, n) {
 						msg += "<tr>";
-						msg += "<td>" + n.id + "</td>";
-						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.id + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + (i+1) + "</td>";
+						msg += "<td>" + n.code + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.code + "\"" + ">" + n.name + "</a></h2></td>";
 						msg += "<td>" + n.clazz + "</td>";
-						msg += "<td>" + n.department + "</td>";
-						msg += "<td>" + n.position + "</td>";
-						msg += "<td>" + n.phone + "</td>";
-						msg += "<td>" + n.qq + "</td>";
-						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member.html?id=" + n.id +"&department="+n.department+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+						msg += "<td>" + n.type + "</td>";
+						msg += "<td>" + n.own_phone + "</td>";
+						msg += "<td>" + n.family_phone + "</td>";
+						msg += "<td>" + n.status + "</td>";
+						msg += "<td>" + n.solution + "</td>";
+						msg += "<td>" + n.remarks + "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member-psychology.html?id=" + n.id +"&type="+n.type+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+
+						msg += "</tr>";
+					});
+					$("#departments").html(msg);
+				})
+			}
+			function newpage_3(res) {
+				var page = res
+				$.ajax({
+					type: "post",
+					url: "talkmember/findbycodeandtype",
+					dataType: "json",
+					data: {code:a,type:Name,comy:'2019',Page: 1, num: everypage_3},
+				}).done(function (res) {
+					var msg = "";
+					$.each(res, function (i, n) {
+						msg += "<tr>";
+						msg += "<td>" + (i+1) + "</td>";
+						msg += "<td>" + n.code + "</td>";
+						msg += "<td>" + "<h2" + "  class=" + "\"table-avatar\"" + ">" +"<a href=" + "\"student-details.html?id=" + n.code + "\"" + ">" + n.name + "</a></h2></td>";
+						msg += "<td>" + n.clazz + "</td>";
+						msg += "<td>" + n.type + "</td>";
+						msg += "<td>" + n.own_phone + "</td>";
+						msg += "<td>" + n.family_phone + "</td>";
+						msg += "<td>" + n.status + "</td>";
+						msg += "<td>" + n.solution + "</td>";
+						msg += "<td>" + n.remarks + "</td>";
+						msg += "<td" + " class=" + "\"text-right\"" + ">" + "<div class=" + "\"actions\"" + ">" + "<a href=" + "\"edit-member-psychology.html?id=" + n.id +"&type="+n.type+"\"" + " class=" + "\"btn btn-sm bg-success-light mr-2\"" + "><i class=" + "\"fas fa-pen\"" + "></i></a><a href=" + "\"#" + "\"" + "onclick='deldec(" + n.id + ")'" + " class=" + "\"btn btn-sm bg-danger-light\"" + "><i class=" + "\"fas fa-trash\"" + "></i></a></div></td>";
+
 						msg += "</tr>";
 					});
 					$("#departments").html(msg);
@@ -310,7 +369,7 @@
 				var id = id;
 				swal({
 							title: "确定删除吗？",
-							text: "你将无法恢复该部门信息！",
+							text: "你将无法恢复该谈话成员信息！",
 							type: "warning",
 							showCancelButton: true,
 							confirmButtonColor: "#DD6B55",
@@ -323,15 +382,15 @@
 							if (isConfirm) {
 								$.ajax({
 									type: "post",
-									url: "member/deletedata",
+									url: "talkmember/deletedata",
 									dataType: "json",
 									data: {'id': id},
 								}).done(function (res) {
 									if (res.code == 500) {
 										swal("删除失败", "服务器繁忙中...", "warning");
 									} else if (res.code == 200) {
-										swal("删除成功！", "即将返回部门成员列表", "success");
-										setTimeout("window.location.href='member.html?name='+Name", "1200");
+										swal("删除成功！", "即将返回谈话成员列表", "success");
+										setTimeout("window.location.href='member-psychology.html?type='+Name", "1200");
 									}
 								})
 							} else {
@@ -503,10 +562,10 @@
 <!--									<li><a href="edit-teacher.html">教师编辑</a></li>-->
 <!--								</ul>-->
 <!--							</li>-->
-							<li class="submenu active">
+							<li class="submenu">
 								<a href="#"><i class="fas fa-building"></i> <span>部门</span> <span class="menu-arrow"></span></a>
 								<ul>
-									<li><a href="departments.html" class="active">部门列表</a></li>
+									<li><a href="departments.html">部门列表</a></li>
 									<li><a href="add-department.html">部门添加</a></li>
 <!--									<li><a href="edit-department.html">部门编辑</a></li>-->
 								</ul>
@@ -696,11 +755,42 @@
 									<li><a href="add-activity.html">活动添加</a></li>
 								</ul>
 							</li>
-							<li class="submenu">
-								<a href="#"><i class="fas fa-comment"></i> <span>谈话</span><span class="menu-arrow"></span> </a>
+							<li class="submenu active">
+								<a href="#"><i class="fas fa-comment"></i> <span>谈话</span> <span
+										class="menu-arrow"></span></a>
 								<ul>
-									<li name="Q19"><a href="psychology.html" >19级谈话</a></li>
-									<li name="Q20"><a href="psychology-20.html" >20级谈话</a></li>
+									<li class="submenu" name="Q19">
+										<a href="#" class="active"> <span>19级学生</span> <span class="menu-arrow"></span></a>
+										<ul id="weiyi1">
+											<li><a href="psychology.html" class="active">19级谈话列表</a></li>
+											<li><a href="add-psychology.html">19级谈话添加</a></li>
+										</ul>
+									</li>
+									<!--									<li class="submenu">-->
+									<!--										<a href="javascript:void(0);"> <span>18级</span> <span class="menu-arrow"></span></a>-->
+									<!--										<ul>-->
+									<!--											<li><a href="students.html">学生列表</a></li>-->
+									<!--											<li><a href="add-student.html">学生添加</a></li>-->
+									<!--										</ul>-->
+									<!--									</li>-->
+									<!--									<li class="submenu">-->
+									<!--										<a href="javascript:void(0);"> <span>17级</span> <span class="menu-arrow"></span></a>-->
+									<!--										<ul>-->
+									<!--											<li><a href="students.html">学生列表</a></li>-->
+									<!--											<li><a href="add-student.html">学生添加</a></li>-->
+									<!--										</ul>-->
+									<!--									</li>-->
+									<li class="submenu" name="Q20">
+										<a href="#"> <span>20级学生</span> <span class="menu-arrow"></span></a>
+										<ul>
+											<li><a href="psychology-20.html">20级谈话列表</a></li>
+											<li><a href="add-psychology-20.html">20级谈话添加</a></li>
+										</ul>
+									</li>
+									<!--                            <li><a href="students.html" class="active">学生列表</a></li>-->
+									<!--									<li><a href="student-details.html">学生信息</a></li>-->
+									<!--                            <li><a href="add-student.html">学生添加</a></li>-->
+									<!--									<li><a href="edit-student.html">学生编辑</a></li>-->
 								</ul>
 							</li>
 							<!-- <li>
@@ -766,10 +856,10 @@
 					<div class="page-header">
 						<div class="row align-items-center">
 							<div class="col">
-								<h3 class="page-title">部门成员</h3>
+								<h3 class="page-title">谈话成员</h3>
 								<ul class="breadcrumb">
-									<li class="breadcrumb-item"><a href="departments.html">部门列表</a></li>
-									<li class="breadcrumb-item active">部门成员</li>
+									<li class="breadcrumb-item"><a href="departments.html">谈话列表</a></li>
+									<li class="breadcrumb-item active">谈话成员</li>
 								</ul>
 							</div>
 							<div class="col-auto text-right float-right ml-auto">
@@ -793,13 +883,16 @@
 										<table class="table table-hover table-center mb-0 datatable">
 											<thead>
 												<tr>
+													<th>编号</th>
 													<th>学号</th>
 													<th>姓名</th>
 													<th>班级</th>
-													<th>所属部门</th>
-													<th>部门职位</th>
-													<th>联系方式</th>
-													<th>qq</th>
+													<th>谈话类型</th>
+													<th>本人手机号</th>
+													<th>家长手机号</th>
+													<th>心理状态</th>
+													<th>解决办法</th>
+													<th>备注</th>
 													<th class="text-right">编辑</th>
 												</tr>
 											</thead>

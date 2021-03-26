@@ -46,9 +46,9 @@ public interface TalkMemberService {
      * @param code
      * @return
      */
-    List<TalkMember> findByCodeAndType(String type, String code, Integer Page, Integer num);
+    List<TalkMember> findByCodeAndType(String type, String code,String comy, Integer Page, Integer num);
 
-    int findByCodeAndTypeCount(String type, String code);
+    int findByCodeAndTypeCount(String type, String code,String comy);
 
     /**
      * 根据学号查找
@@ -67,9 +67,9 @@ public interface TalkMemberService {
      * @param name
      * @return
      */
-    List<TalkMember> findByName(String type, String name, Integer Page, Integer num);
+    List<TalkMember> findByName(String type, String name,String comy, Integer Page, Integer num);
 
-    int findByNameCount(String type, String name);
+    int findByNameCount(String type, String name,String comy);
 
     /**
      * 更新
@@ -102,4 +102,10 @@ public interface TalkMemberService {
      * @return
      */
     int deleteData(Integer id);
+    int findBytypeCount(String type,String comy);
+    /**
+     * 批量添加啊
+     */
+    int BatchAddition(String path,String type, String comy);
+    List<TalkMember> findBytype(String type,String comy,Integer Page, Integer num);
 }

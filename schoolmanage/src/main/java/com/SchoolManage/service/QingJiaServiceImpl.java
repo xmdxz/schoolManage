@@ -171,16 +171,10 @@ public class QingJiaServiceImpl implements QingJiaService {
     }
 
     @Override
-    public Map<String, List<Qingjia>> findBYweek_time(String comy) {
+    public Map<String, Integer> findBYweek_time(String comy) {
         List<Qingjia> qingjias = qingJiaDao.findBYweek_time(comy);
-        List<Qingjia> qingjias0=new ArrayList<>();
-        List<Qingjia> qingjias1=new ArrayList<>();
-        List<Qingjia> qingjias2=new ArrayList<>();
-        List<Qingjia> qingjias3=new ArrayList<>();
-        List<Qingjia> qingjias4=new ArrayList<>();
-        List<Qingjia> qingjias5=new ArrayList<>();
-        List<Qingjia> qingjias6=new ArrayList<>();
-        HashMap<String, List<Qingjia>> map = new HashMap<>();
+        int a1=0,a2=0,a3=0,a4=0,a5=0,a6=0,a7=0;
+        Map<String, Integer> map = new HashMap<>();
         String[] weekDays = {"周日","周一","周二", "周三","周四", "周五","周六"};
         Calendar calendar = Calendar.getInstance();
         for (Qingjia q : qingjias
@@ -191,40 +185,40 @@ public class QingJiaServiceImpl implements QingJiaService {
                 w = 0;
             if(w==0)
             {
-               qingjias0.add(q);
+               a1++;
             }
             if(w==1)
             {
-                qingjias1.add(q);
+                a2++;
             }
             if(w==2)
             {
-                qingjias2.add(q);
+                a3++;
             }
             if(w==3)
             {
-                qingjias3.add(q);
+                a4++;
             }
             if(w==4)
             {
-                qingjias4.add(q);
+                a5++;
             }
             if(w==5)
             {
-                qingjias5.add(q);
+                a6++;
             }
             if(w==6)
             {
-                qingjias6.add(q);
+                a7++;
             }
         }
-        map.put(weekDays[0],qingjias0);
-        map.put(weekDays[1],qingjias1);
-        map.put(weekDays[2],qingjias2);
-        map.put(weekDays[3],qingjias3);
-        map.put(weekDays[4],qingjias4);
-        map.put(weekDays[5],qingjias5);
-        map.put(weekDays[6],qingjias6);
+        map.put(weekDays[0],a1);
+        map.put(weekDays[1],a2);
+        map.put(weekDays[2],a3);
+        map.put(weekDays[3],a4);
+        map.put(weekDays[4],a5);
+        map.put(weekDays[5],a6);
+        map.put(weekDays[6],a7);
         return map;
     }
 

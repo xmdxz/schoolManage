@@ -114,10 +114,7 @@ public class TableUtil<T> {
                 T t = (T) clazz.newInstance();
                 for (String s : ls) {
                     String field = this.eneity.get(s);
-                    System.out.println("field:" + field);
                     Cell cell = row.getCell(ls.indexOf(s));
-                    System.out.println(ls.indexOf(s));
-                    System.out.println("cell:" + cell);
                     if (cell != null && field != null) {
                         String value = getExcleTypeStringValue(cell);
                         Method method = clazz.getMethod("set" + field.substring(0, 1).toUpperCase() + field.substring(1), clazz.getDeclaredField(field).getType());

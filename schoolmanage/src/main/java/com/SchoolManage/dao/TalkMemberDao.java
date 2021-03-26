@@ -36,7 +36,9 @@ public interface TalkMemberDao {
      * @return
      */
     TalkMember findById(@Param(value = "id") Integer id);
+    int findBytypeCount(@Param(value = "type") String type,@Param(value = "comy") String comy);
 
+    List<TalkMember> findBytype(@Param(value = "type") String type,@Param(value = "comy") String comy,@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
     /**
      * 学号
      *
@@ -44,9 +46,9 @@ public interface TalkMemberDao {
      * @param code
      * @return
      */
-    List<TalkMember> findByCodeAndType(@Param(value = "type") String type, @Param(value = "code") String code, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<TalkMember> findByCodeAndType(@Param(value = "type") String type, @Param(value = "code") String code, @Param(value = "comy") String comy,@Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
-    int findByCodeAndTypeCount(@Param(value = "type") String type, @Param(value = "code") String code);
+    int findByCodeAndTypeCount(@Param(value = "type") String type, @Param(value = "code") String code,@Param(value = "comy") String comy);
 
     /**
      * 根据学号查找
@@ -65,9 +67,9 @@ public interface TalkMemberDao {
      * @param name
      * @return
      */
-    List<TalkMember> findByName(@Param(value = "type") String type, @Param(value = "name") String name, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+    List<TalkMember> findByName(@Param(value = "type") String type, @Param(value = "name") String name,@Param(value = "comy") String comy, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
 
-    int findByNameCount(@Param(value = "type") String type, @Param(value = "name") String name);
+    int findByNameCount(@Param(value = "type") String type, @Param(value = "name") String name,@Param(value = "comy") String comy);
 
     /**
      * 更新

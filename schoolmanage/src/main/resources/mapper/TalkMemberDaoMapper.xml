@@ -8,6 +8,9 @@
         select *
         from talkmember
         where type = #{type}
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
         limit #{startPage},#{num}
     </select>
 
@@ -15,6 +18,9 @@
         select count(*)
         from talkmember
         where type = #{type}
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
     </select>
 
     <update id="updateData">
@@ -23,33 +29,29 @@
             clazz        = #{talkMember.clazz},
             code         = #{talkMember.code},
             name         = #{talkMember.name},
-            nativeplace  = #{talkMember.nativeplace},
-            bedroom_hao  = #{param1.bedroom_hao},
-            bedroom_lou  = #{param1.bedroom_lou},
             status       = #{talkMember.status},
             own_phone    = #{param1.own_phone},
             family_phone = #{talkMember.family_phone},
-            address      = #{talkMember.address},
             solution     = #{talkMember.solution},
-            remarks      = #{talkMember.remarks}
+            remarks      = #{talkMember.remarks},
+            comy       =   #{talkMember.comy}
         where id = #{talkMember.id}
     </update>
 
     <insert id="insertData">
-        insert into talkmember(type, clazz, code, name, nativeplace, bedroom_hao, bedroom_lou, status, own_phone,
-                               family_phone, address, solution, remarks)
+        insert into talkmember(type, clazz, code, name, status, own_phone,
+                               family_phone,  solution, remarks,comy)
         values (#{talkMember.type}, #{talkMember.clazz}, #{talkMember.code}, #{talkMember.name},
-                #{talkMember.nativeplace}, #{talkMember.bedroom_hao}, #{talkMember.bedroom_lou}, #{talkMember.status},
-                #{talkMember.own_phone}, #{talkMember.family_phone}, #{talkMember.address}, #{talkMember.solution},
-                #{talkMember.remarks})
+                #{talkMember.status},#{talkMember.own_phone}, #{talkMember.family_phone}, #{talkMember.solution},
+                #{talkMember.remarks}, #{talkMember.comy})
     </insert>
 
     <insert id="insertDatas">
-        insert into talkmember(type, clazz, code, name, nativeplace, bedroom_hao, bedroom_lou, status, own_phone,
-        family_phone, address, solution, remarks)
+        insert into talkmember(type, clazz, code, name, status, own_phone,
+        family_phone,  solution, remarks,comy)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.type},#{item.clazz},#{item.code},#{item.name},#{item.name},#{item.nativeplace},#{item.bedroom_hao},#{item.bedroom_lou},#{item.status},#{item.own_phone},#{item.family_phone},#{item.address},#{item.solution},#{item.remarks})
+            (#{item.type},#{item.clazz},#{item.code},#{item.name},#{item.status},#{item.own_phone},#{item.family_phone},#{item.solution},#{item.remarks},#{item.comy})
         </foreach>
     </insert>
 
@@ -69,6 +71,9 @@
         from talkmember
         where type = #{type}
           and code = #{code}
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
         limit #{startPage},#{num}
     </select>
 
@@ -76,6 +81,9 @@
         select *
         from talkmember
         where code = #{code}
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
         limit #{startPage},#{num}
     </select>
 
@@ -84,12 +92,18 @@
         from talkmember
         where type = #{type}
           and code = #{code}
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
     </select>
 
     <select id="findByCodeCount" resultType="int">
         select count(*)
         from talkmember
         where code = #{code}
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
     </select>
 
     <select id="findByName" resultType="com.SchoolManage.pojo.TalkMember">
@@ -97,13 +111,35 @@
         from talkmember
         where type = #{type}
           and name like concat("%", #{name}, "%")
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
         limit #{startPage},#{num}
     </select>
-
+    <select id="findBytype" resultType="com.SchoolManage.pojo.TalkMember">
+        select *
+        from talkmember
+        where type = #{type}
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
+        limit #{startPage},#{num}
+    </select>
+    <select id="findBytypeCount" resultType="int">
+        select count(*)
+        from talkmember
+        where type = #{type}
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
+    </select>
     <select id="findByNameCount" resultType="int">
         select count(*)
         from talkmember
         where type = #{type}
           and name like concat("%", #{name}, "%")
+        <if test="comy != null and comy != '' ">
+            and find_in_set(#{comy},comy)
+        </if>
     </select>
 </mapper>

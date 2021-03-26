@@ -155,13 +155,9 @@ public enum Eneity {
         put("班级", "clazz");
         put("学号", "code");
         put("姓名", "name");
-        put("籍贯", "nativeplace");
-        put("宿舍楼", "bedroom_lou");
-        put("宿舍号", "bedroom_hao");
         put("心理状态", "status");
         put("本人联系方式", "own_phone");
         put("家长联系方式", "family_phone");
-        put("地址", "address");
         put("解决方案", "solution");
         put("备注", "remarks");
     }});
