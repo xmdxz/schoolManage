@@ -12,14 +12,34 @@ import java.util.List;
 public interface TalkMemberDao {
 
     /**
+     * 根据时间查找全部，无关类型
+     *
+     * @param time
+     * @return
+     */
+    List<TalkMember> findByTime(@Param(value = "time") String time, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    int findByTimeCount(@Param(value = "time") String time);
+
+    /**
+     * 根据时间查找全部，有关谈话类型
+     *
+     * @param time
+     * @param type
+     * @param startPage
+     * @param num
+     * @return
+     */
+    List<TalkMember> findByTimeAndType(@Param(value = "time") String time, @Param(value = "type") Integer type, @Param(value = "startPage") Integer startPage, @Param(value = "num") Integer num);
+
+    int findByTimeAndTypeCount(@Param(value = "time") String time, @Param(value = "type") Integer type);
+
+    /**
      * 通过前端输入type获取对应数据库具体id
      *
      * @param type
-     * @param comy
-     * @return
+     * @return Integer findByTypeDatabase(@Param(value = "type") String type);
      */
-    Integer findByTypeDatabase(@Param(value = "type") String type, @Param(value = "comy") String comy);
-
     /**
      * 根据类型id查找
      *

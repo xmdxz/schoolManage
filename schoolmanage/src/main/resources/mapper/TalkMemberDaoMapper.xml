@@ -7,7 +7,7 @@
     <sql id="typeName">
         ,
                 (select type from talktype where id = talkmember.type)
-                as typeName
+                as typeName,(select count(*) from talkmember as talk where talk.code = talkmember.code) as number
     </sql>
 
     <select id="findAll" resultType="com.SchoolManage.pojo.TalkMember">
@@ -128,5 +128,38 @@
         from talkmember
         where type = #{type}
           and name like concat("%", #{name}, "%")
+    </select>
+
+    <select id="findByTime" resultType="com.SchoolManage.pojo.TalkMember">
+        select *
+        <include refid="typeName">
+        </include>
+        from talkmember
+        where time like concat("%",#{time},"%")
+        limit #{startPage},#{num}
+    </select>
+
+    <select id="findByTimeCount" resultType="int">
+        select count(*)
+        from talkmember
+        where time like concat("%", #{time}, "%")
+        limit #{startPage},#{num}
+    </select>
+
+    <select id="findByTimeAndType" resultType="com.SchoolManage.pojo.TalkMember">
+        select *
+        <include refid="typeName">
+        </include>
+        from talkmember
+        where time like concat("%",#{time},"%") and type = #{type}
+        limit #{startPage},#{num}
+    </select>
+
+    <select id="findByTimeAndTypeCount" resultType="int">
+        select count(*)
+        from talkmember
+        where time like concat("%", #{time}, "%")
+          and type = #{type}
+        limit #{startPage},#{num}
     </select>
 </mapper>

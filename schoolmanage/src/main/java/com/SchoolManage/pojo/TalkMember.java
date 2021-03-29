@@ -62,5 +62,13 @@ public class TalkMember {
      */
     private String remarks;
 
-    private String comy;
+    /**
+     * 谈话时间
+     */
+    private String time;
+
+    /**
+     * 谈话次数
+     */
+    private Integer number;
 }
