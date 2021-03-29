@@ -16,12 +16,8 @@ public class TalkMember {
     /**
      * 类型
      */
-    private String typeName;
+    private String type;
 
-    /**
-     * 类型对应类型ID
-     */
-    private Integer type;
     /**
      * 班级
      */
@@ -36,6 +32,7 @@ public class TalkMember {
      * 姓名
      */
     private String name;
+
 
 
     /**
@@ -62,13 +59,7 @@ public class TalkMember {
      */
     private String remarks;
 
-    /**
-     * 谈话时间
-     */
-    private String time;
-
-    /**
-     * 谈话次数
-     */
-    private Integer number;
+    private String comy;
+    private Integer num;
+    private String talk_date;
 }
